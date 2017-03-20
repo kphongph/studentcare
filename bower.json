@@ -7,7 +7,9 @@
     "app-leveldb": "git://github.com/kphongph/app-leveldb.git#master",
     "paper-dropdown-menu": "^1.5.0",
     "paper-listbox": "^1.1.2",
-    "paper-item": "^1.2.1"
+    "paper-item": "^1.2.1",
+    "iron-selector": "^1.5.2",
+    "paper-progress": "^1.0.11"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",

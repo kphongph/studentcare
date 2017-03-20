@@ -21,8 +21,12 @@
       <h3>student-table</h3>
       <demo-snippet>
         <template is="dom-bind">
-          
-          <student-table host="1034710679"></student-table>
+          <p>
+            <span>{{student.value.cid}}</span>
+            <span>{{student.value.name}}</span>
+            <span>{{student.value.lastname}}</span>
+          </p>
+          <student-table host="1034710678" selected-student="{{student}}"></student-table>
         </template>
       </demo-snippet>
     </div>

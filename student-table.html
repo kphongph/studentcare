@@ -1,9 +1,13 @@
+<link rel="import" href="../app-leveldb/app-leveldb.html">
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../iron-ajax/iron-ajax.html">
-<link rel="import" href="../app-leveldb/app-leveldb.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../iron-selector/iron-selector.html">
 <link rel="import" href="../paper-dropdown-menu/paper-dropdown-menu.html">
-<link rel="import" href="../paper-listbox/paper-listbox.html">
 <link rel="import" href="../paper-item/paper-item.html">
+<link rel="import" href="../paper-listbox/paper-listbox.html">
+<link rel="import" href="../paper-progress/paper-progress.html">
+<link rel="import" href="./local/obecstudent-card.html">
 
 <!--
 `studentcare-components`
@@ -14,17 +18,32 @@ Polymer Component for StudentCare project
 
 <dom-module id="student-table">
   <template>
-    <style>
+    <style include="iron-flex iron-flex-alignment iron-flex-factors">
       :host {
         display: block;
+        @apply(--layout-vertical);
+      }
+
+      .iron-selected {
+        background: #eee;
       }
     </style>
+
+    <div class="layout horizontal">
+      <paper-progress value="{{status.sync}}"
+         class="flex"
+         max="{{status.total}}">
+      </paper-progress>
+    </div>
+
+    <!--
     <b>Total</b>
     <span>{{status.total}}</span>
     <b>Sync</b>
     <span>{{status.sync}}</span>
     <b>Host</b>
     <span>{{host}}</span>
+    -->
 
     <iron-ajax 
       method="POST"
@@ -48,32 +67,31 @@ Polymer Component for StudentCare project
        status="{{status}}">
     </app-leveldb>
     
-    <paper-dropdown-menu label="ระดับชั้น" on-iron-select="_classSelected">
-     <paper-listbox class="dropdown-content">
-      <template is="dom-repeat" items="{{classes}}">
-        <paper-item>{{item}}</paper-item>
-      </template>
-     </paper-listbox>
-    </paper-dropdown-menu>
+    <div class="layout horizontal">
+      <paper-dropdown-menu class="flex-4" label="ระดับชั้น" on-iron-select="_classSelected">
+       <paper-listbox class="dropdown-content">
+        <template is="dom-repeat" items="{{classes}}">
+          <paper-item>{{item}}</paper-item>
+        </template>
+       </paper-listbox>
+      </paper-dropdown-menu>
+      <paper-dropdown-menu class="flex-1" label="ห้อง" on-iron-select="_roomSelected">
+       <paper-listbox class="dropdown-content">
+        <template is="dom-repeat" items="{{rooms}}">
+          <paper-item>{{item}}</paper-item>
+        </template>
+       </paper-listbox>
+      </paper-dropdown-menu>
+    </div>
 
-    <paper-dropdown-menu label="ห้อง" on-iron-select="_roomSelected">
-     <paper-listbox class="dropdown-content">
-      <template is="dom-repeat" items="{{rooms}}">
-        <paper-item>{{item}}</paper-item>
-      </template>
-     </paper-listbox>
-    </paper-dropdown-menu>
-
-
+    <div>
+    <iron-selector id="studentSelector"
+      on-iron-select="_studentSelected" selected-item="{{selectedStudent}}">
     <template is="dom-repeat" items="{{students}}">
-      <p>
-        <span>{{item.value.cid}}</span> 
-        <span>{{item.value.name}}</span> 
-        <span>{{item.value.lastname}}</span> 
-        <span>{{item.value.class}}</span> 
-        <span>{{item.value.room}}</span> 
-      </p>
+      <obecstudent-card name="{{item.key}}" doc="{{item}}"></obecstudent-card>
     </template>
+    </iron-selector>
+    </div>
 
   </template>
 
@@ -83,7 +101,11 @@ Polymer Component for StudentCare project
       properties: {
         host:String,
         selectedClass:String,
-        selectedRoom:String
+        selectedRoom:String,
+        selectedStudent: {
+          type:Object,
+          notify:true
+        }
       },
       observers: [
         '_filter(selectedClass,selectedRoom)'
@@ -116,15 +138,6 @@ Polymer Component for StudentCare project
            .uniqueKeys(function(objs) {
              this.set('rooms',objs);
           }.bind(this));
-
-          /*
-          this.$.leveldb.db.index
-           .where('value.class')
-           .equals(target)
-           .toArray(function(students) {
-             this.set('students',students);
-           }.bind(this));
-          */
         }
       },
       _roomSelected:function(e) {
@@ -135,6 +148,8 @@ Polymer Component for StudentCare project
         }
       },
       _filter:function(selectedClass,selectedRoom) {
+        // clear selector
+        this.$.studentSelector.selectIndex(-1);
         if(selectedClass && selectedRoom) {
          this.$.leveldb.db.index
          .where('value.class')
@@ -146,6 +161,10 @@ Polymer Component for StudentCare project
            this.set('students',students);
          }.bind(this));
         }
+      },
+      _studentSelected:function(e) {
+        this.set('selectedStudent',e.detail.item.doc);
+        this.fire('select',{'student':e.detail.item.doc});
       }
     });
   </script>
