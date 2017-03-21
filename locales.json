@@ -1,8 +1,15 @@
 {
   "th":{
+    "dl1_section1_label":"ประวัติส่วนตัวนักเรียน",
     "first_name":"ชื่อ",
     "last_name":"นามสกุล",
-    "class_room_label":"ชั้น",
-    "class_room":"{class}/{room}"
+    "classroom_label":"ห้อง",
+    "gradeclassroom":"ชั้น",
+    "elementary_level":"ประถมศึกษาที่",
+    "secondary_level":"มัธยมศึกษาที่",
+    "studentid":"เลขประจำตัวนักเรียน",
+    "grade_level_label":"ระดับชั้น",
+    "birthdate_label":"วัน เดือน ปี เกิด",
+    "birthdate_format":"{day}/{month}/{year}"
   }
 }

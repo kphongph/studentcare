@@ -19,20 +19,29 @@ Polymer Component for StudentCare project
       }
     </style>
 
+    <h3>{{localize('dl1_section1_label')}}</h3>
     <div class="layout horizontal">
-    <paper-input label="{{localize('first_name')}}" readonly
-      class="flex"
+     <paper-input label="{{localize('first_name')}}" readonly
       value="{{dmcStudent.NAME}}">
-    </paper-input>
+     </paper-input>
 
-    <paper-input label="{{localize('last_name')}}" readonly
-      value="{{dmcStudent.LNAME}}">
-    </paper-input>
+     <paper-input label="{{localize('last_name')}}" readonly
+       value="{{dmcStudent.LNAME}}">
+     </paper-input>
 
-    <paper-input label="{{localize('class_room_label')}}" readonly
-      value="{{localize('class_room','class',dmcStudent.LEVEL,'room',dmcStudent.CLASSROOM)}}">
-    </paper-input>
+     <paper-input label="{{localize('gradeclassroom')}}" readonly
+       value="{{_gradeLevel(dmcStudent.LEVEL,dmcStudent.CLASSROOM)}}">
+     </paper-input>
 
+     <paper-input label="{{localize('studentid')}}" readonly
+       value="{{dmcStudent.STUDENTNO}}">
+     </paper-input>
+    </div>
+
+    <div class="layout horizontal">
+     <paper-input label="{{localize('birthdate_label')}}" readonly
+       value="{{dmcStudent.BIRTHDATE}}">
+     </paper-input>
     </div>
     
   </template>
@@ -54,7 +63,15 @@ Polymer Component for StudentCare project
       attached: function() {
         this.loadResources(this.resolveUrl('locales.json'));
       },
-
+      _gradeLevel: function(level,room) {
+        var level_int = parseInt(level);
+        if(level_int <= 6) {
+          return this.localize('elementary_level')+' '+level_int+'/'+room;
+        } else {
+          level_int-=6;
+          return this.localize('secondary_level')+' '+level_int+'/'+room;
+        }
+      }
     });
   </script>
 </dom-module>
