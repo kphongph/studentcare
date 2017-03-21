@@ -36,20 +36,11 @@ Polymer Component for StudentCare project
       </paper-progress>
     </div>
 
-    <!--
-    <b>Total</b>
-    <span>{{status.total}}</span>
-    <b>Sync</b>
-    <span>{{status.sync}}</span>
-    <b>Host</b>
-    <span>{{host}}</span>
-    -->
-
     <iron-ajax 
       method="POST"
-      url="https://maas.nuqlis.com:9000/api/query/obec_students/host_class_room"
-      params='{"apikey":"125856d0eb2711e690184b0ac3cc96bd"}'
+      url="http://maas.nuqlis.com:44300/query/dmc59_1/hostid"
       body="{{_query(host)}}"
+      headers$='{"Authorization":"JWT {{jwtToken}}"}'
       handle-as="json"
       last-response="{{view}}"
       content-type="application/json"
@@ -58,10 +49,10 @@ Polymer Component for StudentCare project
 
     <app-leveldb
        id="leveldb"
-       url="https://maas.nuqlis.com:9000/api/dbs/obec_students"
-       api-key="125856d0eb2711e690184b0ac3cc96bd"
+       url="http://maas.nuqlis.com:44300/dbs/dmc59_1"
+       jwt-token="{{jwtToken}}"
        db-name="{{_dbName(host)}}"
-       schema='{"index":"key,value.class,value.room,value.cid,value.name,value.lastname"}'
+       schema='{"index":"key,value.LEVEL,value.CLASSROOM"}'
        data="{{view}}"
        on-ready="_dbReady"
        status="{{status}}">
@@ -105,6 +96,10 @@ Polymer Component for StudentCare project
         selectedStudent: {
           type:Object,
           notify:true
+        },
+        jwtToken:{
+          type:String,
+          value:'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiJCb21iIiwiaWF0IjoxNDg5MDM0MTE0fQ.fv0r1vZ9B-i_AG1ogGdvumNDpnE1eowmhETO-Lqrjpyyz884_p423mH6cn-KVaZFhy9Z9Gs-0zljg6d3KUhKhDJzomJspgHiaMzrnqVs838IviD4ig-oFcSgkqCKn6aXULXoLnpb6ueKshvdHX3NIxlNPd_oPCEDOEg8ufPAnLgb78OHcwwKK_YmB7zidrs-7Ltx93lJJSF0-FO_kd3i_H4Z3vKOtKtoAnSdWQqPr2EVilxzHQwyiKrLUnzIGz6Iv3yS2qIDp8OCXVopSRwM0bnESC0tClF-7EO6J0d1NDxamuX6XHKvuujSaoynMTFtICSY0ojUYRYDDESLvXvLzg'
         }
       },
       observers: [
@@ -112,13 +107,13 @@ Polymer Component for StudentCare project
       ],
       _dbReady:function() {
         this.$.leveldb.db.index
-         .orderBy('value.class')
+         .orderBy('value.LEVEL')
          .uniqueKeys(function(classes) {
            this.set('classes',classes);
         }.bind(this));
       },
       _dbName:function(host) {
-        return 'obec_students_'+host;
+        return 'dmc_'+host;
       },
       _query:function(host) {
         var end = ""+(parseInt(host)+1);
@@ -131,9 +126,9 @@ Polymer Component for StudentCare project
           this.set('selectedClass',target);
 
           this.$.leveldb.db.index
-           .orderBy('value.room')
+           .orderBy('value.CLASSROOM')
            .filter(function(obj) {
-             return obj.value.class = target;
+             return obj.value.LEVEL = target;
            }) 
            .uniqueKeys(function(objs) {
              this.set('rooms',objs);
@@ -152,10 +147,10 @@ Polymer Component for StudentCare project
         this.$.studentSelector.selectIndex(-1);
         if(selectedClass && selectedRoom) {
          this.$.leveldb.db.index
-         .where('value.class')
+         .where('value.LEVEL')
          .equals(selectedClass)
          .and(function(value) {
-           return value.value.room == selectedRoom;
+           return value.value.CLASSROOM == selectedRoom;
          })
          .toArray(function(students) {
            this.set('students',students);

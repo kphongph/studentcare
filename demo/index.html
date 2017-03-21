@@ -11,6 +11,7 @@
     <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
     <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
     <link rel="import" href="../student-table.html">
+    <link rel="import" href="../local/obecstudent-card.html">
     <link rel="import" href="../../paper-input/paper-input.html">
 
     <style is="custom-style" include="demo-pages-shared-styles">
@@ -22,11 +23,9 @@
       <demo-snippet>
         <template is="dom-bind">
           <p>
-            <span>{{student.value.cid}}</span>
-            <span>{{student.value.name}}</span>
-            <span>{{student.value.lastname}}</span>
+            <obecstudent-card doc="{{student}}"></obecstudent-card>
           </p>
-          <student-table host="1034710678" selected-student="{{student}}"></student-table>
+          <student-table host="30070132" selected-student="{{student}}"></student-table>
         </template>
       </demo-snippet>
     </div>
