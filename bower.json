@@ -9,7 +9,8 @@
     "paper-listbox": "^1.1.2",
     "paper-item": "^1.2.1",
     "iron-selector": "^1.5.2",
-    "paper-progress": "^1.0.11"
+    "paper-progress": "^1.0.11",
+    "app-localize-behavior": "PolymerElements/app-localize-behavior#^0.10.1"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",

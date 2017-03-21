@@ -1,0 +1,8 @@
+{
+  "th":{
+    "first_name":"ชื่อ",
+    "last_name":"นามสกุล",
+    "class_room_label":"ชั้น",
+    "class_room":"{class}/{room}"
+  }
+}
