@@ -1,0 +1,105 @@
+<link rel="import" href="../app-leveldb/app-leveldb.html">
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-ajax/iron-ajax.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../iron-selector/iron-selector.html">
+<link rel="import" href="../paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../paper-item/paper-item.html">
+<link rel="import" href="../paper-listbox/paper-listbox.html">
+<link rel="import" href="../paper-progress/paper-progress.html">
+<link rel="import" href="./local/obecstudent-card.html">
+
+<!--
+`studentcare-db`
+Polymer Component for StudentCare Database project
+
+@demo demo/index.html 
+-->
+
+<dom-module id="studentcare-db">
+  <template>
+    <style include="iron-flex iron-flex-alignment iron-flex-factors">
+      :host {
+        display: block;
+        @apply(--layout-vertical);
+      }
+
+      .iron-selected {
+        background: #eee;
+      }
+
+      paper-dropdown-menu {
+        margin-right:20px;
+      }
+
+    </style>
+
+    <div class="layout horizontal">
+      <paper-progress value="{{status.sync}}"
+         class="flex"
+         max="{{status.total}}">
+      </paper-progress>
+    </div>
+
+    <iron-ajax 
+      method="POST"
+      url="http://maas.nuqlis.com:44300/query/dmc59_1/hostid"
+      body="{{_query(host)}}"
+      headers$='{"Authorization":"JWT {{jwtToken}}"}'
+      handle-as="json"
+      last-response="{{view}}"
+      content-type="application/json"
+      auto>
+    </iron-ajax>
+    
+    
+
+    <app-leveldb
+       id="dmcdb"
+       url="http://maas.nuqlis.com:44300/dbs/dmc59_1"
+       jwt-token="{{jwtToken}}"
+       db-name="{{_dbName(host)}}"
+       schema='{"index":"key,value.CLASSROOM"}'
+       data="{{view}}"
+       on-ready="_dmcReady"
+       status="{{status}}">
+    </app-leveldb>
+
+    <app-leveldb
+       id="obecdb"
+       url="https://maas.nuqlis.com:9000/api/dbs/obec_students?apikey=125856d0eb2711e690184b0ac3cc96bd"
+       jwt-token="{{jwtToken}}"
+       db-name="{{_obecDbName(host)}}"
+       schema='{"index":"key,value.CLASSROOM"}'>
+    </app-leveldb>
+
+  </template>
+
+  <script>
+    Polymer({
+      is: 'studentcare-db',
+      properties: {
+        jwtToken:{
+          type:String
+        }
+      },
+      _query:function(host) {
+        var end = ""+(parseInt(host)+1);
+        return {'start':[host],'end':[end],limit:-1};
+      },
+      _dmcReady:function() {
+        var self = this;
+        this.$.dmcdb.db.documents.toCollection().each(function(student) {
+          self.$.obecdb.put({'value':student.key});
+          console.log(student.value.IDNO);
+        });
+      },
+      _dbName:function(host) {
+        return 'dmc_'+host;
+      },
+      _obecDbName:function(host) {
+        return 'obecstudent_'+host;
+      }
+    });
+  </script>
+</dom-module>

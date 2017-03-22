@@ -10,6 +10,11 @@
     "studentid":"เลขประจำตัวนักเรียน",
     "grade_level_label":"ระดับชั้น",
     "birthdate_label":"วัน เดือน ปี เกิด",
-    "birthdate_format":"{day}/{month}/{year}"
+    "birthdate_format":"{day}/{month}/{year}",
+    "birth_place_label":"สถานเกิดที่",
+    "moo":"หมู่",
+    "tumbon":"ตำบล",
+    "amphur":"อำเภอ",
+    "province":"จังหวัด"
   }
 }

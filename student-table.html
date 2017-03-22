@@ -32,9 +32,6 @@ Polymer Component for StudentCare project
         margin-right:20px;
       }
 
-      .custom {
-        width:100%;
-      }
     </style>
 
     <div class="layout horizontal">
@@ -67,14 +64,14 @@ Polymer Component for StudentCare project
     </app-leveldb>
     
     <div class="layout horizontal">
-      <paper-dropdown-menu class="flex-4" label="ระดับชั้น" on-iron-select="_classSelected">
+      <paper-dropdown-menu class="flex" label="ระดับชั้น" on-iron-select="_classSelected">
        <paper-listbox class="dropdown-content">
         <template is="dom-repeat" items="{{classes}}">
           <paper-item>{{item}}</paper-item>
         </template>
        </paper-listbox>
       </paper-dropdown-menu>
-      <paper-dropdown-menu class="flex-1" label="ห้อง" on-iron-select="_roomSelected">
+      <paper-dropdown-menu label="ห้อง" on-iron-select="_roomSelected">
        <paper-listbox class="dropdown-content">
         <template is="dom-repeat" items="{{rooms}}">
           <paper-item>{{item}}</paper-item>
