@@ -4,7 +4,7 @@
   "main": "studentcare-components.html",
   "dependencies": {
     "polymer": "Polymer/polymer#^1.4.0",
-    "app-leveldb": "git://github.com/kphongph/app-leveldb.git#master",
+    "app-leveldb": "git://github.com/kphongph/app-leveldb.git#pk",
     "paper-dropdown-menu": "^1.5.0",
     "paper-listbox": "^1.1.2",
     "paper-item": "^1.2.1",

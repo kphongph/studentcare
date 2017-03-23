@@ -52,8 +52,6 @@ Polymer Component for StudentCare Database project
       auto>
     </iron-ajax>
     
-    
-
     <app-leveldb
        id="dmcdb"
        url="http://maas.nuqlis.com:44300/dbs/dmc59_1"
@@ -67,10 +65,11 @@ Polymer Component for StudentCare Database project
 
     <app-leveldb
        id="obecdb"
-       url="https://maas.nuqlis.com:9000/api/dbs/obec_students?apikey=125856d0eb2711e690184b0ac3cc96bd"
+       url="https://maas.nuqlis.com:9000/api/dbs/obec_students"
        jwt-token="{{jwtToken}}"
+       db="{{obecDb}}"
        db-name="{{_obecDbName(host)}}"
-       schema='{"index":"key,value.CLASSROOM"}'>
+       schema='{"index":"key,value.cid"}'>
     </app-leveldb>
 
   </template>
@@ -81,17 +80,36 @@ Polymer Component for StudentCare Database project
       properties: {
         jwtToken:{
           type:String
+        },
+        obecDb:{
+          type:Object,
+          observer:'_obecReady'
         }
       },
+      
       _query:function(host) {
         var end = ""+(parseInt(host)+1);
         return {'start':[host],'end':[end],limit:-1};
       },
       _dmcReady:function() {
-        var self = this;
-        this.$.dmcdb.db.documents.toCollection().each(function(student) {
-          self.$.obecdb.put({'value':student.key});
-          console.log(student.value.IDNO);
+        // var self = this;
+        //
+        // this.$.dmcdb.db.documents.toCollection().each(function(student) {
+        //  self.$.obecdb.put({'value':student.key});
+        //  console.log(student.value.IDNO);
+        // });
+        // this.getObecStudent('1102004329251');
+      },
+      _obecReady:function() {
+        if(this.obecDb) {    
+          this.getObecStudentByCid('1102004329251');
+        }
+      },
+      getObecStudentByCid:function(cid) {
+        this.obecDb.index.where('value.cid').equals(cid).toArray(function(array) {
+          if(array.length == 0) {
+            
+          }
         });
       },
       _dbName:function(host) {

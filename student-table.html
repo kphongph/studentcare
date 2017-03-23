@@ -1,6 +1,4 @@
-<link rel="import" href="../app-leveldb/app-leveldb.html">
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../iron-ajax/iron-ajax.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../iron-selector/iron-selector.html">
 <link rel="import" href="../paper-dropdown-menu/paper-dropdown-menu.html">
@@ -8,6 +6,8 @@
 <link rel="import" href="../paper-listbox/paper-listbox.html">
 <link rel="import" href="../paper-progress/paper-progress.html">
 <link rel="import" href="./local/obecstudent-card.html">
+<link rel="import" href="../app-leveldb/app-leveldb.html">
+<link rel="import" href="../app-leveldb/app-leveldb-query.html">
 
 <!--
 `studentcare-components`
@@ -41,28 +41,23 @@ Polymer Component for StudentCare project
       </paper-progress>
     </div>
 
-    <iron-ajax 
-      method="POST"
-      url="http://maas.nuqlis.com:44300/query/dmc59_1/hostid"
-      body="{{_query(host)}}"
-      headers$='{"Authorization":"JWT {{jwtToken}}"}'
-      handle-as="json"
-      last-response="{{view}}"
-      content-type="application/json"
-      auto>
-    </iron-ajax>
-
     <app-leveldb
-       id="leveldb"
-       url="http://maas.nuqlis.com:44300/dbs/dmc59_1"
-       jwt-token="{{jwtToken}}"
-       db-name="{{_dbName(host)}}"
-       schema='{"index":"key,value.LEVEL,value.CLASSROOM"}'
-       data="{{view}}"
-       on-ready="_dbReady"
-       status="{{status}}">
+      name="test"
+      url="http://maas.nuqlis.com:44300"
+      db-name="dmc59_1"
+      app="{{app}}"
+      jwt-token="{{jwtToken}}">
     </app-leveldb>
-    
+
+    <app-leveldb-query
+      app="{{app}}"
+      view-name="hostid"
+      start$='[{{host}}]'
+      end$='[{{_nextHost(host)}}]'
+      data="{{data}}"
+      limit="3">
+    </app-leveldb-query>
+
     <div class="layout horizontal">
       <paper-dropdown-menu class="flex" label="ระดับชั้น" on-iron-select="_classSelected">
        <paper-listbox class="dropdown-content">
@@ -109,6 +104,11 @@ Polymer Component for StudentCare project
       observers: [
         '_filter(selectedClass,selectedRoom)'
       ],
+      _nextHost:function(host) {
+        var next = parseInt(host)+1;
+        console.log(next);
+        return ''+next;
+      },
       _dbReady:function() {
         this.$.leveldb.db.index
          .orderBy('value.LEVEL')
