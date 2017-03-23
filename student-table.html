@@ -8,6 +8,7 @@
 <link rel="import" href="./local/obecstudent-card.html">
 <link rel="import" href="../app-leveldb/app-leveldb.html">
 <link rel="import" href="../app-leveldb/app-leveldb-query.html">
+<link rel="import" href="../app-leveldb/app-leveldb-sync.html">
 
 <!--
 `studentcare-components`
@@ -34,13 +35,6 @@ Polymer Component for StudentCare project
 
     </style>
 
-    <div class="layout horizontal">
-      <paper-progress value="{{status.sync}}"
-         class="flex"
-         max="{{status.total}}">
-      </paper-progress>
-    </div>
-
     <app-leveldb
       name="test"
       url="http://maas.nuqlis.com:44300"
@@ -52,11 +46,28 @@ Polymer Component for StudentCare project
     <app-leveldb-query
       app="{{app}}"
       view-name="hostid"
-      start$='[{{host}}]'
-      end$='[{{_nextHost(host)}}]'
-      data="{{data}}"
-      limit="3">
+      start$='["{{host}}"]'
+      end$='["{{_nextHost(host)}}"]'
+      data="{{data}}">
     </app-leveldb-query>
+
+    <app-leveldb-sync
+      id="leveldb"
+      name$="dmc_{{host}}"
+      app="{{app}}"
+      index="{{data}}"
+      total="{{total}}"
+      schema='{"index":"key,value.LEVEL,value.CLASSROOM"}'
+      on-ready="_dbReady"
+      synced="{{synced}}">
+    </app-leveldb-sync>
+            
+    <div class="layout horizontal">
+      <paper-progress value="{{synced}}"
+         class="flex"
+         max="{{total}}">
+      </paper-progress>
+    </div>
 
     <div class="layout horizontal">
       <paper-dropdown-menu class="flex" label="ระดับชั้น" on-iron-select="_classSelected">
@@ -106,10 +117,9 @@ Polymer Component for StudentCare project
       ],
       _nextHost:function(host) {
         var next = parseInt(host)+1;
-        console.log(next);
         return ''+next;
       },
-      _dbReady:function() {
+      _dbReady:function(e) {
         this.$.leveldb.db.index
          .orderBy('value.LEVEL')
          .uniqueKeys(function(classes) {
@@ -118,10 +128,6 @@ Polymer Component for StudentCare project
       },
       _dbName:function(host) {
         return 'dmc_'+host;
-      },
-      _query:function(host) {
-        var end = ""+(parseInt(host)+1);
-        return {'start':[host],'end':[end],limit:-1};
       },
       _classSelected:function(e) {
         var selectedItem = e.target.selectedItem;
