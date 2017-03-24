@@ -21,9 +21,23 @@ Polymer Component for StudentCare project
         display: block;
       }
     </style>
+
+    <studentcare-db
+      url="https://maas.nuqlis.com:9000/api"
+      id="leveldb"
+      remote-db="obec_students"
+      local-db="obec_students"
+      view-name="cid"
+      schema='{"index":"key,value.cid"}'
+      query="{{_obecStudentQuery}}"
+      db="{{obecDb}}"
+      jwt-token="{{jwtToken}}">
+    </studentcare-db>
+
     <paper-stepper>
       <paper-step label="{{localize('dl1_section1_label')}}">
         <dl1-form-s1 
+          obec-db="{{obecDb}}"
           dmc-student="{{dmcStudent}}">
         </dl1-form-s1>
       </paper-step>
@@ -44,10 +58,20 @@ Polymer Component for StudentCare project
         dmcStudent: {
           type: Object
         },
+        _obecStudentQuery: {
+          type: Object,
+          computed:'_computeObecStudentQuery(dmcStudent)'
+        }
       },
       attached: function() {
         this.loadResources(this.resolveUrl('locales.json'));
-      } 
+      },
+      _computeObecStudentQuery: function(dmc) {
+        if(dmc) {
+          console.log(dmc);
+          return {'start':[dmc.IDNO],limit:1};
+        }
+      }
     });
   </script>
 </dom-module>

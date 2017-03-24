@@ -28,7 +28,10 @@
           <div class="layout horizontal">
             <student-table jwt-token="{{jwtToken.token}}" host="30070132" 
               selected-student="{{student}}"></student-table>
-            <dl1-form class="flex" dmc-student="{{student.value}}"></dl1-form>
+            <dl1-form class="flex" 
+               jwt-token="{{jwtToken.token}}"
+               dmc-student="{{student.value}}">
+            </dl1-form>
           </div>
         </template>
       </demo-snippet>

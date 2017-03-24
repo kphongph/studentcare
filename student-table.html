@@ -6,9 +6,7 @@
 <link rel="import" href="../paper-listbox/paper-listbox.html">
 <link rel="import" href="../paper-progress/paper-progress.html">
 <link rel="import" href="./local/obecstudent-card.html">
-<link rel="import" href="../app-leveldb/app-leveldb.html">
-<link rel="import" href="../app-leveldb/app-leveldb-query.html">
-<link rel="import" href="../app-leveldb/app-leveldb-sync.html">
+<link rel="import" href="studentcare-db.html">
 
 <!--
 `studentcare-components`
@@ -35,39 +33,17 @@ Polymer Component for StudentCare project
 
     </style>
 
-    <app-leveldb
-      name="test"
+    <studentcare-db 
       url="http://maas.nuqlis.com:44300"
-      db-name="dmc59_1"
-      app="{{app}}"
-      jwt-token="{{jwtToken}}">
-    </app-leveldb>
-
-    <app-leveldb-query
-      app="{{app}}"
-      view-name="hostid"
-      start$='["{{host}}"]'
-      end$='["{{_nextHost(host)}}"]'
-      data="{{data}}">
-    </app-leveldb-query>
-
-    <app-leveldb-sync
       id="leveldb"
-      name$="dmc_{{host}}"
-      app="{{app}}"
-      index="{{data}}"
-      total="{{total}}"
-      schema='{"index":"key,value.LEVEL,value.CLASSROOM"}'
+      remote-db="dmc59_1"
+      local-db="dmc"
+      view-name="hostid"
+      schema='{"index":"key,value.CLASSROOM,value.LEVEL,value.CODE"}'
+      query$='{"start":["{{host}}"],"end":["{{_nextHost(host)}}"],"limit":-1}'
       on-ready="_dbReady"
-      synced="{{synced}}">
-    </app-leveldb-sync>
-            
-    <div class="layout horizontal">
-      <paper-progress value="{{synced}}"
-         class="flex"
-         max="{{total}}">
-      </paper-progress>
-    </div>
+      jwt-token="{{jwtToken}}">
+    </studentcare-db>
 
     <div class="layout horizontal">
       <paper-dropdown-menu class="flex" label="ระดับชั้น" on-iron-select="_classSelected">

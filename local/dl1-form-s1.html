@@ -62,6 +62,13 @@ Polymer Component for StudentCare project
         },
         dmcStudent: {
           type: Object
+        },
+        obecDb:{
+          type: Object
+        },
+        obecData: {
+          type: Object,
+          computed:'_queryObecData(obecDb,dmcStudent)'
         }
       },
       attached:function() {
@@ -75,6 +82,11 @@ Polymer Component for StudentCare project
           level_int-=6;
           return this.localize('secondary_level')+' '+level_int+'/'+room;
         }
+      },
+      _queryObecData:function(db,dmcStudent) {
+        db.index.where('value.cid').equals(dmcStudent.IDNO).toArray(function(objs) {
+          console.log(objs);
+        });
       }
     });
   </script>
