@@ -1,0 +1,101 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../iron-selector/iron-selector.html">
+<link rel="import" href="../paper-styles/typography.html">
+
+<dom-module id="sdq-radio">
+  <template>
+    <style include="iron-flex iron-flex-alignment iron-flex-factors">
+      :host {
+        @apply(--paper-font-body1);
+        display: block;
+        width:100%;
+      }
+
+      iron-icon {
+        margin:5px;
+        padding:5px;
+        background-color:white
+      }
+
+      iron-icon.y {
+        fill:green;
+      }
+
+      iron-icon.m {
+        fill:grey;
+      }
+
+      iron-icon.n {
+        fill:red;
+      }
+
+      span {
+        margin:5px;
+        padding:5px;
+      }
+
+      div {
+        background-color:var(--paper-grey-100);
+      }
+
+      div.y {
+        background-color:var(--paper-green-100);
+      }
+
+      div.m {
+        background-color:var(--paper-grey-100);
+      }
+
+      div.n {
+        background-color:var(--paper-red-100);
+      }
+
+    </style>
+    <div class$="{{value}} layout horizontal center">
+      <iron-icon icon="{{type}}" class$="{{value}}"></iron-icon>
+      <span class="flex">{{label}}</span>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'sdq-radio',
+      listeners : {
+        'tap':'regularTap'
+      },
+      properties: {
+        value:{
+          type:String,
+          observer:'_valueChanged'
+        },
+        label:{
+          type:String
+        },
+        disabled: {
+          type:Boolean,
+          value:false
+        }
+      },
+      regularTap:function(e) {
+        if(!this.disabled) {
+          var value_list = ['y','m','n'];
+          var idx = value_list.indexOf(this.value)+1; 
+          this.set('value',idx<3?value_list[idx]:value_list[0]);
+        }
+      },
+      _valueChanged:function() {
+        if(this.value == 'y' || this.value == 'm') { 
+          this.type='check';
+        } else {
+          this.type='clear';
+        }
+      },
+      _labelValue:function(value) {
+        var dict = {'m':'ค่อนข้างจริง','y':'จริง','n':'ไม่จริง'};
+        return dict[value];
+      }
+    });
+  </script>
+</dom-module>
