@@ -68,6 +68,7 @@
       properties: {
         value:{
           type:String,
+          notify:true,
           observer:'_valueChanged'
         },
         label:{
@@ -83,6 +84,7 @@
           var value_list = ['y','m','n'];
           var idx = value_list.indexOf(this.value)+1; 
           this.set('value',idx<3?value_list[idx]:value_list[0]);
+          this.fire('change',{});
         }
       },
       _valueChanged:function() {

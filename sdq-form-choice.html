@@ -29,6 +29,7 @@
      </div>
      <template is="dom-repeat" items="{{value}}">
       <sdq-radio label="{{_label(item,forChild)}}"
+        on-change="_radioChanged"
         value="{{item.value}}">
       </sdq-radio>
      </template>
@@ -45,6 +46,7 @@
         },
         value: {
           type: Array,
+          notify:true,
           value: function() {
             return [
               { 'group':5,
@@ -125,7 +127,7 @@
             ]
           }
         },
-      },
+      },     
       _label:function(item,child) {
         if(child) {
           return item.label_child;
@@ -134,6 +136,9 @@
       },
       _plusone:function(value) {
         return value+1;
+      },
+      _radioChanged:function(e) {
+        this.fire('update',{});
       }
     });
   </script>

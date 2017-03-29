@@ -20,20 +20,32 @@ Polymer Component for StudentCare project
         @apply(--layout-vertical);
         display: block;
       }
+      #visualResponsiveWidth {
+        width: 500px;
+        max-width: 100%;
+        height: 4px;
+        background: var(--primary-color);
+      }
+      #responsiveStepper {
+        --paper-stepper-vertical-responsive-width: 500px;
+      }      
     </style>
-    <paper-stepper>
+   
+    <paper-stepper id="responsiveStepper" responsive-check-frequence="600"
+      on-paper-stepper-completed="_completed">
       <paper-step label="{{localize('dl1_section1_label')}}">
         <dl-profile 
           dmc-student="{{dmcStudent}}">
         </dl-profile>
       </paper-step>
       <paper-step label="xxxxx">
-        <sdq-form-choice></sdq-form-choice>
+        <sdq-form-choice value="{{formArray}}" on-update="_fieldChanged"></sdq-form-choice>
       </paper-step>
       <paper-step label="yyyyyy">
         <sdq-form-teacher></sdq-form-teacher>
       </paper-step>
     </paper-stepper>
+    
   </template>
 
   <script>
@@ -47,12 +59,29 @@ Polymer Component for StudentCare project
           value:'th'
         },
         dmcStudent: {
-          type: Object
-        },
+          type: Object,
+          observer:'_studentChanged'
+        }
+      },
+      _studentChanged: function(n,o) {        
+        if(n) {
+          console.log(n);
+        }
       },
       attached: function() {
         this.loadResources(this.resolveUrl('locales.json'));
-      } 
+      },
+      _formArrayChanged: function(n,o) {
+        console.log(n);
+      },
+      _fieldChanged:function(e) {        
+        console.log(this.formArray);
+      },
+      _completed:function(e) {
+        var obj = {'student':this.dmcStudent,'choice':this.formArray};
+        console.log(obj)
+        this.fire('dl2-completed',obj);
+      }
     });
   </script>
 </dom-module>

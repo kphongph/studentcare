@@ -21,17 +21,19 @@
     </style>
   </head>
   <body>
-    <div class="vertical-section-container">
+    <!-- <div class="vertical-section-container"> -->
       <h3>dl2-form</h3>
         <template is="dom-bind">
           <app-localstorage-document key="jwtToken" data="{{jwtToken}}">
           </app-localstorage-document>
           <div class="layout horizontal">
-            <student-table jwt-token="{{jwtToken.token}}" host="30070132" 
-              selected-student="{{student}}"></student-table>
-            <dl2-form class="flex" dmc-student="{{student.value}}"></dl2-form>
+            <student-table jwt-token="{{jwtToken.token}}" 
+              host="30070132" 
+              selected-student="{{student}}">
+            </student-table>
+            <dl2-form class="flex" dmc-student="{{student.value}}" ></dl2-form>
           </div>
         </template>
-    </div>
+    <!-- </div> -->
   </body>
 </html>
