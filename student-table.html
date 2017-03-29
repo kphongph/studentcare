@@ -5,6 +5,7 @@
 <link rel="import" href="../paper-item/paper-item.html">
 <link rel="import" href="../paper-listbox/paper-listbox.html">
 <link rel="import" href="../paper-progress/paper-progress.html">
+<link rel="import" href="../app-localize-behavior/app-localize-behavior.html">
 <link rel="import" href="./local/obecstudent-card.html">
 <link rel="import" href="studentcare-db.html">
 
@@ -22,15 +23,24 @@ Polymer Component for StudentCare project
         display: block;
         @apply(--layout-vertical);
       }
-
       .iron-selected {
         background: #eee;
       }
-
       paper-dropdown-menu {
         margin-right:20px;
       }
-
+      paper-item {
+        width: auto;
+      }
+      .flex-horizontal-with-ratios {
+        @apply(--layout-horizontal);
+      }
+      .flexchild {
+        @apply(--layout-flex);
+      }
+      .flex3child {
+        @apply(--layout-flex-3);
+      }
     </style>
 
     <studentcare-db 
@@ -46,14 +56,14 @@ Polymer Component for StudentCare project
     </studentcare-db>
 
     <div class="layout horizontal">
-      <paper-dropdown-menu class="flex" label="ระดับชั้น" on-iron-select="_classSelected">
+      <paper-dropdown-menu class="flex3child" label="ระดับชั้น" on-iron-select="_classSelected">
        <paper-listbox class="dropdown-content">
         <template is="dom-repeat" items="{{classes}}">
-          <paper-item>{{item}}</paper-item>
+          <paper-item id={{item}}>{{localize(item)}}</paper-item>
         </template>
        </paper-listbox>
       </paper-dropdown-menu>
-      <paper-dropdown-menu label="ห้อง" on-iron-select="_roomSelected">
+      <paper-dropdown-menu class="flexchild" label="ห้อง" on-iron-select="_roomSelected">
        <paper-listbox class="dropdown-content">
         <template is="dom-repeat" items="{{rooms}}">
           <paper-item>{{item}}</paper-item>
@@ -76,7 +86,13 @@ Polymer Component for StudentCare project
   <script>
     Polymer({
       is: 'student-table',
+      behaviors: [
+          Polymer.AppLocalizeBehavior
+      ],
       properties: {
+        language: {
+          value:'dist_classlevel'
+        },
         host:String,
         selectedClass:String,
         selectedRoom:String,
@@ -105,10 +121,11 @@ Polymer Component for StudentCare project
       _dbName:function(host) {
         return 'dmc_'+host;
       },
-      _classSelected:function(e) {
+      _classSelected:function(e) {        
         var selectedItem = e.target.selectedItem;
+        console.log(selectedItem);
         if(selectedItem) {
-          var target = selectedItem.innerText;
+          var target = selectedItem.id;
           this.set('selectedClass',target);
 
           this.$.leveldb.db.index
@@ -146,6 +163,9 @@ Polymer Component for StudentCare project
       _studentSelected:function(e) {
         this.set('selectedStudent',e.detail.item.doc);
         this.fire('select',{'student':e.detail.item.doc});
+      },
+      attached:function() {
+        this.loadResources(this.resolveUrl('locales.json'));
       }
     });
   </script>

@@ -16,35 +16,17 @@ Polymer Component for StudentCare project
 <dom-module id="dl2-form">
   <template>
     <style include="iron-flex iron-flex-alignment">
-      :host {
-        @apply(--layout-vertical);
-        display: block;
-      }
       #visualResponsiveWidth {
         width: 500px;
         max-width: 100%;
         height: 4px;
         background: var(--primary-color);
-      }
-      #responsiveStepper {
-        --paper-stepper-vertical-responsive-width: 500px;
-      }      
+      }     
     </style>
    
-    <paper-stepper id="responsiveStepper" responsive-check-frequence="600"
-      on-paper-stepper-completed="_completed">
-      <paper-step label="{{localize('dl1_section1_label')}}">
-        <dl-profile 
-          dmc-student="{{dmcStudent}}">
-        </dl-profile>
-      </paper-step>
-      <paper-step label="xxxxx">
-        <sdq-form-choice value="{{formArray}}" on-update="_fieldChanged"></sdq-form-choice>
-      </paper-step>
-      <paper-step label="yyyyyy">
-        <sdq-form-teacher></sdq-form-teacher>
-      </paper-step>
-    </paper-stepper>
+    <dl-profile dmc-student="{{dmcStudent}}"></dl-profile>
+    <sdq-form-choice value="{{formArray}}" on-update="_fieldChanged"></sdq-form-choice>
+    <sdq-form-teacher></sdq-form-teacher>
     
   </template>
 
@@ -67,12 +49,6 @@ Polymer Component for StudentCare project
         if(n) {
           console.log(n);
         }
-      },
-      attached: function() {
-        this.loadResources(this.resolveUrl('locales.json'));
-      },
-      _formArrayChanged: function(n,o) {
-        console.log(n);
       },
       _fieldChanged:function(e) {        
         console.log(this.formArray);
