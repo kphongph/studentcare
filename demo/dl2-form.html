@@ -3,11 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
-
     <title>แบบประเมินพฤติกรรมนักเรียน SDQ -DEMO</title>
-
     <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-
     <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
     <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
     <link rel="import" href="../../app-storage/app-localstorage/app-localstorage-document.html">
@@ -25,14 +22,15 @@
       <h3>dl2-form</h3>
         <template is="dom-bind">
           <app-localstorage-document key="jwtToken" data="{{jwtToken}}">
-          </app-localstorage-document>
+          </app-localstorage-document>                                 
+          
           <div class="layout horizontal">
             <student-table jwt-token="{{jwtToken.token}}" 
               host="30070132" 
               selected-student="{{student}}">
             </student-table>
             <dl2-form class="flex" dmc-student="{{student.value}}" ></dl2-form>
-          </div>
+          </div>                   
         </template>
     <!-- </div> -->
   </body>

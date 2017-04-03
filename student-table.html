@@ -13,7 +13,7 @@
 `studentcare-components`
 Polymer Component for StudentCare project
 
-@demo demo/index.html 
+@demo demo/index.html
 -->
 
 <dom-module id="student-table">
@@ -43,7 +43,7 @@ Polymer Component for StudentCare project
       }
     </style>
 
-    <studentcare-db 
+    <studentcare-db
       url="http://maas.nuqlis.com:44300"
       id="leveldb"
       remote-db="dmc59_1"
@@ -121,9 +121,8 @@ Polymer Component for StudentCare project
       _dbName:function(host) {
         return 'dmc_'+host;
       },
-      _classSelected:function(e) {        
+      _classSelected:function(e) {
         var selectedItem = e.target.selectedItem;
-        console.log(selectedItem);
         if(selectedItem) {
           var target = selectedItem.id;
           this.set('selectedClass',target);
@@ -132,7 +131,7 @@ Polymer Component for StudentCare project
            .orderBy('value.CLASSROOM')
            .filter(function(obj) {
              return obj.value.LEVEL = target;
-           }) 
+           })
            .uniqueKeys(function(objs) {
              this.set('rooms',objs);
           }.bind(this));
