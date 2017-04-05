@@ -16,9 +16,8 @@ Polymer Component for StudentCare project
    <style include="iron-flex iron-flex-alignment iron-flex-factors">
       :host {
         display: block;
-        @apply(--layout-vertical);
+        width:100%;
       }
-
    </style>
    <app-localstorage-document key="jwtToken" data="{{jwtToken}}">
    </app-localstorage-document>
@@ -30,7 +29,7 @@ Polymer Component for StudentCare project
        room="{{room}}"
        selected-student="{{student}}">
      </student-room>
-     <form-list dmc-student="{{student}}"></form-list>
+     <form-list class="flex" dmc-student="{{student}}"></form-list>
    </div>
 
   </template>

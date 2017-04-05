@@ -5,6 +5,7 @@
 <link rel="import" href="../../paper-item/paper-item.html">
 <link rel="import" href="../../paper-styles/color.html">
 <link rel="import" href="dl-profile.html">
+<link rel="import" href="../dl2-form.html">
 
 <link rel="import" href="../../neon-animation/neon-animated-pages.html">
     <link rel="import" href="../../neon-animation/neon-animatable.html">
@@ -15,7 +16,6 @@
     <style include="iron-flex iron-flex-alignment">
       :host {
         overflow: hidden;
-        @apply(--layout-fullbleed);
         @apply(--layout-vertical);
       }
 
@@ -37,7 +37,7 @@
       entry-animation="[[entryAnimation]]" 
       exit-animation="[[exitAnimation]]">
       <dl-profile dmc-student="{{dmcStudent.value}}"></dl-profile>
-      <neon-animatable>1</neon-animatable>
+      <dl2-form dmc-student="{{dmcStudent.value}}"></dl2-form>
     </neon-animated-pages>
 
   </template>
