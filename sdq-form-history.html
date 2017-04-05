@@ -1,0 +1,103 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../paper-styles/typography.html">
+
+<link rel="import" href="../app-leveldb/app-leveldb.html">
+<link rel="import" href="../app-leveldb/app-leveldb-document.html">
+<!--
+`dl2-form-history`
+Polymer Component for StudentCare project
+-->
+
+<dom-module id="sdq-form-history">
+  <template> 
+    <style include="iron-flex iron-flex-alignment">
+      .host {
+        @apply(--paper-font-body2);
+      }
+      h2 {
+        @apply(--paper-font-headline);
+      
+      }
+      #visualResponsiveWidth {
+        width: 500px;
+        max-width: 100%;
+        height: 4px;
+        background: var(--primary-color);
+      }
+    </style>
+    <app-localstorage-document key="jwtToken" data="{{jwtToken}}">
+    </app-localstorage-document>
+    
+    <app-leveldb
+      name="test"
+      url="https://maas.nuqlis.com:9000/api"
+      db-name="students_care"
+      app="{{app}}"
+      jwt-token="{{jwtToken.token}}">
+    </app-leveldb>
+    
+    <app-leveldb-query
+      app="{{app}}"
+      view-name="cid_date"
+      query="{{_query}}"
+      data="{{_data}}">
+    </app-leveldb-query>
+    
+    <app-leveldb-document id="doc"
+      app="{{app}}"
+      key="{{docId}}"
+      status="{{status}}"
+      value="{{docValue}}">
+    </app-leveldb-document> 
+    
+    <h2>ประวัติการประเมิน SDQ</h2>
+    <paper-listbox id="listbox" attr-for-selected="name" selected="{{selectedId}}" on-iron-select="__selectItem">      
+    <template is="dom-repeat" items="{{_data}}">      
+      <paper-item class="paper-item" role="option" name="{{item.value.key}}">{{item.value.doc.updateTime}}</paper-item>      
+    </template>    
+    </paper-listbox>
+        
+
+    <paper-button>Add</paper-button>
+                    
+  </template>
+  <script>
+    Polymer({
+      is: 'sdq-form-history',
+      behaviors: [
+        Polymer.AppLocalizeBehavior
+      ],
+      properties: {
+        dmcStudent: {
+          type: Object,
+          observer: '_studentChanged'
+        },
+        selected:{
+          type:String,
+          notify:true
+        }
+      },
+      __selectItem: function(e) {
+        var self = this;
+        this._data.forEach(function(item) {
+          if(item.value.key == self.selectedId) {
+            self.fire('select',{'key':item.value.key,'value':item.value.doc});
+          }
+        });
+      },
+      _studentChanged : function(n,o){        
+        if (!n) return;
+        var query = {
+          'start': [n.IDNO],
+          'end': ['' + (Number(n.IDNO) + 1)],
+          'include_doc': true
+        };
+        this.$.listbox.selected=-1;
+        this.set('_query',query);          
+      }
+    });
+  </script>
+</dom-module>
