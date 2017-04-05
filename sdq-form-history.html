@@ -6,6 +6,7 @@
 
 <link rel="import" href="../app-leveldb/app-leveldb.html">
 <link rel="import" href="../app-leveldb/app-leveldb-document.html">
+
 <!--
 `dl2-form-history`
 Polymer Component for StudentCare project
@@ -14,12 +15,8 @@ Polymer Component for StudentCare project
 <dom-module id="sdq-form-history">
   <template> 
     <style include="iron-flex iron-flex-alignment">
-      .host {
-        @apply(--paper-font-body2);
-      }
       h2 {
-        @apply(--paper-font-headline);
-      
+        @apply(--paper-font-headline);      
       }
       #visualResponsiveWidth {
         width: 500px;
@@ -27,8 +24,12 @@ Polymer Component for StudentCare project
         height: 4px;
         background: var(--primary-color);
       }
+      
     </style>
-    <app-localstorage-document key="jwtToken" data="{{jwtToken}}">
+    
+    <app-localstorage-document 
+      key="jwtToken" 
+      data="{{jwtToken}}">
     </app-localstorage-document>
     
     <app-leveldb
@@ -51,18 +52,30 @@ Polymer Component for StudentCare project
       key="{{docId}}"
       status="{{status}}"
       value="{{docValue}}">
-    </app-leveldb-document> 
+    </app-leveldb-document>     
     
     <h2>ประวัติการประเมิน SDQ</h2>
-    <paper-listbox id="listbox" attr-for-selected="name" selected="{{selectedId}}" on-iron-select="__selectItem">      
-    <template is="dom-repeat" items="{{_data}}">      
-      <paper-item class="paper-item" role="option" name="{{item.value.key}}">{{item.value.doc.updateTime}}</paper-item>      
-    </template>    
-    </paper-listbox>
-        
 
-    <paper-button>Add</paper-button>
-                    
+    <paper-listbox id="listbox" 
+      attr-for-selected="name" 
+      selected="{{selectedId}}" 
+      on-iron-select="__selectItem">     
+      <template is="dom-repeat" items="{{_data}}">      
+        <paper-item 
+          role="option" 
+          class="paper-item" 
+          name="{{item.value.key}}">
+          {{item.value.doc.itemTitle}}         
+        </paper-item>      
+      </template>        
+    </paper-listbox>
+
+    <sdq-form-choice 
+      hidden$="{{hideSdqForm}}" 
+      value="{{sdqChoice}}">
+    </sdq-form-choice>
+    
+    <paper-button hidden$="{{hideSdqForm}}" raised on-click="__completed">แก้ไข</paper-button>
   </template>
   <script>
     Polymer({
@@ -75,16 +88,35 @@ Polymer Component for StudentCare project
           type: Object,
           observer: '_studentChanged'
         },
+        _data:{
+          type:Object,
+          observer:'_checkHasHistory'
+        },
+        hideSdqForm:{
+          type:Boolean,
+          value:true
+        },
         selected:{
           type:String,
           notify:true
+        },
+        newFormSelected:{
+          type:String,
+          notify:true
+        },
+        docValue:{
+          type:Object,
+          notify:true,
+          computed:'__DocValue(sdqChoice,dmcStudent)'
         }
       },
       __selectItem: function(e) {
         var self = this;
+        this.set('hideSdqForm',false);
         this._data.forEach(function(item) {
-          if(item.value.key == self.selectedId) {
-            self.fire('select',{'key':item.value.key,'value':item.value.doc});
+          if(item.value.key == self.selectedId) { 
+            self.set('docId',item.value.key);
+            self.set('sdqChoice',item.value.doc.sdqChoice);
           }
         });
       },
@@ -96,7 +128,40 @@ Polymer Component for StudentCare project
           'include_doc': true
         };
         this.$.listbox.selected=-1;
-        this.set('_query',query);          
+        this.set('_query',query);
+        this.set('hideSdqForm',true);        
+      },
+      _checkHasHistory : function(n){
+        if (n.length > 0){
+          var i =0;
+          Object.keys(n).map(function(objectKey, index) {
+            i++;
+            var value = n[objectKey];
+            var doc = value.value.doc;
+            if(doc.hasOwnProperty('updateTime')) {
+              var date = new Date();
+              var day = date.getDate();
+              var mount = date.getMonth()+1;
+              var year = date.getFullYear();
+              var updateTime = 'ประเมินครั้งที่ '+i+' '+day+'/'+mount+'/'+year
+              value.value.doc.itemTitle = updateTime; 
+            }else{
+              doc.itemTitle = "ไม่มีประวัติการประเมิน";
+            }
+          });                    
+        }else{
+          n = [{"value":{"key":null,"doc":{"itemTitle":"ไม่มีประวัติการประเมิน"}}}];
+          this.set('_data',n);
+        }         
+      },
+      __completed:function(e) {
+        var obj = {'student':this.dmcStudent,'sdqChoice':this.sdqChoice};
+        this.$.doc.save();
+        this.fire('dl2-completed',obj);
+      },
+      __DocValue:function(sdqChoice,dmcStudent) {
+        var date = new Date();
+        return {'cid':dmcStudent.IDNO,'updateTime':date.getTime(),'year':date.getFullYear(),'sdqChoice':sdqChoice};
       }
     });
   </script>

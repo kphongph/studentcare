@@ -81,10 +81,17 @@ Polymer Component for StudentCare Database project
           type:Object,
           readOnly:true,
           notify:true
+        },
+        ready:{
+          type:Boolean,
+          readOnly:true,
+          notify:true,
+          value:false
         }
       },
       _localDbReady:function(e) {
         this._setDb(e.detail.db);
+        this._setReady(true);
       }
     });
   </script>

@@ -7,28 +7,33 @@
   <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
   <link rel="import" href="../../app-storage/app-localstorage/app-localstorage-document.html">
   <link rel="import" href="../../grid-element/grid-element.html">  
-  <link rel="import" href="../student-table.html">
+  <link rel="import" href="../student-room.html">
   <link rel="import" href="../dl2-form.html">
   <link rel="import" href="../sdq-form-teacher.html">
 </head>
-<body>
+
+<body>  
   <h3>dl2-form</h3>
   <template is="dom-bind">
-    <app-localstorage-document key="jwtToken" data="{{jwtToken}}">
-    </app-localstorage-document>          
+    <app-localstorage-document 
+      key="jwtToken" data="{{jwtToken}}">
+    </app-localstorage-document>
+
     <grid-element mq="(min-width: 600px)">
       <grid-col>
-        <student-table jwt-token="{{jwtToken.token}}" 
-          host="30070132" 
+        <student-room 
+          jwt-token="{{jwtToken.token}}" 
+          host="30070132" level="02" room="1" 
           selected-student="{{student}}">
-        </student-table>
+        </student-room>
       </grid-col>
+
       <grid-col s="3">
-        <dl2-form class="flex" dmc-student="{{student.value}}" ></dl2-form>
+        <dl2-form class="flex" 
+          dmc-student="{{student.value}}" >
+        </dl2-form>
       </grid-col>
-    </grid-element>         
-    </div>
-    </div>                  
+    </grid-element>                          
   </template>
 </body>
 </html>

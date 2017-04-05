@@ -1,0 +1,51 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../app-storage/app-localstorage/app-localstorage-document.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="local/form-list.html">
+<link rel="import" href="student-room.html">
+
+<!--
+`studentcare-components`
+Polymer Component for StudentCare project
+
+@demo demo/index.html 
+-->
+
+<dom-module id="studentcare-app">
+  <template>
+   <style include="iron-flex iron-flex-alignment iron-flex-factors">
+      :host {
+        display: block;
+        width:100%;
+      }
+   </style>
+   <app-localstorage-document key="jwtToken" data="{{jwtToken}}">
+   </app-localstorage-document>
+
+   <div class="layout horizontal">
+     <student-room jwt-token="{{jwtToken.token}}"
+       host="{{host}}"
+       level="{{level}}"
+       room="{{room}}"
+       selected-student="{{student}}">
+     </student-room>
+     <form-list class="flex" dmc-student="{{student}}"></form-list>
+   </div>
+
+  </template>
+
+  <script>
+    Polymer({
+      is: 'studentcare-app',
+      properties: {
+        host:String,
+        level:{
+          type:String
+        },
+        room:{
+          type:String
+        }
+      }
+    });
+  </script>
+</dom-module>

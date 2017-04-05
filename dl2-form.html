@@ -24,14 +24,47 @@ Polymer Component for StudentCare project
         height: 4px;
         background: var(--primary-color);
       }
-    </style>
+    </style>  
+    <app-localstorage-document 
+      key="jwtToken" 
+      data="{{jwtToken}}">
+    </app-localstorage-document>
     
-    <dl-profile hidden$="{{_hideProfile}}" dmc-student="{{dmcStudent}}"></dl-profile>
-    <sdq-form-history  hidden$="{{_hideProfile}}" dmc-student="{{dmcStudent}}" on-select="__selectForm"></sdq-form-history>                
-    <sdq-form-choice hidden$="{{hideSdqForm}}" value="{{document.value.sdqChoice}}"></sdq-form-choice>
-      
-  </template>
+    <app-leveldb
+      name="test"
+      url="https://maas.nuqlis.com:9000/api"
+      db-name="students_care"
+      app="{{app}}"
+      jwt-token="{{jwtToken.token}}">
+    </app-leveldb>
+    
+    <app-leveldb-document id="doc"
+      app="{{app}}"
+      key="{{docId}}"
+      status="{{status}}"
+      value="{{docValue}}">
+    </app-leveldb-document>   
+    
+    <dl-profile 
+      hidden$="{{_hideProfile}}" 
+      dmc-student="{{dmcStudent}}">
+    </dl-profile>
 
+    <sdq-form-history  
+      hidden$="{{_hideHistory}}" 
+      dmc-student="{{dmcStudent}}" 
+      on-select="__selectForm">
+    </sdq-form-history> 
+    
+    <sdq-form-choice 
+      hidden$="{{hideSdqForm}}" 
+      value="{{sdqChoice}}">
+    </sdq-form-choice>
+    
+    <paper-button hidden$="{{_hideNewFormBT}}" on-click="__newForm">ประเมินใหม่</paper-button> 
+    <paper-button hidden$="{{_hideSaveBT}}" raised on-click="__completed">บันทึก</paper-button>
+    
+  </template>
   <script>
     Polymer({
       is: 'dl2-form',
@@ -39,37 +72,63 @@ Polymer Component for StudentCare project
         Polymer.AppLocalizeBehavior
       ],
       properties: {
-        hideSdqForm: {
+        _hideProfile: {
           type:Boolean,
           value:true
         },
-        _hideProfile: {
+        _hideHistory: {
           type:Boolean,
-          value:false
-        },        
-        document : {
-          type:Object,
-          notify:true
+          value:true
+        },
+        _hideNewFormBT: {
+          type:Boolean,
+          value:true
+        },
+        _hideSaveBT: {
+          type:Boolean,
+          value:true
         },
         dmcStudent: {
           type:Object,
           observer:'_studentChanged'
-        }        
+        },
+        hideSdqForm:{
+          type:Boolean,
+          value:true
+        },
+        docValue:{
+          type:Object,
+          notify:true,
+          computed:'__DocValue(sdqChoice,dmcStudent)'
+        }
       },
       _studentChanged:function() {
-        console.log('changed');
-        this.set('hideSdqForm',true);
-        this.set('document',{});
         if(this.dmcStudent) {
           this.set('_hideProfile',false);
+          this.set('_hideNewFormBT',false);
+          this.set('_hideHistory',false);
+          this.set('hideSdqForm',true);
+          this.set('_hideSaveBT',true);
         }
       },
       __selectForm:function(e) {                
-        this.set('document',e.detail);
         console.log('_selectForm');
-        if(e.detail.value.sdqChoice) {
-          this.set('hideSdqForm',false);
-        }
+      },
+      __newForm:function(e){      
+        this.set('_hideProfile',false);
+        this.set('hideSdqForm',false);
+        this.set('_hideHistory',true); 
+        this.set('_hideNewFormBT',true);
+        this.set('_hideSaveBT',false); 
+      },
+      __completed:function(e) {
+        var obj = {'student':this.dmcStudent,'sdqChoice':this.sdqChoice};
+        this.$.doc.save();
+        this.fire('dl2-completed',obj);
+      },
+      __DocValue:function(sdqChoice,dmcStudent) {
+        var date = new Date();
+        return {'cid':dmcStudent.IDNO,'updateTime':date.getTime(),'year':date.getFullYear(),'sdqChoice':sdqChoice};
       }
     });
   </script>

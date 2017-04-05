@@ -1,0 +1,73 @@
+<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="../../paper-listbox/paper-listbox.html">
+<link rel="import" href="../../paper-item/paper-item.html">
+<link rel="import" href="../../paper-styles/color.html">
+<link rel="import" href="dl-profile.html">
+<link rel="import" href="../dl2-form.html">
+
+<link rel="import" href="../../neon-animation/neon-animated-pages.html">
+    <link rel="import" href="../../neon-animation/neon-animatable.html">
+    <link rel="import" href="../../neon-animation/neon-animations.html">
+
+<dom-module id="form-list">
+  <template>
+    <style include="iron-flex iron-flex-alignment">
+      :host {
+        overflow: hidden;
+        @apply(--layout-vertical);
+      }
+
+      neon-animated-pages {
+        @apply(--layout-flex);
+        overflow:auto;
+      }
+
+    </style>
+
+    <div class="layout vertical">
+      <paper-listbox on-iron-select="_select">
+        <paper-item>{{localize('dl2_form_label')}}</paper-item>
+        <paper-item>{{localize('dl2_form_label')}}</paper-item>
+      </paper-listbox>
+    </div>
+
+    <neon-animated-pages id="pages" selected="[[selected]]" 
+      entry-animation="[[entryAnimation]]" 
+      exit-animation="[[exitAnimation]]">
+      <dl-profile dmc-student="{{dmcStudent.value}}"></dl-profile>
+      <dl2-form dmc-student="{{dmcStudent.value}}"></dl2-form>
+    </neon-animated-pages>
+
+  </template>
+
+  <script>
+    Polymer({
+      is: 'form-list',
+      behaviors: [
+          Polymer.AppLocalizeBehavior
+      ],
+      properties: {
+        language: {
+          value:'th'
+        },
+        selected: {
+          type:Number,
+          value:0
+        },
+        dmcStudent: {
+          type: Object
+        }
+      },
+      attached:function() {
+        this.loadResources(this.resolveUrl('../locales.json'));
+      },
+      _select: function() {
+        this.entryAnimation = 'scale-up-animation';
+        this.exitAnimation = 'scale-down-animation';
+        this.selected = this.selected === 1 ? 0 : (this.selected + 1);
+      }
+    });
+  </script>
+</dom-module>

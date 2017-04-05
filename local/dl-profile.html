@@ -3,6 +3,7 @@
 <link rel="import" href="../../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../../app-localize-behavior/app-localize-behavior.html">
 
+
 <!--
 `dl-profile`
 Polymer Component for StudentCare project
@@ -15,11 +16,15 @@ Polymer Component for StudentCare project
     <style include="iron-flex iron-flex-alignment">
       :host {
         @apply(--layout-vertical);
-        display: block;
+        display:block;
       }
     </style>
-
     <div class="layout horizontal">
+    
+    <paper-input label="{{localize('title')}}" readonly
+      value="{{dmcStudent.TITLE}}">
+     </paper-input>
+     
      <paper-input label="{{localize('first_name')}}" readonly
       value="{{dmcStudent.NAME}}">
      </paper-input>
@@ -47,7 +52,7 @@ Polymer Component for StudentCare project
     Polymer({
       is: 'dl-profile',
       behaviors: [
-          Polymer.AppLocalizeBehavior
+        Polymer.AppLocalizeBehavior,
       ],
       properties: {
         language: {
