@@ -27,8 +27,10 @@
       <sdq-radio label="ค่อนข้างจริง" value="m" disabled></sdq-radio>
       <sdq-radio label="ไม่จริง" value="n" disabled></sdq-radio>
      </div>
+     <br>
      <template is="dom-repeat" items="{{value}}">
       <sdq-radio label="{{_label(item,forChild)}}"
+        on-change="_radioChanged"
         value="{{item.value}}">
       </sdq-radio>
      </template>
@@ -45,6 +47,7 @@
         },
         value: {
           type: Array,
+          notify:true,
           value: function() {
             return [
               { 'group':5,
@@ -67,7 +70,7 @@
                 'label':'ค่อนข้างแยกตัวชอบเล่นคนเดียว'}, 
               { 'group':2,
                 'label_child':'ฉันมักทำตามที่คนอื่นบอก',
-                'label':'เช่ือฟัง มัก จะทำตามที่ผู้ใหญ่ต้องการ'}, 
+                'label':'เชื่อฟัง มัก จะทำตามที่ผู้ใหญ่ต้องการ'}, 
               { 'group':1,
                 'label_child':'ฉันขี้กังวล',
                 'label':'กังวลใจหลายเรื่อง ดูกังวลเสมอ'}, 
@@ -125,7 +128,7 @@
             ]
           }
         },
-      },
+      },     
       _label:function(item,child) {
         if(child) {
           return item.label_child;
@@ -134,6 +137,12 @@
       },
       _plusone:function(value) {
         return value+1;
+      },
+      _radioChanged:function(e) {
+        var tmp = this.value;
+        this.set('value',[]);
+        this.set('value',tmp);
+        this.fire('update',{});
       }
     });
   </script>

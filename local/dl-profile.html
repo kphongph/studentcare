@@ -3,11 +3,12 @@
 <link rel="import" href="../../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../../app-localize-behavior/app-localize-behavior.html">
 
+
 <!--
 `dl-profile`
 Polymer Component for StudentCare project
 
-@demo demo/dl-profile.html 
+@demo demo/dl-profile.html
 -->
 
 <dom-module id="dl-profile">
@@ -15,9 +16,10 @@ Polymer Component for StudentCare project
     <style include="iron-flex iron-flex-alignment">
       :host {
         @apply(--layout-vertical);
-        display: block;
+        display:block;
       }
     </style>
+    <span>Profile</span>
 
     <div class="layout horizontal">
      <paper-input label="{{localize('first_name')}}" readonly
@@ -35,21 +37,19 @@ Polymer Component for StudentCare project
      <paper-input label="{{localize('studentid')}}" readonly
        value="{{dmcStudent.STUDENTNO}}">
      </paper-input>
-    </div>
 
-    <div class="layout horizontal">
      <paper-input label="{{localize('birthdate_label')}}" readonly
        value="{{dmcStudent.BIRTHDATE}}">
      </paper-input>
     </div>
-    
+
   </template>
 
   <script>
     Polymer({
       is: 'dl-profile',
       behaviors: [
-          Polymer.AppLocalizeBehavior
+        Polymer.AppLocalizeBehavior,
       ],
       properties: {
         language: {
@@ -64,11 +64,13 @@ Polymer Component for StudentCare project
       },
       _gradeLevel: function(level,room) {
         var level_int = parseInt(level);
-        if(level_int <= 6) {
+        if(level_int > 10) {
+          return this.localize('secondary_level')+' '+level_int+'/'+room;
+        }else if(level_int > 3 && level_int < 10) {
           return this.localize('elementary_level')+' '+level_int+'/'+room;
         } else {
-          level_int-=6;
-          return this.localize('secondary_level')+' '+level_int+'/'+room;
+          level_int-=3;
+          return this.localize('pre_elementary_level')+' '+level_int+'/'+room;
         }
       }
     });
