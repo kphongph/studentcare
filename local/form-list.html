@@ -3,6 +3,8 @@
 <link rel="import" href="../../app-localize-behavior/app-localize-behavior.html">
 <link rel="import" href="../../paper-listbox/paper-listbox.html">
 <link rel="import" href="../../paper-item/paper-item.html">
+<link rel="import" href="../../paper-dialog/paper-dialog.html">
+<link rel="import" href="../../paper-button/paper-button.html">
 <link rel="import" href="../../paper-styles/color.html">
 <link rel="import" href="../../iron-selector/iron-selector.html">
 <link rel="import" href="dl-profile.html">
@@ -30,15 +32,29 @@
     <dl-profile dmc-student="{{dmcStudent.value}}"></dl-profile>
 
     <iron-selector on-iron-select="_select" selected="{{selected}}">
-     <form-card label="dl2_form_label" dmc-student="{{dmcStudent}}">
+     <form-card label="dl2_form_label" onclick="dialog.open()" dmc-student="{{dmcStudent}}">
      </form-card>
     </iron-selector>
 
+    <paper-dialog id="dialog">
+     <h2>{{localize("dl2_form_label")}}</h2>
+     <paper-dialog-scrollable>
+    Lorem ipsum...
+  </paper-dialog-scrollable>
+  <div class="buttons">
+    <paper-button dialog-dismiss>Cancel</paper-button>
+    <paper-button dialog-confirm autofocus>Save</paper-button>
+  </div>
+</paper-dialog>
+
+
+   <!--
     <neon-animated-pages id="pages" selected="{{selected}}"
       entry-animation="[[entryAnimation]]" 
       exit-animation="[[exitAnimation]]">
       <dl2-form dmc-student="{{dmcStudent.value}}"></dl2-form>
     </neon-animated-pages>
+   -->
 
   </template>
 
