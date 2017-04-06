@@ -95,6 +95,8 @@
         if(data.length == 1) {
           if(data[0].key[1] == this.dmcStudent.value.IDNO) {
             this._setExists(true);
+          } else {
+            this._setExists(false);
           }
         } else {
           this._setExists(false);
