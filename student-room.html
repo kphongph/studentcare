@@ -43,10 +43,10 @@ Polymer Component for StudentCare project
     </studentcare-db>
 
     <div>
-    <iron-selector id="studentSelector"
-      on-iron-select="_studentSelected" selected-item="{{selectedStudent}}">
+    <iron-selector id="studentSelector" on-iron-select="_studentSelected">
       <template is="dom-repeat" items="{{students}}">
-        <obecstudent-card name="{{item.key}}" doc="{{item}}"></obecstudent-card>
+        <obecstudent-card name="{{item.key}}" doc="{{item}}">
+        </obecstudent-card>
       </template>
     </iron-selector>
     </div>
@@ -85,7 +85,7 @@ Polymer Component for StudentCare project
       },
       __computeStudents:function(level,room,isReady) {
         if(!isReady) return [];
-        console.log(level,room,isReady);
+        //console.log(level,room,isReady);
         this.$.studentSelector.selectIndex(-1);
         if(level && room) {
          this.$.leveldb.db.index
@@ -103,7 +103,7 @@ Polymer Component for StudentCare project
       },
       _studentSelected:function(e) {
         this.set('selectedStudent',e.detail.item.doc);
-        this.fire('select',{'student':e.detail.item.doc});
+      //  this.fire('select',{'student':e.detail.item.doc});
       }
     });
   </script>

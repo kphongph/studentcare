@@ -6,7 +6,6 @@
 <!--
 `obecstudent-card`
 Polymer Component for StudentCare project
-
 -->
 
 <dom-module id="obecstudent-card">
@@ -17,17 +16,15 @@ Polymer Component for StudentCare project
         cursor: pointer; 
         cursor: hand; 
       }
-
       div {
         @apply(--paper-font-subhead);
         padding:5px;
       }
-      
     </style>
    
     <div class="layout horizontal">
       <div>{{doc.value.IDNO}}</div>
-      <div class="flex">
+      <div class="flex">        
         <span>{{localize(doc.value.TITLE)}}</span>
         <span>{{doc.value.NAME}}</span>
         <span>{{doc.value.LNAME}}</span>

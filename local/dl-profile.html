@@ -19,9 +19,12 @@ Polymer Component for StudentCare project
         display:block;
       }
     </style>
-    <span>Profile</span>
-
     <div class="layout horizontal">
+    
+    <paper-input label="{{localize('title')}}" readonly
+      value="{{dmcStudent.TITLE}}">
+     </paper-input>
+     
      <paper-input label="{{localize('first_name')}}" readonly
       value="{{dmcStudent.NAME}}">
      </paper-input>

@@ -4,12 +4,14 @@
 <link rel="import" href="../../paper-listbox/paper-listbox.html">
 <link rel="import" href="../../paper-item/paper-item.html">
 <link rel="import" href="../../paper-styles/color.html">
+<link rel="import" href="../../iron-selector/iron-selector.html">
 <link rel="import" href="dl-profile.html">
 <link rel="import" href="../dl2-form.html">
+<link rel="import" href="form-card.html">
 
 <link rel="import" href="../../neon-animation/neon-animated-pages.html">
-    <link rel="import" href="../../neon-animation/neon-animatable.html">
-    <link rel="import" href="../../neon-animation/neon-animations.html">
+<link rel="import" href="../../neon-animation/neon-animatable.html">
+<link rel="import" href="../../neon-animation/neon-animations.html">
 
 <dom-module id="form-list">
   <template>
@@ -25,18 +27,16 @@
       }
 
     </style>
+    <dl-profile dmc-student="{{dmcStudent.value}}"></dl-profile>
 
-    <div class="layout vertical">
-      <paper-listbox on-iron-select="_select">
-        <paper-item>{{localize('dl2_form_label')}}</paper-item>
-        <paper-item>{{localize('dl2_form_label')}}</paper-item>
-      </paper-listbox>
-    </div>
+    <iron-selector on-iron-select="_select" selected="{{selected}}">
+     <form-card label="dl2_form_label" dmc-student="{{dmcStudent}}">
+     </form-card>
+    </iron-selector>
 
-    <neon-animated-pages id="pages" selected="[[selected]]" 
+    <neon-animated-pages id="pages" selected="{{selected}}"
       entry-animation="[[entryAnimation]]" 
       exit-animation="[[exitAnimation]]">
-      <dl-profile dmc-student="{{dmcStudent.value}}"></dl-profile>
       <dl2-form dmc-student="{{dmcStudent.value}}"></dl2-form>
     </neon-animated-pages>
 
@@ -54,19 +54,23 @@
         },
         selected: {
           type:Number,
-          value:0
         },
         dmcStudent: {
-          type: Object
+          type: Object,
+          observer:'_studentChanged'
         }
       },
       attached:function() {
         this.loadResources(this.resolveUrl('../locales.json'));
       },
+      _studentChanged:function(student) {
+        if(student.value.IDNO) {
+          this.set('selected',-1);
+        }
+      },
       _select: function() {
-        this.entryAnimation = 'scale-up-animation';
-        this.exitAnimation = 'scale-down-animation';
-        this.selected = this.selected === 1 ? 0 : (this.selected + 1);
+        //this.entryAnimation = 'scale-up-animation';
+        //this.exitAnimation = 'scale-down-animation';
       }
     });
   </script>
