@@ -41,6 +41,7 @@
     <br>
     <template is="dom-repeat" items="{{value}}">
       <sdq-radio label="{{_label(item,forChild)}}"
+        required
         on-change="_radioChanged"
         value="{{item.value}}">
       </sdq-radio>
