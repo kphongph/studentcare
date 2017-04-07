@@ -2,8 +2,11 @@
 <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../iron-selector/iron-selector.html">
 <link rel="import" href="../paper-progress/paper-progress.html">
+<link rel="import" href="../iron-resizable-behavior/iron-resizable-behavior.html">
+
 <link rel="import" href="./local/obecstudent-card.html">
 <link rel="import" href="studentcare-db.html">
+
 
 <!--
 `studentcare-components`
@@ -43,10 +46,11 @@ Polymer Component for StudentCare project
     </studentcare-db>
 
     <div>
-    <iron-selector id="studentSelector"
-      on-iron-select="_studentSelected" selected-item="{{selectedStudent}}">
+    <iron-selector id="studentSelector" on-iron-select="_studentSelected">
       <template is="dom-repeat" items="{{students}}">
-        <obecstudent-card name="{{item.key}}" doc="{{item}}"></obecstudent-card>
+        <obecstudent-card name="{{item.key}}" doc="{{item}}" 
+          minimize="{{minimize}}">
+        </obecstudent-card>
       </template>
     </iron-selector>
     </div>
@@ -56,11 +60,18 @@ Polymer Component for StudentCare project
   <script>
     Polymer({
       is: 'student-room',
+      behaviors: [
+        Polymer.IronResizableBehavior
+      ],
       properties: {
         host:String,
         selectedStudent: {
           type:Object,
           notify:true
+        },
+        minimize: {
+          type:Boolean,
+          readOnly:true
         },
         level:{
           type:String
@@ -74,6 +85,16 @@ Polymer Component for StudentCare project
         },
         jwtToken:{
           type:String
+        }
+      },
+      listeners: {
+        'iron-resize':'_onIronResize'
+      },
+      _onIronResize:function() {
+        if(this.offsetWidth < 500) {
+          this._setMinimize(true);
+        } else {
+          this._setMinimize(false);
         }
       },
       _nextHost:function(host) {
@@ -103,7 +124,7 @@ Polymer Component for StudentCare project
       },
       _studentSelected:function(e) {
         this.set('selectedStudent',e.detail.item.doc);
-        this.fire('select',{'student':e.detail.item.doc});
+      //  this.fire('select',{'student':e.detail.item.doc});
       }
     });
   </script>

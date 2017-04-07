@@ -29,9 +29,6 @@ Polymer Component for StudentCare project
         <span>{{doc.value.NAME}}</span>
         <span>{{doc.value.LNAME}}</span>
       </div>
-      <div hidden$="{{!selected}}">
-        Action
-      </div>
     </div>
   </template>
 
@@ -44,6 +41,9 @@ Polymer Component for StudentCare project
       properties: {
         language: {
           value:'dist_title'
+        },
+        minimize:{
+          type:Boolean
         },
         doc:Object,
         selected:{

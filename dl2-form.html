@@ -4,11 +4,10 @@
 <link rel="import" href="../paper-stepper/paper-step.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../app-localize-behavior/app-localize-behavior.html">
-<link rel="import" href="./local/dl-profile.html">
-<link rel="import" href="./sdq-form-choice.html">
-<link rel="import" href="./sdq-form-history.html">
+
 <link rel="import" href="../app-leveldb/app-leveldb.html">
 <link rel="import" href="../app-leveldb/app-leveldb-document.html">
+<link rel="import" href="./sdq-form-choice.html">
 
 <!--
 `dl2-form`
@@ -18,51 +17,54 @@ Polymer Component for StudentCare project
 <dom-module id="dl2-form">
   <template>
     <style include="iron-flex iron-flex-alignment">
-      #visualResponsiveWidth {
-        width: 500px;
-        max-width: 100%;
-        height: 4px;
-        background: var(--primary-color);
+      #responsiveStepper {
+        --paper-stepper-horizontal;
       }
-    </style>  
-    <app-localstorage-document 
-      key="jwtToken" 
-      data="{{jwtToken}}">
-    </app-localstorage-document>
+      @media (min-width:320px)  {
+        #responsiveStepper {
+          --paper-stepper-vertical-responsive-width: 320px;
+        }
+      }
+    </style>      
     
     <app-leveldb
       name="test"
       url="https://maas.nuqlis.com:9000/api"
       db-name="students_care"
       app="{{app}}"
-      jwt-token="{{jwtToken.token}}">
+      jwt-token="{{jwtToken}}">
     </app-leveldb>
+    
+    <app-leveldb-query
+      app="{{app}}"
+      view-name="cid_year_type"
+      query="{{_query}}"
+      data="{{_data}}">
+    </app-leveldb-query>
     
     <app-leveldb-document id="doc"
       app="{{app}}"
       key="{{docId}}"
       status="{{status}}"
       value="{{docValue}}">
-    </app-leveldb-document>   
-    
-    <dl-profile 
-      hidden$="{{_hideProfile}}" 
-      dmc-student="{{dmcStudent}}">
-    </dl-profile>
+    </app-leveldb-document>    
 
-    <sdq-form-history  
-      hidden$="{{_hideHistory}}" 
-      dmc-student="{{dmcStudent}}" 
-      on-select="__selectForm">
-    </sdq-form-history> 
-    
-    <sdq-form-choice 
-      hidden$="{{hideSdqForm}}" 
-      value="{{sdqChoice}}">
-    </sdq-form-choice>
-    
-    <paper-button hidden$="{{_hideNewFormBT}}" on-click="__newForm">ประเมินใหม่</paper-button> 
-    <paper-button hidden$="{{_hideSaveBT}}" raised on-click="__completed">บันทึก</paper-button>
+    <paper-stepper id="responsiveStepper">
+      <paper-step label="หน้า 1">
+        <sdq-form-choice id="formChioceId"
+          form-type="{{formType}}"
+          value="{{sdqChoice}}">
+        </sdq-form-choice>      
+      </paper-step>
+      <paper-step label="หน้า 2">
+        <sdq-form-teacher></sdq-form-teacher>      
+      </paper-step>
+    </paper-stepper>
+
+    <!--
+    <paper-button raised on-click="_completed">บันทึก</paper-button>
+    <paper-button raised on-click="_newForm">ประเมินใหม่</paper-button>
+    -->
     
   </template>
   <script>
@@ -72,63 +74,61 @@ Polymer Component for StudentCare project
         Polymer.AppLocalizeBehavior
       ],
       properties: {
-        _hideProfile: {
-          type:Boolean,
-          value:true
-        },
-        _hideHistory: {
-          type:Boolean,
-          value:true
-        },
-        _hideNewFormBT: {
-          type:Boolean,
-          value:true
-        },
-        _hideSaveBT: {
-          type:Boolean,
-          value:true
-        },
         dmcStudent: {
           type:Object,
           observer:'_studentChanged'
         },
-        hideSdqForm:{
-          type:Boolean,
-          value:true
+        _data:{
+          type:Object,
+          observer:'_haveHistory'
         },
         docValue:{
           type:Object,
           notify:true,
-          computed:'__DocValue(sdqChoice,dmcStudent)'
+          computed:'_DocValue(sdqChoice,dmcStudent)'
         }
       },
-      _studentChanged:function() {
-        if(this.dmcStudent) {
-          this.set('_hideProfile',false);
-          this.set('_hideNewFormBT',false);
-          this.set('_hideHistory',false);
-          this.set('hideSdqForm',true);
-          this.set('_hideSaveBT',true);
+      _studentChanged : function(n,o){ 
+        console.log(n.IDNO);
+        if (n){
+          var query = {
+            'start': [n.IDNO,2017,'dl2form_teacher'],
+            'end': [n.IDNO,2017,'dl2form_teacherxFF'],
+            "limit":-1,
+            'include_doc': true
+          };
+        this.set('_query',query);       
+        }else{
+          this.set('_query',{});
+          this.set('_data',{});
+          this.$.formChioceId.render();
         }
       },
-      __selectForm:function(e) {                
-        console.log('_selectForm');
+      _haveHistory : function(n){
+        if (n.length > 0){
+          this.set('sdqChoice',n[0].value.doc.sdqChoice);                
+        }else{
+          if(this.sdqChoice){
+            var tmpSdqChioce = this.sdqChoice;
+            for(var i=0;i<tmpSdqChioce.length;i++){                            
+              delete tmpSdqChioce[i].value;
+            }
+            console.log(JSON.stringify(tmpSdqChioce));
+            this.set('sdqChoice',tmpSdqChioce);
+          }   
+        }         
       },
-      __newForm:function(e){      
-        this.set('_hideProfile',false);
-        this.set('hideSdqForm',false);
-        this.set('_hideHistory',true); 
-        this.set('_hideNewFormBT',true);
-        this.set('_hideSaveBT',false); 
+      _newForm : function(n){
+      
       },
-      __completed:function(e) {
+      _completed:function(e) {
         var obj = {'student':this.dmcStudent,'sdqChoice':this.sdqChoice};
         this.$.doc.save();
         this.fire('dl2-completed',obj);
       },
-      __DocValue:function(sdqChoice,dmcStudent) {
+      _DocValue:function(sdqChoice,dmcStudent) {
         var date = new Date();
-        return {'cid':dmcStudent.IDNO,'updateTime':date.getTime(),'year':date.getFullYear(),'sdqChoice':sdqChoice};
+        return {'cid':dmcStudent.IDNO,'updateTime':date.getTime(),'year':date.getFullYear(),'form_type':'dl2form_teacher','sdqChoice':sdqChoice,'teacherChioce':''};
       }
     });
   </script>
