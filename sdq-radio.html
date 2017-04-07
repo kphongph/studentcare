@@ -112,7 +112,11 @@
         if(this.value == 'y' || this.value == 'm') { 
           this.type='check';
         } else {
-          this.type='clear';
+          if(this.value) {
+            this.type='clear';
+          } else {
+            this.type='';
+          }
         }
       },
       _labelValue:function(value) {

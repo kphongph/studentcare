@@ -105,17 +105,16 @@ Polymer Component for StudentCare project
         }
       },
       _haveHistory : function(n){
+        console.log(n);
         if (n.length > 0){
           this.set('sdqChoice',n[0].value.doc.sdqChoice);                
         }else{
           if(this.sdqChoice){
-            var tmpSdqChioce = this.sdqChoice;
-            for(var i=0;i<tmpSdqChioce.length;i++){                            
-              delete tmpSdqChioce[i].value;
-            }
-            console.log(JSON.stringify(tmpSdqChioce));
-            this.set('sdqChoice',tmpSdqChioce);
-          }   
+            var self = this;
+            this.sdqChoice.forEach(function(item,idx) {
+              self.set('sdqChoice.'+idx+'.value',null);
+            });
+          }
         }         
       },
       _newForm : function(n){
