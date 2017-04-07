@@ -65,8 +65,8 @@ Polymer Component for StudentCare project
       horizontal-higher-exit-animation="scale-down-animation" 
       horizontal-lower-exit-animation="scale-down-animation"
       id="responsiveStepper">
-      <paper-step label="หน้า 1">
-        <sdq-form-choice id="formChioceId"
+      <paper-step id="formChoice" label="หน้า 1">
+        <sdq-form-choice id="formChoiceId"
           form-type="{{formType}}"
           value="{{sdqChoice}}">
         </sdq-form-choice>      
@@ -103,6 +103,13 @@ Polymer Component for StudentCare project
           computed:'_DocValue(sdqChoice,dmcStudent)'
         }
       },
+      ready:function() {
+        var step1 = this.$.formChoice;
+        var self = this;
+        step1._getValidity = function() {
+          return self.$.formChoiceId.validate();
+        }
+      },
       _studentChanged : function(n,o){ 
         console.log(n.IDNO);
         if (n){
@@ -131,9 +138,6 @@ Polymer Component for StudentCare project
             });
           }
         }         
-      },
-      _newForm : function(n){
-      
       },
       _completed:function(e) {
         var obj = {'student':this.dmcStudent,'sdqChoice':this.sdqChoice};

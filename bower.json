@@ -18,7 +18,8 @@
     "paper-dialog": "PolymerElements/paper-dialog#^1.1.0",
     "paper-tabs": "^1.8.0",
     "iron-pages": "^1.0.8",
-    "iron-validator-behavior": "PolymerElements/iron-validator-behavior#^1.0.1"
+    "iron-validator-behavior": "PolymerElements/iron-validator-behavior#^1.0.1",
+    "iron-validatable-behavior": "PolymerElements/iron-validatable-behavior#^1.1.1"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
