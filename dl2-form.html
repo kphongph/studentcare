@@ -33,7 +33,7 @@ Polymer Component for StudentCare project
           --paper-stepper-horizontal;
           --paper-stepper-horizontal-opened-height: 1000px;
         }
-        #toastsave {
+        #toastsave{
           --paper-toast-background-color: green;
           --paper-toast-color: white;
             bottom: 0;
@@ -68,14 +68,15 @@ Polymer Component for StudentCare project
       status="{{status}}"
       value="{{_docValue}}">
     </app-leveldb-document>    
-
+    
+    <paper-button raised on-click="test">test</paper-button>
     <paper-stepper id="responsiveStepper"       
       on-paper-stepper-completed="_completed"
       horizontal-higher-entry-animation="scale-up-animation"        
       horizontal-lower-entry-animation="scale-up-animation"       
       horizontal-higher-exit-animation="scale-down-animation" 
       horizontal-lower-exit-animation="scale-down-animation">
-      <paper-step id="formChoice" label="หน้า 1"  editable on-paper-step-updated="_completed">
+      <paper-step id="formChoice" label="หน้า 1"  editable>
         <sdq-form-choice id="formChoiceId"
           form-type="{{_formTitle}}"
           value="{{sdqChoice}}">
@@ -110,6 +111,9 @@ Polymer Component for StudentCare project
           type:Object,
           notify:true,
           computed:'_computedDocValue(sdqChoice,dmcStudent)'
+        },
+        _docId:{
+          type:String
         }
       },
       ready:function() {
@@ -118,6 +122,11 @@ Polymer Component for StudentCare project
         step1._getValidity = function() {
           return self.$.formChoiceId.validate();
         }
+      },
+      test:function() {
+          this.$.toastsave.customStyle['--paper-toast-background-color'] = 'red';
+          this.$.toastsave.updateStyles();
+          this.$.toastsave.show('กรุณาเลือกนักเรียนก่อน');
       },
       _studentChanged : function(n,o){
         if (n){
@@ -132,36 +141,48 @@ Polymer Component for StudentCare project
         }else{
           this.set('_query',{});
           this.set('_data',{});
-          this.$.formChioceId.render();          
+          this.$.formChoiceId.render();          
         }
       },
       _haveHistory : function(n){
         if (n.length > 0){
+          this.set('_docId',n[0].value.key);
           this.set('sdqChoice',n[0].value.doc.sdqChoice);
         }else{
+          this.set('_docId',null);
           if(this.sdqChoice){
-            var self = this;
-            this.sdqChoice.forEach(function(item,idx) {
+            var self = this;            
+            this.sdqChoice.forEach(function(item,idx) {              
               self.set('sdqChoice.'+idx+'.value',null);
             });
           }
         }
       },
       _completed:function(e) {
-        console.log(this.dmcStudent);
-        var date = new Date();
-        var objSave = {
-          'cid':this.dmcStudent.IDNO,
-          'updateTime':date.getTime(),
-          'year':date.getFullYear(),
-          'form_type':this.formType,
-          'form_type_desc':this._formTitle,
-          'sdqChoice':this.sdqChoice,
-          'teacherChioce':''
-        };
-        this.$.doc.save();
-        this.$.toastsave.show('บันทึกสำเร็จ');
-        this.fire('dl2-completed',objSave);
+        if(this.dmcStudent){
+          var date = new Date();
+          var objSave = {
+            'cid':this.dmcStudent.IDNO,
+            'updateTime':date.getTime(),
+            'year':date.getFullYear(),
+            'form_type':this.formType,
+            'form_type_desc':this._formTitle,
+            'sdqChoice':this.sdqChoice,
+            'teacherChioce':''
+          };
+          console.log(this._docId);
+          this.$.doc.save();
+          this.$.responsiveStepper.reset();
+          this.$.toastsave.customStyle['--paper-toast-background-color'] = 'green';
+          this.$.toastsave.updateStyles();
+          this.$.toastsave.show('บันทึกสำเร็จ');
+          this.fire('dl2-completed',objSave);      
+        }else{
+          this.$.responsiveStepper.reset();
+          this.$.toastsave.customStyle['--paper-toast-background-color'] = 'red';
+          this.$.toastsave.updateStyles();
+          this.$.toastsave.show('กรุณาเลือกนักเรียนก่อน');
+        }        
       },
       _computedDocValue:function(sdqChoice,dmcStudent) {
         var date = new Date();
