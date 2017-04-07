@@ -1,19 +1,15 @@
 <link rel="import" href="../../polymer/polymer.html">
 <link rel="import" href="../../iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../iron-pages/iron-pages.html">
 <link rel="import" href="../../app-localize-behavior/app-localize-behavior.html">
 <link rel="import" href="../../paper-listbox/paper-listbox.html">
 <link rel="import" href="../../paper-item/paper-item.html">
 <link rel="import" href="../../paper-dialog/paper-dialog.html">
 <link rel="import" href="../../paper-button/paper-button.html">
 <link rel="import" href="../../paper-styles/color.html">
-<link rel="import" href="../../iron-selector/iron-selector.html">
 <link rel="import" href="dl-profile.html">
 <link rel="import" href="../dl2-form.html">
 <link rel="import" href="form-card.html">
-
-<link rel="import" href="../../neon-animation/neon-animated-pages.html">
-<link rel="import" href="../../neon-animation/neon-animatable.html">
-<link rel="import" href="../../neon-animation/neon-animations.html">
 
 <dom-module id="form-list">
   <template>
@@ -23,38 +19,19 @@
         @apply(--layout-vertical);
       }
 
-      neon-animated-pages {
-        @apply(--layout-flex);
-        overflow:auto;
-      }
-
     </style>
     <dl-profile dmc-student="{{dmcStudent.value}}"></dl-profile>
 
-    <iron-selector on-iron-select="_select" selected="{{selected}}">
-     <form-card label="dl2_form_label" onclick="dialog.open()" dmc-student="{{dmcStudent}}">
+
+    <iron-selector selected="{{page}}">
+     <form-card label="dl2_form_label"
+       dmc-student="{{dmcStudent}}">
      </form-card>
     </iron-selector>
 
-    <paper-dialog id="dialog">
-     <h2>{{localize("dl2_form_label")}}</h2>
-     <paper-dialog-scrollable>
-    Lorem ipsum...
-  </paper-dialog-scrollable>
-  <div class="buttons">
-    <paper-button dialog-dismiss>Cancel</paper-button>
-    <paper-button dialog-confirm autofocus>Save</paper-button>
-  </div>
-</paper-dialog>
-
-
-   <!--
-    <neon-animated-pages id="pages" selected="{{selected}}"
-      entry-animation="[[entryAnimation]]" 
-      exit-animation="[[exitAnimation]]">
+    <iron-pages selected="{{page}}">
       <dl2-form dmc-student="{{dmcStudent.value}}"></dl2-form>
-    </neon-animated-pages>
-   -->
+    </iron-pages>
 
   </template>
 
@@ -71,6 +48,11 @@
         selected: {
           type:Number,
         },
+        page:{
+          type:Number,
+          value:-1,
+          observer:'_pageChanged'
+        },
         dmcStudent: {
           type: Object,
           observer:'_studentChanged'
@@ -81,12 +63,15 @@
       },
       _studentChanged:function(student) {
         if(student.value.IDNO) {
-          this.set('selected',-1);
+          this.set('page',-1);
         }
       },
       _select: function() {
         //this.entryAnimation = 'scale-up-animation';
         //this.exitAnimation = 'scale-down-animation';
+      },
+      _pageChanged:function(n) {
+        console.log('page',n);
       }
     });
   </script>

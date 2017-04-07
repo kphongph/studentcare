@@ -2,6 +2,7 @@
 <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../iron-icon/iron-icon.html">
 <link rel="import" href="../iron-selector/iron-selector.html">
+<link rel="import" href="../iron-validatable-behavior/iron-validatable-behavior.html">
 <link rel="import" href="../paper-styles/typography.html">
 
 <dom-module id="sdq-radio">
@@ -15,8 +16,17 @@
       }
       iron-icon {
         margin:3px;
-        padding:3px;
+        padding:0px;
         background-color:white
+      }
+      iron-icon.y {
+        fill:green;
+      }
+      iron-icon.m {
+        fill:grey;
+      }
+      iron-icon.n {
+        fill:red;
       }
       span {
         margin:3px;
@@ -33,6 +43,9 @@
       }
       div.n {
         background-color:var(--paper-red-100);
+      }
+      .invalid {
+        border: 1px solid #ee0000;
       }
       
       @media (min-width:400px) {
@@ -71,12 +84,16 @@
       div.n {
         background-color:var(--paper-red-100);
       }
+      .invalid {
+        border: 1px solid #ee0000;
+      }
     }
       
     </style>
-    <div class$="{{value}} layout horizontal center">
+    <div id="main" class$="{{value}} layout horizontal center">
       <iron-icon icon="{{type}}" class$="{{value}}"></iron-icon>
       <span class="flex">{{label}}</span>
+      <span hidden$="{{!invalid}}">Require</span>
     </div>
   </template>
 
@@ -98,7 +115,27 @@
         disabled: {
           type:Boolean,
           value:false
+        },
+        required:{
+          type:Boolean,
+          value:false,
+          reflectToAttribute:true
         }
+      },
+      behaviors:[
+        Polymer.IronValidatableBehavior
+      ],
+      validate:function() {
+        if(this.required) {
+          this.invalid = this.value?false:true;
+          if(this.invalid) {
+            this.$.main.classList.add('invalid');
+            return false;
+          } else {
+            this.$.main.classList.remove('invalid');
+          }
+        }
+        return true;
       },
       regularTap:function(e) {
         if(!this.disabled) {
@@ -118,6 +155,7 @@
             this.type='';
           }
         }
+        this.validate();
       },
       _labelValue:function(value) {
         var dict = {'m':'ค่อนข้างจริง','y':'จริง','n':'ไม่จริง'};

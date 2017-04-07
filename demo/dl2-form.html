@@ -8,8 +8,7 @@
   <link rel="import" href="../../app-storage/app-localstorage/app-localstorage-document.html">
   <link rel="import" href="../../grid-element/grid-element.html">  
   <link rel="import" href="../student-room.html">
-  <link rel="import" href="../dl2-form.html">
-  <link rel="import" href="../sdq-form-teacher.html">
+  <link rel="import" href="../dl2-form.html">  
 </head>
 
 <body>  
@@ -19,7 +18,7 @@
       key="jwtToken" data="{{jwtToken}}">
     </app-localstorage-document>
 
-    <grid-element mq="(min-width: 600px)">
+    <grid-element mq="(min-width: 600px)">    
       <grid-col>
         <student-room 
           jwt-token="{{jwtToken.token}}" 
@@ -30,12 +29,12 @@
 
       <grid-col s="3">
         <dl2-form class="flex"
-          form-type = "แบบประเมินพฤติกรรมเด็ก (SDQ) ฉบับครูเป็นผู้ประเมินนักเรียน"
-          jwt-token="{{jwtToken.token}}"
+          form-type = "dl2form_teacher"
           dmc-student="{{student.value}}" >
         </dl2-form>
-      </grid-col>
-    </grid-element>                          
+      </grid-col>     
+    </grid-element>  
+
   </template>
 </body>
 </html>
