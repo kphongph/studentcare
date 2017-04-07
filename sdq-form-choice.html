@@ -7,21 +7,29 @@
 
 <dom-module id="sdq-form-choice">
   <template>
-    <style include="iron-flex iron-flex-alignment iron-flex-factors">
+  <style include="iron-flex iron-flex-alignment iron-flex-factors">
+    .paper-font-headline {
+      @apply(--paper-font-subhead);
+    }
+    
+    @media (min-width:400px) {
       :host {
         @apply(--paper-font-body1);
         display: block;
-        width:100%;
-        --paper-radio-group-item-padding:5px 12px 5px 12px;
-      }
-      .idx {
-        width:20px;
+        width: 100%;
+        --paper-radio-group-item-padding: 5px 12px 5px 12px;
       }
       sdq-radio {
-        padding:5px;
+        padding: 5px;
+      }    
+      .paper-font-headline {
+        @apply(--paper-font-headline);
       }
-    </style>
+    }
+
+  </style>
     <div class="layout vertical">
+     <span class="paper-font-headline">{{formType}}</span>
      <div class="layout horizontal">
       <sdq-radio label="จริง" value="y" disabled></sdq-radio>
       <sdq-radio label="ค่อนข้างจริง" value="m" disabled></sdq-radio>

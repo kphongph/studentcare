@@ -42,7 +42,7 @@ Polymer Component for StudentCare project
     
     <app-leveldb-query
       app="{{app}}"
-      view-name="cid_date"
+      view-name="cid_year_type"
       query="{{_query}}"
       data="{{_data}}">
     </app-leveldb-query>
@@ -161,7 +161,7 @@ Polymer Component for StudentCare project
       },
       __DocValue:function(sdqChoice,dmcStudent) {
         var date = new Date();
-        return {'cid':dmcStudent.IDNO,'updateTime':date.getTime(),'year':date.getFullYear(),'sdqChoice':sdqChoice};
+        return {'cid':dmcStudent.IDNO,'updateTime':date.getTime(),'year':date.getFullYear(),'form_type':'dl2form_teacher','sdqChoice':sdqChoice};
       }
     });
   </script>

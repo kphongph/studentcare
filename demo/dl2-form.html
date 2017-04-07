@@ -13,7 +13,7 @@
 </head>
 
 <body>  
-  <h3>dl2-form</h3>
+  <h3>dl2-form Demo</h3>
   <template is="dom-bind">
     <app-localstorage-document 
       key="jwtToken" data="{{jwtToken}}">
@@ -29,7 +29,9 @@
       </grid-col>
 
       <grid-col s="3">
-        <dl2-form class="flex" 
+        <dl2-form class="flex"
+          form-type = "แบบประเมินพฤติกรรมเด็ก (SDQ) ฉบับครูเป็นผู้ประเมินนักเรียน"
+          jwt-token="{{jwtToken.token}}"
           dmc-student="{{student.value}}" >
         </dl2-form>
       </grid-col>

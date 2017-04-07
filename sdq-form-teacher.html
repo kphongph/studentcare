@@ -20,10 +20,7 @@
     </style>
      <div class="layout vertical">
       <div>
-        <div class="question">
-          โดยรวมคุณคิดว่าเด็กมีปัญหาในด้านอารมณ์ ด้านสมาธิ ด้านพฤติกรรม  
-          หรือความสามารถเข้ากับผู้อื่นหรือไม่
-        </div>
+        <div class="question">โดยรวมคุณคิดว่าเด็กมีปัญหาในด้านอารมณ์ ด้านสมาธิ ด้านพฤติกรรม  หรือความสามารถเข้ากับผู้อื่นหรือไม่</div>
         <paper-radio-group selected="{{exist}}">
           <paper-radio-button name="N">ไม่</paper-radio-button>
           <paper-radio-button name="Y">ใช่</paper-radio-button>
@@ -49,9 +46,7 @@
         </paper-radio-group>
        </div>
        <div>  
-        <div class="question">
-         ปัญหานี้ทำให้เด็กรู้สึกไม่สบายใจหรือไม่
-        </div>
+        <div class="question"> ปัญหานี้ทำให้เด็กรู้สึกไม่สบายใจหรือไม่</div>
         <paper-radio-group selected="{{unhappy}}">
          <paper-radio-button name="0">ไม่เลย</paper-radio-button>
          <paper-radio-button name="1">เล็กน้อย</paper-radio-button>
@@ -60,9 +55,7 @@
         </paper-radio-group>
        </div>
        <div>  
-        <div class="question">
-         ปัญหานี้รบกวนชีวิตประจำวันของเด็กในด้านการคบเพื่อนหรือไม่
-        </div>
+        <div class="question">ปัญหานี้รบกวนชีวิตประจำวันของเด็กในด้านการคบเพื่อนหรือไม่</div>
         <paper-radio-group selected="{{friend}}">
          <paper-radio-button name="0">ไม่เลย</paper-radio-button>
          <paper-radio-button name="1">เล็กน้อย</paper-radio-button>
@@ -71,9 +64,7 @@
         </paper-radio-group>
        </div>
        <div>  
-        <div class="question">
-         ปัญหานี้รบกวนชีวิตประจำวันของเด็กในด้านการเรียนในห้องเรียนหรือไม่
-        </div>
+        <div class="question"> ปัญหานี้รบกวนชีวิตประจำวันของเด็กในด้านการเรียนในห้องเรียนหรือไม่</div>
         <paper-radio-group selected="{{study}}">
          <paper-radio-button name="0">ไม่เลย</paper-radio-button>
          <paper-radio-button name="1">เล็กน้อย</paper-radio-button>
@@ -82,9 +73,7 @@
         </paper-radio-group>
        </div>
        <div>  
-        <div class="question">
-         ปัญหาของเด็กทำให้คุณหรือชั้นเรียนเกิดความยุ่งยากหรือไม่
-        </div>
+        <div class="question">ปัญหาของเด็กทำให้คุณหรือชั้นเรียนเกิดความยุ่งยากหรือไม่</div>
         <paper-radio-group selected="{{social}}">
          <paper-radio-button name="0">ไม่เลย</paper-radio-button>
          <paper-radio-button name="1">เล็กน้อย</paper-radio-button>
@@ -100,14 +89,17 @@
     Polymer({
       is: 'sdq-form-teacher',
       properties: {
-        exist:{
-          type:String,
-          notify:true,
-          observer:'_existChanged'
+        exist: {
+          type: String,
+          notify: true,
+          observer: '_existChanged'
         }
       },
-      _existChanged:function() {
-        var dict = {'Y':true,'N':false};
+      _existChanged: function() {
+        var dict = {
+          'Y': true,
+          'N': false
+        };
         this.$.problemExist.hidden = !dict[this.exist];
       }
     });
