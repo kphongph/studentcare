@@ -1,7 +1,9 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../paper-input/paper-input.html">
+<!--
 <link rel="import" href="../paper-stepper/paper-stepper.html">
 <link rel="import" href="../paper-stepper/paper-step.html">
+-->
 <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../app-localize-behavior/app-localize-behavior.html">
 <link rel="import" href="../neon-animation/neon-animation-runner-behavior.html">
@@ -87,6 +89,7 @@ Polymer Component for StudentCare project
       </paper-step>
     </paper-stepper>
     <paper-toast id="toastsave"></paper-toast>
+    <paper-button on-tap="_completed" raised>Save</paper-button>
   </template>
   <script>
     Polymer({
@@ -132,8 +135,7 @@ Polymer Component for StudentCare project
         if (n){
           var year = new Date().getFullYear();
           var query = {
-            'start': [n.IDNO,year,'dl2form_teacher'],
-            'end': [n.IDNO,year,'dl2form_teacherxFF'],
+            'match': [n.IDNO,year,'dl2form_teacher'],
             "limit":-1,
             'include_doc': true
           };                   
@@ -145,6 +147,7 @@ Polymer Component for StudentCare project
         }
       },
       _haveHistory : function(n){
+        console.log('_haveHistory',n);
         if (n.length > 0){
           this.set('_docId',n[0].value.key);
           this.set('sdqChoice',n[0].value.doc.sdqChoice);
@@ -159,7 +162,8 @@ Polymer Component for StudentCare project
         }
       },
       _completed:function(e) {
-        if(this.dmcStudent){
+        var valid = this.$.formChoiceId.validate();
+        if(valid && this.dmcStudent){
           var date = new Date();
           var objSave = {
             'cid':this.dmcStudent.IDNO,
