@@ -1,6 +1,8 @@
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../app-storage/app-localstorage/app-localstorage-document.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../iron-pages/iron-pages.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
 <link rel="import" href="local/form-list.html">
 <link rel="import" href="student-room.html">
 
@@ -15,21 +17,39 @@ Polymer Component for StudentCare project
   <template>
    <style include="iron-flex iron-flex-alignment iron-flex-factors">
       :host {
+        @apply(--layout-vertical);
         display: block;
-        width:100%;
+      }
+      .controlPanel {
+        padding:10px;
+        border-bottom: 1px solid #eeeeee;
       }
    </style>
-   <app-localstorage-document key="jwtToken" data="{{jwtToken}}">
-   </app-localstorage-document>
+   
+   <div class="layout horizontal controlPanel">
+     <iron-pages selected="{{page}}">
+       <div>Student</div>
+       <div>
+         <paper-button raised on-tap="_backTap">
+           <iron-icon icon="arrow-back">
+           </iron-icon>Back
+         </paper-button>
+       </div>
+     </iron-pages>
+   </div>
 
    <div class="layout horizontal">
-     <student-room jwt-token="{{jwtToken.token}}"
-       host="{{host}}"
-       level="{{level}}"
-       room="{{room}}"
-       selected-student="{{student}}">
-     </student-room>
-     <form-list class="flex" dmc-student="{{student}}"></form-list>
+     <div class="flex"> 
+     <iron-pages selected="{{page}}">
+       <student-room host="{{host}}"
+         level="{{level}}"
+         room="{{room}}"
+         on-select="_selectStudent"
+         selected-student="{{student}}">
+       </student-room>
+       <form-list class="flex" dmc-student="{{student}}"></form-list>
+     </iron-pages>
+     </div>
    </div>
 
   </template>
@@ -44,7 +64,18 @@ Polymer Component for StudentCare project
         },
         room:{
           type:String
+        },
+        page: {
+          type:Number, 
+          readOnly:true,
+          value:0
         }
+      },
+      _selectStudent:function(e) {
+        this._setPage(1);
+      },
+      _backTap:function() {
+        this._setPage(this.page - 1);
       }
     });
   </script>

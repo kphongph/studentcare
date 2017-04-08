@@ -17,7 +17,7 @@
 
       iron-icon {
         margin:3px;
-        padding:3px;
+        padding:0px;
         background-color:white
       }
 
@@ -36,6 +36,9 @@
       }
       div.n {
         background-color:var(--paper-red-100);
+      }
+      .invalid {
+        border: 1px solid #ee0000;
       }
       
       @media (min-width:400px) {
@@ -83,7 +86,7 @@
     <div id="main" class$="{{value}} layout horizontal center">
       <iron-icon icon="{{type}}" class$="{{value}}"></iron-icon>
       <span class="flex">{{label}}</span>
-      <span hidden$="{{!invalid}}">Require</span>
+      <span hidden$="{{!invalid}}"><font color="red">Require!</font></span>
     </div>
   </template>
 
