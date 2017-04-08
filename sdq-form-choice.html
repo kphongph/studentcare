@@ -33,12 +33,12 @@
   </style>
   <div class="layout vertical">
     <span class="paper-font-headline">{{formType}}</span>
-    <div class="layout horizontal">
-      <sdq-radio label="จริง" value="y" disabled></sdq-radio>
-      <sdq-radio label="ค่อนข้างจริง" value="m" disabled></sdq-radio>
-      <sdq-radio label="ไม่จริง" value="n" disabled></sdq-radio>
-    </div>
-    <br>
+    <!-- <div class="layout horizontal"> -->
+      <!-- <sdq-radio label="จริง" value="y" disabled></sdq-radio> -->
+      <!-- <sdq-radio label="ค่อนข้างจริง" value="m" disabled></sdq-radio> -->
+      <!-- <sdq-radio label="ไม่จริง" value="n" disabled></sdq-radio> -->
+    <!-- </div> -->
+    <!-- <br> -->
     <template is="dom-repeat" items="{{value}}">
       <sdq-radio label="{{_label(item,forChild)}}"
         required

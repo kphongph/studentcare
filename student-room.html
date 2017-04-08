@@ -1,7 +1,7 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
-<link rel="import" href="../iron-selector/iron-selector.html">
 <link rel="import" href="../paper-progress/paper-progress.html">
+<link rel="import" href="../paper-material/paper-material.html">
 <link rel="import" href="../iron-resizable-behavior/iron-resizable-behavior.html">
 
 <link rel="import" href="./local/obecstudent-card.html">
@@ -26,24 +26,26 @@
     <app-localstorage-document key="jwtToken" data="{{jwtToken}}">
     </app-localstorage-document>
 
-    <studentcare-db 
-      url="http://maas.nuqlis.com:44300"
-      id="leveldb"
-      remote-db="dmc59_1"
-      local-db="dmc"
-      view-name="hostid"
-      schema='{"index":"key,value.CLASSROOM,value.LEVEL,value.CODE"}'
-      query$='{"start":["{{host}}"],"end":["{{_nextHost(host)}}"],"limit":-1}'
-      ready="{{_isReady}}"
-      jwt-token="{{jwtToken.token}}">
-    </studentcare-db>
+    <paper-material elevation="1">
+      <studentcare-db 
+        url="http://maas.nuqlis.com:44300"
+        id="leveldb"
+        remote-db="dmc59_1"
+        local-db="dmc"
+        view-name="hostid"
+        schema='{"index":"key,value.CLASSROOM,value.LEVEL,value.CODE"}'
+        query$='{"start":["{{host}}"],"end":["{{_nextHost(host)}}"],"limit":-1}'
+        ready="{{_isReady}}"
+        jwt-token="{{jwtToken.token}}">
+      </studentcare-db>
 
-    <iron-selector id="studentSelector" on-iron-select="_studentSelected">
       <template is="dom-repeat" items="{{students}}">
-        <obecstudent-card name="{{item.key}}" doc="{{item}}">
+        <obecstudent-card 
+          on-select="_studentSelected"
+          name="{{item.key}}" doc="{{item}}">
         </obecstudent-card>
       </template>
-    </iron-selector>
+    </paper-material>
 
   </template>
 
@@ -76,8 +78,6 @@
       },
       __computeStudents:function(level,room,isReady) {
         if(!isReady) return [];
-        //console.log(level,room,isReady);
-        this.$.studentSelector.selectIndex(-1);
         if(level && room) {
          this.$.leveldb.db.index
          .where('value.LEVEL')
@@ -86,15 +86,13 @@
            return value.value.CLASSROOM == room;
          })
          .toArray(function(students) {
-         //  this._setStudents(students);
-         //  return students;
            this.set('students',students);
          }.bind(this));
         }
       },
       _studentSelected:function(e) {
-        this.set('selectedStudent',e.detail.item.doc);
-        this.fire('select',{'student':e.detail.item.doc});
+        this.set('selectedStudent',e.detail);
+        this.fire('select',{'student':e.detail});
       }
     });
   </script>
