@@ -8,30 +8,23 @@
 <link rel="import" href="studentcare-db.html">
 
 
-<!--
-`studentcare-components`
-Polymer Component for StudentCare project
-
-@demo demo/index.html 
--->
-
 <dom-module id="student-room">
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors">
       :host {
-        display: block;
         @apply(--layout-vertical);
+        display: block;
       }
 
       .iron-selected {
         background: #eee;
       }
 
-      paper-dropdown-menu {
-        margin-right:20px;
-      }
-
     </style>
+    
+    
+    <app-localstorage-document key="jwtToken" data="{{jwtToken}}">
+    </app-localstorage-document>
 
     <studentcare-db 
       url="http://maas.nuqlis.com:44300"
@@ -42,36 +35,26 @@ Polymer Component for StudentCare project
       schema='{"index":"key,value.CLASSROOM,value.LEVEL,value.CODE"}'
       query$='{"start":["{{host}}"],"end":["{{_nextHost(host)}}"],"limit":-1}'
       ready="{{_isReady}}"
-      jwt-token="{{jwtToken}}">
+      jwt-token="{{jwtToken.token}}">
     </studentcare-db>
 
-    <div>
     <iron-selector id="studentSelector" on-iron-select="_studentSelected">
       <template is="dom-repeat" items="{{students}}">
-        <obecstudent-card name="{{item.key}}" doc="{{item}}" 
-          minimize="{{minimize}}">
+        <obecstudent-card name="{{item.key}}" doc="{{item}}">
         </obecstudent-card>
       </template>
     </iron-selector>
-    </div>
 
   </template>
 
   <script>
     Polymer({
       is: 'student-room',
-      behaviors: [
-        Polymer.IronResizableBehavior
-      ],
       properties: {
         host:String,
         selectedStudent: {
           type:Object,
           notify:true
-        },
-        minimize: {
-          type:Boolean,
-          readOnly:true
         },
         level:{
           type:String
@@ -82,19 +65,6 @@ Polymer Component for StudentCare project
         __execute:{
           type:Boolean,
           computed:'__computeStudents(level,room,_isReady)'
-        },
-        jwtToken:{
-          type:String
-        }
-      },
-      listeners: {
-        'iron-resize':'_onIronResize'
-      },
-      _onIronResize:function() {
-        if(this.offsetWidth < 500) {
-          this._setMinimize(true);
-        } else {
-          this._setMinimize(false);
         }
       },
       _nextHost:function(host) {
@@ -124,7 +94,7 @@ Polymer Component for StudentCare project
       },
       _studentSelected:function(e) {
         this.set('selectedStudent',e.detail.item.doc);
-      //  this.fire('select',{'student':e.detail.item.doc});
+        this.fire('select',{'student':e.detail.item.doc});
       }
     });
   </script>

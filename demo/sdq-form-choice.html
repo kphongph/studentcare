@@ -10,21 +10,26 @@
 
     <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
     <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
-    <link rel="import" href="../studentcare-app.html">
+    <link rel="import" href="../sdq-form-choice.html">
 
     <style is="custom-style" include="demo-pages-shared-styles">
     </style>
   </head>
   <body>
     <div class="vertical-section-container">
-      <h3>studentcare-app</h3>
+      <h3>sdq-form-choice-</h3>
       <demo-snippet>
         <template is="dom-bind">
-          <studentcare-app host="30070132" level="02"
-            room="1">
-          </studentcare-app>
+          <sdq-form-choice id="choice">
+          </sdq-form-choice>
         </template>
       </demo-snippet>
+      <script>
+        document.addEventListener('WebComponentsReady',function() {
+          var validator = document.querySelector('#choice');
+          console.log(validator);
+        });
+      </script>
     </div>
   </body>
 </html>

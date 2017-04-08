@@ -14,20 +14,13 @@
         display: block;
         width:100%;
       }
+
       iron-icon {
         margin:3px;
         padding:0px;
         background-color:white
       }
-      iron-icon.y {
-        fill:green;
-      }
-      iron-icon.m {
-        fill:grey;
-      }
-      iron-icon.n {
-        fill:red;
-      }
+
       span {
         margin:3px;
         padding:3px;
@@ -88,8 +81,8 @@
         border: 1px solid #ee0000;
       }
     }
-      
     </style>
+
     <div id="main" class$="{{value}} layout horizontal center">
       <iron-icon icon="{{type}}" class$="{{value}}"></iron-icon>
       <span class="flex">{{label}}</span>
