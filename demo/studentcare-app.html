@@ -10,9 +10,10 @@
 
     <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
     <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../../iron-flex-layout/iron-flex-layout-classes.html">
     <link rel="import" href="../studentcare-app.html">
 
-    <style is="custom-style" include="demo-pages-shared-styles">
+    <style is="custom-style" include="demo-pages-shared-styles iron-flex iron-flex-alignment iron-flex-factors">
     </style>
   </head>
   <body>
@@ -20,9 +21,14 @@
       <h3>studentcare-app</h3>
       <demo-snippet>
         <template is="dom-bind">
-          <studentcare-app host="30070132" level="02"
-            room="1">
-          </studentcare-app>
+          <div class="layout horizontal">
+            <div class="flex-1"></div>
+            <div class="flex-5">
+              <studentcare-app host="30070132" level="02"
+               room="1">
+              </studentcare-app>
+            </div>
+          </di>
         </template>
       </demo-snippet>
     </div>

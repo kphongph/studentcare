@@ -12,7 +12,6 @@
       :host {
         @apply(--paper-font-caption);
         display: block;
-        width:100%;
       }
 
       iron-icon {
@@ -21,10 +20,6 @@
         background-color:white
       }
 
-      span {
-        margin:3px;
-        padding:3px;
-      }
       div {
         background-color:var(--paper-grey-100);
       }
@@ -40,16 +35,17 @@
       .invalid {
         border: 1px solid #ee0000;
       }
+      .valueText {
+        margin-right:10px;
+      }
       
       @media (min-width:400px) {
       :host {
         @apply(--paper-font-body1);
         display: block;
-        width:100%;
       }
       iron-icon {
-        margin:5px;
-        padding:5px;
+        padding:2px;
         background-color:white
       }
       iron-icon.y {
@@ -60,10 +56,6 @@
       }
       iron-icon.n {
         fill:red;
-      }
-      span {
-        margin:5px;
-        padding:5px;
       }
       div {
         background-color:var(--paper-grey-100);
@@ -86,6 +78,7 @@
     <div id="main" class$="{{value}} layout horizontal center">
       <iron-icon icon="{{type}}" class$="{{value}}"></iron-icon>
       <span class="flex">{{label}}</span>
+      <span class="valueText"><b>{{_valueStr}}</b></span>
       <span hidden$="{{!invalid}}"><font color="red">Require!</font></span>
     </div>
   </template>
@@ -113,6 +106,10 @@
           type:Boolean,
           value:false,
           reflectToAttribute:true
+        },
+        _valueStr:{
+          type:String,
+          computed:'_labelValue(value)'
         }
       },
       behaviors:[

@@ -57,6 +57,12 @@ Polymer Component for StudentCare project
           computed:'_computeFullName(doc)'
         }
       },
+      listeners: {
+        'tap':'_tap'
+      },
+      _tap: function(e) {
+        this.fire('select',this.doc);
+      },
       _computeFullName:function(doc) {
         return doc.value.NAME+' '+doc.value.LNAME;
       },

@@ -20,7 +20,7 @@
      <div class="layout vertical">
       <div>
         <div class="question">โดยรวมคุณคิดว่าเด็กมีปัญหาในด้านอารมณ์ ด้านสมาธิ ด้านพฤติกรรม  หรือความสามารถเข้ากับผู้อื่นหรือไม่</div>
-        <paper-radio-group selected="{{_exist}}">
+        <paper-radio-group selected="{{teacherChoice.exist}}">
           <paper-radio-button name="N">ไม่</paper-radio-button>
           <paper-radio-button name="Y">ใช่</paper-radio-button>
         </paper-radio-group>
@@ -88,26 +88,25 @@
     Polymer({
       is: 'sdq-form-teacher',
       properties: {
-        _exist: {
-          type: String,
-          observer: '_existChanged'
-        },
-        teacherChioce:{
+        teacherChoice:{
           type:Object,
           notify:true,
-          computed:'_computedTeacherChioce(teacherChioce)'
+          value:function() {
+            return {};
+          }
         }
       },
-      _existChanged: function() {
+      observers: [
+        '_existChanged(teacherChoice.exist)'
+      ],
+      _existChanged: function(exist) {
         var dict = {
           'Y': true,
           'N': false
         };              
-        this.$.problemExist.hidden = !dict[this._exist];
-        if(this._exist == 'N'){
-          var teacherChioce = {};
-          teacherChioce.exist = this._exist;
-          console.log(JSON.stringify(teacherChioce));
+        this.$.problemExist.hidden = !dict[exist];
+        if(exist == 'N'){
+          console.log(JSON.stringify(this.teacherChoice));
         }
       },
       _computedTeacherChioce:function(teacherChioce){ //_exist,_level,_time,_unhappy,_friend,_study,_social
