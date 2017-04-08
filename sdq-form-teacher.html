@@ -3,7 +3,6 @@
 <link rel="import" href="../paper-styles/typography.html">
 <link rel="import" href="../paper-radio-group/paper-radio-group.html">
 <link rel="import" href="../paper-radio-button/paper-radio-button.html">
-<link rel="import" href="./sdq-form-choice.html">
 
 <dom-module id="sdq-form-teacher">
   <template>
@@ -21,7 +20,7 @@
      <div class="layout vertical">
       <div>
         <div class="question">โดยรวมคุณคิดว่าเด็กมีปัญหาในด้านอารมณ์ ด้านสมาธิ ด้านพฤติกรรม  หรือความสามารถเข้ากับผู้อื่นหรือไม่</div>
-        <paper-radio-group selected="{{exist}}">
+        <paper-radio-group selected="{{_exist}}">
           <paper-radio-button name="N">ไม่</paper-radio-button>
           <paper-radio-button name="Y">ใช่</paper-radio-button>
         </paper-radio-group>
@@ -30,7 +29,7 @@
       <div id="problemExist" class="layout vertical" hidden>
        <div>  
         <div class="question">เด็กมีปัญหาดังกล่าวในระดับ</div>
-        <paper-radio-group selected="{{level}}">
+        <paper-radio-group selected="{{_level}}">
          <paper-radio-button name="0">เล็กน้อย</paper-radio-button>
          <paper-radio-button name="1">ชัดเจน</paper-radio-button>
          <paper-radio-button name="2">อย่างมาก</paper-radio-button>
@@ -38,7 +37,7 @@
        </div>
        <div>  
         <div class="question">ปัญหานี้เกิดขึ้นมานามเท่าไหร่แล้ว</div>
-        <paper-radio-group selected="{{time}}">
+        <paper-radio-group selected="{{_time}}">
          <paper-radio-button name="1m">น้อยกว่า 1 เดือน</paper-radio-button>
          <paper-radio-button name="1m-5m">1-5 เดือน</paper-radio-button>
          <paper-radio-button name="6m-1y">6-12 เดือน</paper-radio-button>
@@ -47,7 +46,7 @@
        </div>
        <div>  
         <div class="question"> ปัญหานี้ทำให้เด็กรู้สึกไม่สบายใจหรือไม่</div>
-        <paper-radio-group selected="{{unhappy}}">
+        <paper-radio-group selected="{{_unhappy}}">
          <paper-radio-button name="0">ไม่เลย</paper-radio-button>
          <paper-radio-button name="1">เล็กน้อย</paper-radio-button>
          <paper-radio-button name="2">ค่อนข้างมาก</paper-radio-button>
@@ -56,7 +55,7 @@
        </div>
        <div>  
         <div class="question">ปัญหานี้รบกวนชีวิตประจำวันของเด็กในด้านการคบเพื่อนหรือไม่</div>
-        <paper-radio-group selected="{{friend}}">
+        <paper-radio-group selected="{{_friend}}">
          <paper-radio-button name="0">ไม่เลย</paper-radio-button>
          <paper-radio-button name="1">เล็กน้อย</paper-radio-button>
          <paper-radio-button name="2">ค่อนข้างมาก</paper-radio-button>
@@ -65,7 +64,7 @@
        </div>
        <div>  
         <div class="question"> ปัญหานี้รบกวนชีวิตประจำวันของเด็กในด้านการเรียนในห้องเรียนหรือไม่</div>
-        <paper-radio-group selected="{{study}}">
+        <paper-radio-group selected="{{_study}}">
          <paper-radio-button name="0">ไม่เลย</paper-radio-button>
          <paper-radio-button name="1">เล็กน้อย</paper-radio-button>
          <paper-radio-button name="2">ค่อนข้างมาก</paper-radio-button>
@@ -74,7 +73,7 @@
        </div>
        <div>  
         <div class="question">ปัญหาของเด็กทำให้คุณหรือชั้นเรียนเกิดความยุ่งยากหรือไม่</div>
-        <paper-radio-group selected="{{social}}">
+        <paper-radio-group selected="{{_social}}">
          <paper-radio-button name="0">ไม่เลย</paper-radio-button>
          <paper-radio-button name="1">เล็กน้อย</paper-radio-button>
          <paper-radio-button name="2">ค่อนข้างมาก</paper-radio-button>
@@ -89,18 +88,38 @@
     Polymer({
       is: 'sdq-form-teacher',
       properties: {
-        exist: {
+        _exist: {
           type: String,
-          notify: true,
           observer: '_existChanged'
+        },
+        teacherChioce:{
+          type:Object,
+          notify:true,
+          computed:'_computedTeacherChioce(teacherChioce)'
         }
       },
       _existChanged: function() {
         var dict = {
           'Y': true,
           'N': false
-        };
-        this.$.problemExist.hidden = !dict[this.exist];
+        };              
+        this.$.problemExist.hidden = !dict[this._exist];
+        if(this._exist == 'N'){
+          var teacherChioce = {};
+          teacherChioce.exist = this._exist;
+          console.log(JSON.stringify(teacherChioce));
+        }
+      },
+      _computedTeacherChioce:function(teacherChioce){ //_exist,_level,_time,_unhappy,_friend,_study,_social
+        /*var teacherChioce = {};
+        teacherChioce.exist = _exist;
+        teacherChioce.level = _level;
+        teacherChioce.time = _time;
+        teacherChioce.unhappy = _unhappy;
+        teacherChioce.friend = _friend;
+        teacherChioce.study = _study;
+        teacherChioce.social = _social;*/
+        console.log(teacherChioce);
       }
     });
   </script>
