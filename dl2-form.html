@@ -1,10 +1,10 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../paper-input/paper-input.html">
-<!--
-<link rel="import" href="../paper-stepper/paper-stepper.html">
-<link rel="import" href="../paper-stepper/paper-step.html">
--->
+<link rel="import" href="../paper-tabs/paper-tabs.html">
+<link rel="import" href="../paper-tabs/paper-tab.html">
+<link rel="import" href="../paper-button/paper-button.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../iron-pages/iron-pages.html">
 <link rel="import" href="../app-localize-behavior/app-localize-behavior.html">
 <link rel="import" href="../neon-animation/neon-animation-runner-behavior.html">
 <link rel="import" href="../neon-animation/animations/scale-up-animation.html">
@@ -26,14 +26,16 @@ Polymer Component for StudentCare project
       #responsiveStepper {
         --paper-stepper-vertical-responsive-width: 400px;
       }
-      paper-step {
-        --paper-vertical-step-max-height: 600px;
+
+      paper-tabs, paper-toolbar {
+        background-color: var(--paper-blue-900);
+        color: #fff;
       }
 
       @media (min-width:320px) {
         #responsiveStepper {
           --paper-stepper-horizontal;
-          --paper-stepper-horizontal-opened-height: 1000px;
+          --paper-stepper-horizontal-opened-height: 1580px;
         }
         #toastsave{
           --paper-toast-background-color: green;
@@ -71,26 +73,23 @@ Polymer Component for StudentCare project
       value="{{_docValue}}">
     </app-leveldb-document>    
 
-    <paper-button raised on-click="test">test</paper-button>
-    <paper-stepper id="responsiveStepper"       
-      on-paper-stepper-completed="_completed"
-      horizontal-higher-entry-animation="scale-up-animation"        
-      horizontal-lower-entry-animation="scale-up-animation"       
-      horizontal-higher-exit-animation="scale-down-animation" 
-      horizontal-lower-exit-animation="scale-down-animation">
-      <paper-step id="formChoice" label="หน้า 1"  editable>
-        <sdq-form-choice id="formChoiceId"
-          form-type="{{_formTitle}}"
-          value="{{sdqChoice}}">
-        </sdq-form-choice>      
-      </paper-step>
-      <paper-step label="หน้า 2" editable on-paper-step-updated="_completed">
-        <sdq-form-teacher>
-        </sdq-form-teacher>      
-      </paper-step>
-    </paper-stepper>
+    <paper-tabs selected="{{part}}">
+      <paper-tab>หน้าแรก</paper-tab>
+      <paper-tab>หน้าหลัง</paper-tab>
+    </paper-tabs>
+    
+    <iron-pages selected="{{part}}">
+      <sdq-form-choice id="formChoiceId"
+        form-type="{{_formTitle}}"
+        value="{{sdqChoice}}">
+      </sdq-form-choice>      
+      <sdq-form-teacher teacher-choice="{{teacherChoice}}">
+      </sdq-form-teacher>      
+    </iron-pages>
+    
     <paper-toast id="toastsave"></paper-toast>
     <paper-button on-tap="_completed" raised>Save</paper-button>
+
   </template>
   <script>
     Polymer({
@@ -98,7 +97,7 @@ Polymer Component for StudentCare project
       behaviors: [
         Polymer.AppLocalizeBehavior
       ],
-      properties: {
+      properties: {      
         _formTitle: {
           type:Object,
           computed:'_formTypeDit(formType)'
@@ -110,29 +109,16 @@ Polymer Component for StudentCare project
         _data:{
           type:Object,
           observer:'_haveHistory'
-        },
-        _docValue:{
-          type:Object,
-          notify:true,
-          computed:'_computedDocValue(sdqChoice,dmcStudent)'
-        },
-        _docId:{
-          type:String
-        }
-      },
-      ready:function() {
-        var step1 = this.$.formChoice;
-        var self = this;
-        step1._getValidity = function() {
-          return self.$.formChoiceId.validate();
         }
       },
       test:function() {
-          this.$.toastsave.customStyle['--paper-toast-background-color'] = 'red';
-          this.$.toastsave.updateStyles();
-          this.$.toastsave.show('กรุณาเลือกนักเรียนก่อน');
+        console.log(this.teacherChoice);
+        this.$.toastsave.customStyle['--paper-toast-background-color'] = 'red';
+        this.$.toastsave.updateStyles();
+        this.$.toastsave.show('Test Toast');
       },
       _studentChanged : function(n,o){
+        this.set('teacherChoice',{});
         if (n){
           var year = new Date().getFullYear();
           var query = {
@@ -152,6 +138,7 @@ Polymer Component for StudentCare project
         if (n.length > 0){
           this.set('_docId',n[0].value.key);
           this.set('sdqChoice',n[0].value.doc.sdqChoice);
+          this.set('teacherChoice',n[0].value.doc.teacherChoice);
         }else{
           this.set('_docId',null);
           if(this.sdqChoice){
@@ -166,6 +153,10 @@ Polymer Component for StudentCare project
         var valid = this.$.formChoiceId.validate();
         if(valid && this.dmcStudent){
           var date = new Date();
+          if(this.teacherChoice.exist == 'N'){
+            delete this.teacherChoice;
+            this.teacherChoice = {"exist": "N"};
+          }
           var objSave = {
             'cid':this.dmcStudent.IDNO,
             'updateTime':date.getTime(),
@@ -173,34 +164,19 @@ Polymer Component for StudentCare project
             'form_type':this.formType,
             'form_type_desc':this._formTitle,
             'sdqChoice':this.sdqChoice,
-            'teacherChioce':''
-          };
-          console.log(this._docId);
+            'teacherChoice':this.teacherChoice
+          };          
+          this.set('_docValue',objSave);
           this.$.doc.save();
-          this.$.responsiveStepper.reset();
           this.$.toastsave.customStyle['--paper-toast-background-color'] = 'green';
           this.$.toastsave.updateStyles();
           this.$.toastsave.show('บันทึกสำเร็จ');
           this.fire('dl2-completed',objSave);      
         }else{
-          this.$.responsiveStepper.reset();
           this.$.toastsave.customStyle['--paper-toast-background-color'] = 'red';
           this.$.toastsave.updateStyles();
           this.$.toastsave.show('กรุณาเลือกนักเรียนก่อน');
         }        
-      },
-      _computedDocValue:function(sdqChoice,dmcStudent) {
-        var date = new Date();
-        var objSave = {
-          'cid':dmcStudent.IDNO,
-          'updateTime':date.getTime(),
-          'year':date.getFullYear(),
-          'form_type':this.formType,
-          'form_type_desc':this._formTitle,
-          'sdqChoice':sdqChoice,
-          'teacherChioce':''
-        };
-        return objSave;
       },
       _formTypeDit:function(formType){
         var formTypeDit = {"dl2form_teacher":"แบบประเมินพฤติกรรมเด็ก (SDQ) ฉบับครูเป็นผู้ประเมินนักเรียน"};

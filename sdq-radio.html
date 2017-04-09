@@ -1,6 +1,6 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
-<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
 <link rel="import" href="../iron-selector/iron-selector.html">
 <link rel="import" href="../iron-validatable-behavior/iron-validatable-behavior.html">
 <link rel="import" href="../paper-styles/typography.html">
@@ -79,7 +79,6 @@
       <iron-icon icon="{{type}}" class$="{{value}}"></iron-icon>
       <span class="flex">{{label}}</span>
       <span class="valueText"><b>{{_valueStr}}</b></span>
-      <span hidden$="{{!invalid}}"><font color="red">Require!</font></span>
     </div>
   </template>
 
@@ -145,7 +144,7 @@
             this.type='';
           }
         }
-        this.validate();
+       // this.validate();
       },
       _labelValue:function(value) {
         var dict = {'m':'ค่อนข้างจริง','y':'จริง','n':'ไม่จริง'};
