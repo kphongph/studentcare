@@ -70,9 +70,10 @@ Polymer Component for StudentCare project
     <iron-pages selected="{{part}}">
       <sdq-form-choice id="formChoiceId"
         value="{{sdqChoice}}">
-      </sdq-form-choice>
-      <sdq-form-teacher teacher-choice="{{teacherChoice}}">
-      </sdq-form-teacher>
+      </sdq-form-choice>      
+      <sdq-form-teacher id="formTeacher" 
+        teacher-choice="{{teacherChoice}}">
+      </sdq-form-teacher>      
     </iron-pages>
     
     <paper-toast id="toastsave"></paper-toast>
@@ -128,6 +129,13 @@ Polymer Component for StudentCare project
       },
       _completed:function(e) {
         var valid = this.$.formChoiceId.validate();
+        if(!valid) {
+          this.part = 0;
+        } else {
+          valid = valid && this.$.formTeacher.validate();
+          if(!valid) this.part = 1; 
+        }
+
         if(valid && this.dmcStudent){
           var date = new Date();
           if(this.teacherChoice.exist == 'N'){
