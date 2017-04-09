@@ -22,7 +22,7 @@ Polymer Component for StudentCare project
     <div class="layout horizontal">
     
     <paper-input label="{{localize('title')}}" readonly
-      value="{{dmcStudent.TITLE}}">
+      value="{{_getDesc('dist_title',dmcStudent.TITLE)}}">
      </paper-input>
      
      <paper-input label="{{localize('first_name')}}" readonly
@@ -68,13 +68,18 @@ Polymer Component for StudentCare project
       _gradeLevel: function(level,room) {
         var level_int = parseInt(level);
         if(level_int > 10) {
-          return this.localize('secondary_level')+' '+level_int+'/'+room;
+          return this.localize('secondary_level')+' '+parseInt(level_int-9)+'/'+room;
         }else if(level_int > 3 && level_int < 10) {
-          return this.localize('elementary_level')+' '+level_int+'/'+room;
-        } else {
-          level_int-=3;
-          return this.localize('pre_elementary_level')+' '+level_int+'/'+room;
+          return this.localize('elementary_level')+' '+parseInt(level_int-3)+'/'+room;
+        } else if(level_int <= 3){
+          return this.localize('pre_elementary_level')+' '+parseInt(level_int-1)+'/'+room;
         }
+      },
+      _getDesc:function(keyMap,keyDesc){
+        this.set('language',keyMap);
+        var value = this.localize(keyDesc);
+        this.set('language','th');
+        return value;
       }
     });
   </script>

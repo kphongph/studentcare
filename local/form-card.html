@@ -85,7 +85,8 @@
       __computeQuery:function(dmcStudent,label) {
         var query = {match:[]};
         var types = {
-          'dl2_form_label':'dl2form_teacher'
+          'dl2_form_label':'dl2form_teacher',
+          'dl3_form_label':'dl3form_student'
         };
         if(dmcStudent.value.IDNO) {
           query.match.push(dmcStudent.value.IDNO);
