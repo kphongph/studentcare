@@ -3,6 +3,7 @@
 <link rel="import" href="../../iron-icons/iron-icons.html">
 <link rel="import" href="../../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../../app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="../../paper-badge/paper-badge.html">
 <link rel="import" href="../../paper-styles/color.html">
 <link rel="import" href="../../paper-styles/typography.html">
 <link rel="import" href="../leveldb-query.html">
@@ -39,9 +40,14 @@
     <div class="checkIcon">
       <iron-icon hidden="{{!exists}}" class="exists" icon="check"></iron-icon>
     </div>
-    <div class="layout vertical">
-      <span>{{localize(label)}}</span>
+    <div class="flex">
+      <span id="label">{{localize(label)}}</span>
     </div>
+    <div>
+      <iron-icon icon="assignment"></iron-icon>
+      <span>{{_data.length}}</span>
+    </div>
+
 
     <leveldb-query url="https://maas.nuqlis.com:9000/api"
       db-name="students_care"
@@ -104,7 +110,10 @@
             this._setExists(false);
           }
         } else {
-          this._setExists(false);
+          if(data.length > 1) {
+          } else {
+            this._setExists(false);
+          }
         }
       },
       attached:function() {
