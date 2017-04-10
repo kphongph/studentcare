@@ -2,60 +2,70 @@
 <link rel="import" href="../../paper-styles/typography.html">
 <link rel="import" href="../../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../../app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="../eq-form/eq-form.html">
 
 <dom-module id="assignment-card">
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors">
       :host {
         display: block;
-        cursor: pointer; 
-        cursor: hand; 
         @apply(--paper-font-subhead);
+        @apply(--layout-vertical);
         border-bottom:1px solid #efefef;
       }
-      :host:hover {
-        background:#efefef;
-      }
+
       .idNo {
         padding:5px;
       }
       .pad {
         padding:5px;
+        cursor: pointer; 
+        cursor: hand; 
+      }
+      .pad:hover {
+        padding:5px;
+        background:#efefef;
       }
     </style>
    
-    <div class="layout horizontal pad">
+    <div class="layout horizontal pad" on-tap="_tap">
       <span class="flex-1">{{data.key.8}}</span>
       <span class="flex-2">{{_formName(data.key.6)}}</span>
       <span class="flex-1">{{_date(data.key.1)}}</span>
     </div>
+    <div id="formPanel" hidden$="{{!showForm}}"></div>
   </template>
 
   <script>
     Polymer({
       is: 'assignment-card',
       behaviors: [
-          Polymer.AppLocalizeBehavior
+        Polymer.AppLocalizeBehavior
       ],
       properties: {
-        language: {
-          value:'dist_title'
-        },
-        doc:Object,
-        selected:{
+        showForm: {
           type:Boolean,
+          reflectToAttribute: true,
           value:false
-        },
-        _fullName: {
-          type:String,
-          computed:'_computeFullName(doc)'
         }
       },
-      listeners: {
-        'tap':'_tap'
-      },
       _tap: function(e) {
-        this.fire('select',this.doc);
+        var first = this.$.formPanel.firstChild;
+        if(!first) {
+          var formMap = {
+            'eq_form':'eq-form'
+          };
+          var eleName = formMap[this.data.key[6]];
+          if(eleName) {
+            var ele = document.createElement(eleName);
+            var doc = {'key':this.data.value};
+            console.log('append');
+            ele.setAttribute('document',JSON.stringify(doc));
+            this.$.formPanel.appendChild(ele);
+          }
+        }
+        this.showForm=!this.showForm;
+        
       },
       _formName:function(type) {
         var dict = {

@@ -1,8 +1,10 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../iron-pages/iron-pages.html">
 <link rel="import" href="../paper-progress/paper-progress.html">
 <link rel="import" href="../paper-material/paper-material.html">
 <link rel="import" href="local/assignment-card.html">
+<link rel="import" href="eq-form/eq-form.html">
 <link rel="import" href="leveldb-query.html">
 
 <dom-module id="assignment-panel">
@@ -22,9 +24,10 @@
     </leveldb-query>
 
     <paper-material elevation="1">
-     <template is="dom-repeat" items="{{data}}">
-      <assignment-card data="{{item}}"></assignment-card>  
-     </template>
+      <template is="dom-repeat" items="{{data}}">
+        <assignment-card data="{{item}}">
+        </assignment-card>  
+      </template>
     </paper-material>
 
   </template>
@@ -46,6 +49,11 @@
         room:{
           type:String
         },
+        page: {
+          type:Number,
+          readOnly:true,
+          value:0
+        },
         query:{
           type:Object,
           computed:'__computeQuery(host,level,room)'
@@ -54,10 +62,6 @@
       __computeQuery:function(host,level,room) {
         console.log(host,level,room);
         return {};
-      },
-      _studentSelected:function(e) {
-        this.set('selectedStudent',e.detail);
-        this.fire('select',{'student':e.detail});
       }
     });
   </script>

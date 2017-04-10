@@ -32,7 +32,7 @@
       status="{{status}}"
       value="{{docValue}}">
     </app-leveldb-document>    
-
+    
     <paper-toolbar>
       <paper-icon-button icon="save" on-tap="_save"></paper-icon-button>
     </paper-toolbar>
@@ -58,10 +58,11 @@
         this.fire('form-action',{'type':'save'});
       },
       save:function(e) {
-        console.log(this.docKey,this.docValue);
         if(!this.docKey) {
           this.set('docKey',null);
         }
+        var ts = (new Date()).getTime()*-1;
+        this.docValue.ts = ts;
         this.$.doc.save();
       }
     });
