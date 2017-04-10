@@ -5,6 +5,7 @@
 <link rel="import" href="../../paper-styles/typography.html">
 <link rel="import" href="../../paper-radio-group/paper-radio-group.html">
 <link rel="import" href="../form-control.html">
+<link rel="import" href="../dmc-student-form-behavior.html">
 <link rel="import" href="eq-choice.html">
 <dom-module id="eq-form">
   <template>
@@ -13,7 +14,6 @@
         @apply(--paper-font-display);
         @apply(--layout-vertical);
         display: block;
-        padding:5px;
       }
 
       .invalid {
@@ -27,9 +27,10 @@
 
     <form-control id="control" 
       on-form-action="_tap" 
-      doc-key="{{key}}"
-      doc-value="{{value}}">
-     <eq-choice value="{{value.q1}}" label="รู้จักให้กำลังใจผู้อื่น">
+      doc-key="{{document.key}}"
+      doc-value="{{document.value}}">
+     <eq-choice value="{{document.value.q1}}" 
+        label="รู้จักให้กำลังใจผู้อื่น">
      </eq-choice>
     </form-control>
 
@@ -41,36 +42,22 @@
       listeners : {
       },
       properties: {
-        value:{
-          type:Object,
-          value:function() {
-            return {};
-          }
-        },
-        label:{
-          type:String
-        },
-        disabled: {
-          type:Boolean,
-          value:false
-        },
-        required:{
-          type:Boolean,
-          value:false,
-          reflectToAttribute:true
+        formType: {
+          type:String,
+          value:'eq_form'
         }
       },
       behaviors:[
-        Polymer.IronValidatableBehavior
+        Polymer.IronValidatableBehavior,
+        DmcStudentFormBehavior,
       ],
       _tap:function(e) {
         if(e.detail.type == "save") {
-          this.value.cid = "1318700119941";
-          this.value.year = 2017;
-          this.value.form_type = "eq_form";
-          console.log(this.value);
           this.$.control.save();
         }
+      },
+      _reset:function() {
+        this.set('document.value.q1',null);
       }
     });
   </script>

@@ -10,6 +10,7 @@
 <link rel="import" href="../../paper-styles/color.html">
 <link rel="import" href="dl-profile.html">
 <link rel="import" href="../dl2-form.html">
+<link rel="import" href="../eq-form/eq-form.html">
 <link rel="import" href="form-card.html">
 
 <dom-module id="form-list">
@@ -26,13 +27,18 @@
      <form-card label="dl2_form_label"
        dmc-student="{{dmcStudent}}">
      </form-card>
+     <form-card label="eq_form_label"
+       dmc-student="{{dmcStudent}}">
+     </form-card>
     </iron-selector>
 
     <iron-pages selected="{{page}}">
       <dl2-form 
-        form-type = "dl2form_teacher"
+        form-type="dl2form_teacher"
         dmc-student="{{dmcStudent.value}}">
       </dl2-form>
+      <eq-form dmc-student="{{dmcStudent}}">
+      </eq-form>
     </iron-pages>
 
   </template>
