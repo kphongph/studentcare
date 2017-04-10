@@ -1,0 +1,54 @@
+<link rel="import" href="leveldb-query.html">
+
+<script>
+  DmcStudentFormBehavior = {
+    properties : {
+      dmcStudent: {
+        type:Object,
+        notify:true,
+        observer:'__dmcStudentChanged'
+      },
+      formType: {
+        type:String
+      },
+      document: {
+        type:Object,
+        notify:true
+      }
+    },
+    queryForm:function(type) {
+    },
+    __dmcStudentChanged:function(n) {
+      if(!n) return;
+      var self = this;
+      var el = document.createElement('leveldb-query');
+      el.setAttribute('url','https://maas.nuqlis.com:9000/api');
+      el.setAttribute('db-name','students_care');
+      el.setAttribute('view-name','cid_year_type');
+      var query = {"limit":1,"include_doc":true};
+      query['match'] = [n.value.IDNO,2017,this.formType];
+      el.setAttribute('query',JSON.stringify(query));
+      el.addEventListener('response',function(e) {
+        if(e.detail.response.length > 0) {
+          var response = e.detail.response[0];
+          self.set('document',{
+            'key':response.value.key,
+            'value':response.value.doc
+          });
+        } else {
+          self.set('document',{
+            'key':null,
+            'value':{
+              'cid':n.value.IDNO,
+              'year':2017,
+              'form_type':self.formType,
+            }
+          });
+          
+          self._reset();
+        }
+      });
+      document.body.appendChild(el);
+    }
+  }
+</script>

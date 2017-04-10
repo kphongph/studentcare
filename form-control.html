@@ -1,0 +1,69 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="../paper-toolbar/paper-toolbar.html">
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../app-storage/app-localstorage/app-localstorage-document.html">
+<link rel="import" href="../app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="../paper-toast/paper-toast.html">
+<link rel="import" href="../app-leveldb/app-leveldb.html">
+<link rel="import" href="../app-leveldb/app-leveldb-document.html">
+
+<dom-module id="form-control">
+  <template>
+    <style include="iron-flex iron-flex-alignment">
+    </style>     
+
+    <app-localstorage-document 
+      key="jwtToken" data="{{jwtToken}}">
+    </app-localstorage-document>
+    
+    <app-leveldb
+      name="test"
+      url="https://maas.nuqlis.com:9000/api"
+      db-name="students_care"
+      app="{{app}}"
+      jwt-token="{{jwtToken.token}}">
+    </app-leveldb>
+    
+    <app-leveldb-document id="doc"
+      app="{{app}}"
+      key="{{docKey}}"
+      status="{{status}}"
+      value="{{docValue}}">
+    </app-leveldb-document>    
+
+    <paper-toolbar>
+      <paper-icon-button icon="save" on-tap="_save"></paper-icon-button>
+    </paper-toolbar>
+    <content></content>
+
+  </template>
+  <script>
+    Polymer({
+      is: 'form-control',
+      behaviors: [
+        Polymer.AppLocalizeBehavior
+      ],
+      properties: {      
+        docKey:{
+          type:String
+        },
+        docValue:{
+          type:Object,
+          notify:true
+        } 
+      },
+      _save:function(e) {
+        this.fire('form-action',{'type':'save'});
+      },
+      save:function(e) {
+        console.log(this.docKey,this.docValue);
+        if(!this.docKey) {
+          this.set('docKey',null);
+        }
+        this.$.doc.save();
+      }
+    });
+  </script>
+</dom-module>
