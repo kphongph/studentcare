@@ -13,11 +13,9 @@
         display: block;
         width:100%;
       }
-
       .invalid {
         border:1px solid red;
       }
-
       .question {
         padding:7px;
         background-color:var(--paper-grey-100);
@@ -26,68 +24,67 @@
      <div class="layout vertical">
       <div id="r_exist">
         <div class="question">โดยรวมคุณคิดว่าเด็กมีปัญหาในด้านอารมณ์ ด้านสมาธิ ด้านพฤติกรรม  หรือความสามารถเข้ากับผู้อื่นหรือไม่</div>
-        <paper-radio-group selected="{{teacherChoice.exist}}">
-          <paper-radio-button name="N">ไม่</paper-radio-button>
-          <paper-radio-button name="Y">ใช่</paper-radio-button>
-        </paper-radio-group>
+          <paper-radio-group selected="{{teacherChoice.exist}}">
+            <paper-radio-button name="N">ไม่</paper-radio-button>
+            <paper-radio-button name="Y">ใช่</paper-radio-button>
+          </paper-radio-group>
       </div>
       
       <div id="problemExist" class="layout vertical" hidden>
        <div id="r_level">  
         <div class="question">เด็กมีปัญหาดังกล่าวในระดับ</div>
-        <paper-radio-group selected="{{teacherChoice.level}}">
-         <paper-radio-button name="0">เล็กน้อย</paper-radio-button>
-         <paper-radio-button name="1">ชัดเจน</paper-radio-button>
-         <paper-radio-button name="2">อย่างมาก</paper-radio-button>
-        </paper-radio-group>
+          <paper-radio-group selected="{{teacherChoice.level}}">
+            <paper-radio-button name="0">เล็กน้อย</paper-radio-button>
+            <paper-radio-button name="1">ชัดเจน</paper-radio-button>
+            <paper-radio-button name="2">อย่างรุนแรง</paper-radio-button>
+          </paper-radio-group>
        </div>
        <div id="r_time">  
         <div class="question">ปัญหานี้เกิดขึ้นมานามเท่าไหร่แล้ว</div>
-        <paper-radio-group selected="{{teacherChoice.time}}">
-         <paper-radio-button name="1m">น้อยกว่า 1 เดือน</paper-radio-button>
-         <paper-radio-button name="1m-5m">1-5 เดือน</paper-radio-button>
-         <paper-radio-button name="6m-1y">6-12 เดือน</paper-radio-button>
-         <paper-radio-button name="1y">มากกว่า 1 ปี</paper-radio-button>
-        </paper-radio-group>
+          <paper-radio-group selected="{{teacherChoice.time}}">
+             <paper-radio-button name="1m">น้อยกว่า 1 เดือน</paper-radio-button>
+             <paper-radio-button name="1m-5m">1 - 5 เดือน</paper-radio-button>
+             <paper-radio-button name="6m-1y">6 - 12 เดือน</paper-radio-button>
+             <paper-radio-button name="1y">มากกว่า 1 ปี</paper-radio-button>
+          </paper-radio-group>
        </div>
        <div id="r_unhappy">  
         <div class="question"> ปัญหานี้ทำให้เด็กรู้สึกไม่สบายใจหรือไม่</div>
-        <paper-radio-group selected="{{teacherChoice.unhappy}}">
-         <paper-radio-button name="0">ไม่เลย</paper-radio-button>
-         <paper-radio-button name="1">เล็กน้อย</paper-radio-button>
-         <paper-radio-button name="2">ค่อนข้างมาก</paper-radio-button>
-         <paper-radio-button name="3">มาก</paper-radio-button>
-        </paper-radio-group>
+          <paper-radio-group selected="{{teacherChoice.unhappy}}">
+             <paper-radio-button name="0">ไม่เลย</paper-radio-button>
+             <paper-radio-button name="1">เล็กน้อย</paper-radio-button>
+             <paper-radio-button name="2">ค่อนข้างมาก</paper-radio-button>
+             <paper-radio-button name="3">มาก</paper-radio-button>
+          </paper-radio-group>
        </div>
        <div id="r_friend">  
         <div class="question">ปัญหานี้รบกวนชีวิตประจำวันของเด็กในด้านการคบเพื่อนหรือไม่</div>
-        <paper-radio-group selected="{{teacherChoice.friend}}">
-         <paper-radio-button name="0">ไม่เลย</paper-radio-button>
-         <paper-radio-button name="1">เล็กน้อย</paper-radio-button>
-         <paper-radio-button name="2">ค่อนข้างมาก</paper-radio-button>
-         <paper-radio-button name="3">มาก</paper-radio-button>
-        </paper-radio-group>
+          <paper-radio-group selected="{{teacherChoice.friend}}">
+             <paper-radio-button name="0">ไม่เลย</paper-radio-button>
+             <paper-radio-button name="1">เล็กน้อย</paper-radio-button>
+             <paper-radio-button name="2">ค่อนข้างมาก</paper-radio-button>
+             <paper-radio-button name="3">มาก</paper-radio-button>
+          </paper-radio-group>
        </div>
        <div id="r_study">  
         <div class="question"> ปัญหานี้รบกวนชีวิตประจำวันของเด็กในด้านการเรียนในห้องเรียนหรือไม่</div>
-        <paper-radio-group selected="{{teacherChoice.study}}">
-         <paper-radio-button name="0">ไม่เลย</paper-radio-button>
-         <paper-radio-button name="1">เล็กน้อย</paper-radio-button>
-         <paper-radio-button name="2">ค่อนข้างมาก</paper-radio-button>
-         <paper-radio-button name="3">มาก</paper-radio-button>
-        </paper-radio-group>
+          <paper-radio-group selected="{{teacherChoice.study}}">
+             <paper-radio-button name="0">ไม่เลย</paper-radio-button>
+             <paper-radio-button name="1">เล็กน้อย</paper-radio-button>
+             <paper-radio-button name="2">ค่อนข้างมาก</paper-radio-button>
+             <paper-radio-button name="3">มาก</paper-radio-button>
+          </paper-radio-group>
        </div>
        <div id="r_social">  
         <div class="question">ปัญหาของเด็กทำให้คุณหรือชั้นเรียนเกิดความยุ่งยากหรือไม่</div>
-        <paper-radio-group selected="{{teacherChoice.social}}">
-         <paper-radio-button name="0">ไม่เลย</paper-radio-button>
-         <paper-radio-button name="1">เล็กน้อย</paper-radio-button>
-         <paper-radio-button name="2">ค่อนข้างมาก</paper-radio-button>
-         <paper-radio-button name="3">มาก</paper-radio-button>
-        </paper-radio-group>
+          <paper-radio-group selected="{{teacherChoice.social}}">
+             <paper-radio-button name="0">ไม่เลย</paper-radio-button>
+             <paper-radio-button name="1">เล็กน้อย</paper-radio-button>
+             <paper-radio-button name="2">ค่อนข้างมาก</paper-radio-button>
+             <paper-radio-button name="3">มาก</paper-radio-button>
+          </paper-radio-group>
        </div>
-      </div>
-    
+      </div>    
   </template>
 
   <script>

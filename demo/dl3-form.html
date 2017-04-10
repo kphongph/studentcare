@@ -8,17 +8,18 @@
   <link rel="import" href="../../app-storage/app-localstorage/app-localstorage-document.html">
   <link rel="import" href="../../grid-element/grid-element.html">
   <link rel="import" href="../student-room.html">
-  <link rel="import" href="../dl3-form.html">  
+  <link rel="import" href="../local/dl-profile.html">
+  <link rel="import" href="../dl3-form.html">
 </head>
 
 <body>  
   <h3>dl2-form Demo</h3>
   <template is="dom-bind">
-    <app-localstorage-document 
+    <app-localstorage-document
       key="jwtToken" data="{{jwtToken}}">
     </app-localstorage-document>
-
-    <grid-element mq="(min-width: 600px)">    
+    
+    <grid-element mq="(min-width: 600px)">
       <grid-col>
         <student-room 
           jwt-token="{{jwtToken.token}}" 
@@ -28,12 +29,13 @@
       </grid-col>
 
       <grid-col s="3">
+        <dl-profile dmc-student="{{student.value}}"></dl-profile>
         <dl3-form class="flex"
           form-type = "dl3form_student"
           dmc-student="{{student.value}}" >
         </dl3-form>
-      </grid-col>     
-    </grid-element>  
+      </grid-col>
+    </grid-element>
 
   </template>
 </body>

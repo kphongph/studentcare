@@ -8,6 +8,7 @@
   <link rel="import" href="../../app-storage/app-localstorage/app-localstorage-document.html">
   <link rel="import" href="../../grid-element/grid-element.html">
   <link rel="import" href="../student-room.html">
+  <link rel="import" href="dl-profile.html">
   <link rel="import" href="../dl2-form.html">  
 </head>
 
@@ -28,6 +29,7 @@
       </grid-col>
 
       <grid-col s="3">
+        <dl-profile dmc-student="{{student.value}}"></dl-profile>
         <dl2-form class="flex"
           form-type = "dl2form_teacher"
           dmc-student="{{student.value}}" >

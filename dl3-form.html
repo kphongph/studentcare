@@ -12,14 +12,14 @@
 <link rel="import" href="../app-leveldb/app-leveldb.html">
 <link rel="import" href="../app-leveldb/app-leveldb-document.html">
 <link rel="import" href="./sdq-form-choice.html">
-<link rel="import" href="./sdq-form-teacher.html">
+<link rel="import" href="./sdq-form-student.html">
 
 <!--
 `dl2-form`
 Polymer Component for StudentCare project
 -->
 
-<dom-module id="dl2-form">
+<dom-module id="dl3-form">
   <template>
     <style include="iron-flex iron-flex-alignment">
       @media (min-width:320px) {
@@ -68,11 +68,11 @@ Polymer Component for StudentCare project
     </paper-toolbar>
     
     <iron-pages selected="{{part}}">
-      <sdq-form-choice id="formChoiceId"
+      <sdq-form-choice id="formChoiceId" for-child
         value="{{sdqChoice}}">
       </sdq-form-choice>
-      <sdq-form-teacher teacher-choice="{{teacherChoice}}">
-      </sdq-form-teacher>
+      <sdq-form-student student-choice="{{studentChoice}}">
+      </sdq-form-student>
     </iron-pages>
     
     <paper-toast id="toastsave"></paper-toast>
@@ -80,7 +80,7 @@ Polymer Component for StudentCare project
   </template>
   <script>
     Polymer({
-      is: 'dl2-form',
+      is: 'dl3-form',
       behaviors: [
         Polymer.AppLocalizeBehavior
       ],
@@ -95,7 +95,7 @@ Polymer Component for StudentCare project
         }
       },
       _studentChanged : function(n,o){
-        this.set('teacherChoice',{});
+        this.set('studentChoice',{});
         if (n){
           var year = new Date().getFullYear();
           var query = {
@@ -115,7 +115,7 @@ Polymer Component for StudentCare project
         if (n.length > 0){
           this.set('_docId',n[0].value.key);
           this.set('sdqChoice',n[0].value.doc.sdqChoice);
-          this.set('teacherChoice',n[0].value.doc.teacherChoice);
+          this.set('studentChoice',n[0].value.doc.studentChoice);
         }else{
           this.set('_docId',null);
           if(this.sdqChoice){
@@ -130,9 +130,9 @@ Polymer Component for StudentCare project
         var valid = this.$.formChoiceId.validate();
         if(valid && this.dmcStudent){
           var date = new Date();
-          if(this.teacherChoice.exist == 'N'){
-            delete this.teacherChoice;
-            this.teacherChoice = {"exist": "N"};
+          if(this.studentChoice.exist == 'N'){
+            delete this.studentChoice;
+            this.studentChoice = {"exist": "N"};
           }
           var objSave = {
             'cid':this.dmcStudent.IDNO,
@@ -141,7 +141,7 @@ Polymer Component for StudentCare project
             'form_type':"dl2form_teacher",
             'form_type_desc':"แบบประเมินพฤติกรรมเด็ก (SDQ) ฉบับครูเป็นผู้ประเมินนักเรียน",
             'sdqChoice':this.sdqChoice,
-            'teacherChoice':this.teacherChoice
+            'studentChoice':this.studentChoice
           };
           this.set('_docValue',objSave);
           this.$.doc.save();
