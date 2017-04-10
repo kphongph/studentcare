@@ -1,0 +1,64 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../paper-progress/paper-progress.html">
+<link rel="import" href="../paper-material/paper-material.html">
+<link rel="import" href="local/assignment-card.html">
+<link rel="import" href="leveldb-query.html">
+
+<dom-module id="assignment-panel">
+  <template>
+    <style include="iron-flex iron-flex-alignment iron-flex-factors">
+      :host {
+        @apply(--layout-vertical);
+        display: block;
+      }
+    </style>
+    
+    <leveldb-query url="https://maas.nuqlis.com:9000/api"
+      db-name="students_care"
+      view-name="assignment"
+      data="{{data}}"
+      query="{{query}}">
+    </leveldb-query>
+
+    <paper-material elevation="1">
+     <template is="dom-repeat" items="{{data}}">
+      <assignment-card data="{{item}}"></assignment-card>  
+     </template>
+    </paper-material>
+
+  </template>
+
+  <script>
+    Polymer({
+      is: 'assignment-panel',
+      properties: {
+        selectedStudent: {
+          type:Object,
+          notify:true
+        },
+        host: {
+          type:String
+        },
+        level:{
+          type:String
+        },
+        room:{
+          type:String
+        },
+        query:{
+          type:Object,
+          computed:'__computeQuery(host,level,room)'
+        }
+      },
+      __computeQuery:function(host,level,room) {
+        console.log(host,level,room);
+        return {};
+      },
+      _studentSelected:function(e) {
+        this.set('selectedStudent',e.detail);
+        this.fire('select',{'student':e.detail});
+      }
+    });
+  </script>
+</dom-module>

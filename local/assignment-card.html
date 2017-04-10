@@ -1,0 +1,81 @@
+<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../paper-styles/typography.html">
+<link rel="import" href="../../iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../app-localize-behavior/app-localize-behavior.html">
+
+<dom-module id="assignment-card">
+  <template>
+    <style include="iron-flex iron-flex-alignment iron-flex-factors">
+      :host {
+        display: block;
+        cursor: pointer; 
+        cursor: hand; 
+        @apply(--paper-font-subhead);
+        border-bottom:1px solid #efefef;
+      }
+      :host:hover {
+        background:#efefef;
+      }
+      .idNo {
+        padding:5px;
+      }
+      .pad {
+        padding:5px;
+      }
+    </style>
+   
+    <div class="layout horizontal pad">
+      <span class="flex-1">{{data.key.8}}</span>
+      <span class="flex-2">{{_formName(data.key.6)}}</span>
+      <span class="flex-1">{{_date(data.key.1)}}</span>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'assignment-card',
+      behaviors: [
+          Polymer.AppLocalizeBehavior
+      ],
+      properties: {
+        language: {
+          value:'dist_title'
+        },
+        doc:Object,
+        selected:{
+          type:Boolean,
+          value:false
+        },
+        _fullName: {
+          type:String,
+          computed:'_computeFullName(doc)'
+        }
+      },
+      listeners: {
+        'tap':'_tap'
+      },
+      _tap: function(e) {
+        this.fire('select',this.doc);
+      },
+      _formName:function(type) {
+        var dict = {
+          'eq_form':'แบบประเมินความฉลาดทางอารมณ์'
+        }
+        return dict[type];
+      },
+      _date:function(ts) {
+        var d = new Date();
+        d.setTime(ts*-1);
+        var str = ("0" + d.getDate()).slice(-2) + "-" + 
+          ("0"+(d.getMonth()+1)).slice(-2) + "-" +
+          d.getFullYear() + " " + 
+          ("0" + d.getHours()).slice(-2) + ":" + 
+          ("0" + d.getMinutes()).slice(-2);
+        return str;
+      },
+      attached:function() {
+        this.loadResources(this.resolveUrl('../locales.json'));
+      }
+    });
+  </script>
+</dom-module>
