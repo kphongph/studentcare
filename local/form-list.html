@@ -12,6 +12,7 @@
 <link rel="import" href="../dl2-form.html">
 <link rel="import" href="../dl3-form.html">
 <link rel="import" href="../eq-form/eq-form.html">
+<link rel="import" href="../st5-form/st5-form.html">
 <link rel="import" href="form-card.html">
 
 <dom-module id="form-list">
@@ -23,7 +24,6 @@
 
     </style>
     <dl-profile dmc-student="{{dmcStudent.value}}"></dl-profile>
-
     <iron-selector selected="{{page}}">
      <form-card label="dl2_form_label"
        dmc-student="{{dmcStudent}}">
@@ -34,12 +34,14 @@
      <form-card label="eq_form_label"
        dmc-student="{{dmcStudent}}">
      </form-card>
+     <form-card label="st5_form_label"
+       dmc-student="{{dmcStudent}}">
+     </form-card>
     </iron-selector>
    
     <div id="formPanel"></div>
 
   </template>
-
   <script>
     Polymer({
       is: 'form-list',
@@ -95,5 +97,6 @@
         }
       }
     });
+    
   </script>
 </dom-module>
