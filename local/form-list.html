@@ -24,6 +24,7 @@
 
     </style>
     <dl-profile dmc-student="{{dmcStudent.value}}"></dl-profile>
+   
     <iron-selector selected="{{page}}">
      <form-card label="dl2_form_label"
        dmc-student="{{dmcStudent}}">
@@ -38,7 +39,7 @@
        dmc-student="{{dmcStudent}}">
      </form-card>
     </iron-selector>
-   
+
     <div id="formPanel"></div>
 
   </template>
@@ -77,7 +78,8 @@
         var pages = [
           'dl2-form',
           'dl3-form',
-          'eq-form'
+          'eq-form',
+          'st5_form'
         ];
         var first = this.$.formPanel.firstChild;
         if(first) {
