@@ -93,7 +93,8 @@
         var types = {
           'dl2_form_label':'dl2form_teacher',
           'dl3_form_label':'dl3form_student',
-          'eq_form_label':'eq_form'
+          'eq_form_label':'eq_form',
+          'st5_form_label':'st5_form'
         };
         if(dmcStudent.value.IDNO) {
           query.match.push(dmcStudent.value.IDNO);
@@ -103,6 +104,7 @@
         return query;
       },
       __dataChanged:function(data) {
+        console.log(JSON.stringify(data));
         if(data.length == 1) {
           if(data[0].key[1] == this.dmcStudent.value.IDNO) {
             this._setExists(true);
@@ -120,5 +122,6 @@
         this.loadResources(this.resolveUrl('../locales.json'));
       }
     });
+    
   </script>
 </dom-module>
