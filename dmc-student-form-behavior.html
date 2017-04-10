@@ -36,6 +36,15 @@
             'value':response.value.doc
           });
         } else {
+          self.set('document',{
+            'key':null,
+            'value':{
+              'cid':n.value.IDNO,
+              'year':2017,
+              'form_type':self.formType,
+            }
+          });
+          
           self._reset();
         }
       });
