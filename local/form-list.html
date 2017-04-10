@@ -35,17 +35,8 @@
        dmc-student="{{dmcStudent}}">
      </form-card>
     </iron-selector>
-
-    <iron-pages selected="{{page}}">
-      <dl2-form 
-        dmc-student="{{dmcStudent.value}}">
-      </dl2-form>
-      <dl3-form 
-        dmc-student="{{dmcStudent.value}}">
-      </dl3-form>
-      <eq-form dmc-student="{{dmcStudent}}">
-      </eq-form>
-    </iron-pages>
+   
+    <div id="formPanel"></div>
 
   </template>
 
@@ -80,12 +71,28 @@
           this.set('page',-1);
         }
       },
-      _select: function() {
-        //this.entryAnimation = 'scale-up-animation';
-        //this.exitAnimation = 'scale-down-animation';
-      },
       _pageChanged:function(n) {
-        console.log('page',n);
+        var pages = [
+          'dl2-form',
+          'dl3-form',
+          'eq-form'
+        ];
+        var first = this.$.formPanel.firstChild;
+        if(first) {
+          this.$.formPanel.removeChild(first);
+        }
+        var eleName = pages[n];
+        if(eleName) {
+          var ele = document.createElement(eleName);
+          if(n < 2) {
+            ele.setAttribute('dmc-student',
+              JSON.stringify(this.dmcStudent.value));
+          } else {
+            ele.setAttribute('dmc-student',
+              JSON.stringify(this.dmcStudent));
+          }
+          this.$.formPanel.appendChild(ele);
+        }
       }
     });
   </script>
