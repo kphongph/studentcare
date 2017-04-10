@@ -23,15 +23,67 @@
       paper-radio-group {
         background:#efefef;
       }
+      
+      div {
+        @apply(--paper-font-title);
+        margin:3px;
+        padding:0px;
+        background:#efefef;
+      }
     </style>
 
     <form-control id="control" 
       on-form-action="_tap" 
       doc-key="{{document.key}}"
       doc-value="{{document.value}}">
+     <div>ดี</div> 
      <eq-choice value="{{document.value.q1}}" 
         label="รู้จักให้กำลังใจผู้อื่น">
+     </eq-choice>     
+     <eq-choice value="{{document.value.q2}}" 
+        label="รู้จักรับฟังความคิดเห็นของผู้อื่น">
+     </eq-choice>     
+     <eq-choice value="{{document.value.q3}}" 
+        label="ชอบแกล้งเพื่อน">
+     </eq-choice>     
+     <eq-choice value="{{document.value.q4}}" 
+        label="ยอมรับเมื่อทำผิด เช่น ขอโทษหรือยกมือไหว้">
+     </eq-choice>     
+     <eq-choice value="{{document.value.q5}}" 
+        label="ทักทายหรือทำความรู้จักกับเพื่อนใหม่ ">
      </eq-choice>
+     <div>เก่ง</div>
+     <eq-choice value="{{document.value.q6}}" 
+        label="มีความตั้งใจเมื่อทำสิ่งต่างๆ ที่สนใจ">
+     </eq-choice>     
+     <eq-choice value="{{document.value.q7}}" 
+        label="พยายามทำงานที่ยากให้สำเร็จได้ด้วยตนเอง เช่น การบ้าน งานฝีมือ">
+     </eq-choice>     
+     <eq-choice value="{{document.value.q8}}" 
+        label="ท้อใจหรือล้มเลิกความตั้งใจเมื่อทำงานไม่สำเร็จ หรือเมื่อมีปัญหา">
+     </eq-choice>     
+     <eq-choice value="{{document.value.q9}}" 
+        label="รู้จักรอคอยเวลาที่เหมาะสมในการแก้ปัญหา เช่นเมื่อไม่ได้ในสิ่งที่ต้องการ">
+     </eq-choice>     
+     <eq-choice value="{{document.value.q10}}" 
+        label="เมื่อมีปัญหา ชอบคิดหาวิธีแก้ปัญหาหลายๆทาง">
+     </eq-choice>  
+     <div>สุข</div>
+     <eq-choice value="{{document.value.q6}}" 
+        label="ภูมิใจในจุดดีของตนเอง">
+     </eq-choice>     
+     <eq-choice value="{{document.value.q7}}" 
+        label="มีอารมณ์ขัน">
+     </eq-choice>     
+     <eq-choice value="{{document.value.q8}}" 
+        label="ทำกิจกรรมสร้างสุขให้ตนเองได้อย่างเหมาะสม">
+     </eq-choice>     
+     <eq-choice value="{{document.value.q9}}" 
+        label="มีวิธีผ่อนคลายความเครียดด้วยตนเอง เช่นอ่านหนังสือ ดูหนัง ฟังเพลง เล่นสนุก วาดรูป พูดคุยกับเพื่อน">
+     </eq-choice>     
+     <eq-choice value="{{document.value.q10}}" 
+        label="เป็นเด็กอารมณ์ดี">
+     </eq-choice>       
     </form-control>
 
   </template>
