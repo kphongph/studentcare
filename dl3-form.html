@@ -15,7 +15,7 @@
 <link rel="import" href="./sdq-form-student.html">
 
 <!--
-`dl2-form`
+`dl3-form`
 Polymer Component for StudentCare project
 -->
 
@@ -99,7 +99,7 @@ Polymer Component for StudentCare project
         if (n){
           var year = new Date().getFullYear();
           var query = {
-            'match': [n.IDNO,year,'dl2form_teacher'],
+            'match': [n.IDNO,year,'dl3form_student'],
             "limit":-1,
             'include_doc': true
           };
@@ -138,8 +138,8 @@ Polymer Component for StudentCare project
             'cid':this.dmcStudent.IDNO,
             'updateTime':date.getTime(),
             'year':date.getFullYear(),
-            'form_type':"dl2form_teacher",
-            'form_type_desc':"แบบประเมินพฤติกรรมเด็ก (SDQ) ฉบับครูเป็นผู้ประเมินนักเรียน",
+            'form_type':"dl3form_student",
+            'form_type_desc':"แบบประเมินพฤติกรรมเด็ก (SDQ) ฉบับนักเรียนประเมินตนเอง",
             'sdqChoice':this.sdqChoice,
             'studentChoice':this.studentChoice
           };
@@ -148,7 +148,7 @@ Polymer Component for StudentCare project
           this.$.toastsave.customStyle['--paper-toast-background-color'] = 'green';
           this.$.toastsave.updateStyles();
           this.$.toastsave.show('บันทึกสำเร็จ');
-          this.fire('dl2-completed',objSave);      
+          this.fire('dl3-completed',objSave);      
         }else{
           this.$.toastsave.customStyle['--paper-toast-background-color'] = 'red';
           this.$.toastsave.updateStyles();
