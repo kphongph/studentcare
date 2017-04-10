@@ -1,0 +1,77 @@
+<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../iron-icons/iron-icons.html">
+<link rel="import" href="../../iron-validatable-behavior/iron-validatable-behavior.html">
+<link rel="import" href="../../paper-styles/typography.html">
+<link rel="import" href="../../paper-radio-group/paper-radio-group.html">
+<link rel="import" href="../form-control.html">
+<link rel="import" href="eq-choice.html">
+<dom-module id="eq-form">
+  <template>
+    <style include="iron-flex iron-flex-alignment iron-flex-factors">
+      :host {
+        @apply(--paper-font-display);
+        @apply(--layout-vertical);
+        display: block;
+        padding:5px;
+      }
+
+      .invalid {
+        border: 1px solid #ee0000;
+      }
+
+      paper-radio-group {
+        background:#efefef;
+      }
+    </style>
+
+    <form-control id="control" 
+      on-form-action="_tap" 
+      doc-key="{{key}}"
+      doc-value="{{value}}">
+     <eq-choice value="{{value.q1}}" label="รู้จักให้กำลังใจผู้อื่น">
+     </eq-choice>
+    </form-control>
+
+  </template>
+
+  <script>
+    Polymer({
+      is: 'eq-form',
+      listeners : {
+      },
+      properties: {
+        value:{
+          type:Object,
+          value:function() {
+            return {};
+          }
+        },
+        label:{
+          type:String
+        },
+        disabled: {
+          type:Boolean,
+          value:false
+        },
+        required:{
+          type:Boolean,
+          value:false,
+          reflectToAttribute:true
+        }
+      },
+      behaviors:[
+        Polymer.IronValidatableBehavior
+      ],
+      _tap:function(e) {
+        if(e.detail.type == "save") {
+          this.value.cid = "1318700119941";
+          this.value.year = 2017;
+          this.value.form_type = "eq_form";
+          console.log(this.value);
+          this.$.control.save();
+        }
+      }
+    });
+  </script>
+</dom-module>
