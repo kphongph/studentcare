@@ -71,7 +71,8 @@ Polymer Component for StudentCare project
       <sdq-form-choice id="formChoiceId" for-child
         value="{{sdqChoice}}">
       </sdq-form-choice>
-      <sdq-form-student student-choice="{{studentChoice}}">
+      <sdq-form-student id="formStudent"
+        student-choice="{{studentChoice}}">
       </sdq-form-student>
     </iron-pages>
     
@@ -131,7 +132,7 @@ Polymer Component for StudentCare project
         if(!valid) {
           this.part = 0;
         } else {
-          valid = valid && this.$.formTeacher.validate();
+          valid = valid && this.$.formStudent.validate();
           if(!valid) this.part = 1; 
         }
         if(valid && this.dmcStudent){
