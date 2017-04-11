@@ -100,6 +100,9 @@
           this.set('docKey',null);
         }
         var ts = (new Date()).getTime()*-1;
+        if(this.docValue.status == 'new') {
+          this.docValue.status = 'working';
+        }
         this.docValue.ts = ts;
         this.$.doc.save();
       }
