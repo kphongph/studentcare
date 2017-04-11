@@ -6,8 +6,8 @@
 <link rel="import" href="../../paper-radio-group/paper-radio-group.html">
 <link rel="import" href="../form-control.html">
 <link rel="import" href="../dmc-student-form-behavior.html">
-<link rel="import" href="./st5-choice.html">
-<dom-module id="st5-form">
+<link rel="import" href="eq-choice.html">
+<dom-module id="eq-form">
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors">
       :host {
@@ -15,45 +15,36 @@
         @apply(--layout-vertical);
         display: block;
       }
+
       .invalid {
         border: 1px solid #ee0000;
       }
+
       paper-radio-group {
         background:#efefef;
       }
     </style>
 
-    <form-control id="control"
-      on-form-action="_tap"
+    <form-control id="control" 
+      on-form-action="_tap" 
       doc-key="{{document.key}}"
       doc-value="{{document.value}}">
-      <st5-choice value="{{document.value.q1}}"
-        label="มีปัญหาการนอน นอนไม่หลับ หรือนอนมาก">
-      </st5-choice>
-      <st5-choice value="{{document.value.q2}}"
-        label="มีสมาธิน้อยลง">
-      </st5-choice>
-      <st5-choice value="{{document.value.q3}}"
-        label="หงุดหงิด / กระวนกระวายใจ / ว้าวุ่นใจ">
-      </st5-choice>
-      <st5-choice value="{{document.value.q4}}"
-        label="รู้สึกเบื่อ  เซ็ง">
-      </st5-choice>
-      <st5-choice value="{{document.value.q5}}"
-        label="ไม่อยากพบปะผู้คน">
-      </st5-choice>
+     <eq-choice value="{{document.value.q1}}" 
+        label="รู้จักให้กำลังใจผู้อื่น">
+     </eq-choice>
     </form-control>
-    <div>
-      <b>*** หมายเหตุ *** ให้ผู้ถูกประเมินตอบให้ตรงตามความรู้สึก ในระยะ 2 – 4 สัปดาห์</b>
-    </div>
+
   </template>
+
   <script>
     Polymer({
-      is: 'st5-form',
+      is: 'eq-form',
+      listeners : {
+      },
       properties: {
         formType: {
           type:String,
-          value:'st5_form'
+          value:'eq_form'
         }
       },
       behaviors:[
@@ -67,10 +58,6 @@
       },
       _reset:function() {
         this.set('document.value.q1',null);
-        this.set('document.value.q2',null);
-        this.set('document.value.q3',null);
-        this.set('document.value.q4',null);
-        this.set('document.value.q5',null);
       }
     });
   </script>

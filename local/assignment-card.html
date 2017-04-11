@@ -3,6 +3,7 @@
 <link rel="import" href="../../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../../app-localize-behavior/app-localize-behavior.html">
 <link rel="import" href="../eq-form/eq-form.html">
+<link rel="import" href="../eq-form/eq-teacher-form.html">
 
 <dom-module id="assignment-card">
   <template>
@@ -29,9 +30,9 @@
     </style>
    
     <div class="layout horizontal pad" on-tap="_tap">
-      <span class="flex-1">{{data.key.8}}</span>
-      <span class="flex-2">{{_formName(data.key.6)}}</span>
-      <span class="flex-1">{{_date(data.key.1)}}</span>
+      <span class="flex-1">{{data.key.7}}</span>
+      <span class="flex-2">{{_formName(data.key.5)}}</span>
+      <span class="flex-1">{{_date(data.key.8)}}</span>
     </div>
     <div id="formPanel" hidden$="{{!showForm}}"></div>
   </template>
@@ -53,9 +54,10 @@
         var first = this.$.formPanel.firstChild;
         if(!first) {
           var formMap = {
-            'eq_form':'eq-form'
+            'eq_form':'eq-form',
+            'eq_teacher_form':'eq-teacher-form'
           };
-          var eleName = formMap[this.data.key[6]];
+          var eleName = formMap[this.data.key[5]];
           if(eleName) {
             var ele = document.createElement(eleName);
             var doc = {'key':this.data.value};
@@ -69,7 +71,8 @@
       },
       _formName:function(type) {
         var dict = {
-          'eq_form':'แบบประเมินความฉลาดทางอารมณ์'
+          "eq_form":"แบบประเมินความฉลาดทางอารมณ์ (EQ)ฉบับครูประเมินนักเรียน (6-11 ปี)",
+          "eq_teacher_form":"แบบประเมินความฉลาดทางอารมณ์ (EQ) ฉบับนักเรียนประเมินตนเอง (12-17 ปี)",
         }
         return dict[type];
       },
