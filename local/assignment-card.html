@@ -4,6 +4,7 @@
 <link rel="import" href="../../app-localize-behavior/app-localize-behavior.html">
 <link rel="import" href="../eq-form/eq-form.html">
 <link rel="import" href="../eq-form/eq-teacher-form.html">
+<link rel="import" href="../st5-form/st5-form.html">
 
 <dom-module id="assignment-card">
   <template>
@@ -93,7 +94,8 @@
         if(!first) {
           var formMap = {
             'eq_form':'eq-form',
-            'eq_teacher_form':'eq-teacher-form'
+            'eq_teacher_form':'eq-teacher-form',
+            'st5_form':'st5-form'
           };
           var eleName = formMap[this.data.key[5]];
           if(eleName) {
@@ -111,6 +113,7 @@
         var dict = {
           "eq_form":"แบบประเมินความฉลาดทางอารมณ์ (EQ)ฉบับครูประเมินนักเรียน (6-11 ปี)",
           "eq_teacher_form":"แบบประเมินความฉลาดทางอารมณ์ (EQ) ฉบับนักเรียนประเมินตนเอง (12-17 ปี)",
+          "st5_form":"แบบประเมินความเครียดกรมสุขภาพจิต (ST–5)"
         }
         return dict[type];
       },

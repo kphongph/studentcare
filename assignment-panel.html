@@ -14,6 +14,9 @@
         @apply(--layout-vertical);
         display: block;
       }
+      paper-material {
+        margin-bottom:10px;
+      }
     </style>
     
     <leveldb-query url="https://maas.nuqlis.com:9000/api"
@@ -23,12 +26,12 @@
       query="{{query}}">
     </leveldb-query>
 
-    <paper-material elevation="1">
       <template is="dom-repeat" items="{{data}}">
+        <paper-material elevation="1">
         <assignment-card data="{{item}}">
         </assignment-card>  
+        </paper-material>
       </template>
-    </paper-material>
 
   </template>
 
