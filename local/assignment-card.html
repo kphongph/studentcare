@@ -32,7 +32,7 @@
     <div class="layout horizontal pad" on-tap="_tap">
       <span class="flex-1">{{data.key.7}}</span>
       <span class="flex-2">{{_formName(data.key.5)}}</span>
-      <span class="flex-1">{{_date(data.key.8)}}</span>
+      <span class="flex-1">{{_dateTime}}</span>
     </div>
     <div id="formPanel" hidden$="{{!showForm}}"></div>
   </template>
@@ -40,6 +40,9 @@
   <script>
     Polymer({
       is: 'assignment-card',
+      listeners: {
+        'update':'_update'
+      },
       behaviors: [
         Polymer.AppLocalizeBehavior
       ],
@@ -48,7 +51,22 @@
           type:Boolean,
           reflectToAttribute: true,
           value:false
+        },
+        data: {
+          type:Object,
+          notify:true
+        },
+        _dateTime: {
+          type:String,
+          computed:'_date(data.key.8)'
         }
+      },
+      _update:function(e) {
+        console.log(e.detail);
+        this.data.key[8] = e.detail.value.ts;
+        var keys = this.data.key; 
+        this.set('data.key',[]);
+        this.set('data.key',keys);
       },
       _tap: function(e) {
         var first = this.$.formPanel.firstChild;
@@ -77,6 +95,7 @@
         return dict[type];
       },
       _date:function(ts) {
+        if(!ts) return;
         var d = new Date();
         d.setTime(ts*-1);
         var str = ("0" + d.getDate()).slice(-2) + "-" + 

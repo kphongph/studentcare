@@ -24,7 +24,7 @@
         background:#efefef;
       }
       
-      div {
+      .formEntry div {
         @apply(--paper-font-title);
         margin:3px;
         padding:0px;
@@ -36,86 +36,88 @@
       on-form-action="_tap" 
       doc-key="{{document.key}}"
       doc-value="{{document.value}}">
-     <div>ควบคุมตนเอง</div> 
-     <eq-teacher-choice value="{{document.value.q1}}" 
+     <div class="description">Test Description</div>
+     <div class="formEntry">
+       <div>ควบคุมตนเอง</div> 
+       <eq-teacher-choice value="{{document.value.q1}}" 
         label="เวลาโกรธหรือไม่สบายใจ ฉันรับรู้ได้ว่าเกิดอะไรขึ้นกับฉัน">
-     </eq-teacher-choice>     
-     <eq-teacher-choice value="{{document.value.q2}}" 
-        label="ฉันบอกไม่ได้ว่าอะไรทำให้ฉันรู้สึกโกรธ">
-     </eq-teacher-choice>     
-     <eq-teacher-choice value="{{document.value.q3}}" 
-        label="เมื่อถูกขัดใจ ฉันมักรู้สึกหงุดหงิดจนควบคุมอารมณ์ไม่ได้">
-     </eq-teacher-choice>     
-     <eq-teacher-choice value="{{document.value.q4}}" 
-        label="ฉันสามารถคอยเพื่อให้บรรลุเป้าหมายที่พอใจ">
-     </eq-teacher-choice>     
-     <eq-teacher-choice value="{{document.value.q5}}" 
-        label="ฉันมักมีปฏิกิริยาโต้ตอบรุนแรงต่อปัญหาเพียงเล็กน้อย">
-     </eq-teacher-choice>
-     <eq-teacher-choice value="{{document.value.q6}}" 
-        label="เมื่อถูกบังคับให้ทำในสิ่งที่ไม่ชอบ ฉันจะอธิบายเหตุผลจนผู้อื่นยอมรับได้">
-     </eq-teacher-choice>     
-     <div>เห็นใจผู้อื่น</div>
-     <eq-teacher-choice value="{{document.value.q7}}" 
-        label="ฉันสังเกตได้ เมื่อคนใกล้ชิดมีอารมณ์เปลี่ยนแปลง">
-     </eq-teacher-choice>     
-     <eq-teacher-choice value="{{document.value.q8}}" 
-        label="ฉันไม่สนใจกับความทุกข์ของผู้อื่นที่ฉันไม่รู้จัก">
-     </eq-teacher-choice>     
-     <eq-teacher-choice value="{{document.value.q9}}" 
-        label="ฉันไม่ยอมรับในสิ่งที่ผู้อื่นทำต่างจากที่ฉันคิด">
-     </eq-teacher-choice>     
-     <eq-teacher-choice value="{{document.value.q10}}" 
-        label="ฉันยอมรับได้ว่าผู้อื่นก็อาจมีเหตุผลที่จะไม่พอใจการกระทำของฉัน">
-     </eq-teacher-choice>  
-     <eq-teacher-choice value="{{document.value.q11}}" 
-        label="ฉันรู้สึกว่าผู้อื่นชอบเรียกร้องความสนใจมากเกินไป">
-     </eq-teacher-choice>     
-     <eq-teacher-choice value="{{document.value.q12}}" 
-        label="แม้จะมีภาระที่ต้องทำ ฉันก็ยินดีรับฟังความทุกข์ของผู้อื่นที่ต้องการความช่วยเหลือ">
-     </eq-teacher-choice>     
-     <div>รับผิดชอบ</div>
-     <eq-teacher-choice value="{{document.value.q13}}" 
-        label="เป็นเรื่องธรรมดาที่จะเอาเปรียบผู้อื่นเมื่อมีโอกาส">
-     </eq-teacher-choice>     
-     <eq-teacher-choice value="{{document.value.q14}}" 
-        label="ฉันเห็นคุณค่าในน้ำใจที่ผู้อื่นมีต่อฉัน">
-     </eq-teacher-choice>     
-     <eq-teacher-choice value="{{document.value.q15}}" 
-        label="เมื่อทำผิด ฉันสามารถกล่าวคำ “ขอโทษ” ผู้อื่นได้">
-     </eq-teacher-choice>       
-     <eq-teacher-choice value="{{document.value.q16}}" 
-        label="ฉันยอมรับข้อผิดพลาดของผู้อื่นได้ยาก">
-     </eq-teacher-choice>     
-     <eq-teacher-choice value="{{document.value.q17}}" 
-        label="ถึงแม้จะต้องเสียประโยชน์ส่วนตัวไปบ้าง ฉันก็ยินดีที่จะทำเพื่อส่วนรวม">
-     </eq-teacher-choice>     
-     <eq-teacher-choice value="{{document.value.q18}}" 
-        label="ฉันรู้สึกลำบากใจในการทำสิ่งใดสิ่งหนึ่งเพื่อผู้อื่น">
-     </eq-teacher-choice>
-     <div>มีแรงจูงใจ</div>
-     <eq-teacher-choice value="{{document.value.q19}}" 
-        label="ฉันไม่รู้ว่าฉันเก่งเรื่องอะไร">
-     </eq-teacher-choice>     
-     <eq-teacher-choice value="{{document.value.q20}}" 
-        label="แม้จะเป็นงานยาก ฉันก็มั่นใจว่าสามารถทำได้">
-     </eq-teacher-choice>     
-     <eq-teacher-choice value="{{document.value.q21}}" 
-        label="เมื่อทำสิ่งใดไม่สำเร็จ ฉันรู้สึกหมดกำลังใจ">
-     </eq-teacher-choice>     
-     <eq-teacher-choice value="{{document.value.q22}}" 
-        label="ฉันรู้สึกมีคุณค่าเมื่อได้ทำสิ่งต่างๆ อย่างเต็มความสามารถ">
-     </eq-teacher-choice>     
-     <eq-teacher-choice value="{{document.value.q23}}" 
-        label="เมื่อต้องเผชิญกับอุปสรรคและความผิดหวัง ฉันก็จะไม่ยอมแพ้">
-     </eq-teacher-choice>     
-     <eq-teacher-choice value="{{document.value.q24}}" 
-        label="เมื่อเริ่มทำสิ่งหนึ่งสิ่งใด ฉันมักทำต่อไปไม่สำเร็จ">
-     </eq-teacher-choice>
-     <div>ตัดสินใจและแก้ปัญหา</div>
-     <eq-teacher-choice value="{{document.value.q25}}" 
-        label="ฉันพยายามหาสาเหตุที่แท้จริงของปัญหาโดยไม่คิดเอาเองตามใจชอบ">
-     </eq-teacher-choice>       
+       </eq-teacher-choice>     
+       <eq-teacher-choice value="{{document.value.q2}}" 
+          label="ฉันบอกไม่ได้ว่าอะไรทำให้ฉันรู้สึกโกรธ">
+       </eq-teacher-choice>     
+       <eq-teacher-choice value="{{document.value.q3}}" 
+          label="เมื่อถูกขัดใจ ฉันมักรู้สึกหงุดหงิดจนควบคุมอารมณ์ไม่ได้">
+       </eq-teacher-choice>     
+       <eq-teacher-choice value="{{document.value.q4}}" 
+          label="ฉันสามารถคอยเพื่อให้บรรลุเป้าหมายที่พอใจ">
+       </eq-teacher-choice>     
+       <eq-teacher-choice value="{{document.value.q5}}" 
+          label="ฉันมักมีปฏิกิริยาโต้ตอบรุนแรงต่อปัญหาเพียงเล็กน้อย">
+       </eq-teacher-choice>
+       <eq-teacher-choice value="{{document.value.q6}}" 
+          label="เมื่อถูกบังคับให้ทำในสิ่งที่ไม่ชอบ ฉันจะอธิบายเหตุผลจนผู้อื่นยอมรับได้">
+       </eq-teacher-choice>     
+       <div>เห็นใจผู้อื่น</div>
+       <eq-teacher-choice value="{{document.value.q7}}" 
+          label="ฉันสังเกตได้ เมื่อคนใกล้ชิดมีอารมณ์เปลี่ยนแปลง">
+       </eq-teacher-choice>     
+       <eq-teacher-choice value="{{document.value.q8}}" 
+          label="ฉันไม่สนใจกับความทุกข์ของผู้อื่นที่ฉันไม่รู้จัก">
+       </eq-teacher-choice>     
+       <eq-teacher-choice value="{{document.value.q9}}" 
+          label="ฉันไม่ยอมรับในสิ่งที่ผู้อื่นทำต่างจากที่ฉันคิด">
+       </eq-teacher-choice>     
+       <eq-teacher-choice value="{{document.value.q10}}" 
+          label="ฉันยอมรับได้ว่าผู้อื่นก็อาจมีเหตุผลที่จะไม่พอใจการกระทำของฉัน">
+       </eq-teacher-choice>  
+       <eq-teacher-choice value="{{document.value.q11}}" 
+          label="ฉันรู้สึกว่าผู้อื่นชอบเรียกร้องความสนใจมากเกินไป">
+       </eq-teacher-choice>     
+       <eq-teacher-choice value="{{document.value.q12}}" 
+          label="แม้จะมีภาระที่ต้องทำ ฉันก็ยินดีรับฟังความทุกข์ของผู้อื่นที่ต้องการความช่วยเหลือ">
+       </eq-teacher-choice>     
+       <div>รับผิดชอบ</div>
+       <eq-teacher-choice value="{{document.value.q13}}" 
+          label="เป็นเรื่องธรรมดาที่จะเอาเปรียบผู้อื่นเมื่อมีโอกาส">
+       </eq-teacher-choice>     
+       <eq-teacher-choice value="{{document.value.q14}}" 
+          label="ฉันเห็นคุณค่าในน้ำใจที่ผู้อื่นมีต่อฉัน">
+       </eq-teacher-choice>     
+       <eq-teacher-choice value="{{document.value.q15}}" 
+          label="เมื่อทำผิด ฉันสามารถกล่าวคำ “ขอโทษ” ผู้อื่นได้">
+       </eq-teacher-choice>       
+       <eq-teacher-choice value="{{document.value.q16}}" 
+          label="ฉันยอมรับข้อผิดพลาดของผู้อื่นได้ยาก">
+       </eq-teacher-choice>     
+       <eq-teacher-choice value="{{document.value.q17}}" 
+          label="ถึงแม้จะต้องเสียประโยชน์ส่วนตัวไปบ้าง ฉันก็ยินดีที่จะทำเพื่อส่วนรวม">
+       </eq-teacher-choice>     
+       <eq-teacher-choice value="{{document.value.q18}}" 
+          label="ฉันรู้สึกลำบากใจในการทำสิ่งใดสิ่งหนึ่งเพื่อผู้อื่น">
+       </eq-teacher-choice>
+       <div>มีแรงจูงใจ</div>
+       <eq-teacher-choice value="{{document.value.q19}}" 
+          label="ฉันไม่รู้ว่าฉันเก่งเรื่องอะไร">
+       </eq-teacher-choice>     
+       <eq-teacher-choice value="{{document.value.q20}}" 
+          label="แม้จะเป็นงานยาก ฉันก็มั่นใจว่าสามารถทำได้">
+       </eq-teacher-choice>     
+       <eq-teacher-choice value="{{document.value.q21}}" 
+          label="เมื่อทำสิ่งใดไม่สำเร็จ ฉันรู้สึกหมดกำลังใจ">
+       </eq-teacher-choice>     
+       <eq-teacher-choice value="{{document.value.q22}}" 
+          label="ฉันรู้สึกมีคุณค่าเมื่อได้ทำสิ่งต่างๆ อย่างเต็มความสามารถ">
+       </eq-teacher-choice>     
+       <eq-teacher-choice value="{{document.value.q23}}" 
+          label="เมื่อต้องเผชิญกับอุปสรรคและความผิดหวัง ฉันก็จะไม่ยอมแพ้">
+       </eq-teacher-choice>     
+       <eq-teacher-choice value="{{document.value.q24}}" 
+          label="เมื่อเริ่มทำสิ่งหนึ่งสิ่งใด ฉันมักทำต่อไปไม่สำเร็จ">
+       </eq-teacher-choice>
+       <div>ตัดสินใจและแก้ปัญหา</div>
+       <eq-teacher-choice value="{{document.value.q25}}" 
+         label="ฉันพยายามหาสาเหตุที่แท้จริงของปัญหาโดยไม่คิดเอาเองตามใจชอบ">
+       </eq-teacher-choice>       
      <eq-teacher-choice value="{{document.value.q26}}" 
         label="บ่อยครั้งที่ฉันไม่รู้ว่าอะไรทำให้ฉันไม่มีความสุข">
      </eq-teacher-choice>     
@@ -201,6 +203,7 @@
      <eq-teacher-choice value="{{document.value.q52}}" 
         label="ฉันมักทุกข์ร้อนกับเรื่องเล็กๆ น้อยๆ ที่เกิดขึ้นเสมอ">
      </eq-teacher-choice>
+     </div>
     </form-control>
   </template>
 
