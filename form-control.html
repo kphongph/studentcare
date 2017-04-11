@@ -81,7 +81,11 @@
         docValue:{
           type:Object,
           notify:true
-        } 
+        },
+        page: {
+          type:Number,
+          value:0
+        }
       },
       _save:function(e) {
         this.fire('form-action',{'type':'save'});

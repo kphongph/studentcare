@@ -26,12 +26,15 @@
       query="{{query}}">
     </leveldb-query>
 
-      <template is="dom-repeat" items="{{data}}">
-        <paper-material elevation="1">
+    <paper-input value="{{sortBy}}" label="sort by"></paper-input>
+
+    <template is="dom-repeat" items="{{data}}"
+      sort="{{computeSortBy(sortBy)}}">
+      <paper-material elevation="1">
         <assignment-card data="{{item}}">
         </assignment-card>  
-        </paper-material>
-      </template>
+      </paper-material>
+    </template>
 
   </template>
 
@@ -64,7 +67,13 @@
       },
       __computeQuery:function(host,level,room) {
         console.log(host,level,room);
-        return {};
+        return {"match":[host,level,room],"limit":-1};
+      },
+      computeSortBy:function(str) {
+        return function(a,b) {
+          if(a.key[8] >= b.key[8]) return 1
+          return -1;
+        }
       }
     });
   </script>
