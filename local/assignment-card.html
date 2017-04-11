@@ -28,12 +28,28 @@
         padding:5px;
         background:#efefef;
       }
+      .formName {
+        @apply(--paper-font-body1);
+        padding-right:10px;
+        background:var(--paper-blue-500);
+        color:#fff;
+      }
+      .field {
+        padding-left:10px;
+      }
     </style>
    
+    <div class="layout horizontal end-justified formName">
+      <span>{{_formName(data.key.5)}}</span>
+    </div>
     <div class="layout horizontal pad" on-tap="_tap">
-      <span class="flex-1">{{data.key.7}}</span>
-      <span class="flex-2">{{_formName(data.key.5)}}</span>
-      <span class="flex-1">{{_dateTime}}</span>
+      <span class="flex-1 field">{{data.key.7}}</span>
+      <span class="flex-1">{{_status}}</span>
+      <div class="flex-1">
+        <div class="layout end-justified horizontal">
+          <span>{{_dateTime}}</span>
+        </div>
+      </div>
     </div>
     <div id="formPanel" hidden$="{{!showForm}}"></div>
   </template>
@@ -59,12 +75,16 @@
         },
         _dateTime: {
           type:String,
-          computed:'_date(data.key.8)'
+          computed:'_computeDate(data.key.8)'
+        },
+        _status:{
+          type:String,
+          computed:'_computeStatus(data.key.4)'
         }
       },
       _update:function(e) {
-        console.log(e.detail);
         this.data.key[8] = e.detail.value.ts;
+        this.data.key[4] = e.detail.value.status;
         var keys = this.data.key; 
         this.set('data.key',[]);
         this.set('data.key',keys);
@@ -97,7 +117,7 @@
         }
         return dict[type];
       },
-      _date:function(ts) {
+      _computeDate:function(ts) {
         if(!ts) return;
         var d = new Date();
         d.setTime(ts*-1);
@@ -107,6 +127,14 @@
           ("0" + d.getHours()).slice(-2) + ":" + 
           ("0" + d.getMinutes()).slice(-2);
         return str;
+      },
+      _computeStatus: function(status) {
+        console.log(status);
+        var dict = {
+          'new':'ใหม่',
+          'working':'กำลังดำเนินการ'
+        }
+        return dict[status];
       },
       attached:function() {
         this.loadResources(this.resolveUrl('../locales.json'));

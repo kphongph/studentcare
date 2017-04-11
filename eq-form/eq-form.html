@@ -24,7 +24,7 @@
         background:#efefef;
       }
       
-      div {
+      .formEntry div {
         @apply(--paper-font-title);
         margin:3px;
         padding:0px;
@@ -36,6 +36,8 @@
       on-form-action="_tap" 
       doc-key="{{document.key}}"
       doc-value="{{document.value}}">
+     <div class="description">คำชี้แจง</div>
+     <div class="formEntry">
      <div>ดี</div> 
      <eq-choice value="{{document.value.form_value.q1}}" 
         label="รู้จักให้กำลังใจผู้อื่น">
@@ -84,6 +86,7 @@
      <eq-choice value="{{document.value.form_value.q10}}" 
         label="เป็นเด็กอารมณ์ดี">
      </eq-choice>       
+     </div>
     </form-control>
 
   </template>
@@ -109,10 +112,7 @@
         }
       },
       _reset:function() {
-        for(var i = 0;i<10;i++){
-        var docReset = 'document.value.q'+(i+1);          
-          this.set(docReset,null);        
-        }        
+        this.set('document.value.form_value',{});
       }
     });
   </script>
