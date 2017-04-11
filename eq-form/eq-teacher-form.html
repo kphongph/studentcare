@@ -228,16 +228,10 @@
         }
       },
       _reset:function() {
-        this.set('document.value.q1',null);
-        this.set('document.value.q2',null);
-        this.set('document.value.q3',null);
-        this.set('document.value.q4',null);
-        this.set('document.value.q5',null);
-        this.set('document.value.q6',null);
-        this.set('document.value.q7',null);
-        this.set('document.value.q8',null);
-        this.set('document.value.q9',null);
-        this.set('document.value.q10',null);        
+        for(var i = 0;i<52;i++){
+        var docReset = 'document.value.q'+(i+1);          
+          this.set(docReset,null);        
+        }        
       }
     });
   </script>

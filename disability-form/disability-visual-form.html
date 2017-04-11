@@ -6,8 +6,8 @@
 <link rel="import" href="../../paper-radio-group/paper-radio-group.html">
 <link rel="import" href="../form-control.html">
 <link rel="import" href="../dmc-student-form-behavior.html">
-<link rel="import" href="eq-choice.html">
-<dom-module id="eq-form">
+<link rel="import" href="disability-visual-choice.html">
+<dom-module id="disability-visual-form">
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors">
       :host {
@@ -29,22 +29,22 @@
       on-form-action="_tap" 
       doc-key="{{document.key}}"
       doc-value="{{document.value}}">
-     <eq-choice value="{{document.value.q1}}" 
+     <disability-visual-choice value="{{document.value.q1}}" 
         label="รู้จักให้กำลังใจผู้อื่น">
-     </eq-choice>
+     </disability-visual-choice>
     </form-control>
 
   </template>
 
   <script>
     Polymer({
-      is: 'eq-form',
+      is: 'disability-visual-form',
       listeners : {
       },
       properties: {
         formType: {
           type:String,
-          value:'eq_form'
+          value:'disability_visual_form'
         }
       },
       behaviors:[
@@ -57,7 +57,10 @@
         }
       },
       _reset:function() {
-        this.set('document.value.q1',null);
+        for(var i = 0;i<10;i++){
+        var docReset = 'document.value.q'+(i+1);          
+          this.set(docReset,null);        
+        }        
       }
     });
   </script>
