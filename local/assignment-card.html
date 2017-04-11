@@ -4,6 +4,7 @@
 <link rel="import" href="../../app-localize-behavior/app-localize-behavior.html">
 <link rel="import" href="../eq-form/eq-form.html">
 <link rel="import" href="../eq-form/eq-teacher-form.html">
+<link rel="import" href="../st5-form/st5-form.html">
 <link rel="import" href="../disability-form/disability-visual-form.html">
 
 <dom-module id="assignment-card">
@@ -95,6 +96,7 @@
           var formMap = {
             'eq_form':'eq-form',
             'eq_teacher_form':'eq-teacher-form',
+            'st5_form':'st5-form',
             'disability_visual_form':'disability-visual-from'
           };
           var eleName = formMap[this.data.key[5]];
@@ -113,7 +115,8 @@
         var dict = {
           "eq_form":"แบบประเมินความฉลาดทางอารมณ์ (EQ)ฉบับครูประเมินนักเรียน (6-11 ปี)",
           "eq_teacher_form":"แบบประเมินความฉลาดทางอารมณ์ (EQ) ฉบับนักเรียนประเมินตนเอง (12-17 ปี)",
-          "disability_visual_form":"แบบคัดกรองบุคคลที่มีความบกพร่องทางการเห็น"
+          "st5_form":"แบบประเมินความเครียดกรมสุขภาพจิต (ST–5)",
+          "disability_visual_form":"แบบคัดกรองบุคคลที่มีความบกพร่องทางการเห็น",
         }
         return dict[type];
       },
