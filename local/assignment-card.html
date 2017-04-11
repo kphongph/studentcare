@@ -2,8 +2,8 @@
 <link rel="import" href="../../paper-styles/typography.html">
 <link rel="import" href="../../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../../app-localize-behavior/app-localize-behavior.html">
-<link rel="import" href="../eq-form/eq-form.html">
 <link rel="import" href="../eq-form/eq-teacher-form.html">
+<link rel="import" href="../eq-form/eq-student-form.html">
 <link rel="import" href="../st5-form/st5-form.html">
 <link rel="import" href="../disability-form/disability-visual-form.html">
 
@@ -93,9 +93,9 @@
       _tap: function(e) {
         var first = this.$.formPanel.firstChild;
         if(!first) {
-          var formMap = {
-            'eq_form':'eq-form',
+          var formMap = {            
             'eq_teacher_form':'eq-teacher-form',
+            'eq_student_form':'eq-student-form',
             'disability_visual_from':'disability-visual-form',
             'st5_form':'st5-form'            
           };
@@ -113,8 +113,8 @@
       },
       _formName:function(type) {
         var dict = {
-          "eq_form":"แบบประเมินความฉลาดทางอารมณ์ (EQ)ฉบับครูประเมินนักเรียน (6-11 ปี)",
-          "eq_teacher_form":"แบบประเมินความฉลาดทางอารมณ์ (EQ) ฉบับนักเรียนประเมินตนเอง (12-17 ปี)",
+          "eq_teacher_form":"แบบประเมินความฉลาดทางอารมณ์ (EQ) ฉบับครูประเมินนักเรียน (6-11 ปี)",
+          "eq_student_form":"แบบประเมินความฉลาดทางอารมณ์ (EQ) ฉบับนักเรียนประเมินตนเอง (12-17 ปี)",
           "disability_visual_from":"แบบคัดกรองบุคคลที่มีความบกพร่องทางการเห็น",
           "st5_form":"แบบประเมินความเครียดกรมสุขภาพจิต (ST–5)"          
         }

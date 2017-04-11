@@ -11,8 +11,8 @@
 <link rel="import" href="dl-profile.html">
 <link rel="import" href="../dl2-form.html">
 <link rel="import" href="../dl3-form.html">
-<link rel="import" href="../eq-form/eq-form.html">
 <link rel="import" href="../eq-form/eq-teacher-form.html">
+<link rel="import" href="../eq-form/eq-student-form.html">
 <link rel="import" href="../disability-form/disability-visual-form.html">
 <link rel="import" href="../st5-form/st5-form.html">
 <link rel="import" href="form-card.html">
@@ -34,10 +34,10 @@
      <form-card label="dl3_form_label"
        dmc-student="{{dmcStudent}}">
      </form-card>
-     <form-card label="eq_form_label"
+     <form-card label="eq_teacher_form_label"
        dmc-student="{{dmcStudent}}">
      </form-card>
-     <form-card label="eq_teacher_form_label"
+     <form-card label="eq_student_form_label"
        dmc-student="{{dmcStudent}}">
      </form-card>
      <form-card label="disability_visual_form_label"
@@ -86,8 +86,8 @@
         var pages = [
           'dl2-form',
           'dl3-form',
-          'eq-form',
           'eq-teacher-form',
+          'eq-student-form',          
           'disability-visual-form',
           'st5-form'
         ];
