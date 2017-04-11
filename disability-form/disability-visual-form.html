@@ -23,15 +23,71 @@
       paper-radio-group {
         background:#efefef;
       }
+      
+      .formEntry div {
+        @apply(--paper-font-title);
+        margin:3px;
+        padding:0px;
+        background:#efefef;
+      }
+
+      .description ol {
+        @apply(--paper-font-body1);
+        .num {list-style-type: decimal;}
+        margin:3px;
+        padding:0px;
+        background:#efefef;
+      }
     </style>
 
     <form-control id="control" 
       on-form-action="_tap" 
       doc-key="{{document.key}}"
       doc-value="{{document.value}}">
-     <disability-visual-choice value="{{document.value.q1}}" 
-        label="รู้จักให้กำลังใจผู้อื่น">
-     </disability-visual-choice>
+      <div class="description">
+        <ol class="num"> คำชี้แจง
+          <li>แบบคัดกรองฉบับนี้เป็นแบบคัดกรองเพื่อประโยชน์ในทางการจัดการศึกษาเท่านั้น</li>
+          <li>วิเคราะห์ลักษณะ / พฤติกรรม ของเด็ก ซึ่งเป็นลักษณะหรือพฤติกรรม ที่เด็กแสดงออกบ่อย ๆ โดยให้ทำเครื่องหมาย / ลงในช่อง <b>“ใช่”</b> หรือ <b>“ไม่ใช่”</b> ที่ตรงกับลักษณะหรือพฤติกรรมนั้น ๆ ของเด็ก</li>
+          <li>ผู้ทำการคัดกรองเบื้องต้นต้องผ่านการอบรมวิธีการใช้ และการประเมิน ตามแบบคัดกรองนี้ และควรสอบถามข้อมูลเพิ่มเติมจากผู้ที่อยู่ใกล้ชิดเด็กมากที่สุด เช่น ผู้ปกครอง หรือ ครู เพื่อให้เกิดความชัดเจนถูกต้อง</li>
+          <li>ผู้คัดกรองควรจะมีอย่างน้อย ๒ คนขึ้นไป</li>
+        </ol>
+        <ol class="num"> เกณฑ์การพิจารณา
+          <li>ถ้าตอบว่าใช่ 5 ข้อ ขึ้นไป แสดงว่ามีแนวโน้มที่จะเป็นบุคคลที่มีความบกพร่องทางการเห็น ให้จัดบริการช่วยเหลือทางการศึกษาพิเศษ และส่งต่อให้จักษุแพทย์ตรวจวินิจฉัยต่อไป</li>
+        </ol>
+      </div>
+      <div class="formEntry">
+       <div>ควบคุมตนเอง</div> 
+       <disability-visual-choice value="{{document.value.form_value.q1}}" 
+        label="มักก้มศรีษะมองสิ่งของ หนังสือ รูปภาพหรือนำเข้ามาดูใกล้ ๆ ตา">
+       </disability-visual-choice>     
+       <disability-visual-choice value="{{document.value.form_value.q2}}" 
+          label="เมื่อดูป้ายข้อความ รูปภาพ วัตถุสิ่งของต่าง ๆ ตามสาธารณะ ต้องเข้าไปดูใกล้ ๆ">
+       </disability-visual-choice>     
+       <disability-visual-choice value="{{document.value.form_value.q3}}" 
+          label="ขณะอ่านหนังสือ มักจะอ่านซ้ำบรรทัดเดิม หรืออ่านข้ามบรรทัด">
+       </disability-visual-choice>     
+       <disability-visual-choice value="{{document.value.form_value.q4}}" 
+          label="มักใช้ประสาทสัมผัสส่วนอื่น เพื่อสำรวจ / หาสิ่งของ ควบคู่กับการใช้สายตา">
+       </disability-visual-choice>     
+       <disability-visual-choice value="{{document.value.form_value.q5}}" 
+          label="บอกรายละเอียดองภาพหรือสิ่งของไม่ได้">
+       </disability-visual-choice>
+       <disability-visual-choice value="{{document.value.form_value.q6}}" 
+          label="เดินด้วยความระมัดระวังมากกว่าปกติ เดินไม่คล่องตัว มักชนและสะดุดวัตถุ">
+       </disability-visual-choice>     
+       <disability-visual-choice value="{{document.value.form_value.q7}}" 
+          label="หรี่ตา กระพริบตา ขยี้ตา กดตา เมื่อใช้สายตามาก ๆ">
+       </disability-visual-choice>     
+       <disability-visual-choice value="{{document.value.form_value.q8}}" 
+          label="เคลื่อนศรีษะไปมา เพื่อหาจุดที่มองเห็นชัดที่สุด">
+       </disability-visual-choice>     
+       <disability-visual-choice value="{{document.value.form_value.q9}}" 
+          label="มักมีอาการปวดศรีษะ ปวดตา ตาลาย คันตา มองเห็นสิ่งของเคลื่อนไหวไปมา">
+       </disability-visual-choice>     
+       <disability-visual-choice value="{{document.value.form_value.q10}}" 
+          label="บอกความแตกต่างของสีที่ใกล้เคียงกัน หรือสีที่ไม่ตัดกันไม่ได้ เช่น สีเขียวกับสีฟ้า สีแดงกับสีส้ม">
+       </disability-visual-choice>         
+     </div>
     </form-control>
 
   </template>
@@ -57,10 +113,7 @@
         }
       },
       _reset:function() {
-        for(var i = 0;i<10;i++){
-        var docReset = 'document.value.q'+(i+1);          
-          this.set(docReset,null);        
-        }        
+        this.set('document.value.form_value',{});        
       }
     });
   </script>
