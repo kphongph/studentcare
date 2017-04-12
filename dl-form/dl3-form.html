@@ -11,13 +11,13 @@
 <link rel="import" href="../../paper-toast/paper-toast.html">
 <link rel="import" href="../../app-leveldb/app-leveldb.html">
 <link rel="import" href="../../app-leveldb/app-leveldb-document.html">
-<link rel="import" href="sdq-form-choice.html">
-<link rel="import" href="sdq-form-teacher.html">
+<link rel="import" href="sdqself-form-choice.html">
+<link rel="import" href="sdq-form-student.html">
 <link rel="import" href="../form-control.html">
 <link rel="import" href="../studentcare-form-behavior.html">
 
 
-<dom-module id="dl2-form">
+<dom-module id="dl3-form">
   <template>
     <style include="iron-flex iron-flex-alignment">
       @media (min-width:320px) {
@@ -49,12 +49,12 @@
         </paper-tabs>
     
         <iron-pages selected="{{part}}">
-          <sdq-form-choice id="formChoiceId"
+          <sdqself-form-choice id="formChoiceId"
             value="{{document.value.form_value.first}}">
-          </sdq-form-choice>      
-          <sdq-form-teacher id="formTeacher" 
+          </sdqself-form-choice>      
+          <sdq-form-student id="formStudent" 
             value="{{document.value.form_value.second}}">
-          </sdq-form-teacher>      
+          </sdq-form-student>      
         </iron-pages>
       </div>
     </form-control> 
@@ -62,7 +62,7 @@
   </template>
   <script>
     Polymer({
-      is: 'dl2-form',
+      is: 'dl3-form',
       behaviors: [
         Polymer.AppLocalizeBehavior,
         StudentcareFormBehavior
@@ -71,7 +71,7 @@
         name: {
           type:String,
           reflectToAttribute:true,
-          value:"แบบประเมินพฤติกรรมเด็ก (SDQ) ฉบับครูเป็นผู้ประเมินนักเรียน"
+          value:"แบบประเมินพฤติกรรมนักเรียน (SDQ) ฉบับนักเรียนประเมินตนเอง"
         },
         part:{
           type:Number,
