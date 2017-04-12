@@ -1,0 +1,21 @@
+<script>
+  StudentcareFormBehavior = {
+    properties : {
+      formType: {
+        type:String
+      },
+      document: {
+        type:Object,
+        notify:true
+      }
+    },
+    listeners : {
+      'form-action':'_onFormAction'
+    },
+    _onFormAction : function(e) {
+      if(e.detail.type == "save") {
+        e.target.save();
+      }
+    }
+  }
+</script>

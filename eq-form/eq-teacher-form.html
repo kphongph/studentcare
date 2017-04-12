@@ -5,8 +5,9 @@
 <link rel="import" href="../../paper-styles/typography.html">
 <link rel="import" href="../../paper-radio-group/paper-radio-group.html">
 <link rel="import" href="../form-control.html">
-<link rel="import" href="../dmc-student-form-behavior.html">
+<link rel="import" href="../studentcare-form-behavior.html">
 <link rel="import" href="eq-teacher-choice.html">
+
 <dom-module id="eq-teacher-form">
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors">
@@ -154,7 +155,7 @@
       },
       behaviors:[
         Polymer.IronValidatableBehavior,
-        DmcStudentFormBehavior,
+        StudentcareFormBehavior,
       ],
       _tap:function(e) {
         if(e.detail.type == "save") {
