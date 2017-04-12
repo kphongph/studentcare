@@ -102,15 +102,6 @@
         this.showForm=!this.showForm;
         this.fire('select-assignment',{});
       },
-      _formName:function(type) {
-        var dict = {
-          "eq_teacher_form":"แบบประเมินความฉลาดทางอารมณ์ (EQ) ฉบับครูประเมินนักเรียน (6-11 ปี)",
-          "eq_student_form":"แบบประเมินความฉลาดทางอารมณ์ (EQ) ฉบับนักเรียนประเมินตนเอง (12-17 ปี)",
-          "disability_visual_from":"แบบคัดกรองบุคคลที่มีความบกพร่องทางการเห็น",
-          "st5_form":"แบบประเมินความเครียดกรมสุขภาพจิต (ST–5)"          
-        }
-        return dict[type];
-      },
       _computeDate:function(ts) {
         if(!ts) return;
         var d = new Date();
@@ -125,7 +116,8 @@
       _computeStatus: function(status) {
         var dict = {
           'new':'ใหม่',
-          'working':'กำลังดำเนินการ'
+          'working':'กำลังดำเนินการ',
+          'done':'ประเมินแล้ว'
         }
         return dict[status];
       },

@@ -34,10 +34,12 @@
         padding:0px;
         background:#efefef;
       }
+      .evaluation {
+        padding:5px;
+      }
     </style>
 
     <form-control id="control"
-      on-form-action="_tap"
       doc-key="{{document.key}}"
       doc-value="{{document.value}}">
       <div class="description">
@@ -65,21 +67,33 @@
         </ul>
       </div>
       <div class="formEntry">
-        <st5-choice value="{{document.value.form_value.q1}}"
+        <st5-choice id="q1" value="{{document.value.form_value.q1}}"
           label="มีปัญหาการนอน นอนไม่หลับ หรือนอนมาก">
         </st5-choice>
-        <st5-choice value="{{document.value.form_value.q2}}"
+        <st5-choice id="q2" value="{{document.value.form_value.q2}}"
           label="มีสมาธิน้อยลง">
         </st5-choice>
-        <st5-choice value="{{document.value.form_value.q3}}"
+        <st5-choice id="q3" value="{{document.value.form_value.q3}}"
           label="หงุดหงิด / กระวนกระวายใจ / ว้าวุ่นใจ">
         </st5-choice>
-        <st5-choice value="{{document.value.form_value.q4}}"
+        <st5-choice id="q4" value="{{document.value.form_value.q4}}"
           label="รู้สึกเบื่อ  เซ็ง">
         </st5-choice>
-        <st5-choice value="{{document.value.form_value.q5}}"
+        <st5-choice id="q5" value="{{document.value.form_value.q5}}"
           label="ไม่อยากพบปะผู้คน">
         </st5-choice>
+      </div>
+      <div class="evaluation">
+       <div class="layout horizontal">
+        <paper-input label="คะแนนรวม 5 ข้อ ได้ (คะแนน)" class="flex"
+          readonly
+          value="[[document.value.form_result.score]]">
+        </paper-input>
+        <paper-input label="ระดับความเครียด" class="flex"
+          readonly
+          value="[[_result(document.value.form_result.score)]]">
+        </paper-input>
+       </div>
       </div>
     </form-control>
   </template>
@@ -101,13 +115,40 @@
         Polymer.IronValidatableBehavior,
         StudentcareFormBehavior,
       ],
-      _tap:function(e) {
-        if(e.detail.type == "save") {
-          this.$.control.save();
+      _evaluate:function() {
+        var values = this.document.value.form_value;
+        var dict = ['n','s','u','a'];
+        var score = 0;
+        for(var key in values) {
+          score+=dict.indexOf(values[key]);
         }
+        return {'score':score};
       },
       _reset:function() {
         this.set('document.value.form_value',{});              
+        this.set('document.value.form_result',{});              
+      },
+      _validate:function() {
+        var questions = this.document.value.form_value;
+        var required = ['q1','q2','q3','q4','q5']; 
+        for(var i=0;i<required.length;i++) {
+          if(!questions[required[i]]) {
+            this.$$('#'+required[i]).classList.add('invalid'); 
+            return false;
+          } else {
+            this.$$('#'+required[i]).classList.remove('invalid'); 
+          }
+        }
+        return true;
+      },
+      _result:function(score) {
+        if(score>=0) {
+          if(score<5) return 'เครียดน้อย';
+          if(score<8) return 'เครียดปานกลาง';
+          if(score<10) return 'เครียดปานกลาง';
+          return 'เครียดมากที่สุด';
+        } 
+        return '';
       }
     });
   </script>

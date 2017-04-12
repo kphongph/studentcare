@@ -21,6 +21,11 @@
       data="{{data}}"
       query="{{query}}">
     </leveldb-query>
+
+    <div>
+    <span>ประเมินแล้ว</span>
+    <span>{{_doneCount}}</span>
+    </div>
     
     <div>
     <span>กำลังดำเนินการ</span>
@@ -98,6 +103,7 @@
         var dict = {
           'working':0,
           'new':0,
+          'done':0
         };
         data.forEach(function(item) {
           if(dict[item.key[4]] >=0 ) dict[item.key[4]]++;
