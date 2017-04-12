@@ -9,42 +9,39 @@
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors">
       :host {
-        @apply(--layout-vertical);
         display: block;
+        --paper-item-min-height:40px;
       }
     </style>
 
-    
     <leveldb-query url="https://maas.nuqlis.com:9000/api"
       db-name="students_care"
       view-name="assignment"
       data="{{data}}"
       query="{{query}}">
     </leveldb-query>
+    <div class="layout horizontal">
+      <paper-listbox selected="{{_type}}" attr-for-selected="name" 
+        class="flex-1">
+        <paper-item name="new">
+          ใหม่ (<span>{{_newCount}}</span>)
+        </paper-item>
+        <paper-item name="working">
+          กำลังดำเนินการ (<span>{{_workingCount}}</span>)
+        </paper-item>
+        <paper-item name="done">
+          ประเมินแล้ว (<span>{{_doneCount}}</span>)
+        </paper-item>
+      </paper-listbox>
 
-    <div>
-    <span>ประเมินแล้ว</span>
-    <span>{{_doneCount}}</span>
-    </div>
-    
-    <div>
-    <span>กำลังดำเนินการ</span>
-    <span>{{_workingCount}}</span>
-    </div>
-
-    <div>
-    <span>ใหม่</span>
-    <span>{{_newCount}}</span>
-    </div>
-
-    <paper-material elevation="1">
-      <template is="dom-repeat" items="{{data}}"
-        sort="{{computeSortBy(sortBy)}}">
-        <assignment-card data="{{item}}"
-          on-select-assignment="_onSelect">
-        </assignment-card>  
-      </template>
-    </paper-material>
+      <paper-material elevation="1" class="flex-4">
+        <template is="dom-repeat" items="{{data}}"> 
+          <assignment-card data="{{item}}"
+            on-select-assignment="_onSelect">
+          </assignment-card>  
+        </template>
+      </paper-material>
+   </div>
 
   </template>
 
@@ -79,7 +76,8 @@
         }
       },
       observers:[
-        '_onDataChanged(data)'
+        '_onDataChanged(data)',
+        '_onTypeChanged(_type)'
       ],
       __computeQuery:function(host,level,room) {
         return {"match":[host,level,room],"limit":-1};
@@ -112,21 +110,44 @@
           this.set('_'+key+'Count',dict[key]);
         }
       },
-      computeSortBy:function(str) {
-        return function(a,b) {
-          if(a.key[8] >= b.key[8]) return 1
-          return -1;
+      filterByType:function(str) {
+        return function(a) {
+          return a.key[4] == str;
         }
       },
       _onSelect:function(e) { 
+        var self = this;
         var show=e.target.showForm;
+        var _type=e.target.data.key[4];
         var key =e.target.data.value;
-        console.log(show,key);
         var eles =Polymer.dom(this.root)
          .querySelectorAll('assignment-card');
         eles.forEach(function(ele) {
           if(ele.data.value != key)  {
-             ele.hidden=show;
+             if(!show) {
+               if(!self._type) {
+                 ele.hidden=show;
+               } else {
+                 if(ele.data.key[4] == self._type) {
+                   ele.hidden=show;
+                 }
+               }
+             } else {
+               ele.hidden=show;
+             }
+          }
+        });
+      },
+      _onTypeChanged:function(_type) {
+        console.log(_type);
+        var eles =Polymer.dom(this.root)
+         .querySelectorAll('assignment-card');
+        eles.forEach(function(ele) {
+          if(_type != ele.data.key[4]) {
+            ele.hidden=true;
+            ele.showForm=false;
+          } else {
+            ele.hidden=false;
           }
         });
       }

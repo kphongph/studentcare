@@ -38,7 +38,7 @@
     </style>
    
     <div class="layout horizontal end-justified formName">
-      <span id="formName"></span>
+      <span id="formName">{{_formName(data.key.5)}}</span>
     </div>
     <div class="layout horizontal pad" on-tap="_tap">
       <span class="flex-1 field">{{data.key.7}}</span>
@@ -123,8 +123,10 @@
       },
       attached:function() {
         this.loadResources(this.resolveUrl('../locales.json'));
-        var ele = document.createElement(this.data.key[5]);
-        this.$.formName.textContent=ele.getAttribute('name');
+      },
+      _formName:function(name) {
+        var ele = document.createElement(name);
+        return ele.getAttribute('name');
       }
     });
   </script>
