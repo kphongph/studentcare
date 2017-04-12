@@ -1,10 +1,8 @@
-<link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
-<link rel="import" href="../iron-validatable-behavior/iron-validatable-behavior.html">
-<link rel="import" href="../paper-radio-group/paper-radio-group.html">
-<link rel="import" href="../paper-radio-button/paper-radio-button.html">
-<link rel="import" href="../paper-styles/typography.html">
-<link rel="import" href="./sdq-radio.html">
+<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../iron-validatable-behavior/iron-validatable-behavior.html">
+<link rel="import" href="../../paper-styles/typography.html">
+<link rel="import" href="sdq-radio.html">
 
 <dom-module id="sdq-form-choice">
   <template>
@@ -14,32 +12,89 @@
     }
     .idx {
         width:10px;
-      }
+    }
     sdq-radio {
       margin-top:2px;
       margin-bottom:2px;
     }
-    @media (min-width:400px) {
-      :host {
-        @apply(--paper-font-body1);
-        display: block;
-        width: 100%;
-        --paper-radio-group-item-padding: 5px 12px 5px 12px;
-      }
-      .paper-font-headline {
-        @apply(--paper-font-headline);
-      }
-    }
 
   </style>
   <div class="layout vertical">    
-    <template is="dom-repeat" items="{{value}}">
-      <sdq-radio label="{{_label(item,forChild)}}"
-        required
-        on-change="_radioChanged"
-        value="{{item.value}}">
-      </sdq-radio>
-    </template>
+    <sdq-radio required value="{{value.q1}}">
+    ห่วงใยความรู้สึกคนอื่น
+    </sdq-radio>
+    <sdq-radio required value="{{value.q2}}">
+    อยู่ไม่นิ่ง นั่งนิ่ง ๆ ไม่ได้ 
+    </sdq-radio>
+    <sdq-radio required value="{{value.q3}}">
+    มักจะบ่นว่าปวดศีรษะปวดท้อง
+    </sdq-radio>
+    <sdq-radio required value="{{value.q4}}">
+    เต็มใจแบ่งปันสิ่งของให้เพื่อน (ขนม, ของเล่น, ดินสอเป็นต้น)
+    </sdq-radio>
+    <sdq-radio required value="{{value.q5}}">
+    มักจะอาละวาดหรือโมโหร้าย 
+    </sdq-radio>
+    <sdq-radio required value="{{value.q6}}">
+    ค่อนข้างแยกตัวชอบเล่นคนเดียว
+    </sdq-radio>
+    <sdq-radio required value="{{value.q7}}">
+    เชื่อฟัง มัก จะทำตามที่ผู้ใหญ่ต้องการ
+    </sdq-radio>
+    <sdq-radio required value="{{value.q8}}">
+    กังวลใจหลายเรื่อง ดูกังวลเสมอ
+    </sdq-radio>
+    <sdq-radio required value="{{value.q9}}">
+    เป็นที่พึ่งได้เวลาที่คนอื่นเสียใจ อารมณ์ไม่ดี หรือไม่สบายใจ 
+    </sdq-radio>
+    <sdq-radio required value="{{value.q10}}">
+    อยู่ไม่สุข วุ่นวายอย่างมาก 
+    </sdq-radio>
+    <sdq-radio required value="{{value.q11}}">
+    มีเพื่อนสนิท
+    </sdq-radio>
+    <sdq-radio required value="{{value.q12}}">
+    มักจะมีเรื่องทะเลาะวิวาทกับเด็กอื่น หรือรังแกเด็กอื่น
+    </sdq-radio>
+    <sdq-radio required value="{{value.q13}}">
+    ดูไม่มีความสุข ท้อแท้
+    </sdq-radio>
+    <sdq-radio required value="{{value.q14}}">
+    เป็นที่ชื่นชอบของเพื่อน
+    </sdq-radio>
+    <sdq-radio required value="{{value.q15}}">
+    วอกแวกง่าย สมาธิสั้น
+    </sdq-radio>
+    <sdq-radio required value="{{value.q16}}">
+    เครียดไม่ยอมห่างเวลาอยู่ในสถานการณ์ที่ไม่คุ้น และขาดความมั่นใจในตนเอง
+    </sdq-radio>
+    <sdq-radio required value="{{value.q17}}">
+    ใจดีกับเด็กที่เล็กกว่า
+    </sdq-radio>
+    <sdq-radio required value="{{value.q18}}">
+    ชอบโกหก หรือขี้โกง
+    </sdq-radio>
+    <sdq-radio required value="{{value.q19}}">
+    ถูกเด็กคนอื่นล้อเลียนหรือรังแก
+    </sdq-radio>
+    <sdq-radio required value="{{value.q20}}">
+    ชอบอาสาช่วยเหลือผู้อื่น (พ่อ, แม่, ครู, เด็กคนอื่น)
+    </sdq-radio>
+    <sdq-radio required value="{{value.q21}}">
+    คิดก่อนทำ
+    </sdq-radio>
+    <sdq-radio required value="{{value.q22}}">
+    ขโมยของที่บ้าน ที่โรงเรียนหรือที่อื่น
+    </sdq-radio>
+    <sdq-radio required value="{{value.q23}}">
+    เข้ากับผู้ใหญ่ได้ดีกว่าเด็กวัยเดียวกัน
+    </sdq-radio>
+    <sdq-radio required value="{{value.q24}}">
+    ขี้กลัว รู้สึกหวาดกลัวได้ง่าย
+    </sdq-radio>
+    <sdq-radio required value="{{value.q25}}">
+    ทำงานได้จนเสร็จ มีความตั้งอกตั้งใจในการทำงาน
+    </sdq-radio>
   </div>
 
   </template>
@@ -48,45 +103,15 @@
     Polymer({
       is: 'sdq-form-choice',
       properties: {
-        forChild: {
-          type:Boolean,
-          value:false,
-        },
+        value:{
+          type:Object
+        }
+        /*
         value: {
           type: Array,
           notify:true,
           value: function() {
             return [
-              { 'group':5,
-                'label_child':'ฉันพยายามทำตัวดีกับคนอื่น ฉันใส่ใจความรู้สึกของคนอื่น',
-                'label':'ห่วงใยความรู้สึกคนอื่น'},
-              { 'group':3,
-                'label_child':'ฉันอยู่ไม่นิ่ง ฉันนั่งนิ่ง ๆ ไม่ได้',
-                'label':'อยู่ไม่นิ่ง นั่งนิ่ง ๆ ไม่ได้'}, 
-              { 'group':1,
-                'label_child':'ฉันปวดศีรษะ ปวดท้อง หรือไม่สบายบ่อย ๆ',
-                'label':'มักจะบ่นว่าปวดศีรษะปวดท้อง'},
-              { 'group':5,
-                'label_child':'ฉันเต็มใจแบ่งปันสิ่งของให้เพื่อน (ขนม, ของเล่น, ดินสอ เป็นต้น)',
-                'label':'เต็มใจแบ่งปันสิ่งของให้เพื่อน (ขนม, ของเล่น, ดินสอเป็นต้น)'}, 
-              { 'group':2,
-                'label_child':'ฉันโกรธแรง และมักอารมณ์เสีย',
-                'label':'มักจะอาละวาดหรือโมโหร้าย'}, 
-              { 'group':4,
-                'label_child':'ฉันชอบอยู่กับตัวเอง ฉันชอบเล่นคนเดียวหรืออยู่ตามลำพัง',
-                'label':'ค่อนข้างแยกตัวชอบเล่นคนเดียว'}, 
-              { 'group':2,
-                'label_child':'ฉันมักทำตามที่คนอื่นบอก',
-                'label':'เชื่อฟัง มัก จะทำตามที่ผู้ใหญ่ต้องการ'}, 
-              { 'group':1,
-                'label_child':'ฉันขี้กังวล',
-                'label':'กังวลใจหลายเรื่อง ดูกังวลเสมอ'}, 
-              { 'group':5,
-                'label_child':'ใคร ๆ ก็พึ่งฉันได้ ถ้าเขาเสียใจ อารมณ์ไม่ดี หรือไม่สบายใจ',
-                'label':'เป็นที่พึ่งได้เวลาที่คนอื่นเสียใจ อารมณ์ไม่ดี หรือไม่สบายใจ'}, 
-              { 'group':3,
-                'label_child':'ฉันอยู่ไม่สุข วุ่นวาย',
-                'label':'อยู่ไม่สุข วุ่นวายอย่างมาก'}, 
               { 'group':4,
                 'label_child':'ฉันมีเพื่อนสนิท',
                 'label':'มีเพื่อนสนิท'}, 
@@ -135,34 +160,25 @@
             ]
           }
         },
+        */
       },
-      _label:function(item,child) {
-        if(child) {
-          return item.label_child;
+      ready:function() {
+        console.log(this.value);
+        if(!this.value) {
+          this.value={};
         }
-        return item.label;
-      },
-      _plusone:function(value) {
-        return value+1;
       },
       validate:function() {
         var els = Polymer.dom(this.root).querySelectorAll('sdq-radio');
         var valid_list = [];
         
         els.forEach(function(el) {
-          //valid = valid && el.validate(); 
           valid_list.push(el.validate());
         });
         for(var i=0;i<valid_list.length;i++) {
           if(!valid_list[i]) return false;
         }
         return true;
-      },
-      _radioChanged:function(e) {
-        var tmp = this.value;
-        this.set('value',[]);
-        this.set('value',tmp);
-        this.fire('update',{});
       }
     });
   </script>

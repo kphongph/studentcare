@@ -2,10 +2,7 @@
 <link rel="import" href="../../paper-styles/typography.html">
 <link rel="import" href="../../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../../app-localize-behavior/app-localize-behavior.html">
-<link rel="import" href="../eq-form/eq-form.html">
-<link rel="import" href="../eq-form/eq-teacher-form.html">
-<link rel="import" href="../st5-form/st5-form.html">
-<link rel="import" href="../disability-form/disability-visual-form.html">
+<link rel="import" href="../forms.html"> 
 
 <dom-module id="assignment-card">
   <template>
@@ -41,7 +38,7 @@
     </style>
    
     <div class="layout horizontal end-justified formName">
-      <span>{{_formName(data.key.5)}}</span>
+      <span id="formName"></span>
     </div>
     <div class="layout horizontal pad" on-tap="_tap">
       <span class="flex-1 field">{{data.key.7}}</span>
@@ -93,23 +90,15 @@
       _tap: function(e) {
         var first = this.$.formPanel.firstChild;
         if(!first) {
-          var formMap = {
-            'eq_form':'eq-form',
-            'eq_teacher_form':'eq-teacher-form',
-            'st5_form':'st5-form',
-            'disability_visual_form':'disability-visual-from'
-          };
-          var eleName = formMap[this.data.key[5]];
+          var eleName = this.data.key[5];
           if(eleName) {
             var ele = document.createElement(eleName);
             var doc = {'key':this.data.value};
-            console.log('append');
             ele.setAttribute('document',JSON.stringify(doc));
             this.$.formPanel.appendChild(ele);
           }
         }
         this.showForm=!this.showForm;
-        
       },
       _formName:function(type) {
         var dict = {
@@ -141,6 +130,8 @@
       },
       attached:function() {
         this.loadResources(this.resolveUrl('../locales.json'));
+        var ele = document.createElement(this.data.key[5]);
+        this.$.formName.textContent=ele.getAttribute('name');
       }
     });
   </script>

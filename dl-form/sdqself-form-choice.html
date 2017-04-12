@@ -1,0 +1,197 @@
+<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../iron-validatable-behavior/iron-validatable-behavior.html">
+<link rel="import" href="../../paper-styles/typography.html">
+<link rel="import" href="sdq-radio.html">
+
+<dom-module id="sdq-form-choice">
+  <template>
+  <style include="iron-flex iron-flex-alignment iron-flex-factors">
+    .paper-font-headline {
+      @apply(--paper-font-body2);
+    }
+    .idx {
+        width:10px;
+      }
+    sdq-radio {
+      margin-top:2px;
+      margin-bottom:2px;
+    }
+    @media (min-width:400px) {
+      :host {
+        @apply(--paper-font-body1);
+        display: block;
+        width: 100%;
+        --paper-radio-group-item-padding: 5px 12px 5px 12px;
+      }
+      .paper-font-headline {
+        @apply(--paper-font-headline);
+      }
+    }
+
+  </style>
+  <div class="layout vertical">    
+    <sdq-radio required value="{{value.q1}}">
+    ห่วงใยความรู้สึกคนอื่น
+    </sdq-radio>
+    <sdq-radio required value="{{value.q1}}">
+    ห่วงใยความรู้สึกคนอื่น
+    </sdq-radio>
+              { 'group':5,
+                'label_child':'ฉันพยายามทำตัวดีกับคนอื่น ฉันใส่ใจความรู้สึกของคนอื่น',
+                'label':'ห่วงใยความรู้สึกคนอื่น'},
+              { 'group':3,
+                'label_child':'ฉันอยู่ไม่นิ่ง ฉันนั่งนิ่ง ๆ ไม่ได้',
+                'label':'อยู่ไม่นิ่ง นั่งนิ่ง ๆ ไม่ได้'}, 
+              { 'group':1,
+                'label_child':'ฉันปวดศีรษะ ปวดท้อง หรือไม่สบายบ่อย ๆ',
+                'label':'มักจะบ่นว่าปวดศีรษะปวดท้อง'},
+              { 'group':5,
+                'label_child':'ฉันเต็มใจแบ่งปันสิ่งของให้เพื่อน (ขนม, ของเล่น, ดินสอ เป็นต้น)',
+                'label':'เต็มใจแบ่งปันสิ่งของให้เพื่อน (ขนม, ของเล่น, ดินสอเป็นต้น)'}, 
+              { 'group':2,
+                'label_child':'ฉันโกรธแรง และมักอารมณ์เสีย',
+                'label':'มักจะอาละวาดหรือโมโหร้าย'}, 
+              { 'group':4,
+                'label_child':'ฉันชอบอยู่กับตัวเอง ฉันชอบเล่นคนเดียวหรืออยู่ตามลำพัง',
+                'label':'ค่อนข้างแยกตัวชอบเล่นคนเดียว'}, 
+              { 'group':2,
+                'label_child':'ฉันมักทำตามที่คนอื่นบอก',
+                'label':'เชื่อฟัง มัก จะทำตามที่ผู้ใหญ่ต้องการ'}, 
+              { 'group':1,
+                'label_child':'ฉันขี้กังวล',
+                'label':'กังวลใจหลายเรื่อง ดูกังวลเสมอ'}, 
+              { 'group':5,
+                'label_child':'ใคร ๆ ก็พึ่งฉันได้ ถ้าเขาเสียใจ อารมณ์ไม่ดี หรือไม่สบายใจ',
+                'label':'เป็นที่พึ่งได้เวลาที่คนอื่นเสียใจ อารมณ์ไม่ดี หรือไม่สบายใจ'}, 
+              { 'group':3,
+                'label_child':'ฉันอยู่ไม่สุข วุ่นวาย',
+                'label':'อยู่ไม่สุข วุ่นวายอย่างมาก'}, 
+     
+    <!--
+    <template is="dom-repeat" items="{{value}}">
+      <sdq-radio label="{{_label(item,forChild)}}"
+        required
+        on-change="_radioChanged"
+        value="{{item.value}}">
+      </sdq-radio>
+    </template>
+    -->
+  </div>
+
+  </template>
+
+  <script>
+    Polymer({
+      is: 'sdq-form-choice',
+      properties: {
+        value:{
+          type:Object
+        }
+        /*
+        value: {
+          type: Array,
+          notify:true,
+          value: function() {
+            return [
+              { 'group':5,
+                'label_child':'ฉันพยายามทำตัวดีกับคนอื่น ฉันใส่ใจความรู้สึกของคนอื่น',
+                'label':'ห่วงใยความรู้สึกคนอื่น'},
+              { 'group':3,
+                'label_child':'ฉันอยู่ไม่นิ่ง ฉันนั่งนิ่ง ๆ ไม่ได้',
+                'label':'อยู่ไม่นิ่ง นั่งนิ่ง ๆ ไม่ได้'}, 
+              { 'group':1,
+                'label_child':'ฉันปวดศีรษะ ปวดท้อง หรือไม่สบายบ่อย ๆ',
+                'label':'มักจะบ่นว่าปวดศีรษะปวดท้อง'},
+              { 'group':5,
+                'label_child':'ฉันเต็มใจแบ่งปันสิ่งของให้เพื่อน (ขนม, ของเล่น, ดินสอ เป็นต้น)',
+                'label':'เต็มใจแบ่งปันสิ่งของให้เพื่อน (ขนม, ของเล่น, ดินสอเป็นต้น)'}, 
+              { 'group':2,
+                'label_child':'ฉันโกรธแรง และมักอารมณ์เสีย',
+                'label':'มักจะอาละวาดหรือโมโหร้าย'}, 
+              { 'group':4,
+                'label_child':'ฉันชอบอยู่กับตัวเอง ฉันชอบเล่นคนเดียวหรืออยู่ตามลำพัง',
+                'label':'ค่อนข้างแยกตัวชอบเล่นคนเดียว'}, 
+              { 'group':2,
+                'label_child':'ฉันมักทำตามที่คนอื่นบอก',
+                'label':'เชื่อฟัง มัก จะทำตามที่ผู้ใหญ่ต้องการ'}, 
+              { 'group':1,
+                'label_child':'ฉันขี้กังวล',
+                'label':'กังวลใจหลายเรื่อง ดูกังวลเสมอ'}, 
+              { 'group':5,
+                'label_child':'ใคร ๆ ก็พึ่งฉันได้ ถ้าเขาเสียใจ อารมณ์ไม่ดี หรือไม่สบายใจ',
+                'label':'เป็นที่พึ่งได้เวลาที่คนอื่นเสียใจ อารมณ์ไม่ดี หรือไม่สบายใจ'}, 
+              { 'group':3,
+                'label_child':'ฉันอยู่ไม่สุข วุ่นวาย',
+                'label':'อยู่ไม่สุข วุ่นวายอย่างมาก'}, 
+              { 'group':4,
+                'label_child':'ฉันมีเพื่อนสนิท',
+                'label':'มีเพื่อนสนิท'}, 
+              { 'group':2,
+                'label_child':'ฉันมีเรื่องทะเลาะวิวาทบ่อย ฉันทำให้คนอื่นทำอย่างที่ฉันต้องการได้',
+                'label':'มักจะมีเรื่องทะเลาะวิวาทกับเด็กอื่น หรือรังแกเด็กอื่น'}, 
+              { 'group':1,
+                'label_child':'ฉันไม่มีความสุข ท้อแท้ ร้องไห้บ่อย ๆ',
+                'label':'ดูไม่มีความสุข ท้อแท้'}, 
+              { 'group':4,
+                'label_child':'เพื่อน ๆ ส่วนมากชอบฉัน',
+                'label':'เป็นที่ชื่นชอบของเพื่อน'}, 
+              { 'group':3,
+                'label_child':'ฉันวอกแวกง่าย ฉันรู้สึกว่าไม่มีสมาธิ',
+                'label':'วอกแวกง่าย สมาธิสั้น'}, 
+              { 'group':1,
+                'label_child':'ฉันกังวลเวลาอยู่ในสถานการณ์ที่ไม่คุ้น และเสียความมั่นใจในตนเองง่าย',
+                'label':'เครียดไม่ยอมห่างเวลาอยู่ในสถานการณ์ที่ไม่คุ้น และขาดความมั่นใจในตนเอง'}, 
+              { 'group':5,
+                'label_child':'ฉันใจดีกับเด็กที่เล็กกว่า',
+                'label':'ใจดีกับเด็กที่เล็กกว่า'}, 
+              { 'group':2,
+                'label_child':'มีคนว่าฉันโกหก หรือขี้โกงบ่อย ๆ',
+                'label':'ชอบโกหก หรือขี้โกง'}, 
+              { 'group':4,
+                'label_child':'เด็กๆ คนอื่นล้อเลียน หรือรังแกฉัน',
+                'label':'ถูกเด็กคนอื่นล้อเลียนหรือรังแก'}, 
+              { 'group':5,
+                'label_child':'ฉันมักจะอาสาช่วยเหลือผู้อื่น (พ่อแม่, ครู, เพื่อน, เด็กคนอื่น ๆ เป็นต้น)',
+                'label':'ชอบอาสาช่วยเหลือผู้อื่น (พ่อ, แม่, ครู, เด็กคนอื่น)'}, 
+              { 'group':3,
+                'label_child':'ฉันคิดก่อนทำ',
+                'label':'คิดก่อนทำ'}, 
+              { 'group':2,
+                'label_child':'ฉันเอาของคนอื่นในบ้าน ที่โรงเรียนหรือที่อื่น',
+                'label':'ขโมยของที่บ้าน ที่โรงเรียนหรือที่อื่น'}, 
+              { 'group':4,
+                'label_child':'ฉันเข้ากับผู้ใหญ่ได้ดีกว่ากับเด็กในวัยเดียวกัน',
+                'label':'เข้ากับผู้ใหญ่ได้ดีกว่าเด็กวัยเดียวกัน'}, 
+              { 'group':1,
+                'label_child':'ฉันขี้กลัว รู้สึกหวาดกลัวได้ง่าย',
+                'label':'ขี้กลัว รู้สึกหวาดกลัวได้ง่าย'}, 
+              { 'group':3,
+                'label_child':'ฉันทำงานได้จนเสร็จ ความตั้งใจในการทำงานของฉันดี',
+                'label':'ทำงานได้จนเสร็จ มีความตั้งอกตั้งใจในการทำงาน'}
+            ]
+          }
+        },
+        */
+      },
+      ready:function() {
+        console.log(this.value);
+        if(!this.value) {
+          this.value={};
+        }
+      },
+      validate:function() {
+        var els = Polymer.dom(this.root).querySelectorAll('sdq-radio');
+        var valid_list = [];
+        
+        els.forEach(function(el) {
+          valid_list.push(el.validate());
+        });
+        for(var i=0;i<valid_list.length;i++) {
+          if(!valid_list[i]) return false;
+        }
+        return true;
+      }
+    });
+  </script>
+</dom-module>
