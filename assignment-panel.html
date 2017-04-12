@@ -1,10 +1,8 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
-<link rel="import" href="../iron-pages/iron-pages.html">
 <link rel="import" href="../paper-progress/paper-progress.html">
 <link rel="import" href="../paper-material/paper-material.html">
 <link rel="import" href="local/assignment-card.html">
-<link rel="import" href="eq-form/eq-form.html">
 <link rel="import" href="leveldb-query.html">
 
 <dom-module id="assignment-panel">
@@ -18,6 +16,7 @@
         margin-bottom:10px;
       }
     </style>
+
     
     <leveldb-query url="https://maas.nuqlis.com:9000/api"
       db-name="students_care"
@@ -25,13 +24,22 @@
       data="{{data}}"
       query="{{query}}">
     </leveldb-query>
+    
+    <div>
+    <span>กำลังดำเนินการ</span>
+    <span>{{_workingCount}}</span>
+    </div>
 
-    <paper-input value="{{sortBy}}" label="sort by"></paper-input>
+    <div>
+    <span>ใหม่</span>
+    <span>{{_newCount}}</span>
+    </div>
 
     <template is="dom-repeat" items="{{data}}"
       sort="{{computeSortBy(sortBy)}}">
       <paper-material elevation="1">
-        <assignment-card data="{{item}}">
+        <assignment-card data="{{item}}"
+          on-select-assignment="_onSelect">
         </assignment-card>  
       </paper-material>
     </template>
@@ -41,6 +49,9 @@
   <script>
     Polymer({
       is: 'assignment-panel',
+      listeners:{
+        'assignment-update':'_onAssignmentUpdate'
+      },
       properties: {
         selectedStudent: {
           type:Object,
@@ -65,15 +76,56 @@
           computed:'__computeQuery(host,level,room)'
         }
       },
+      observers:[
+        '_onDataChanged(data)'
+      ],
       __computeQuery:function(host,level,room) {
-        console.log(host,level,room);
         return {"match":[host,level,room],"limit":-1};
+      },
+      _onAssignmentUpdate:function(e) {
+        var self = this;
+        this.data.forEach(function(item,idx) {
+          if(item.value == e.target.data.value) {
+            console.log(idx,e.target.data);
+            var tmp = self.data;
+            tmp[idx]=e.target.data;
+            self.set('data',[]);
+            self.set('data',tmp);
+          }
+        });
+      },
+      _onDataChanged:function(data) {
+        this._updateStatus(data);
+      },
+      _updateStatus:function(data) {
+        var dict = {
+          'working':0,
+          'new':0,
+        };
+        data.forEach(function(item) {
+          if(dict[item.key[4]] >=0 ) dict[item.key[4]]++;
+        });
+        for(var key in dict) {
+          this.set('_'+key+'Count',dict[key]);
+        }
       },
       computeSortBy:function(str) {
         return function(a,b) {
           if(a.key[8] >= b.key[8]) return 1
           return -1;
         }
+      },
+      _onSelect:function(e) { 
+        var show=e.target.showForm;
+        var key =e.target.data.value;
+        console.log(show,key);
+        var eles =Polymer.dom(this.root)
+         .querySelectorAll('assignment-card');
+        eles.forEach(function(ele) {
+          if(ele.data.value != key)  {
+             ele.hidden=show;
+          }
+        });
       }
     });
   </script>

@@ -12,8 +12,16 @@
     listeners : {
       'form-action':'_onFormAction'
     },
+    _reset : function() {
+    },
     _onFormAction : function(e) {
       if(e.detail.type == "save") {
+        this.document.value.status = "working";
+        e.target.save();
+      }
+      if(e.detail.type == "undo") {
+        this.document.value.status = "new";
+        this._reset();
         e.target.save();
       }
     }
