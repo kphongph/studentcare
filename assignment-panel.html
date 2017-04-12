@@ -12,9 +12,6 @@
         @apply(--layout-vertical);
         display: block;
       }
-      paper-material {
-        margin-bottom:10px;
-      }
     </style>
 
     
@@ -35,14 +32,14 @@
     <span>{{_newCount}}</span>
     </div>
 
-    <template is="dom-repeat" items="{{data}}"
-      sort="{{computeSortBy(sortBy)}}">
-      <paper-material elevation="1">
+    <paper-material elevation="1">
+      <template is="dom-repeat" items="{{data}}"
+        sort="{{computeSortBy(sortBy)}}">
         <assignment-card data="{{item}}"
           on-select-assignment="_onSelect">
         </assignment-card>  
-      </paper-material>
-    </template>
+      </template>
+    </paper-material>
 
   </template>
 
