@@ -87,6 +87,11 @@
     Polymer({
       is: 'st5-form',
       properties: {
+        name: {
+          type:String,
+          reflectToAttribute:true,
+          value:"แบบประเมินความเครียดกรมสุขภาพจิต (ST–5)"
+        },
         formType: {
           type:String,
           value:'st5_form'
