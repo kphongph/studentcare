@@ -25,10 +25,17 @@
     <div class="layout horizontal">
       <paper-listbox selected="{{status}}" attr-for-selected="name" 
         class="flex-1">
-        <paper-item name="">ทั้งหมด</paper-item>
-        <paper-item name="new">ใหม่</paper-item>
-        <paper-item name="working">กำลังดำเนินการ</paper-item>
-        <paper-item name="done">ประเมินแล้ว</paper-item>
+        <paper-item name="">ทั้งหมด
+        </paper-item>
+        <paper-item name="new">ใหม่
+          (<span>{{_newCount}}</span>)
+        </paper-item>
+        <paper-item name="working">กำลังดำเนินการ
+          (<span>{{_workingCount}}</span>)
+        </paper-item>
+        <paper-item name="done">ประเมินแล้ว
+          (<span>{{_doneCount}}</span>)
+        </paper-item>
       </paper-listbox>
 
       <div class="layout vertical flex-4">
@@ -52,10 +59,6 @@
         'assignment-update':'_onAssignmentUpdate'
       },
       properties: {
-        selectedStudent: {
-          type:Object,
-          notify:true
-        },
         host: {
           type:String
         },
@@ -97,8 +100,10 @@
         var self = this;
         this.data.forEach(function(item,idx) {
           if(item.value == e.target.data.value) {
-            console.log(idx,e.target.data);
-            var tmp = self.data;
+            var tmp=self.data;
+            var status='_'+e.target.data.key[4]+'Count';
+            self.set(status,self.get(status)+1);
+
             tmp[idx]=e.target.data;
             self.set('data',[]);
             self.set('data',tmp);
@@ -114,11 +119,14 @@
           'new':0,
           'done':0
         };
+        var status = this.status;
         data.forEach(function(item) {
           if(dict[item.key[4]] >=0 ) dict[item.key[4]]++;
         });
         for(var key in dict) {
-          this.set('_'+key+'Count',dict[key]);
+          if(this.status == key || this.status.length==0) {
+            this.set('_'+key+'Count',dict[key]);
+          }
         }
       },
       filterByType:function(str) {

@@ -31,9 +31,13 @@
       :host .formName {
         @apply(--paper-font-body1);
         padding-right:10px;
-        background:var(--paper-blue-500);
+        background:var(--paper-blue-900);
         color:#fff;
       }
+      :host([show-form]) .formName {
+        background:var(--paper-red-500);
+      }
+
       .field {
         padding-left:10px;
       }
