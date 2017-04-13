@@ -97,18 +97,12 @@
         return {"match":[host,level,room],"limit":-1};
       },
       _onAssignmentUpdate:function(e) {
-        var self = this;
-        this.data.forEach(function(item,idx) {
-          if(item.value == e.target.data.value) {
-            var tmp=self.data;
-            var status='_'+e.target.data.key[4]+'Count';
-            self.set(status,self.get(status)+1);
-
-            tmp[idx]=e.target.data;
-            self.set('data',[]);
-            self.set('data',tmp);
-          }
-        });
+        var card = e.target;
+        var old = e.detail.old.key;
+        var status='_'+old[4]+'Count';
+        this.set(status,this.get(status)-1);
+        status='_'+e.target.data.key[4]+'Count';
+        this.set(status,this.get(status)+1);
       },
       _onDataChanged:function(data) {
         this._updateStatus(data);

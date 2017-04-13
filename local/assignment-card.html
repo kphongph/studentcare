@@ -98,12 +98,16 @@
         }
       },
       _update:function(e) {
+        var _old = this.data.key.concat();
         this.data.key[8] = e.detail.value.ts;
         this.data.key[4] = e.detail.value.status;
         var keys = this.data.key; 
         this.set('data.key',[]);
         this.set('data.key',keys);
-        this.fire('assignment-update',{});
+        this.fire('assignment-update',{
+          'old':{'key':_old,'value':this.data.value},
+          'new':this.data
+        });
       },
       _tap: function(e) {
         var first = this.$.formPanel.firstChild;

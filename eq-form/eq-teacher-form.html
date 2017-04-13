@@ -4,6 +4,7 @@
 <link rel="import" href="../../iron-validatable-behavior/iron-validatable-behavior.html">
 <link rel="import" href="../../paper-styles/typography.html">
 <link rel="import" href="../../paper-radio-group/paper-radio-group.html">
+<link rel="import" href="../../paper-radio-button/paper-radio-button.html">
 <link rel="import" href="../form-control.html">
 <link rel="import" href="../studentcare-form-behavior.html">
 <link rel="import" href="eq-teacher-choice.html">
@@ -21,23 +22,25 @@
         border: 1px solid #ee0000;
       }
 
-      paper-radio-group {
-        background:#efefef;
-      }
-
       .formEntry div {
         @apply(--paper-font-title);
         margin:3px;
         padding:0px;
         background:#efefef;
       }
-
+      
       .description ol {
         @apply(--paper-font-body1);
         .num {list-style-type: decimal;}
         margin:3px;
         padding:0px;
         background:#efefef;
+      }
+      .check-icon {
+        width:30px;
+      }
+      .mark {
+        font-weight:bold;
       }
     </style>
 
@@ -138,6 +141,38 @@
         label="เป็นเด็กอารมณ์ดี">
      </eq-teacher-choice>
      </div>
+
+     <div class="evaluation">
+      <div class="layout vertical"> 
+       <div class="layout horizontal">
+        <div class="check-icon">
+          <iron-icon icon="check" hidden$="{{!_criteria.c1}}">
+          </iron-icon>
+        </div>
+        <span class="flex" id="c1_label">
+          คะแนนรวม มากกว่า 56 คะแนน ความฉลาดทางอารมณ์สูงกว่าปกติ
+        </span>
+       </div>
+       <div class="layout horizontal">
+        <div class="check-icon">
+          <iron-icon icon="check" hidden$="{{!_criteria.c2}}">
+          </iron-icon>
+        </div>
+        <span class="flex" id="c2_label">
+          คะแนนรวม มากกว่า 42-56 คะแนน ความฉลาดทางอารมณ์ปานกลาง
+        </span>
+       </div>
+       <div class="layout horizontal">
+        <div class="check-icon">
+          <iron-icon icon="check" hidden$="{{!_criteria.c3}}">
+          </iron-icon>
+        </div>
+        <span class="flex" id="c3_label">
+          คะแนนรวม ต่ำกว่า 42 คะแนน ความฉลาดทางอารมณ์ต่ำกว่าปกติ
+        </span>
+       </div>
+      </div>
+     </div>
     </form-control>
 
   </template>
@@ -145,19 +180,16 @@
   <script>
     Polymer({
       is: 'eq-teacher-form',
-      listeners : {
-      },
       properties: {
         name: {
           type:String,
           reflectToAttribute:true,
           value:"แบบประเมินความฉลาดทางอารมณ์ (EQ)ฉบับครูประเมินนักเรียน (6-11 ปี)"
-        },
-        formType: {
-          type:String,
-          value:'eq_teacher_form'
         }
       },
+      observers:[
+        '_result(document.value.form_result.score)'
+      ],
       behaviors:[
         Polymer.IronValidatableBehavior,
         StudentcareFormBehavior,
@@ -167,8 +199,55 @@
           this.$.control.save();
         }
       },
+      _evaluate:function() {
+        var values = this.document.value.form_value;
+        var score_list = ['','n','s','u','a'];
+        var score38_list = ['','a','u','s','n'];
+        var score = 0;
+        for(var q in values) {
+          if(q == 'q3' || q == 'q8') {
+            score+=score38_list.indexOf(values[q]);
+          } else {
+            score+=score_list.indexOf(values[q]);
+          }
+        }
+        return {'score':score};
+      },
+      _validate:function() {
+        var eles =Polymer.dom(this.root)
+         .querySelectorAll('eq-teacher-choice');
+        for(var i=0;i<eles.length;i++) {
+          if(!eles[i].value)  {
+            eles[i].classList.add('invalid');
+            return false;
+          } else {
+            eles[i].classList.remove('invalid');
+          }
+        }
+        return true;
+      },
       _reset:function() {
         this.set('document.value.form_value',{});
+      },
+      _result:function(score) {
+        var _criteria = {'c1':false,'c2':false,'c3':false};
+        if(score>=56) {
+          _criteria.c1 = true;
+        } else {
+          if(score>=42) {
+            _criteria.c2 = true;
+          } else {
+            _criteria.c3 = true;
+          }
+        }
+        for(var key in _criteria) {
+          if(_criteria[key]) {
+            this.$$('#'+key+'_label').classList.add('mark');
+          } else {
+            this.$$('#'+key+'_label').classList.remove('mark');
+          }
+        }
+        this.set('_criteria',_criteria);
       }
     });
   </script>
