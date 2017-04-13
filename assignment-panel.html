@@ -4,6 +4,7 @@
 <link rel="import" href="../paper-material/paper-material.html">
 <link rel="import" href="local/assignment-card.html">
 <link rel="import" href="leveldb-query.html">
+<link rel="import" href="assignment-paginator.html">
 
 <dom-module id="assignment-panel">
   <template>
@@ -20,28 +21,27 @@
       data="{{data}}"
       query="{{query}}">
     </leveldb-query>
+
     <div class="layout horizontal">
-      <paper-listbox selected="{{_type}}" attr-for-selected="name" 
+      <paper-listbox selected="{{status}}" attr-for-selected="name" 
         class="flex-1">
-        <paper-item name="new">
-          ใหม่ (<span>{{_newCount}}</span>)
-        </paper-item>
-        <paper-item name="working">
-          กำลังดำเนินการ (<span>{{_workingCount}}</span>)
-        </paper-item>
-        <paper-item name="done">
-          ประเมินแล้ว (<span>{{_doneCount}}</span>)
-        </paper-item>
+        <paper-item name="">ทั้งหมด</paper-item>
+        <paper-item name="new">ใหม่</paper-item>
+        <paper-item name="working">กำลังดำเนินการ</paper-item>
+        <paper-item name="done">ประเมินแล้ว</paper-item>
       </paper-listbox>
 
-      <paper-material elevation="1" class="flex-4">
-        <template is="dom-repeat" items="{{data}}"> 
-          <assignment-card data="{{item}}"
-            on-select-assignment="_onSelect">
+      <div class="layout vertical flex-4">
+       <assignment-paginator per-page="2" data="{{data}}" items="{{items}}">
+        <paper-material elevation="1" class="flex">
+         <template is="dom-repeat" items="{{items}}"> 
+          <assignment-card data="{{item}}" on-select-assignment="_onSelect">
           </assignment-card>  
-        </template>
-      </paper-material>
-   </div>
+         </template>
+        </paper-material>
+       </assignment-paginator>
+      </div>
+    </div>
 
   </template>
 
@@ -65,6 +65,14 @@
         room:{
           type:String
         },
+        status: {
+          type:String,
+          value:''
+        },
+        limit: {
+          type:Number,
+          value:1
+        },
         page: {
           type:Number,
           readOnly:true,
@@ -72,14 +80,17 @@
         },
         query:{
           type:Object,
-          computed:'__computeQuery(host,level,room)'
+          computed:'__computeQuery(host,level,room,status)'
         }
       },
       observers:[
         '_onDataChanged(data)',
-        '_onTypeChanged(_type)'
       ],
-      __computeQuery:function(host,level,room) {
+      __computeQuery:function(host,level,room,status) {
+        console.log('query',host,level,room,status);
+        if(status.length > 0) {
+          return {"match":[host,level,room,status],"limit":-1};
+        }
         return {"match":[host,level,room],"limit":-1};
       },
       _onAssignmentUpdate:function(e) {
@@ -135,19 +146,6 @@
              } else {
                ele.hidden=show;
              }
-          }
-        });
-      },
-      _onTypeChanged:function(_type) {
-        console.log(_type);
-        var eles =Polymer.dom(this.root)
-         .querySelectorAll('assignment-card');
-        eles.forEach(function(ele) {
-          if(_type != ele.data.key[4]) {
-            ele.hidden=true;
-            ele.showForm=false;
-          } else {
-            ele.hidden=false;
           }
         });
       }
