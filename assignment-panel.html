@@ -129,23 +129,12 @@
       _onSelect:function(e) { 
         var self = this;
         var show=e.target.showForm;
-        var _type=e.target.data.key[4];
         var key =e.target.data.value;
         var eles =Polymer.dom(this.root)
          .querySelectorAll('assignment-card');
         eles.forEach(function(ele) {
+          console.log(ele.data.value,key,show);
           if(ele.data.value != key)  {
-             if(!show) {
-               if(!self._type) {
-                 ele.hidden=show;
-               } else {
-                 if(ele.data.key[4] == self._type) {
-                   ele.hidden=show;
-                 }
-               }
-             } else {
-               ele.hidden=show;
-             }
           }
         });
       }
