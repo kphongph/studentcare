@@ -174,7 +174,8 @@
         this.set('document.value.form_value',{});        
       },
       _result:function(score) {
-        if(score.y>=5) {
+        
+        if(score && score.y>=5) {
           this.$$('#markPositive').classList.add('mark');
           this.$$('#markNegative').classList.remove('mark');
           this.set('_mark',true);
