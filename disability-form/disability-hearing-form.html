@@ -7,7 +7,7 @@
 <link rel="import" href="../form-control.html">
 <link rel="import" href="../studentcare-form-behavior.html">
 <link rel="import" href="disability-choice.html">
-<dom-module id="disability-visual-form">
+<dom-module id="disability-hearing-form">
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors">
       :host {
@@ -60,40 +60,37 @@
           <li>ผู้คัดกรองควรจะมีอย่างน้อย ๒ คนขึ้นไป</li>
         </ol>
         <ol class="num"> <b>เกณฑ์การพิจารณา</b>
-          <li>ถ้าตอบว่าใช่ 5 ข้อ ขึ้นไป แสดงว่ามีแนวโน้มที่จะเป็นบุคคลที่มีความบกพร่องทางการเห็น ให้จัดบริการช่วยเหลือทางการศึกษาพิเศษ และส่งต่อให้จักษุแพทย์ตรวจวินิจฉัยต่อไป</li>
+          <li>ถ้าตอบว่าใช่ 3 ข้อ ขึ้นไป แสดงว่ามีแนวโน้มที่จะเป็นบุคคลที่มีความบกพร่องทางการได้ยิน ให้จัดบริการช่วยเหลือทางการศึกษาพิเศษ และส่งต่อให้จักษุแพทย์ตรวจวินิจฉัยต่อไป</li>
         </ol>
       </div>
       <div class="formEntry">
        <disability-choice value="{{document.value.form_value.q1}}" 
-        label="มักก้มศรีษะมองสิ่งของ หนังสือ รูปภาพหรือนำเข้ามาดูใกล้ ๆ ตา">
+        label="ไม่หันศรีษะหาเสียงเมื่อเรียกชื่อจากข้างหลัง">
        </disability-choice>     
        <disability-choice value="{{document.value.form_value.q2}}" 
-          label="เมื่อดูป้ายข้อความ รูปภาพ วัตถุสิ่งของต่าง ๆ ตามสาธารณะ ต้องเข้าไปดูใกล้ ๆ">
+          label="ไม่ตอบสนองหรือหันไปมองที่มาของเสียงซึ่งเกิดอยู่รอบ ๆ ห้อง">
        </disability-choice>     
        <disability-choice value="{{document.value.form_value.q3}}" 
-          label="ขณะอ่านหนังสือ มักจะอ่านซ้ำบรรทัดเดิม หรืออ่านข้ามบรรทัด">
+          label="มักใช้ท่าทางในการสื่อความหมายกับผู้อื่นไม่ใช้ภาษาพูด">
        </disability-choice>     
        <disability-choice value="{{document.value.form_value.q4}}" 
-          label="มักใช้ประสาทสัมผัสส่วนอื่น เพื่อสำรวจ / หาสิ่งของ ควบคู่กับการใช้สายตา">
+          label="ออกเสียงในระดับเดียวกันแต่ไม่เป็นคำ">
        </disability-choice>     
        <disability-choice value="{{document.value.form_value.q5}}" 
-          label="บอกรายละเอียดองภาพหรือสิ่งของไม่ได้">
+          label="ในการสนทนาจะมองปากหรือจ้องหน้าจ้องตาผู้พูดตลอดเวลา">
        </disability-choice>
        <disability-choice value="{{document.value.form_value.q6}}" 
-          label="เดินด้วยความระมัดระวังมากกว่าปกติ เดินไม่คล่องตัว มักชนและสะดุดวัตถุ">
+          label="ตอบไม่ตรงค าถามหรือไม่ตอบค าถาม">
        </disability-choice>     
        <disability-choice value="{{document.value.form_value.q7}}" 
-          label="หรี่ตา กระพริบตา ขยี้ตา กดตา เมื่อใช้สายตามาก ๆ">
+          label="พูดตามหรือเลียนเสียงพูดไม่ได้">
        </disability-choice>     
        <disability-choice value="{{document.value.form_value.q8}}" 
-          label="เคลื่อนศรีษะไปมา เพื่อหาจุดที่มองเห็นชัดที่สุด">
+          label="เป็นหรือเคยเป็นโรคหูน้ าหนวก">
        </disability-choice>     
        <disability-choice value="{{document.value.form_value.q9}}" 
-          label="มักมีอาการปวดศรีษะ ปวดตา ตาลาย คันตา มองเห็นสิ่งของเคลื่อนไหวไปมา">
+          label="การแสดงออกทางพฤติกรรมในชีวิตประจ าวันที่ส่งเสียงดังมากกว่าปกติ เช่น การเดินลงส้นเท้า การรับประทานอาหารโดยช้อนกระทบจาน เป็นต้น">
        </disability-choice>     
-       <disability-choice value="{{document.value.form_value.q10}}" 
-          label="บอกความแตกต่างของสีที่ใกล้เคียงกัน หรือสีที่ไม่ตัดกันไม่ได้ เช่น สีเขียวกับสีฟ้า สีแดงกับสีส้ม">
-       </disability-choice>         
      </div>
      <div class="evaluation">
       <div class="layout vertical">
@@ -123,18 +120,14 @@
 
   <script>
     Polymer({
-      is: 'disability-visual-form',
+      is: 'disability-hearing-form',
       listeners : {
       },
       properties: {
         name: {
           type:String,
           reflectToAttribute:true,
-          value:"แบบคัดกรองบุคคลที่มีความบกพร่องทางการเห็น"
-        },
-        formType: {
-          type:String,
-          value:'disability_visual_from'
+          value:"แบบคัดกรองบุคคลที่มีความบกพร่องทางการได้ยิน"
         }
       },
       behaviors:[
@@ -174,8 +167,7 @@
         this.set('document.value.form_value',{});        
       },
       _result:function(score) {
-        
-        if(score && score.y>=5) {
+        if(score && score.y>=3) {
           this.$$('#markPositive').classList.add('mark');
           this.$$('#markNegative').classList.remove('mark');
           this.set('_mark',true);
