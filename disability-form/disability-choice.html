@@ -29,8 +29,11 @@
       }
     </style>
 
-    <div id="main" class="layout horizontal center">
-      <span class="flex" id="label">{{label}}</span>
+    <div id="main" class="layout horizontal">
+      <span class="flex" id="label">
+        <span>{{label}}</span>
+        <content></content>
+      </span>
       <span class="valueText"><b>{{_valueStr}}</b></span>
     </div>
     <div hidden$="{{!hovered}}" class="layout horizontal">
