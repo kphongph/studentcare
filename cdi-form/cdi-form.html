@@ -1,0 +1,298 @@
+<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../iron-icons/iron-icons.html">
+<link rel="import" href="../../iron-validatable-behavior/iron-validatable-behavior.html">
+<link rel="import" href="../../paper-styles/typography.html">
+<link rel="import" href="../../paper-radio-group/paper-radio-group.html">
+<link rel="import" href="../form-control.html">
+<link rel="import" href="../studentcare-form-behavior.html">
+<link rel="import" href="cdi-choice.html">
+
+<dom-module id="cdi-form">
+  <template>
+    <style include="iron-flex iron-flex-alignment iron-flex-factors">
+      :host {
+        @apply(--paper-font-display);
+        @apply(--layout-vertical);
+        display: block;
+      }
+
+      .invalid {
+        border: 1px solid #ee0000;
+      }
+
+      paper-radio-group {
+        background:#efefef;
+      }
+      
+      .formEntry div {
+        @apply(--paper-font-display);
+        margin:3px;
+        padding:0px;
+        background:#efefef;
+      }
+
+      .description ol {
+        @apply(--paper-font-body1);
+        .num {list-style-type: decimal;}
+        margin:3px;
+        padding:0px;
+        background:#efefef;
+      }
+     
+      .evaluation {
+        padding:5px;
+      }
+      
+      .sub-question {
+        padding-left:20px;
+      }
+
+      .check-icon {
+        width:30px;
+      }
+    </style>
+
+    <form-control id="control" 
+      on-form-action="_tap" 
+      doc-key="{{document.key}}"
+      doc-value="{{document.value}}">
+      <div class="description">
+        <ol class="num"><b> คำชี้แจง</b>
+        </ol>
+      </div>
+      <div class="formEntry">
+       <cdi-choice value="{{document.value.form_value.q1_1}}"> 
+        <span class="cdi-a">ฉันรู้สึกเศร้านานๆ ครั้ง</span>
+        <span class="cdi-b">ฉันรู้สึกเศร้าบ่อยครั้ง</span>
+        <span class="cdi-c">ฉันรู้สึกเศร้าตลอดเวลา</span>
+       </cdi-choice>
+       <cdi-choice value="{{document.value.form_value.q2_2}}"> 
+        <span class="cdi-a">อะไรๆ ก็มีอุปสรรคไปเสียหมด</span>
+        <span class="cdi-b">ฉันไม่แน่ใจว่าสิ่งต่างๆ จะไปด้วยดี</span>
+        <span class="cdi-c">สิ่งต่างๆ จะเป็นไปด้วยดีสำหรับฉัน</span>
+       </cdi-choice>
+       <cdi-choice value="{{document.value.form_value.q1_3}}"> 
+        <span class="cdi-a">ฉันทำอะไรๆ ได้ค่อนข้างดี</span>
+        <span class="cdi-b">ฉันทำผิดพลาดหลายอย่าง</span>
+        <span class="cdi-c">ฉันทำอะไรผิดพลาดไปหมด</span>
+       </cdi-choice>
+       <cdi-choice value="{{document.value.form_value.q1_4}}"> 
+        <span class="cdi-a">ฉันรู้สึกสนุกกับหลายสิ่งหลายอย่าง</span>
+        <span class="cdi-b">ฉันรู้สึกสนุกกับบางสิ่งบางอย่าง</span>
+        <span class="cdi-c">ไม่มีอะไรสนุกสสนานเลยสำหรับฉัน</span>
+       </cdi-choice>
+       <cdi-choice value="{{document.value.form_value.q2_5}}"> 
+        <span class="cdi-a">ฉันทำตัวไม่ดีเสมอ</span>
+        <span class="cdi-b">ฉันทำตัวไม่ดีบ่อยครั้ง</span>
+        <span class="cdi-c">ฉันทำตัวไม่ดีนานๆ ที</span>
+       </cdi-choice>
+       <cdi-choice value="{{document.value.form_value.q1_6}}"> 
+        <span class="cdi-a">นานๆ ครั้งฉันจะคิดถึงสิ่งไม่ดีที่อาจเกิดขึ้นกับฉัน</span>
+        <span class="cdi-b">ฉันวิตกว่าสิ่งไม่ดีจะเกิดขึ้นกับฉัน</span>
+        <span class="cdi-c">จะต้องมีสิ่งเลวร้ายเกิดขึ้นกับฉันแน่ๆ</span>
+       </cdi-choice>
+       <cdi-choice value="{{document.value.form_value.q2_7}}"> 
+        <span class="cdi-a">ฉันเกลัยดตัวเอง</span>
+        <span class="cdi-b">ฉันไม่ชอบตัวเอง</span>
+        <span class="cdi-c">ฉันชอบตัวเอง</span>
+       </cdi-choice>
+       <cdi-choice value="{{document.value.form_value.q2_8}}"> 
+        <span class="cdi-a">สิ่งเลวร้ายทั้งหมดที่เกิดขึ้นเป็นความผิดของฉัน</span>
+        <span class="cdi-b">สิ่งเลวร้ายหลายสิ่งที่เกิดขึ้นเป็นความผิดของฉัน</span>
+        <span class="cdi-c">สิ่งเลวร้ายที่เกิดขึ้นมามักไม่ใช่ความผิดของฉัน</span>
+       </cdi-choice>
+       <cdi-choice value="{{document.value.form_value.q1_9}}"> 
+        <span class="cdi-a">ฉันไม่คิดจะฆ่าตัวตาย</span>
+        <span class="cdi-b">ฉันคิดถึงการฆ่าตัวตาย</span>
+        <span class="cdi-c">ฉันต้องฆ่าตัวตาย</span>
+       </cdi-choice>
+       <cdi-choice value="{{document.value.form_value.q_10}}"> 
+        <span class="cdi-a">ฉันรู้สึกอยากร้องไห้ทุกวัน</span>
+        <span class="cdi-b">ฉันรู้สึกอยากร้องไห้บ่อยครั้ง</span>
+        <span class="cdi-c">ฉันรู้สึกอยากร้องไห้นานๆ ครั้ง</span>
+       </cdi-choice>
+       <cdi-choice value="{{document.value.form_value.q2_11}}"> 
+        <span class="cdi-a">ฉันรู้สึกหงุดหงิงใจตลอดเวลา</span>
+        <span class="cdi-b">ฉันรู้สึกหงุดหงิดใจบ่อยครั้ง</span>
+        <span class="cdi-c">ฉันรู้สึกหงุดหงิดใจนานๆครั้ง</span>
+       </cdi-choice>
+       <cdi-choice value="{{document.value.form_value.q1_12}}"> 
+        <span class="cdi-a">ฉันชอบอยูกับคนอื่น</span>
+        <span class="cdi-b">ฉันไม่ค่อยชอบอยู่กับคนอื่น</span>
+        <span class="cdi-c">ฉันไม่ต้องการอยู่กับใครเลย</span>
+       </cdi-choice>
+       <cdi-choice value="{{document.value.form_value.q2_13}}"> 
+        <span class="cdi-a">ฉันไม่สามารถตัดสินใจอะไรต่างๆ ด้วยตนเอง</span>
+        <span class="cdi-b">ฉันตัดสินใจเรื่องต่างๆได้ลำบาก</span>
+        <span class="cdi-c">ฉันตัดสินใจเรื่องต่างๆ ได้ง่าย</span>
+       </cdi-choice>
+       <cdi-choice value="{{document.value.form_value.q1_14}}"> 
+        <span class="cdi-a">ฉันเป็นคนหน้าตาดี</span>
+        <span class="cdi-b">ฉันเป็นคนหน้าตาไม่ค่อยดี</span>
+        <span class="cdi-c">ฉันเป็นคนหน้าตาหน้าเกลียด</span>
+       </cdi-choice>
+       <cdi-choice value="{{document.value.form_value.q2_15}}"> 
+        <span class="cdi-a">ฉันต้องใช้ความพยายามอย่างหนักทุกครั้งที่ทำการบ้าน</span>
+        <span class="cdi-b">ฉันต้องใช้ความพยายามอย่างหนักบ่อยครั้งเวลาทำการบ้าน</span>
+        <span class="cdi-c">การทำการบ้านไม่ใช่ปัญหาใหญ่สำหรับฉัน</span>
+       </cdi-choice>
+       <cdi-choice value="{{document.value.form_value.q2_16}}"> 
+        <span class="cdi-a">ฉันนอนไม่หลับทุกคืน</span>
+        <span class="cdi-b">ฉันนอนไม่หลับหลายคืน</span>
+        <span class="cdi-c">ฉันนอนหลับสบาย</span>
+       </cdi-choice>
+       <cdi-choice value="{{document.value.form_value.q1_17}}"> 
+        <span class="cdi-a">ฉันรู้สึกเหนื่อยหลายๆ ครั้ง</span>
+        <span class="cdi-b">ฉันรู้สึกเหนื่อยบ่อยครั้ง</span>
+        <span class="cdi-c">ฉันรู้สึกเหนื่อยตลอดเวลา</span>
+       </cdi-choice>
+       <cdi-choice value="{{document.value.form_value.q2_18}}"> 
+        <span class="cdi-a">มีหลายวันที่ฉันรู้สึกไม่อยากกินอาหาร</span>
+        <span class="cdi-b">มีบางวันที่ฉันไม่รู้สึกอยากกินอาหาร</span>
+        <span class="cdi-c">ฉันกินอาหารได้ดี</span>
+       </cdi-choice>
+       <cdi-choice value="{{document.value.form_value.q1_19}}"> 
+        <span class="cdi-a">ฉันไม่กังวลกับการเจ็บป่วย</span>
+        <span class="cdi-b">ฉันกังวลกับการจ็บป่วยบ่อยครั้ง</span>
+        <span class="cdi-c">ฉันกังวลกับการเจ็บป่วยตลอดเวลา</span>
+       </cdi-choice>
+       <cdi-choice value="{{document.value.form_value.q1_20}}"> 
+        <span class="cdi-a">ฉันไม่รู้สึกเหงา</span>
+        <span class="cdi-b">ฉันรู้สึกเหงาบ่อยๆ</span>
+        <span class="cdi-c">ฉันรู้สึกเหงาตลอดเวลา</span>
+       </cdi-choice>
+       <cdi-choice value="{{document.value.form_value.q2_21}}"> 
+        <span class="cdi-a">ฉันไม่รู้สึกสสนุกเลยเวลาที่อยู่โรงเรียน</span>
+        <span class="cdi-b">ฉันรู้สึกสนุกนานๆ ครั้งที่อยู่โรงเรียน</span>
+        <span class="cdi-c">ฉันรู้สึกสนุกบ่อยครั้งเวลาที่อยู่โรงเรียน</span>
+       </cdi-choice>
+       <cdi-choice value="{{document.value.form_value.q1_22}}"> 
+        <span class="cdi-a">ฉันมีเพื่อนมาก</span>
+        <span class="cdi-b">ฉันมีเพื่อนไม่กี่คน และอยากมีเพื่อนมากกว่านี้</span>
+        <span class="cdi-c">ฉันไม่มีเพื่อนเลย</span>
+       </cdi-choice>
+       <cdi-choice value="{{document.value.form_value.q1_23}}"> 
+        <span class="cdi-a">การเรียนขอองฉันอยู่ในขั้นใช้ได้ดี</span>
+        <span class="cdi-b">การเรียนของฉันไม่ค่อยดีเหมือนก่อน</span>
+        <span class="cdi-c">การเรียนของฉันแย่ลงมาก</span>
+       </cdi-choice>
+       <cdi-choice value="{{document.value.form_value.q2_24}}"> 
+        <span class="cdi-a">ฉันทำอะไรไม่ได้ดีเท่าคนอื่น</span>
+        <span class="cdi-b">ฉันทำอะไร ได้ดีเท่าคนอื่น ถ้าฉันพยายาม</span>
+        <span class="cdi-c">ฉันทำได้ดีพอๆ กับคนอื่นอยู่แล้ว ในขณะที่</span>
+       </cdi-choice>
+       <cdi-choice value="{{document.value.form_value.q2_25}}"> 
+        <span class="cdi-a">ไม่มีใครรักฉันจริง</span>
+        <span class="cdi-b">ฉันไม่แน่ใจว่ามีใครรักฉันหรือเปล่า</span>
+        <span class="cdi-c">ฉันไม่เคยทำตามคำสั่ง</span>
+       </cdi-choice>
+       <cdi-choice value="{{document.value.form_value.q1_26}}"> 
+        <span class="cdi-a">ฉันทำตามคำสั่งที่ได้รับเสมอ</span>
+        <span class="cdi-b">ฉันไม่ทำตามคำสั่งบ่อยครั้ง</span>
+        <span class="cdi-c">ฉันไม่เคยทำตามคำสั่ง</span>
+       </cdi-choice>
+       <cdi-choice value="{{document.value.form_value.q1_27}}"> 
+        <span class="cdi-a">ฉันเข้ากับคนอื่นได้ดี</span>
+        <span class="cdi-b">ฉันทะเลาะกับคนอื่นบ่อยครั้ง</span>
+        <span class="cdi-c">ฉันทะเลาะกับคนอื่นตลอดเวลา</span>
+       </cdi-choice>
+     </div>
+
+     <div class="evaluation">
+      <div class="layout vertical">
+       <div class="layout horizontal">
+        <div class="check-icon">
+          <iron-icon icon="check" hidden$="{{!_mark}}">
+          </iron-icon>
+        </div>
+        <span class="flex" id="markPositive">
+          มีภาวะซึมเศร้าที่มีนัยสำคัญ
+        </span>
+       </div>
+       <div class="layout horizontal">
+        <div class="check-icon">
+          <iron-icon icon="check" hidden$="{{_mark}}">
+          </iron-icon>
+        </div>
+        <span class="flex" id="markNegative">
+          ไม่มีภาวะซึมเศร้าที่มีนัยสำคัญ
+        </span>
+       </div>
+      </div>
+     </div>
+    </form-control>
+
+  </template>
+
+  <script>
+    Polymer({
+      is: 'cdi-form',
+      listeners : {
+      },
+      properties: {
+        name: {
+          type:String,
+          reflectToAttribute:true,
+          value:"แบบคัดกรองภาวะซึมเศร้าในเด็ก (CDI)"
+        }
+      },
+      behaviors:[
+        Polymer.IronValidatableBehavior,
+        StudentcareFormBehavior,
+      ],
+      observers:[
+        '_result(document.value.form_result)'
+      ],
+      _tap:function(e) {
+        if(e.detail.type == "save") {
+          this.$.control.save();
+        }
+      },
+      _evaluate:function() {
+        var values = this.document.value.form_value;
+        var score_list = { 
+          'q1':['a','b','c'],
+          'q2':['a','b','c']
+        };
+        var score = {};
+        for(var q in values) {
+          var p = q.split('_')[0];
+          if(score_list[p]) {
+            if(!score[p]) score[p] = 0;
+            score[p]+=score_list[p].indexOf(values[q]);
+          }
+        }
+        return score;
+      },
+      _validate:function() {
+        var eles =Polymer.dom(this.root)
+         .querySelectorAll('cdi-choice');
+        for(var i=0;i<eles.length;i++) {
+          if(!eles[i].value)  {
+            eles[i].classList.add('invalid');
+            return false;
+          } else {
+            eles[i].classList.remove('invalid');
+          }
+        }
+        return true;
+      },
+      _reset:function() {
+        this.set('document.value.form_value',{});        
+      },
+      _result:function(score) {
+        if(!score) return;
+        if((score.q1+score.q2)>15) {
+          this.$$('#markPositive').classList.add('mark');
+          this.$$('#markNegative').classList.remove('mark');
+          this.set('_mark',true);
+        } else {
+          this.$$('#markNegative').classList.add('mark');
+          this.$$('#markPositive').classList.remove('mark');
+          this.set('_mark',false);
+        }
+      }
+    });
+  </script>
+</dom-module>

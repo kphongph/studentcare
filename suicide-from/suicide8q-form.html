@@ -113,31 +113,31 @@
       </div>
       <div class="formEntry">
         <suicide8q-choice id="q1" value="{{document.value.form_value.q1}}"
-          label="คิดอยากตาย หรือ คิดว่าตายไปจะดีกว่า">
+          label="ในเดือนที่ผ่านมารวมวันนี้ คิดอยากตาย หรือ คิดว่าตายไปจะดีกว่า">
         </suicide8q-choice>
         <suicide8q-choice id="q2" value="{{document.value.form_value.q2}}"
-          label="อยากทำร้ายตัวเอง หรือ ทำให้ตัวเองบาดเจ็บ">
+          label="ในเดือนที่ผ่านมารวมวันนี้ อยากทำร้ายตัวเอง หรือ ทำให้ตัวเองบาดเจ็บ">
         </suicide8q-choice>
         <suicide8q-choice id="q3" value="{{document.value.form_value.q3}}"
-          label="คิดเกี่ยวกับการฆ่าตัวตาย">
+          label="ในเดือนที่ผ่านมารวมวันนี้ คิดเกี่ยวกับการฆ่าตัวตาย">
         </suicide8q-choice>
         <suicide8q-choice id="q4" value="{{document.value.form_value.q4}}"
-          label="ท่านสามารถควบคุมความอยากฆ่าตัวตายที่ท่านคิดอยู่นั้นได้หรือไม่ หรือ บอกได้ไหมว่าคงจะไม่ทำตามความคิดนั้นในขณะนี้">
+          label="ในเดือนที่ผ่านมารวมวันนี้ ท่านสามารถควบคุมความอยากฆ่าตัวตายที่ท่านคิดอยู่นั้นได้หรือไม่ หรือ บอกได้ไหมว่าคงจะไม่ทำตามความคิดนั้นในขณะนี้">
         </suicide8q-choice>
         <suicide8q-choice id="q5" value="{{document.value.form_value.q5}}"
-          label="มีแผนการที่จะฆ่าตัวตาย">
+          label="ในเดือนที่ผ่านมารวมวันนี้ มีแผนการที่จะฆ่าตัวตาย">
         </suicide8q-choice>
-        <suicide8q-choice id="q5" value="{{document.value.form_value.q6}}"
-          label="ได้เตรียมการที่จะทำร้ายตนเอง หรือ เตรียมการจะฆ่าตัวตายโดยตั้งใจว่าจะให้ตายจริงๆ">
+        <suicide8q-choice id="q6" value="{{document.value.form_value.q6}}"
+          label="ในเดือนที่ผ่านมารวมวันนี้ ได้เตรียมการที่จะทำร้ายตนเอง หรือ เตรียมการจะฆ่าตัวตายโดยตั้งใจว่าจะให้ตายจริงๆ">
         </suicide8q-choice>
-        <suicide8q-choice id="q5" value="{{document.value.form_value.q7}}"
-          label="ได้ทำให้ตนเองบาดเจ็บแต่ไม่ตั้งใจที่จะทำให้เสียชีวิต">
+        <suicide8q-choice id="q7" value="{{document.value.form_value.q7}}"
+          label="ในเดือนที่ผ่านมารวมวันนี้ ได้ทำให้ตนเองบาดเจ็บแต่ไม่ตั้งใจที่จะทำให้เสียชีวิต">
         </suicide8q-choice>
-        <suicide8q-choice id="q5" value="{{document.value.form_value.q8}}"
-          label="ได้พยายามฆ่าตัวตาย โดยคาดหวัง/ตั้งใจที่จะให้ตาย">
+        <suicide8q-choice id="q8" value="{{document.value.form_value.q8}}"
+          label="ในเดือนที่ผ่านมารวมวันนี้ ได้พยายามฆ่าตัวตาย โดยคาดหวัง/ตั้งใจที่จะให้ตาย">
         </suicide8q-choice>
-        <suicide8q-choice id="q5" value="{{document.value.form_value.q9}}"
-          label="ท่านเคยพยายามฆ่าตัวตาย">
+        <suicide8q-choice id="q9" value="{{document.value.form_value.q9}}"
+          label="ในเดือนที่ผ่านมารวมวันนี้ ท่านเคยพยายามฆ่าตัวตาย">
         </suicide8q-choice>
       </div>
       <div class="evaluation">
@@ -170,11 +170,32 @@
       ],
       _evaluate:function() {
         var values = this.document.value.form_value;
-        var dict = ['n','y'];
         var score = 0;
         for(var key in values) {
-          score+=dict.indexOf(values[key]);
+          console.log(key);
+          if(key=='q1'  && values[key] == 'y'){
+            score+=1;
+          }
+          if(key=='q2'  && values[key] == 'y'){
+            score+=2;
+          }
+          if(key=='q3'  && values[key] == 'y'){
+            score+=6;
+          }
+          if((key=='q4' || key == 'q5')  && values[key] == 'y'){
+            score+=8;
+          }
+          if(key=='q6'  && values[key] == 'y'){
+            score+=9;
+          }
+          if((key=='q7' || key == 'q9')  && values[key] == 'y'){
+            score+=4;
+          }
+          if(key=='q8'  && values[key] == 'y'){
+            score+=10;
+          }
         }
+        console.log(score);
         return {'score':score};
       },
       _reset:function() {
