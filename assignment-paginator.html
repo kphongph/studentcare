@@ -72,6 +72,10 @@
     _dataChanged:function(n) {
       this.set('currentPage',0);
       this.set('pageCount',this.getPageCount());
+      n.sort(function(a,b) {
+        if(a.key[8] >= b.key[8]) return 1;
+        return -1;
+      });
       this.set('items',this.filterPage());
     },
     _next:function(e) {

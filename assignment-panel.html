@@ -39,7 +39,7 @@
       </paper-listbox>
 
       <div class="layout vertical flex-4">
-       <assignment-paginator per-page="2" data="{{data}}" items="{{items}}">
+       <assignment-paginator per-page="10" data="{{data}}" items="{{items}}">
         <paper-material elevation="1" class="flex">
          <template is="dom-repeat" items="{{items}}"> 
           <assignment-card data="{{item}}" on-select-assignment="_onSelect">
