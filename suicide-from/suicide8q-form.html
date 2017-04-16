@@ -132,7 +132,7 @@
           label="ในเดือนที่ผ่านมารวมวันนี้ ได้พยายามฆ่าตัวตาย โดยคาดหวัง/ตั้งใจที่จะให้ตาย">
         </suicide8q-choice>
         <suicide8q-choice id="q9" value="{{document.value.form_value.q9}}"
-          label="ในเดือนที่ผ่านมารวมวันนี้ ท่านเคยพยายามฆ่าตัวตาย">
+          label="ตั้งแต่เกิดมา ท่านเคยพยายามฆ่าตัวตาย">
         </suicide8q-choice>
       </div>
       <div class="evaluation">
@@ -163,11 +163,27 @@
         Polymer.IronValidatableBehavior,
         StudentcareFormBehavior,
       ],
+      observers: [
+        '_continue(document.value.form_value.q3)',
+      ],
+      _continue:function(q3choice){
+        if(q3choice){
+          var dict = {
+            'y': true,
+            'n': false
+          };
+          this.$.q4.hidden  = !dict[q3choice];
+          this.$.q5.hidden  = !dict[q3choice];
+          this.$.q6.hidden  = !dict[q3choice];
+          this.$.q7.hidden  = !dict[q3choice];
+          this.$.q8.hidden  = !dict[q3choice];
+          this.$.q9.hidden  = !dict[q3choice];
+        }
+      },
       _evaluate:function() {
         var values = this.document.value.form_value;
         var score = 0;
         for(var key in values) {
-          console.log(key);
           if(key=='q1'  && values[key] == 'y'){
             score+=1;
           }
@@ -190,22 +206,21 @@
             score+=10;
           }
         }
-        console.log(score);
         return {'score':score};
       },
       _reset:function() {
-        this.set('document.value.form_value',{});              
-        this.set('document.value.form_result',{});              
+        this.set('document.value.form_value',{});
+        this.set('document.value.form_result',{});
       },
       _validate:function() {
         var questions = this.document.value.form_value;
-        var required = ['q1','q2','q3','q4','q5','q6','q7','q8','q9']; 
+        var required = this.document.value.form_value.q3 === 'y' ? ['q1','q2','q3','q5','q6','q7','q8','q9'] : ['q1','q2','q3'];
         for(var i=0;i<required.length;i++) {
           if(!questions[required[i]]) {
-            this.$$('#'+required[i]).classList.add('invalid'); 
+            this.$$('#'+required[i]).classList.add('invalid');
             return false;
           } else {
-            this.$$('#'+required[i]).classList.remove('invalid'); 
+            this.$$('#'+required[i]).classList.remove('invalid');
           }
         }
         return true;
@@ -215,7 +230,7 @@
           if(score<9) return 'มีแนวโน้มที่จะฆ่าตัวตาย น้อย';
           if(score<17) return 'มีแนวโน้มที่จะฆ่าตัวตาย ปานกลาง';
           return 'มีแนวโน้มที่จะฆ่าตัวตาย สูง';
-        } 
+        }
         return '';
       }
     });
