@@ -2,6 +2,7 @@
 <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../paper-progress/paper-progress.html">
 <link rel="import" href="../paper-material/paper-material.html">
+<link rel="import" href="../paper-tabs/paper-tabs.html">
 <link rel="import" href="local/assignment-card.html">
 <link rel="import" href="leveldb-query.html">
 <link rel="import" href="assignment-paginator.html">
@@ -10,8 +11,14 @@
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors">
       :host {
+        @apply(--layout-vertical);
         display: block;
-        --paper-item-min-height:40px;
+      }
+       
+      paper-tabs {
+        height:40px;
+        background:var(--paper-green-500);
+        color:#ffffff;
       }
     </style>
 
@@ -22,33 +29,26 @@
       query="{{query}}">
     </leveldb-query>
 
-    <div class="layout horizontal">
-      <paper-listbox selected="{{status}}" attr-for-selected="name" 
-        class="flex-1">
-        <paper-item name="">ทั้งหมด
-        </paper-item>
-        <paper-item name="new">ใหม่
-          (<span>{{_newCount}}</span>)
-        </paper-item>
-        <paper-item name="working">กำลังดำเนินการ
-          (<span>{{_workingCount}}</span>)
-        </paper-item>
-        <paper-item name="done">ประเมินแล้ว
-          (<span>{{_doneCount}}</span>)
-        </paper-item>
-      </paper-listbox>
+    <paper-tabs selected="{{status}}" attr-for-selected="name">
+     <paper-tab name="new">ใหม่
+      (<span>{{_newCount}}</span>)
+     </paper-tab>
+     <paper-tab name="working">กำลังดำเนินการ
+      (<span>{{_workingCount}}</span>)
+     </paper-tab>
+     <paper-tab name="done">ประเมินแล้ว
+       (<span>{{_doneCount}}</span>)
+     </paper-tab>
+    </paper-tabs>
 
-      <div class="layout vertical flex-4">
-       <assignment-paginator per-page="10" data="{{data}}" items="{{items}}">
-        <paper-material elevation="1" class="flex">
-         <template is="dom-repeat" items="{{items}}"> 
-          <assignment-card data="{{item}}" on-select-assignment="_onSelect">
-          </assignment-card>  
-         </template>
-        </paper-material>
-       </assignment-paginator>
-      </div>
-    </div>
+    <assignment-paginator per-page="10" data="{{data}}" items="{{items}}">
+      <paper-material elevation="1" class="flex">
+       <template is="dom-repeat" items="{{items}}"> 
+        <assignment-card data="{{item}}" on-select-assignment="_onSelect">
+        </assignment-card>  
+       </template>
+      </paper-material>
+    </assignment-paginator>
 
   </template>
 
