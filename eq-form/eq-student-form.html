@@ -3,7 +3,7 @@
 <link rel="import" href="../../iron-icons/iron-icons.html">
 <link rel="import" href="../../iron-validatable-behavior/iron-validatable-behavior.html">
 <link rel="import" href="../../paper-styles/typography.html">
-<link rel="import" href="../../paper-radio-group/paper-radio-group.html">
+<link rel="import" href="../../paper-radioGroup/paper-radioGroup.html">
 <link rel="import" href="../form-control.html">
 <link rel="import" href="../studentcare-form-behavior.html">
 <link rel="import" href="eq-student-choice.html">
@@ -15,22 +15,20 @@
         @apply(--layout-vertical);
         display: block;
       }
-
       .invalid {
         border: 1px solid #ee0000;
       }
-
-      paper-radio-group {
+      paper-radioGroup {
         background:#efefef;
       }
-      
+
       .formEntry div {
         @apply(--paper-font-title);
         margin:3px;
         padding:0px;
         background:#efefef;
       }
-      
+
       .description ol {
         @apply(--paper-font-body1);
         .num {list-style-type: decimal;}
@@ -41,23 +39,20 @@
       table, td, th {
         border: 1px solid black;
       }
-
       table {
         border-collapse: collapse;
         width: 50%;
       }
-
       td {
         vertical-align: bottom;
       }
-
       .mark {
         font-weight:bold;
       }
     </style>
 
-    <form-control id="control" 
-      on-form-action="_tap" 
+    <form-control id="control"
+      on-form-action="_tap"
       doc-key="{{document.key}}"
       doc-value="{{document.value}}">
      <div class="description">
@@ -169,173 +164,173 @@
       </ol>
      </div>
      <div class="formEntry">
-       <div>ควบคุมตนเอง</div> 
-       <eq-student-choice value="{{document.value.form_value.q1}}" 
+       <div>ควบคุมตนเอง</div>
+       <eq-student-choice value="{{document.value.form_value.q1}}"
         label="เวลาโกรธหรือไม่สบายใจ ฉันรับรู้ได้ว่าเกิดอะไรขึ้นกับฉัน">
-       </eq-student-choice>     
-       <eq-student-choice value="{{document.value.form_value.q2}}" 
+       </eq-student-choice>
+       <eq-student-choice value="{{document.value.form_value.q2}}"
           label="ฉันบอกไม่ได้ว่าอะไรทำให้ฉันรู้สึกโกรธ">
-       </eq-student-choice>     
-       <eq-student-choice value="{{document.value.form_value.q3}}" 
+       </eq-student-choice>
+       <eq-student-choice value="{{document.value.form_value.q3}}"
           label="เมื่อถูกขัดใจ ฉันมักรู้สึกหงุดหงิดจนควบคุมอารมณ์ไม่ได้">
-       </eq-student-choice>     
-       <eq-student-choice value="{{document.value.form_value.q4}}" 
+       </eq-student-choice>
+       <eq-student-choice value="{{document.value.form_value.q4}}"
           label="ฉันสามารถคอยเพื่อให้บรรลุเป้าหมายที่พอใจ">
-       </eq-student-choice>     
-       <eq-student-choice value="{{document.value.form_value.q5}}" 
+       </eq-student-choice>
+       <eq-student-choice value="{{document.value.form_value.q5}}"
           label="ฉันมักมีปฏิกิริยาโต้ตอบรุนแรงต่อปัญหาเพียงเล็กน้อย">
        </eq-student-choice>
-       <eq-student-choice value="{{document.value.form_value.q6}}" 
+       <eq-student-choice value="{{document.value.form_value.q6}}"
           label="เมื่อถูกบังคับให้ทำในสิ่งที่ไม่ชอบ ฉันจะอธิบายเหตุผลจนผู้อื่นยอมรับได้">
-       </eq-student-choice>     
+       </eq-student-choice>
        <div>เห็นใจผู้อื่น</div>
-       <eq-student-choice value="{{document.value.form_value.q7}}" 
+       <eq-student-choice value="{{document.value.form_value.q7}}"
           label="ฉันสังเกตได้ เมื่อคนใกล้ชิดมีอารมณ์เปลี่ยนแปลง">
-       </eq-student-choice>     
-       <eq-student-choice value="{{document.value.form_value.q8}}" 
+       </eq-student-choice>
+       <eq-student-choice value="{{document.value.form_value.q8}}"
           label="ฉันไม่สนใจกับความทุกข์ของผู้อื่นที่ฉันไม่รู้จัก">
-       </eq-student-choice>     
-       <eq-student-choice value="{{document.value.form_value.q9}}" 
+       </eq-student-choice>
+       <eq-student-choice value="{{document.value.form_value.q9}}"
           label="ฉันไม่ยอมรับในสิ่งที่ผู้อื่นทำต่างจากที่ฉันคิด">
-       </eq-student-choice>     
-       <eq-student-choice value="{{document.value.form_value.q10}}" 
+       </eq-student-choice>
+       <eq-student-choice value="{{document.value.form_value.q10}}"
           label="ฉันยอมรับได้ว่าผู้อื่นก็อาจมีเหตุผลที่จะไม่พอใจการกระทำของฉัน">
-       </eq-student-choice>  
-       <eq-student-choice value="{{document.value.form_value.q11}}" 
+       </eq-student-choice>
+       <eq-student-choice value="{{document.value.form_value.q11}}"
           label="ฉันรู้สึกว่าผู้อื่นชอบเรียกร้องความสนใจมากเกินไป">
-       </eq-student-choice>     
-       <eq-student-choice value="{{document.value.form_value.q12}}" 
+       </eq-student-choice>
+       <eq-student-choice value="{{document.value.form_value.q12}}"
           label="แม้จะมีภาระที่ต้องทำ ฉันก็ยินดีรับฟังความทุกข์ของผู้อื่นที่ต้องการความช่วยเหลือ">
-       </eq-student-choice>     
+       </eq-student-choice>
        <div>รับผิดชอบ</div>
-       <eq-student-choice value="{{document.value.form_value.q13}}" 
+       <eq-student-choice value="{{document.value.form_value.q13}}"
           label="เป็นเรื่องธรรมดาที่จะเอาเปรียบผู้อื่นเมื่อมีโอกาส">
-       </eq-student-choice>     
-       <eq-student-choice value="{{document.value.form_value.q14}}" 
+       </eq-student-choice>
+       <eq-student-choice value="{{document.value.form_value.q14}}"
           label="ฉันเห็นคุณค่าในน้ำใจที่ผู้อื่นมีต่อฉัน">
-       </eq-student-choice>     
-       <eq-student-choice value="{{document.value.form_value.q15}}" 
+       </eq-student-choice>
+       <eq-student-choice value="{{document.value.form_value.q15}}"
           label="เมื่อทำผิด ฉันสามารถกล่าวคำ “ขอโทษ” ผู้อื่นได้">
-       </eq-student-choice>       
-       <eq-student-choice value="{{document.value.form_value.q16}}" 
+       </eq-student-choice>
+       <eq-student-choice value="{{document.value.form_value.q16}}"
           label="ฉันยอมรับข้อผิดพลาดของผู้อื่นได้ยาก">
-       </eq-student-choice>     
-       <eq-student-choice value="{{document.value.form_value.q17}}" 
+       </eq-student-choice>
+       <eq-student-choice value="{{document.value.form_value.q17}}"
           label="ถึงแม้จะต้องเสียประโยชน์ส่วนตัวไปบ้าง ฉันก็ยินดีที่จะทำเพื่อส่วนรวม">
-       </eq-student-choice>     
-       <eq-student-choice value="{{document.value.form_value.q18}}" 
+       </eq-student-choice>
+       <eq-student-choice value="{{document.value.form_value.q18}}"
           label="ฉันรู้สึกลำบากใจในการทำสิ่งใดสิ่งหนึ่งเพื่อผู้อื่น">
        </eq-student-choice>
        <div>มีแรงจูงใจ</div>
-       <eq-student-choice value="{{document.value.form_value.q19}}" 
+       <eq-student-choice value="{{document.value.form_value.q19}}"
           label="ฉันไม่รู้ว่าฉันเก่งเรื่องอะไร">
-       </eq-student-choice>     
-       <eq-student-choice value="{{document.value.form_value.q20}}" 
+       </eq-student-choice>
+       <eq-student-choice value="{{document.value.form_value.q20}}"
           label="แม้จะเป็นงานยาก ฉันก็มั่นใจว่าสามารถทำได้">
-       </eq-student-choice>     
-       <eq-student-choice value="{{document.value.form_value.q21}}" 
+       </eq-student-choice>
+       <eq-student-choice value="{{document.value.form_value.q21}}"
           label="เมื่อทำสิ่งใดไม่สำเร็จ ฉันรู้สึกหมดกำลังใจ">
-       </eq-student-choice>     
-       <eq-student-choice value="{{document.value.form_value.q22}}" 
+       </eq-student-choice>
+       <eq-student-choice value="{{document.value.form_value.q22}}"
           label="ฉันรู้สึกมีคุณค่าเมื่อได้ทำสิ่งต่างๆ อย่างเต็มความสามารถ">
-       </eq-student-choice>     
-       <eq-student-choice value="{{document.value.form_value.q23}}" 
+       </eq-student-choice>
+       <eq-student-choice value="{{document.value.form_value.q23}}"
           label="เมื่อต้องเผชิญกับอุปสรรคและความผิดหวัง ฉันก็จะไม่ยอมแพ้">
-       </eq-student-choice>     
-       <eq-student-choice value="{{document.value.form_value.q24}}" 
+       </eq-student-choice>
+       <eq-student-choice value="{{document.value.form_value.q24}}"
           label="เมื่อเริ่มทำสิ่งหนึ่งสิ่งใด ฉันมักทำต่อไปไม่สำเร็จ">
        </eq-student-choice>
        <div>ตัดสินใจและแก้ปัญหา</div>
-       <eq-student-choice value="{{document.value.form_value.q25}}" 
+       <eq-student-choice value="{{document.value.form_value.q25}}"
          label="ฉันพยายามหาสาเหตุที่แท้จริงของปัญหาโดยไม่คิดเอาเองตามใจชอบ">
-       </eq-student-choice>       
-       <eq-student-choice value="{{document.value.form_value.q26}}" 
+       </eq-student-choice>
+       <eq-student-choice value="{{document.value.form_value.q26}}"
           label="บ่อยครั้งที่ฉันไม่รู้ว่าอะไรทำให้ฉันไม่มีความสุข">
-       </eq-student-choice>     
-       <eq-student-choice value="{{document.value.form_value.q27}}" 
+       </eq-student-choice>
+       <eq-student-choice value="{{document.value.form_value.q27}}"
           label="ฉันรู้สึกว่าการติดสินใจแก้ปัญหาเป็นเรื่องยากสำหรับฉัน">
-       </eq-student-choice>     
-       <eq-student-choice value="{{document.value.form_value.q28}}" 
+       </eq-student-choice>
+       <eq-student-choice value="{{document.value.form_value.q28}}"
           label="เมื่อต้องทำอะไรหลายอย่างในเวลาเดียวกัน ฉันตัดสินใจได้ว่าจะทำอะไรก่อนหลัง">
-       </eq-student-choice>     
-       <eq-student-choice value="{{document.value.form_value.q29}}" 
+       </eq-student-choice>
+       <eq-student-choice value="{{document.value.form_value.q29}}"
           label="ฉันลำบากใจเมื่อต้องอยู่กับคนแปลกหน้าหรือคนที่ไม่คุ้นเคย">
-       </eq-student-choice>     
-       <eq-student-choice value="{{document.value.form_value.q30}}" 
+       </eq-student-choice>
+       <eq-student-choice value="{{document.value.form_value.q30}}"
           label="ฉันทนไม่ได้เมื่อต้องอยู่ในสังคมที่มีกฎระเบียบขัดกับความเคยชินของฉัน">
        </eq-student-choice>
-       <div>สัมพันธภาพ</div>     
-       <eq-student-choice value="{{document.value.form_value.q31}}" 
+       <div>สัมพันธภาพ</div>
+       <eq-student-choice value="{{document.value.form_value.q31}}"
           label="ฉันทำความรู้จักผู้อื่นได้ง่าย">
-       </eq-student-choice>     
-       <eq-student-choice value="{{document.value.form_value.q32}}" 
+       </eq-student-choice>
+       <eq-student-choice value="{{document.value.form_value.q32}}"
           label="ฉันมีเพื่อสนิทหลายคนที่คบกันมานาน">
-       </eq-student-choice>     
-       <eq-student-choice value="{{document.value.form_value.q33}}" 
+       </eq-student-choice>
+       <eq-student-choice value="{{document.value.form_value.q33}}"
           label="ฉันไม่กล้าบอกความต้องการของฉันให้ผู้อื่นรู้">
-       </eq-student-choice>     
-       <eq-student-choice value="{{document.value.form_value.q34}}" 
+       </eq-student-choice>
+       <eq-student-choice value="{{document.value.form_value.q34}}"
           label="ฉันทำในสิ่งที่ต้องการโดยไม่ทำให้ผู้อื่นเดือดร้อน">
-       </eq-student-choice>     
-       <eq-student-choice value="{{document.value.form_value.q35}}" 
+       </eq-student-choice>
+       <eq-student-choice value="{{document.value.form_value.q35}}"
           label="เป็นการยากสำหรับฉันที่จะโต้แย้งกับผู้อื่น แม้จะมีเหตุผลเพียงพอ">
-       </eq-student-choice>       
-       <eq-student-choice value="{{document.value.form_value.q36}}" 
+       </eq-student-choice>
+       <eq-student-choice value="{{document.value.form_value.q36}}"
           label="เมื่อไม่เห็นด้วยกับผู้อื่น ฉันสามารถอธิบายเหตุผลที่เขายอมรับได้">
        </eq-student-choice>
        <div>ภูมิใจตนเอง</div>
-       <eq-student-choice value="{{document.value.form_value.q37}}" 
+       <eq-student-choice value="{{document.value.form_value.q37}}"
           label="ฉันรู้สึกด้อยกว่าผู้อื่น">
-       </eq-student-choice>     
-       <eq-student-choice value="{{document.value.form_value.q38}}" 
+       </eq-student-choice>
+       <eq-student-choice value="{{document.value.form_value.q38}}"
           label="ฉันทำหน้าที่ได้ดี ไม่ว่าจะอยู่ในบทบาทใด">
-       </eq-student-choice>     
-       <eq-student-choice value="{{document.value.form_value.q39}}" 
+       </eq-student-choice>
+       <eq-student-choice value="{{document.value.form_value.q39}}"
           label="ฉันสามารถทำงานที่ได้รับมอบหมายได้ดีที่สุด">
-       </eq-student-choice>     
-       <eq-student-choice value="{{document.value.form_value.q40}}" 
+       </eq-student-choice>
+       <eq-student-choice value="{{document.value.form_value.q40}}"
           label="ฉันไม่มั่นใจในการทำงานที่ยากลำบาก">
        </eq-student-choice>
-       <div>พอใจชีวิต</div>     
-       <eq-student-choice value="{{document.value.form_value.q41}}" 
+       <div>พอใจชีวิต</div>
+       <eq-student-choice value="{{document.value.form_value.q41}}"
           label="แม้สถานการณ์จะเลวร้าย ฉันก็มีความหวังว่าจะดีขึ้น">
-       </eq-student-choice>     
-       <eq-student-choice value="{{document.value.form_value.q42}}" 
+       </eq-student-choice>
+       <eq-student-choice value="{{document.value.form_value.q42}}"
           label="ทุกปัญหามักมีทางออกเสมอ">
-       </eq-student-choice>     
-       <eq-student-choice value="{{document.value.form_value.q43}}" 
+       </eq-student-choice>
+       <eq-student-choice value="{{document.value.form_value.q43}}"
           label="เมื่อมีเรื่องที่ทำให้เครียด ฉันมักปรับเปลี่ยนให้เป็นเรื่องผ่อนคลายหรือสนุกสนานได้">
-       </eq-student-choice>     
-       <eq-student-choice value="{{document.value.form_value.q44}}" 
+       </eq-student-choice>
+       <eq-student-choice value="{{document.value.form_value.q44}}"
           label="ฉันสนุกสนานทุกครั้งกับกิจกรรมในวันสุดสัปดาห์และวันหยุดพักผ่อน">
-       </eq-student-choice>     
-       <eq-student-choice value="{{document.value.form_value.q45}}" 
+       </eq-student-choice>
+       <eq-student-choice value="{{document.value.form_value.q45}}"
           label="ฉันรู้สึกไม่พอใจที่ผู้อื่นได้รับสิ่งดีๆ มากกว่าฉัน">
        </eq-student-choice>
        <div>สุขสงบทางใจ</div>
-       <eq-student-choice value="{{document.value.form_value.q46}}" 
+       <eq-student-choice value="{{document.value.form_value.q46}}"
           label="ฉันพอใจกับสิ่งที่ฉันเป็นอยู่">
-       </eq-student-choice>     
-       <eq-student-choice value="{{document.value.form_value.q47}}" 
+       </eq-student-choice>
+       <eq-student-choice value="{{document.value.form_value.q47}}"
           label="ฉันไม่รู้ว่าจะหาอะไรทำ เมื่อรู้สึกเบื่อหน่าย">
-       </eq-student-choice>     
-       <eq-student-choice value="{{document.value.form_value.q48}}" 
+       </eq-student-choice>
+       <eq-student-choice value="{{document.value.form_value.q48}}"
           label="เมื่อว่างเว้นจากภาระหน้าที่ ฉันจะทำในสิ่งที่ฉันชอบ">
-       </eq-student-choice>     
-       <eq-student-choice value="{{document.value.form_value.q49}}" 
+       </eq-student-choice>
+       <eq-student-choice value="{{document.value.form_value.q49}}"
           label="เมื่อรู้สึกไม่สบายใจ ฉันมีวิธีผ่อนคลายอารมณ์ได้">
-       </eq-student-choice>     
-       <eq-student-choice value="{{document.value.form_value.q50}}" 
+       </eq-student-choice>
+       <eq-student-choice value="{{document.value.form_value.q50}}"
           label="ฉันสามารถผ่อนคลายตนเองได้ แม้จะเห็ดเหนื่อยจากภาระหน้าที่">
        </eq-student-choice>
-       <eq-student-choice value="{{document.value.form_value.q51}}" 
+       <eq-student-choice value="{{document.value.form_value.q51}}"
           label="ฉันไม่สามารถทำใจให้เป็นสุขได้จนกว่าจะได้ทุกสิ่งที่ต้องการ">
        </eq-student-choice>
-       <eq-student-choice value="{{document.value.form_value.q52}}" 
+       <eq-student-choice value="{{document.value.form_value.q52}}"
           label="ฉันมักทุกข์ร้อนกับเรื่องเล็กๆ น้อยๆ ที่เกิดขึ้นเสมอ">
        </eq-student-choice>
      </div>
-	 
+
     <div class="evaluation">
     <br>
     <center>
@@ -361,7 +356,7 @@
           <td>1.3 รับผิดชอบ</td>
           <td>รวมข้อ 13 ถึงข้อ 18</td>
           <td>{{c3}}</td>
-        </tr>       
+        </tr>
         <tr>
           <td rowspan="3" align="center">เก่ง</td>
           <td>2.1 มีแรงจูงใจ</td>
@@ -377,7 +372,7 @@
           <td>2.3 สัมพันธภาพ</td>
           <td>รวมข้อ 31 ถึงข้อ 36</td>
           <td>{{c6}}</td>
-        </tr>      
+        </tr>
         <tr>
           <td rowspan="3" align="center">สุข</td>
           <td>3.1 ภูมิใจตนเอง</td>
@@ -397,7 +392,7 @@
       </table>
       </center>
       <br>
-      <ul class="num"> 
+      <ul class="num">
         <li>
             หลังจากรวมคะแนนแต่ละด้านเสร็จ นำคะแนนที่ได้ไปทำเครื่องหมายลงบนเส้นปะในกราฟความฉลาดทางอารมณ์และลากเส้นให้ต่อกัน แล้วพิจารณาดูว่ามีคะแนนใดที่สูงหรือต่ำกว่าช่วงคะแนนปกติ
         </li>
@@ -434,12 +429,21 @@
         if (e.detail.type == "save") {
           this.$.control.save();
         }
-      }/*,
+      } ,
       _evaluate: function() {
         var values = this.document.value.form_value;
         var scoreGroup1List = ['', 'n', 's', 'u', 'a'];
         var scoreGroup2List = ['', 'a', 'u', 's', 'n'];
-        var scoreSub-Group1List = ['q1','q2','q3','q4','q5','q6',];
+        var scoreSubGroup1List = ['q1','q2','q3','q4','q5','q6'];
+        var scoreSubGroup2List = ['q7','q8','q9','q10','q11','q12'];
+        var scoreSubGroup3List = ['q13','q14','q15','q16','q17','q18'];
+        var scoreSubGroup4List = ['q19','q20','q21','q22','q23','q24'];
+        var scoreSubGroup5List = ['q25','q26','q27','q28','q29','q30'];
+        var scoreSubGroup6List = ['q31','q32','q33','q34','q35','q36'];
+        var scoreSubGroup7List = ['q37','q38','q39','q40'];
+        var scoreSubGroup8List = ['q41','q42','q43','q44','q45','q46'];
+        var scoreSubGroup9List = ['q47','q48','q49','q50','q51','q52'];
+
         var score1 = 0;
         var score2 = 0;
         var score3 = 0;
@@ -457,17 +461,59 @@
           "q41", "q42", "q43", "q44", "q46",
           "q48", "q49", "q50"
         ];
+        var listQuestion2 = [
+          "q2", "q3", "q5", "q8", "q9", "q11",
+          "q13", "q16", "q18", "q19", "q21",
+          "q24", "q26", "q27", "q29", "q30",
+          "q33", "q35", "q37", "q40", "q45",
+          "q47", "q51", "q52"
+        ];
         for (var q in values) {
           if (listQuestion1.indexOf(q) == -1) {
-            if(scoreSub-Group1List.indexof(q))!= -1{}
-            score1 += scoreGroup2List.indexOf(values[q]);
-          } else {
-            score1 += scoreGroup1List.indexOf(values[q]);
+            if(scoreSubGroup1List.indexOf(q) != -1){
+              score1 += scoreGroup1List.indexOf(values[q]);
+            } else if(scoreSubGroup2List.indexOf(q) != -1){
+              score2 += scoreGroup1List.indexOf(values[q]);
+            } else if(scoreSubGroup3List.indexOf(q) != -1){
+              score3 += scoreGroup1List.indexOf(values[q]);
+            } else if(scoreSubGroup4List.indexOf(q) != -1){
+              score4 += scoreGroup1List.indexOf(values[q]);
+            } else if(scoreSubGroup5List.indexOf(q) != -1){
+              score5 += scoreGroup1List.indexOf(values[q]);
+            } else if(scoreSubGroup6List.indexOf(q) != -1){
+              score6 += scoreGroup1List.indexOf(values[q]);
+            } else if(scoreSubGroup7List.indexOf(q) != -1){
+              score7 += scoreGroup1List.indexOf(values[q]);
+            } else if(scoreSubGroup8List.indexOf(q) != -1){
+              score8 += scoreGroup1List.indexOf(values[q]);
+            } else if(scoreSubGroup9List.indexOf(q) != -1){
+              score9 += scoreGroup1List.indexOf(values[q]);
+            }
+          }else{
+            if(scoreSubGroup1List.indexOf(q) != -1){
+              score1 += scoreGroup2List.indexOf(values[q]);
+            } else if(scoreSubGroup2List.indexOf(q) != -1){
+              score2 += scoreGroup2List.indexOf(values[q]);
+            } else if(scoreSubGroup3List.indexOf(q) != -1){
+              score3 += scoreGroup2List.indexOf(values[q]);
+            } else if(scoreSubGroup4List.indexOf(q) != -1){
+              score4 += scoreGroup2List.indexOf(values[q]);
+            } else if(scoreSubGroup5List.indexOf(q) != -1){
+              score5 += scoreGroup2List.indexOf(values[q]);
+            } else if(scoreSubGroup6List.indexOf(q) != -1){
+              score6 += scoreGroup2List.indexOf(values[q]);
+            } else if(scoreSubGroup7List.indexOf(q) != -1){
+              score7 += scoreGroup2List.indexOf(values[q]);
+            } else if(scoreSubGroup8List.indexOf(q) != -1){
+              score8 += scoreGroup2List.indexOf(values[q]);
+            } else if(scoreSubGroup9List.indexOf(q) != -1){
+              score9 += scoreGroup2List.indexOf(values[q]);
+            }
           }
         }
-        console.log(score1);
+
         return {
-          'score': score1
+          'score': [score1, score2, score3, score4, score5, score6, score7, score8, score9]
         };
       },
       _validate: function() {
@@ -487,29 +533,21 @@
         this.set('document.value.form_value', {});
       },
       _result: function(score) {
-        var _criteria = {
-          'c1': false,
-          'c2': false,
-          'c3': false
-        };
-        if (score >= 56) {
-          _criteria.c1 = true;
-        } else {
-          if (score >= 42) {
-            _criteria.c2 = true;
-          } else {
-            _criteria.c3 = true;
+        var lowest =  [13, 16, 17, 15, 14, 15,  9, 16, 15];
+        var highest = [18, 21, 22, 20, 19, 20, 13, 22, 21];
+        if(score){
+          for(var i = 0; i < score.length; i++){
+            if (score[i] < lowest[i]) {
+              this.set('c' + String(i + 1), score[i] + ' ต่ำกว่าช่วงคะแนนปกติ');
+            } else if(score[i] > highest[i]) {
+              this.set('c' + String(i + 1), score[i] + ' สูงกว่าช่วงคะแนนปกติ');
+            } else {
+              this.set('c' + String(i + 1), score[i] + ' อยู่ในช่วงคะแนนปกติ');
+            }
           }
+          //  return '';
         }
-        for (var key in _criteria) {
-          if (_criteria[key]) {
-            this.$$('#' + key + '_label').classList.add('mark');
-          } else {
-            this.$$('#' + key + '_label').classList.remove('mark');
-          }
-        }
-        this.set('_criteria', _criteria);
-      }*/
+      }
     });
   </script>
 </dom-module>
