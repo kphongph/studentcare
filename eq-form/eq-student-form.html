@@ -530,7 +530,8 @@
         return true;
       },
       _reset: function() {
-        this.set('document.value.form_value', {});
+        this.set('document.value.form_value', {});,
+        this.set('document.value.form_result',{});
       },
       _result: function(score) {
         var lowest =  [13, 16, 17, 15, 14, 15,  9, 16, 15];
