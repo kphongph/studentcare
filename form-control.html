@@ -111,13 +111,13 @@
       },
       _onResponse:function(e) {
         var self = this;
-        if(e.detail.response.ok && e.detail.response.ok != false) {
+        if(!this.$.doc.error) {
           this.set('message','บันทึกเรียบร้อย');
           this.fire('update',{'key':this.docKey,'value':this.docValue}); 
           setTimeout(function() {
             self.set('message','');
           },2000);
-        } 
+        }
       },
       save:function(e) {
         if(!this.docKey) {
@@ -125,7 +125,9 @@
         }
         var ts = (new Date()).getTime()*-1;
         this.docValue.ts = ts;
-        this.$.doc.save();
+        if(!this.$.doc.error) {
+          this.$.doc.save();
+        }
       }
     });
   </script>
