@@ -14,12 +14,16 @@
         @apply(--layout-vertical);
         display: block;
       }
-       
-      paper-tabs {
-        height:40px;
-        background:var(--paper-green-500);
-        color:#ffffff;
+          
+      paper-tabs, paper-toolbar {
+        background:#f1f1f1;
+        color:#000000;
       }
+      
+      paper-tab.iron-selected {
+        background:#cccccc;
+      }
+      
     </style>
 
     <leveldb-query url="https://maas.nuqlis.com:9000/api"
@@ -29,7 +33,7 @@
       query="{{query}}">
     </leveldb-query>
 
-    <paper-tabs selected="{{status}}" attr-for-selected="name">
+    <paper-tabs selected="{{status}}" attr-for-selected="name" no-bar>
      <paper-tab name="new">ใหม่
       (<span>{{_newCount}}</span>)
      </paper-tab>
