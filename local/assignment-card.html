@@ -32,36 +32,21 @@
         background:var(--paper-red-500);
       }
 
-      .formName {
-        -o-text-overflow: ellipsis;   /* Opera */
-        text-overflow:    ellipsis;   /* IE, Safari (WebKit) */
-        overflow:hidden;              /* don't show excess chars */
-        white-space:nowrap;           /* force single line */
-      }
-
       .field {
         padding-left:10px;
       }
     </style>
    
-    <!--
-    <div class="layout horizontal end-justified formName">
-      <span>{{_formName(data.key.5)}}</span>
-    </div>
-    -->
-
     <div class="layout vertical pad" on-tap="_tap">
-      <span class="formName">
-        {{_formName(data.key.5)}}
-      </span>   
       <div class="layout horizontal">
-      <span class="flex-1">{{_status}}</span>
-      <span class="flex-1 field">{{data.key.7}}</span>
-      <div class="flex-1">
-        <div class="layout end-justified horizontal">
-          <span>{{_dateTime}}</span>
-        </div>
+        <span class="formName flex">
+          {{_formName(data.key.5)}}
+        </span>   
+        <span>{{_dateTime}}</span>
       </div>
+      <div class="layout horizontal">
+       <span class="flex">{{data.key.7}}</span>
+       <span>{{_status}}</span>
       </div>
     </div>
     <div id="formPanel" hidden$="{{!showForm}}"></div>
