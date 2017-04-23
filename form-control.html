@@ -40,7 +40,7 @@
       app="{{app}}"
       jwt-token="{{jwtToken.token}}">
     </app-leveldb>
-    
+
     <app-leveldb-document id="doc"
       app="{{app}}"
       key="{{docKey}}"
@@ -59,7 +59,7 @@
       <content select=".description"></content>
       <div class="layout vertical">
         <div class="layout horizontal formControl">
-          <paper-button raised on-tap="_save">
+          <paper-button raised on-tap="_onSave">
             <iron-icon icon="save"></iron-icon>
             บันทึก
           </paper-button>
@@ -100,7 +100,8 @@
           value:0
         }
       },
-      _save:function(e) {
+      _onSave:function(e) {
+        console.log('_save');
         this.fire('form-action',{'type':'save'});
       },
       _undo:function(e) {
@@ -110,6 +111,7 @@
         this.fire('form-action',{'type':'process'});
       },
       _onResponse:function(e) {
+        console.log('_onResponse');
         var self = this;
         if(!this.$.doc.error) {
           this.set('message','บันทึกเรียบร้อย');
@@ -125,6 +127,7 @@
         }
         var ts = (new Date()).getTime()*-1;
         this.docValue.ts = ts;
+        console.log('set',ts);
         if(!this.$.doc.error) {
           this.$.doc.save();
         }
