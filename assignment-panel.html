@@ -46,12 +46,12 @@
     </paper-tabs>
 
     <assignment-paginator per-page="10" data="{{data}}" items="{{items}}">
-      <paper-material elevation="1" class="flex">
-       <template is="dom-repeat" items="{{items}}"> 
-        <assignment-card data="{{item}}" on-select-assignment="_onSelect">
-        </assignment-card>  
-       </template>
-      </paper-material>
+      <div class="assignment-list">
+      <template is="dom-repeat" items="{{items}}"> 
+       <assignment-card data="{{item}}">
+       </assignment-card>  
+      </template>
+      </div>
     </assignment-paginator>
 
   </template>
@@ -133,6 +133,7 @@
         }
       },
       _onSelect:function(e) { 
+        console.log(e.detail);
         /*
         var self = this;
         var show=e.target.showForm;
