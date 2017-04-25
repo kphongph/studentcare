@@ -5,6 +5,9 @@
 <link rel="import" href="../../paper-item/paper-item-body.html">
 <link rel="import" href="../../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../../app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="../../neon-animation/neon-animations.html">
+<link rel="import" href="../../neon-animation/neon-animatable.html">
+<link rel="import" href="../../neon-animation/neon-animation-runner-behavior.html">
 <link rel="import" href="../forms.html"> 
 
 <dom-module id="assignment-card">
@@ -65,9 +68,7 @@
     <div class$="marker-{{data.key.4}}"></div>
     <paper-item on-tap="_tap" class="flex">
      <paper-item-body two-line>
-      <div>
-        <span>{{_formName(data.key.5)}}</span>
-      </div>   
+      <neon-animatable id="formName">{{_formName(data.key.6)}}</neon-animatable>
       <div secondary>
         <span>{{_dateTime}}</span>
         <span>{{data.key.7}}</span>
@@ -82,10 +83,12 @@
     Polymer({
       is: 'assignment-card',
       listeners: {
-        'update':'_update'
+        'update':'_update',
+        'mouseover':'_show'
       },
       behaviors: [
-        Polymer.AppLocalizeBehavior
+        Polymer.AppLocalizeBehavior,
+        Polymer.NeonAnimationRunnerBehavior
       ],
       properties: {
         showForm: {
@@ -102,16 +105,31 @@
         },
         _dateTime: {
           type:String,
-          computed:'_computeDate(data.key.8)'
+          computed:'_computeDate(data.key.5)'
         },
         _status:{
           type:String,
           computed:'_computeStatus(data.key.4)'
+        },
+        animationConfig: {
+          value:function() {
+            return {
+              'formNameEntry' : {
+                name: 'slide-from-right-animation',
+                node: this.$.formName
+              },
+              'detailExit' : {
+                name: 'slide-from-right-animation',
+                node: this.$.formName
+              },
+             
+            }
+          }
         }
       },
       _update:function(e) {
         var _old = this.data.key.concat();
-        this.data.key[8] = e.detail.value.ts;
+        this.data.key[5] = e.detail.value.ts;
         this.data.key[4] = e.detail.value.status;
         var keys = this.data.key; 
         this.set('data.key',[]);
@@ -158,6 +176,9 @@
       _formName:function(name) {
         var ele = document.createElement(name);
         return ele.getAttribute('name');
+      },
+      _show:function(e) {
+       // this.playAnimation('formNameEntry');
       }
     });
   </script>

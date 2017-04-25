@@ -1,0 +1,117 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-ajax/iron-ajax.html">
+<link rel="import" href="../iron-ajax/iron-request.html">
+<link rel="import" href="../app-storage/app-localstorage/app-localstorage-document.html">
+
+<dom-module id="view-iterator">
+  <template> 
+    <app-localstorage-document 
+      key="jwtToken" 
+      data="{{token}}">
+    </app-localstorage-document>
+     
+  </template>
+  <script>
+    Polymer({
+      is: 'view-iterator',
+      properties: {
+        url: {
+          type:String
+        },
+        data: {
+          type:Array,
+          notify:true, 
+          value:function() {
+            return [];
+          }
+        },
+        dbName: {
+          type:String
+        },
+        viewName: {
+          type:String
+        },
+        query:{
+          type:Object
+        },
+        end:{
+          type:Boolean,
+          readOnly:true,
+          notify:true,
+          value:false
+        },
+        _lastData:{
+          type:Object,
+          value:function() {
+            return {'key':[]};
+          }
+        },
+        _execute:{
+          type:Object,
+          computed:'__computeQuery(query,_lastData)'
+        }
+      },
+      observers:[
+        '_tokenLoaded(token,query)'
+      ],
+      _tokenLoaded:function(token,query) {
+        if(token && token.token != null) {
+          this.__next();
+        }
+      },
+      __next:function() {
+        console.log(this._execute);
+        var ele = document.createElement('iron-request'); 
+        var self = this;
+        ele.send({
+          url:this.url+'/query/'+this.dbName+'/'+this.viewName,
+          method:'POST',
+          handleAs:'json',
+          body:JSON.stringify(this._execute),
+          headers:{
+            'content-type':'application/json',
+            'authorization':'JWT '+this.token.token
+          }
+        }).then(function(res) {
+          var docs = res.response;
+          if(docs.constructor === Array) {
+            var added = 0;
+            self.set('_lastData',docs[docs.length-1]);
+            for(var i=0;i<docs.length-1;i++) {
+              var doc = docs[i];
+              var out = false;
+              for(var j=0;j<self.query.match.length;j++) { 
+                if(self.query.match[j] != doc.key[j+1]) {
+                  out = true;
+                }
+              }
+              if(!out) {
+                added++;
+                self.push('data',doc);
+              }
+            }
+            if(added == 0) {
+              self._setEnd(true);
+            }
+          }
+        });
+      },
+      next:function() {
+        this.__next();
+      },
+      __computeQuery:function(query,data) {
+        if(data.key.length == 0) {
+          return {"match":query.match,"limit":query.limit+1};
+        } else {
+          var tmp = data.key.slice(1);
+          for(var j=0;j<query.match.length;j++) { 
+            if(query.match[j] != tmp[j]) {
+              this._setEnd(true);
+            }
+          }
+          return {"start":tmp,"limit":query.limit+1};
+        }
+      }
+    });
+  </script>
+</dom-module>

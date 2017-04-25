@@ -4,8 +4,8 @@
 <link rel="import" href="../paper-material/paper-material.html">
 <link rel="import" href="../paper-tabs/paper-tabs.html">
 <link rel="import" href="local/assignment-card.html">
-<link rel="import" href="leveldb-query.html">
 <link rel="import" href="assignment-paginator.html">
+<link rel="import" href="view-iterator.html">
 
 <dom-module id="assignment-panel">
   <template>
@@ -26,33 +26,24 @@
       
     </style>
 
-    <leveldb-query url="https://maas.nuqlis.com:9000/api"
+    <view-iterator 
+      id="viewer"
+      url="https://maas.nuqlis.com:9000/api"
       db-name="students_care"
-      view-name="assignment"
+      view-name="assignments_by_room"
       data="{{data}}"
+      end="{{_end}}"
       query="{{query}}">
-    </leveldb-query>
+    </view-iterator>
 
-    <paper-tabs selected="{{status}}" attr-for-selected="name" no-bar>
-     <paper-tab name="new">ใหม่
-      (<span>{{_newCount}}</span>)
-     </paper-tab>
-     <paper-tab name="working">กำลังดำเนินการ
-      (<span>{{_workingCount}}</span>)
-     </paper-tab>
-     <paper-tab name="done">ประเมินแล้ว
-       (<span>{{_doneCount}}</span>)
-     </paper-tab>
-    </paper-tabs>
-
-    <assignment-paginator per-page="10" data="{{data}}" items="{{items}}">
-      <div class="assignment-list">
-      <template is="dom-repeat" items="{{items}}"> 
-       <assignment-card data="{{item}}">
-       </assignment-card>  
-      </template>
-      </div>
-    </assignment-paginator>
+    <div class="assignment-list">
+     <template is="dom-repeat" items="{{data}}"> 
+      <assignment-card data="{{item}}">
+      </assignment-card>  
+     </template>
+    </div>
+    <paper-button disabled="{{_end}}" 
+       on-tap="_loadMore" raised>Load More</paper-button>
 
   </template>
 
@@ -73,8 +64,8 @@
           type:String
         },
         status: {
-          type:String,
-          value:''
+          type:Boolean,
+          value:false
         },
         limit: {
           type:Number,
@@ -94,11 +85,10 @@
         '_onDataChanged(data)',
       ],
       __computeQuery:function(host,level,room,status) {
-        console.log('query',host,level,room,status);
-        if(status.length > 0) {
-          return {"match":[host,level,room,status],"limit":-1};
-        }
-        return {"match":[host,level,room],"limit":-1};
+        return {"match":[host,level,room,status],"limit":5};
+      },
+      _loadMore:function(e) {
+        this.$.viewer.next();
       },
       _onAssignmentUpdate:function(e) {
         var card = e.target;
@@ -109,7 +99,6 @@
         this.set(status,this.get(status)+1);
       },
       _onDataChanged:function(data) {
-        this._updateStatus(data);
       },
       _updateStatus:function(data) {
         var dict = {

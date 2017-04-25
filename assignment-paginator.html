@@ -47,8 +47,6 @@
         <div class="layout horizontal center">
          <div class="control-label">
            รายการแบบประเมิน 
-           <span>{{data.length}}</span>
-           รายการ
          </div>
          <paper-icon-button icon="chevron-left" 
            on-tap="_previous" 
@@ -144,6 +142,7 @@
       this.set('_formDocument',formElement.document);
     },
     _dataChanged:function(n) {
+      /*
       this.set('currentPage',0);
       this.set('pageCount',this.getPageCount());
       n.sort(function(a,b) {
@@ -151,6 +150,7 @@
         return -1;
       });
       this.set('items',this.filterPage());
+      */
     },
     _next:function(e) {
       this.set('currentPage',this.currentPage+1);
