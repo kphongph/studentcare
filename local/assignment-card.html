@@ -18,6 +18,22 @@
         @apply(--paper-font-body2);
         @apply(--layout-vertical);
         border-bottom:1px solid #efefef;
+        cursor: pointer; 
+        cursor: hand; 
+      }
+
+      :host:hover #formName {
+        font-weight:bold;
+        background:#efefef;
+      }
+
+      :host:hover #studentInfo {
+        display:block;
+      }
+
+      #studentInfo {
+        display:none;
+        background:#efefef;
       }
 
       paper-item:hover {
@@ -26,58 +42,35 @@
         cursor: hand; 
       }
 
-      .status-working {
-        background:var(--paper-blue-500);
-        padding:5px;
-        color:#ffffff;
-      }
-
-      .status-new {
-        background:var(--paper-green-500);
-        padding:5px;
-        color:#ffffff;
-      }
-
-      .status-done {
-        background:var(--paper-pink-500);
-        padding:5px;
-        color:#ffffff;
-      }
-
       .marker-done {
-        width:10px;
         background:var(--paper-pink-500);
       }
 
       .marker-new {
-        width:10px;
         background:var(--paper-green-500);
       }
 
       .marker-working {
-        width:10px;
         background:var(--paper-blue-500);
       }
 
-      .field {
-        padding-left:10px;
+      .info {
+        margin-left:5px;
+        padding-left:5px;
+        background:#ffffff;
       }
     </style>
      
-    <div class="layout horizontal">
-     <div class$="marker-{{_info.status.type}}"></div>
-     <paper-item on-tap="_tap" class="flex">
-      <paper-item-body two-line>
-       <neon-animatable id="formName">{{_info.form.label}}</neon-animatable>
-       <div secondary>
+    <div class$="marker-{{_info.status.type}}">
+     <div class="layout horizontal center info" on-tap="_tap">
+      <div class="flex"> 
+        <div id="formName">{{_info.form.label}}</div>
+        <div id="studentInfo">
          <span>{{_info.dateTime}}</span>
          <span>{{_info.studentName}}</span>
-         <span class$="status-{{_info.status.type}}">
-           {{_info.status.label}}
-         </span>
-       </div>
-      </paper-item-body>
-     </paper-item>
+         (<span>{{_info.status.label}}</span>)
+        </div>
+    </div>
     </div>
   </template>
 
