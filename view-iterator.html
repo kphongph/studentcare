@@ -32,7 +32,8 @@
           type:String
         },
         query:{
-          type:Object
+          type:Object,
+          observer:'_onQueryChanged'
         },
         end:{
           type:Boolean,
@@ -54,13 +55,17 @@
       observers:[
         '_tokenLoaded(token,query)'
       ],
+      _onQueryChanged:function(n) {
+        this._setEnd(false);
+        this.set('data',[]);
+        this.set('_lastData',[]);
+      },
       _tokenLoaded:function(token,query) {
         if(token && token.token != null) {
           this.__next();
         }
       },
       __next:function() {
-        console.log(this._execute);
         var ele = document.createElement('iron-request'); 
         var self = this;
         ele.send({
@@ -77,7 +82,10 @@
           if(docs.constructor === Array) {
             var added = 0;
             self.set('_lastData',docs[docs.length-1]);
-            for(var i=0;i<docs.length-1;i++) {
+            var last = docs.length==(self.query.limit+1)?
+               docs.length-1:docs.length;
+            
+            for(var i=0;i<last;i++) {
               var doc = docs[i];
               var out = false;
               for(var j=0;j<self.query.match.length;j++) { 
@@ -90,7 +98,7 @@
                 self.push('data',doc);
               }
             }
-            if(added == 0) {
+            if(docs.length < (self.query.limit+1)) {
               self._setEnd(true);
             }
           }
@@ -100,7 +108,8 @@
         this.__next();
       },
       __computeQuery:function(query,data) {
-        if(data.key.length == 0) {
+        console.log('__computeQuery',data);
+        if(data.length == 0 || data.key.length == 0) {
           return {"match":query.match,"limit":query.limit+1};
         } else {
           var tmp = data.key.slice(1);

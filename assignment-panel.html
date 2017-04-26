@@ -3,7 +3,11 @@
 <link rel="import" href="../iron-pages/iron-pages.html">
 <link rel="import" href="../paper-progress/paper-progress.html">
 <link rel="import" href="../paper-material/paper-material.html">
-<link rel="import" href="../paper-tabs/paper-tabs.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../paper-styles/color.html">
+<link rel="import" href="../paper-styles/typography.html">
 <link rel="import" href="local/assignment-card.html">
 <link rel="import" href="view-iterator.html">
 
@@ -14,16 +18,29 @@
         @apply(--layout-vertical);
         display: block;
       }
-          
-      paper-tabs, paper-toolbar {
-        background:#f1f1f1;
-        color:#000000;
+
+      .query-form {
+        padding-left:5px;
+        padding-right:15px;
+        padding-top:15px;
       }
-      
-      paper-tab.iron-selected {
-        background:#cccccc;
+
+      .no-icon {
+        padding-left:40px;
       }
-      
+
+      .top-panel {
+        @apply(--layout-horizontal);
+        @apply(--layout-center);
+        @apply(--paper-font-body2);
+        padding:5px;
+        height:40px;
+        background:var(--paper-grey-200);
+      }
+     
+      .assignment-list {
+        @apply(--layout-vertical);
+      }
     </style>
 
     <view-iterator 
@@ -36,24 +53,37 @@
       query="{{query}}">
     </view-iterator>
     
-    <template is="dom-if" if="{{!_equal(page,'list')}}">
-     <paper-button on-tap="_back" raised>Back</paper-button>
-    </template>
-   
+    <div class="top-panel">
+     <template is="dom-if" if="{{_equal(page,'form')}}">
+      <paper-icon-button icon="arrow-back" on-tap="_back">
+      </paper-icon-button>
+      <div>แบบประเมิน</div>
+     </template>
+     <template is="dom-if" if="{{_equal(page,'list')}}">
+      <div class="no-icon">รายการแบบประเมิน</div>
+     </template>
+    </div>
+
     <iron-pages selected="{{page}}" attr-for-selected="name">
-     <div name="list">
-      <div class="assignment-list">
-       <template is="dom-repeat" items="{{data}}"> 
-        <assignment-card data="{{item}}">
-        </assignment-card>  
-       </template>
+     <div name="list" class="layout horizontal">
+      <div class="query-form">
+        <paper-checkbox checked="{{_evaluated}}">ประเมินแล้ว</paper-checkbox>
       </div>
-      <paper-button disabled="{{_end}}" 
-        on-tap="_loadMore" raised>Load More</paper-button>
+      <div class="assignment-list flex">
+       <template is="dom-repeat" items="{{data}}"> 
+        <assignment-card data="{{item}}"></assignment-card>  
+       </template>
+       <div class="layout horizontal">
+       <paper-button disabled="{{_end}}" on-tap="_loadMore" raised>
+        Load More
+       </paper-button>
+       </div>
+      </div>
      </div>
+
      <div name="form" id="formEntry">
      </div>
-    </iron-pages>
+   </iron-pages>
 
   </template>
 
@@ -89,13 +119,13 @@
         },
         query:{
           type:Object,
-          computed:'__computeQuery(host,level,room,status)'
+          computed:'__computeQuery(host,level,room,_evaluated)'
         }
       },
       observers:[
       ],
-      __computeQuery:function(host,level,room,status) {
-        return {"match":[host,level,room,status],"limit":5};
+      __computeQuery:function(host,level,room,_evaluated) {
+        return {"match":[host,level,room,_evaluated],"limit":5};
       },
       _loadMore:function(e) {
         this.$.viewer.next();

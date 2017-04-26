@@ -65,19 +65,19 @@
     </style>
      
     <div class="layout horizontal">
-    <div class$="marker-{{_info.status.type}}"></div>
-    <paper-item on-tap="_tap" class="flex">
-     <paper-item-body two-line>
-      <neon-animatable id="formName">{{_info.form.label}}</neon-animatable>
-      <div secondary>
-        <span>{{_info.dateTime}}</span>
-        <span>{{_info.studentName}}</span>
-        <span class$="status-{{_info.status.type}}">
-          {{_info.status.label}}
-        </span>
-      </div>
-     </paper-item-body>
-    </paper-item>
+     <div class$="marker-{{_info.status.type}}"></div>
+     <paper-item on-tap="_tap" class="flex">
+      <paper-item-body two-line>
+       <neon-animatable id="formName">{{_info.form.label}}</neon-animatable>
+       <div secondary>
+         <span>{{_info.dateTime}}</span>
+         <span>{{_info.studentName}}</span>
+         <span class$="status-{{_info.status.type}}">
+           {{_info.status.label}}
+         </span>
+       </div>
+      </paper-item-body>
+     </paper-item>
     </div>
   </template>
 
@@ -151,7 +151,6 @@
         this.loadResources(this.resolveUrl('../locales.json'));
       },
       __computeInfo:function(data) {
-        console.log('__computeInfo');
         var tmp = {};
         if(data.key) {
           var status_dict = {
@@ -180,7 +179,6 @@
              'element':ele
           };
         }
-        console.log(tmp);
         return tmp;
       },
       _formName:function(name) {
