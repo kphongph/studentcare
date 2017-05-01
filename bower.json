@@ -25,7 +25,8 @@
     "paper-toolbar": "PolymerElements/paper-toolbar#^1.1.7",
     "paper-badge": "PolymerElements/paper-badge#^1.1.4",
     "app-layout": "PolymerElements/app-layout#^0.10.7",
-    "paper-checkbox": "PolymerElements/paper-checkbox#^1.4.2"
+    "paper-checkbox": "PolymerElements/paper-checkbox#^1.4.2",
+    "iron-scroll-threshold": "PolymerElements/iron-scroll-threshold#^1.0.3"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",

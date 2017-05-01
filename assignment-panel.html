@@ -6,6 +6,7 @@
 <link rel="import" href="../paper-button/paper-button.html">
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../iron-scroll-threshold/iron-scroll-threshold.html">
 <link rel="import" href="../paper-styles/color.html">
 <link rel="import" href="../paper-styles/typography.html">
 <link rel="import" href="local/assignment-card.html">
@@ -43,16 +44,6 @@
       }
     </style>
 
-    <view-iterator 
-      id="viewer"
-      url="https://maas.nuqlis.com:9000/api"
-      db-name="students_care"
-      view-name="assignments_by_room"
-      data="{{data}}"
-      end="{{_end}}"
-      query="{{query}}">
-    </view-iterator>
-    
     <div class="top-panel">
      <template is="dom-if" if="{{_equal(page,'form')}}">
       <paper-icon-button icon="arrow-back" on-tap="_back">
@@ -72,13 +63,22 @@
         <paper-checkbox checked="{{_evaluated}}">ประเมินแล้ว</paper-checkbox>
       </div>
       <div class="assignment-list flex">
+       <iron-scroll-threshold id="scroller" 
+         on-lower-threshold="_loadMore">
        <template is="dom-repeat" items="{{data}}"> 
         <assignment-card data="{{item}}"></assignment-card>  
        </template>
+       </iron-scroll-threshold>
        <div class="layout horizontal">
-       <paper-button disabled="{{_end}}" on-tap="_loadMore" raised>
-        Load More
-       </paper-button>
+       <view-iterator 
+        id="viewer"
+        url="https://maas.nuqlis.com:9000/api"
+        db-name="students_care"
+        view-name="assignments_by_room"
+        data="{{data}}"
+        end="{{_end}}"
+        query="{{query}}">
+       </view-iterator>
        </div>
       </div>
      </div>
@@ -134,7 +134,12 @@
         return {"match":[host,level,room,_evaluated],"limit":5};
       },
       _loadMore:function(e) {
-        this.$.viewer.next();
+        console.log('+loadMore');
+        var self = this;
+        this.$.viewer.next(function() {
+          console.log('-loadMore');
+          self.$.scroller.clearTriggers();
+        });
       },
       _onAssignmentUpdate:function(e) {
         var card = e.target;

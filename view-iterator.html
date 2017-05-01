@@ -1,11 +1,13 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../iron-ajax/iron-ajax.html">
 <link rel="import" href="../iron-ajax/iron-request.html">
+<link rel="import" href="../iron-scroll-threshold/iron-scroll-threshold.html">
 <link rel="import" href="../app-storage/app-localstorage/app-localstorage-document.html">
 
 <dom-module id="view-iterator">
   <template> 
     <app-localstorage-document 
+      id="marker"
       key="jwtToken" 
       data="{{token}}">
     </app-localstorage-document>
@@ -62,10 +64,10 @@
       },
       _tokenLoaded:function(token,query) {
         if(token && token.token != null) {
-          this.__next();
+        //  this.next();
         }
       },
-      __next:function() {
+      __next:function(cb) {
         var ele = document.createElement('iron-request'); 
         var self = this;
         ele.send({
@@ -101,16 +103,17 @@
             if(docs.length < (self.query.limit+1)) {
               self._setEnd(true);
             }
+            cb();
           }
         });
       },
-      next:function() {
-        this.__next();
+      next:function(cb) {
+        this.__next(cb);
       },
       __computeQuery:function(query,data) {
-        console.log('__computeQuery',data);
+        var _tmp = null;
         if(data.length == 0 || data.key.length == 0) {
-          return {"match":query.match,"limit":query.limit+1};
+          _tmp = {"match":query.match,"limit":query.limit+1};
         } else {
           var tmp = data.key.slice(1);
           for(var j=0;j<query.match.length;j++) { 
@@ -118,8 +121,9 @@
               this._setEnd(true);
             }
           }
-          return {"start":tmp,"limit":query.limit+1};
+          _tmp = {"start":tmp,"limit":query.limit+1};
         }
+        return _tmp;
       }
     });
   </script>
