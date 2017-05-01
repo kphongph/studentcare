@@ -64,10 +64,13 @@
       },
       _tokenLoaded:function(token,query) {
         if(token && token.token != null) {
-        //  this.next();
+          this.__next();
         }
       },
-      __next:function(cb) {
+      __next:function() {
+        if(this.end) {
+          return;
+        }
         var ele = document.createElement('iron-request'); 
         var self = this;
         ele.send({
@@ -103,12 +106,11 @@
             if(docs.length < (self.query.limit+1)) {
               self._setEnd(true);
             }
-            cb();
           }
         });
       },
-      next:function(cb) {
-        this.__next(cb);
+      next:function() {
+        this.__next();
       },
       __computeQuery:function(query,data) {
         var _tmp = null;

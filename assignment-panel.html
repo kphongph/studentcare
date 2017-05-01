@@ -63,13 +63,13 @@
         <paper-checkbox checked="{{_evaluated}}">ประเมินแล้ว</paper-checkbox>
       </div>
       <div class="assignment-list flex">
-       <iron-scroll-threshold id="scroller" 
-         on-lower-threshold="_loadMore">
        <template is="dom-repeat" items="{{data}}"> 
         <assignment-card data="{{item}}"></assignment-card>  
        </template>
-       </iron-scroll-threshold>
+       
        <div class="layout horizontal">
+       <paper-button raised disabled="{{_end}}" 
+         on-tap="_loadMore">More</paper-button>
        <view-iterator 
         id="viewer"
         url="https://maas.nuqlis.com:9000/api"
@@ -134,12 +134,7 @@
         return {"match":[host,level,room,_evaluated],"limit":5};
       },
       _loadMore:function(e) {
-        console.log('+loadMore');
-        var self = this;
-        this.$.viewer.next(function() {
-          console.log('-loadMore');
-          self.$.scroller.clearTriggers();
-        });
+        this.$.viewer.next();
       },
       _onAssignmentUpdate:function(e) {
         var card = e.target;
