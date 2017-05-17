@@ -1,16 +1,36 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../iron-ajax/iron-ajax.html">
+<link rel="import" href="../paper-spinner/paper-spinner.html">
+<link rel="import" href="../paper-styles/typography.html">
 <link rel="import" href="../iron-ajax/iron-request.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../iron-scroll-threshold/iron-scroll-threshold.html">
 <link rel="import" href="../app-storage/app-localstorage/app-localstorage-document.html">
 
 <dom-module id="view-iterator">
   <template> 
+    <style includes="iron-flex iron-flex-alignment">
+      :host {
+        padding:5px;
+        height:10px;
+        @apply(--layout-horizontal);
+        @apply(--layout-center);
+        @apply(--paper-font-body1);
+      }
+      paper-spinner {
+        padding:10px;
+      }
+    </style>
     <app-localstorage-document 
       id="marker"
       key="jwtToken" 
       data="{{token}}">
     </app-localstorage-document>
+    
+    <paper-spinner active="{{loading}}"></paper-spinner>
+    <template is="dom-if" if="{{loading}}">
+      Loading
+    </template>
      
   </template>
   <script>
@@ -29,6 +49,11 @@
         },
         dbName: {
           type:String
+        },
+        loading:{
+          type:Boolean,
+          readOnly:true,
+          notify:true
         },
         viewName: {
           type:String
@@ -52,27 +77,30 @@
         _execute:{
           type:Object,
           computed:'__computeQuery(query,_lastData)'
+        },
+        isTokenLoaded:{
+          type:Boolean,
+          computed:'_computeTokenLoaded(token)'
         }
       },
-      observers:[
-        '_tokenLoaded(token,query)'
-      ],
       _onQueryChanged:function(n) {
         this._setEnd(false);
         this.set('data',[]);
         this.set('_lastData',[]);
       },
-      _tokenLoaded:function(token,query) {
+      _computeTokenLoaded:function(token) {
         if(token && token.token != null) {
-          this.__next();
+          return true;
         }
+        return false;
       },
-      __next:function() {
+      __next:function(cb) {
         if(this.end) {
           return;
         }
         var ele = document.createElement('iron-request'); 
         var self = this;
+        this._setLoading(true);
         ele.send({
           url:this.url+'/query/'+this.dbName+'/'+this.viewName,
           method:'POST',
@@ -83,6 +111,7 @@
             'authorization':'JWT '+this.token.token
           }
         }).then(function(res) {
+          self._setLoading(false);
           var docs = res.response;
           if(docs.constructor === Array) {
             var added = 0;
@@ -106,11 +135,12 @@
             if(docs.length < (self.query.limit+1)) {
               self._setEnd(true);
             }
+            cb();
           }
         });
       },
-      next:function() {
-        this.__next();
+      next:function(cb) {
+        this.__next(cb);
       },
       __computeQuery:function(query,data) {
         var _tmp = null;

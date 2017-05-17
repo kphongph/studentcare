@@ -1,12 +1,13 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../iron-scroll-threshold/iron-scroll-threshold.html">
 <link rel="import" href="../iron-pages/iron-pages.html">
 <link rel="import" href="../paper-progress/paper-progress.html">
+<link rel="import" href="../app-layout/app-layout.html">
 <link rel="import" href="../paper-material/paper-material.html">
 <link rel="import" href="../paper-button/paper-button.html">
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../paper-checkbox/paper-checkbox.html">
-<link rel="import" href="../iron-scroll-threshold/iron-scroll-threshold.html">
 <link rel="import" href="../paper-styles/color.html">
 <link rel="import" href="../paper-styles/typography.html">
 <link rel="import" href="local/assignment-card.html">
@@ -63,23 +64,31 @@
         <paper-checkbox checked="{{_evaluated}}">ประเมินแล้ว</paper-checkbox>
       </div>
       <div class="assignment-list flex">
-       <template is="dom-repeat" items="{{data}}"> 
-        <assignment-card data="{{item}}"></assignment-card>  
-       </template>
+       <app-header-layout has-scrolling-region style="height:400px">
+        <app-header id="header">{{_tttt}}</app-header>
+        
+        <iron-scroll-threshold 
+           id="ironScroll"
+           scroll-target="{{_getScrollTarget()}}"
+           on-lower-threshold="_loadMore"
+           lower-triggered="{{_tttt}}">
+        </iron-scroll-threshold>
+        <template is="dom-repeat" items="{{data}}"> 
+          <assignment-card data="{{item}}"></assignment-card>  
+        </template>
        
-       <div class="layout horizontal">
-       <paper-button raised disabled="{{_end}}" 
-         on-tap="_loadMore">More</paper-button>
-       <view-iterator 
-        id="viewer"
-        url="https://maas.nuqlis.com:9000/api"
-        db-name="students_care"
-        view-name="assignments_by_room"
-        data="{{data}}"
-        end="{{_end}}"
-        query="{{query}}">
-       </view-iterator>
-       </div>
+        <div class="layout horizontal">
+          <view-iterator 
+           id="viewer"
+           url="https://maas.nuqlis.com:9000/api"
+           db-name="students_care"
+           view-name="assignments_by_room"
+           data="{{data}}"
+           end="{{_end}}"
+           query="{{query}}">
+          </view-iterator>
+        </div>
+       </app-header-layout>
       </div>
      </div>
 
@@ -133,8 +142,21 @@
       __computeQuery:function(host,level,room,_evaluated) {
         return {"match":[host,level,room,_evaluated],"limit":5};
       },
-      _loadMore:function(e) {
-        this.$.viewer.next();
+      _loadMore:function(e) {;
+        if(this.$.viewer.isTokenLoaded) {
+          var self = this;
+          this.$.viewer.next(function() {
+            console.log('loading');
+            self.$.ironScroll.clearTriggers(); 
+            console.log('clearTriggers');
+          });
+        } else {
+          self.$.ironScroll.clearTriggers(); 
+          console.log('clearTriggers');
+        }
+      },
+      _getScrollTarget:function() {
+        return this.$.header.scrollTarget;
       },
       _onAssignmentUpdate:function(e) {
         var card = e.target;
