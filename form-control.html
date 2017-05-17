@@ -7,6 +7,7 @@
 <link rel="import" href="../app-layout/app-layout.html">
 <link rel="import" href="../app-storage/app-localstorage/app-localstorage-document.html">
 <link rel="import" href="../app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="../iron-ajax/iron-request.html">
 <link rel="import" href="../paper-toast/paper-toast.html">
 <link rel="import" href="../app-leveldb/app-leveldb.html">
 <link rel="import" href="../app-leveldb/app-leveldb-document.html">
@@ -133,12 +134,19 @@
         if(!this.docKey) {
           this.set('docKey',null);
         }
-        var ts = (new Date()).getTime()*-1;
-        this.docValue.ts = ts;
-        console.log('set',ts);
-        if(!this.$.doc.error) {
-          this.$.doc.save();
-        }
+        var ele = document.createElement('iron-request');
+        var self = this;
+        ele.send({
+          url:"https://maas.nuqlis.com:9001/servertime",
+          method:"GET"
+        }).then(function(res) {
+          var ts = Number(res.response)*-1;
+          self.docValue.ts = ts;
+          console.log('set',ts);
+          if(!self.$.doc.error) {
+            self.$.doc.save();
+          }
+        });
       }
     });
   </script>
