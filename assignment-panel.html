@@ -64,20 +64,14 @@
         <paper-checkbox checked="{{_evaluated}}">ประเมินแล้ว</paper-checkbox>
       </div>
       <div class="assignment-list flex">
-       <app-header-layout has-scrolling-region style="height:400px">
-        <app-header id="header">{{_tttt}}</app-header>
-        
-        <iron-scroll-threshold 
-           id="ironScroll"
-           scroll-target="{{_getScrollTarget()}}"
-           on-lower-threshold="_loadMore"
-           lower-triggered="{{_tttt}}">
-        </iron-scroll-threshold>
         <template is="dom-repeat" items="{{data}}"> 
           <assignment-card data="{{item}}"></assignment-card>  
         </template>
        
         <div class="layout horizontal">
+          <paper-button raised 
+            on-tap="_loadMore"
+            disabled="{{_end}}">More</paper-button>
           <view-iterator 
            id="viewer"
            url="https://maas.nuqlis.com:9000/api"
@@ -88,7 +82,6 @@
            query="{{query}}">
           </view-iterator>
         </div>
-       </app-header-layout>
       </div>
      </div>
 
@@ -143,17 +136,8 @@
         return {"match":[host,level,room,_evaluated],"limit":5};
       },
       _loadMore:function(e) {;
-        if(this.$.viewer.isTokenLoaded) {
-          var self = this;
-          this.$.viewer.next(function() {
-            console.log('loading');
-            self.$.ironScroll.clearTriggers(); 
-            console.log('clearTriggers');
-          });
-        } else {
-          self.$.ironScroll.clearTriggers(); 
-          console.log('clearTriggers');
-        }
+        this.$.viewer.next(function() {
+        });
       },
       _getScrollTarget:function() {
         return this.$.header.scrollTarget;

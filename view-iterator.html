@@ -17,9 +17,6 @@
         @apply(--layout-center);
         @apply(--paper-font-body1);
       }
-      paper-spinner {
-        padding:10px;
-      }
     </style>
     <app-localstorage-document 
       id="marker"
@@ -27,11 +24,6 @@
       data="{{token}}">
     </app-localstorage-document>
     
-    <paper-spinner active="{{loading}}"></paper-spinner>
-    <template is="dom-if" if="{{loading}}">
-      Loading
-    </template>
-     
   </template>
   <script>
     Polymer({
@@ -77,22 +69,20 @@
         _execute:{
           type:Object,
           computed:'__computeQuery(query,_lastData)'
-        },
-        isTokenLoaded:{
-          type:Boolean,
-          computed:'_computeTokenLoaded(token)'
         }
       },
+      observers:[
+        '_tokenLoaded(token,query)'
+      ],
       _onQueryChanged:function(n) {
         this._setEnd(false);
         this.set('data',[]);
         this.set('_lastData',[]);
       },
-      _computeTokenLoaded:function(token) {
+      _tokenLoaded:function(token,query) {
         if(token && token.token != null) {
-          return true;
+          this.__next(function() {});
         }
-        return false;
       },
       __next:function(cb) {
         if(this.end) {
