@@ -1,0 +1,63 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-item/paper-item.html">
+<link rel="import" href="../paper-listbox/paper-listbox.html">
+<link rel="import" href="../iron-ajax/iron-ajax.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../app-storage/app-localstorage/app-localstorage-document.html">
+<link rel="import" href="./local/assignment-card.html">
+<link rel="import" href="./form-generator.html">
+
+<dom-module id="student-form">
+  <template>
+    <style include="iron-flex iron-flex-alignment iron-flex-factors">
+      :host {
+        @apply(--layout-vertical);
+        display: block;
+      }
+
+      .iron-selected {
+        background: #eee;
+      }
+    </style>
+    
+    <app-localstorage-document key="jwtToken" data="{{jwtToken}}">
+    </app-localstorage-document>
+
+    <iron-ajax 
+      id="getAjax"
+      method="GET"
+      url$="https://maas.nuqlis.com:9000/api/dbs/{{db}}/{{key}}"
+      headers$='{"Authorization":"JWT {{jwtToken.token}}"}'
+      last-response="{{student}}">
+    </iron-ajax>
+    
+    <form-generator student="{{student}}" 
+      forms="{{forms}}"
+      year="{{year}}">
+    </form-generator>
+
+    <template is="dom-repeat" items="{{forms}}">
+      <assignment-card data="{{item}}">
+      </assignment-card>
+    </template>
+     
+      
+  </template>
+
+  <script>
+    Polymer({
+      is: 'student-form',
+      properties: {
+        db:String,
+        year:String,
+        key:String
+      },
+      observers:[
+       '__execute(jwtToken,db,key)',
+      ],
+      __execute:function(jwtToken,db,key) {
+        this.$.getAjax.generateRequest();
+      }
+    });
+  </script>
+</dom-module>

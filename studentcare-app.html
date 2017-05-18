@@ -1,11 +1,10 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../iron-pages/iron-pages.html">
-<link rel="import" href="../paper-button/paper-button.html">
-<link rel="import" href="../paper-listbox/paper-listbox.html">
-<link rel="import" href="../paper-item/paper-item.html">
-<link rel="import" href="../iron-icons/iron-icons.html">
-<link rel="import" href="assignment-panel.html">
+<link rel="import" href="../app-layout/app-layout.html">
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="student-room.html">
+<link rel="import" href="student-form.html">
 
 <!--
 `studentcare-components`
@@ -21,16 +20,30 @@ Polymer Component for StudentCare project
         @apply(--layout-vertical);
         display: block;
       }
-      .controlPanel {
-        height:60px;
-        border-bottom: 1px solid #eeeeee;
+      app-toolbar {
+        background-color:var(--paper-red-500);
+        color:white;
       }
    </style>
 
-    <assignment-panel host="{{host}}"
+   <app-toolbar>
+      <paper-icon-button icon="arrow-back" hidden$="{{_isEqual(page,0)}}"
+        on-tap="_back">
+      </paper-icon-button>
+     <div main-title>แบบประเมิน</div>
+   </app-toolbar>
+
+   <iron-pages selected="{{page}}">
+    <student-room year="{{year}}"
+      host="{{host}}"
       level="{{level}}"
       room="{{room}}">
-    </assignment-panel>
+    </student-room>
+    <student-form db="{{db}}" key="{{key}}" year="{{year}}">
+    </student-form>
+    <div id="formEntry">
+    </div>
+   </iron-pages>
 
   </template>
 
@@ -51,12 +64,31 @@ Polymer Component for StudentCare project
           value:0
         }
       },
+      listeners:{
+       'student-selected':'_selectStudent',
+       'select-assignment':'_selectAssignment'
+      },
       _selectStudent:function(e) {
+        this.set('db',e.detail.db);
+        this.set('key',e.detail._id);
         this._setPage(1);
       },
-      _backTap:function() {
+      _selectAssignment:function(e) {
+        var node = this.$.formEntry;
+        while(node.firstChild) {
+          node.removeChild(node.firstChild);
+        }
+        var formElement = e.detail.formElement;
+        this.$.formEntry.appendChild(formElement);
+        this._setPage(2);
+      },
+      _back:function() {
         this._setPage(this.page - 1);
+      },
+      _isEqual:function(page,num) {
+        return page == num;
       }
+     
     });
   </script>
 </dom-module>

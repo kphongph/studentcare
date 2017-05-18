@@ -1,12 +1,9 @@
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-item/paper-item.html">
+<link rel="import" href="../paper-listbox/paper-listbox.html">
+<link rel="import" href="../iron-ajax/iron-ajax.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
-<link rel="import" href="../paper-progress/paper-progress.html">
-<link rel="import" href="../paper-material/paper-material.html">
-<link rel="import" href="../iron-resizable-behavior/iron-resizable-behavior.html">
-
-<link rel="import" href="./local/obecstudent-card.html">
-<link rel="import" href="studentcare-db.html">
-
+<link rel="import" href="../app-storage/app-localstorage/app-localstorage-document.html">
 
 <dom-module id="student-room">
   <template>
@@ -22,30 +19,29 @@
 
     </style>
     
-    
     <app-localstorage-document key="jwtToken" data="{{jwtToken}}">
     </app-localstorage-document>
 
-    <paper-material elevation="1">
-      <studentcare-db 
-        url="http://maas.nuqlis.com:44300"
-        id="leveldb"
-        remote-db="dmc59_1"
-        local-db="dmc"
-        view-name="hostid"
-        schema='{"index":"key,value.CLASSROOM,value.LEVEL,value.CODE"}'
-        query$='{"start":["{{host}}"],"end":["{{_nextHost(host)}}"],"limit":-1}'
-        ready="{{_isReady}}"
-        jwt-token="{{jwtToken.token}}">
-      </studentcare-db>
+    <iron-ajax 
+      id="listAjax"
+      method="POST"
+      url$="https://maas.nuqlis.com:9000/api/query/{{db}}/host_level_room"
+      content-type="application/json"
+      headers$='{"Authorization":"JWT {{jwtToken.token}}"}'
+      last-response="{{students}}"
+      body$='{"match":["{{host}}","{{level}}","{{room}}"],"limit":-1}'>
+    </iron-ajax>
 
-      <template is="dom-repeat" items="{{students}}">
-        <obecstudent-card 
-          on-select="_studentSelected"
-          name="{{item.key}}" doc="{{item}}">
-        </obecstudent-card>
-      </template>
-    </paper-material>
+
+    <paper-listbox selected="{{student}}" 
+      on-iron-select="_select"
+      attr-for-selected="name">
+    <template is="dom-repeat" items="{{students}}">
+     <paper-item name="{{item.value}}">
+      {{item.key.4.0}} {{item.key.4.2}} {{item.key.4.3}}
+     </paper-item>
+    </template>
+    </paper-listbox>
 
   </template>
 
@@ -54,45 +50,29 @@
       is: 'student-room',
       properties: {
         host:String,
-        selectedStudent: {
-          type:Object,
-          notify:true
-        },
-        level:{
-          type:String
-        },
-        room:{
-          type:String
-        },
-        __execute:{
-          type:Boolean,
-          computed:'__computeStudents(level,room,_isReady)'
+        level:String,
+        room:String,
+        year:String,
+        db:{
+          type:String,
+          computed:'__computeDb(year)'
         }
       },
-      _nextHost:function(host) {
-        var next = parseInt(host)+1;
-        return ''+next;
+      observers:[
+        '__execute(jwtToken,host,level,room,year)'
+      ],
+      __execute:function(jwtToken,host,level,room,year) {
+        this.$.listAjax.generateRequest();
       },
-      _dbName:function(host) {
-        return 'dmc_'+host;
-      },
-      __computeStudents:function(level,room,isReady) {
-        if(!isReady) return [];
-        if(level && room) {
-         this.$.leveldb.db.index
-         .where('value.LEVEL')
-         .equals(level)
-         .and(function(value) {
-           return value.value.CLASSROOM == room;
-         })
-         .toArray(function(students) {
-           this.set('students',students);
-         }.bind(this));
+      __computeDb:function(year) {
+        var db = "dmc59_1";
+        if(year == "2016") {
+          db = "dmc59_1";
         }
+        return db;
       },
-      _studentSelected:function(e) {
-        this.set('selectedStudent',e.detail);
-        this.fire('select',{'student':e.detail});
+      _select:function(e) {
+        this.fire('student-selected',{'_id':this.student,'db':this.db});
       }
     });
   </script>

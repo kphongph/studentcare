@@ -1,0 +1,63 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-item/paper-item.html">
+<link rel="import" href="../paper-listbox/paper-listbox.html">
+<link rel="import" href="../iron-ajax/iron-ajax.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../app-storage/app-localstorage/app-localstorage-document.html">
+<link rel="import" href="./form-generators/generators.html">
+
+<dom-module is="form-generator">
+ <template>
+   Form Generator
+   <app-localstorage-document key="jwtToken" data="{{jwtToken}}">
+   </app-localstorage-document>
+
+   <iron-ajax
+     id="listFormAjax"
+     method="POST"
+     url="https://maas.nuqlis.com:9000/api/query/students_care/cid_year_type"
+     content-type="application/json"
+     headers$='{"Authorization":"JWT {{jwtToken.token}}"}'
+     body='{"match":["{{student.IDNO}}","{{year}}"],"limit":-1}'
+     on-response="_listResponse"
+     last-response="{{forms}}">
+   </iron-ajax>
+
+   <dl2-generator jwt-token="{{jwtToken.token}}"
+     year="{{year}}"
+     forms="{{forms}}" 
+     student="{{student}}">
+   </dl2-generator>
+
+ </template>
+ <script>
+  Polymer({
+    is:"form-generator",
+    properties:{
+      student:Object,
+      year:String,
+      forms:{
+        type:Array,
+        notify:true
+      }
+    },
+    listeners:{
+     'form-generated':'__relistForm'
+    },
+    observers:[
+     '__listForm(jwtToken,student,year)'
+    ],
+    __listForm:function(jwtToken,student,year) {
+     this.$.listFormAjax.generateRequest();
+    },
+    __relistForm:function(e) {
+     this.$.listFormAjax.generateRequest();
+    },
+    _listResponse:function(e) {
+      console.log(e.detail.response);
+    }
+   
+  });
+ </script>
+</dom-module>
+
