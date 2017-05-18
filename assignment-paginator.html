@@ -1,7 +1,11 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../paper-button/paper-button.html">
 <link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../paper-styles/typography.html">
+<link rel="import" href="../paper-styles/color.html">
+<link rel="import" href="../paper-material/paper-material.html">
+<link rel="import" href="../iron-pages/iron-pages.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
 
 <dom-module id="assignment-paginator">
@@ -13,7 +17,14 @@
       margin-top:5px;
     }
     .content-wrapper {
-      margin-top:5px;
+    }
+    .control-label {
+      margin-left:40px;
+    }
+    .control-panel {
+      background:var(--paper-grey-400);
+      margin:1px;
+      height:40px;
     }
 
     .info {
@@ -29,36 +40,63 @@
     }
    </style>
 
-   <div class="layout horizontal">
-   <paper-button raised on-tap="_previous" 
-     disabled$="{{disablePrevious}}">
-     Previous
-   </paper-button>
-   <paper-button raised on-tap="_next" 
-     disabled$="{{disableNext}}">
-     Next
-   </paper-button>
-   </div>
-   <div class="info">
-   Total <span>{{data.length}}</span> Assignment
-   </div>
-   <div class="content-wrapper">
-     <content></content>
-   </div>
+   <paper-material elevation="1">
+     <div class="control-panel layout horizontal center">
+      <iron-pages selected="{{page}}" attr-for-selected="name">
+       <div name="list">
+        <div class="layout horizontal center">
+         <div class="control-label">
+           รายการแบบประเมิน 
+         </div>
+         <paper-icon-button icon="chevron-left" 
+           on-tap="_previous" 
+           disabled$="{{disablePrevious}}">
+         </paper-icon-button>
+         <paper-icon-button icon="chevron-right" 
+           on-tap="_next" 
+           disabled$="{{disableNext}}">
+         </paper-icon-button>
+        </div>
+       </div>
+       <div name="form" class="layout horizontal center">
+        <paper-icon-button icon="arrow-back" 
+          on-tap="_backPage">
+        </paper-icon-button>
+        <div>
+          แบบประเมิน
+        </div>
+       </div>
+      </iron-pages>
+     </div>
+     <iron-pages selected="{{page}}" attr-for-selected="name">
+       <div class="content-wrapper" name="list">
+         <content select=".assignment-list"></content>
+       </div>
+       <div class="content-wrapper" name="form" id="formDetail">
+       </div>
+     </iron-pages>
+   </paper-material>
 
  </template>
  <script>
   Polymer({
     is:'assignment-paginator',
     properties : {
+      page:{
+        type:String,
+        readOnly:true,
+        value:"list"
+      },
       perPage:{
         type:Number,
         value:10
       },
       items: {
         type:Array,
-        value:[],
-        notify:true
+        notify:true,
+        value:function() {
+          return [];
+        }
       },
       pageCount:{
         type:Number,
@@ -79,15 +117,32 @@
       },
       data: {
         type:Array,
-        value:[],
+        value:function() {
+          return [];
+        },
         notify:true,
         observer:'_dataChanged'
       }
     },
+    listeners:{
+      'select-assignment':'_onSelect'
+    },
     observers:[
       '_currentPageChanged(data,currentPage)'
     ],
+    _onSelect:function(e) {
+      this._setPage("form");
+      var node = this.$.formDetail;
+      while(node.firstChild) {
+        node.removeChild(node.firstChild);
+      }
+      var formElement = e.detail.formElement;
+      this.$.formDetail.appendChild(formElement);
+      console.log(formElement.document);
+      this.set('_formDocument',formElement.document);
+    },
     _dataChanged:function(n) {
+      /*
       this.set('currentPage',0);
       this.set('pageCount',this.getPageCount());
       n.sort(function(a,b) {
@@ -95,6 +150,7 @@
         return -1;
       });
       this.set('items',this.filterPage());
+      */
     },
     _next:function(e) {
       this.set('currentPage',this.currentPage+1);
@@ -114,6 +170,11 @@
     filterPage:function() {
       return this.data.slice(this.currentPage*this.perPage,
        (this.currentPage*this.perPage)+this.perPage);
+    },
+    _backPage:function() {
+      if(this.page == "form") {
+        this._setPage('list');
+      }
     },
     getPageCount:function() {
       return Math.ceil(this.data.length / this.perPage ) - 1;

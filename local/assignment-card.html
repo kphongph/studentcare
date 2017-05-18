@@ -1,7 +1,13 @@
 <link rel="import" href="../../polymer/polymer.html">
 <link rel="import" href="../../paper-styles/typography.html">
+<link rel="import" href="../../paper-item/paper-item.html">
+<link rel="import" href="../../paper-item/paper-icon-item.html">
+<link rel="import" href="../../paper-item/paper-item-body.html">
 <link rel="import" href="../../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../../app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="../../neon-animation/neon-animations.html">
+<link rel="import" href="../../neon-animation/neon-animatable.html">
+<link rel="import" href="../../neon-animation/neon-animation-runner-behavior.html">
 <link rel="import" href="../forms.html"> 
 
 <dom-module id="assignment-card">
@@ -9,63 +15,63 @@
     <style include="iron-flex iron-flex-alignment iron-flex-factors">
       :host {
         display: block;
-        @apply(--paper-font-subhead);
+        @apply(--paper-font-body2);
         @apply(--layout-vertical);
         border-bottom:1px solid #efefef;
-      }
-      :host #formPanel {
-        padding:2px;
-      }
-      .idNo {
-        padding:5px;
-      }
-      .pad {
-        padding:5px;
         cursor: pointer; 
         cursor: hand; 
       }
-      .pad:hover {
-        padding:5px;
-        background:#efefef;
-      }
-      :host .formName {
-        @apply(--paper-font-body1);
-        padding-right:10px;
-        background:var(--paper-blue-900);
-        color:#fff;
-      }
-      :host([show-form]) .formName {
-        background:var(--paper-red-500);
+
+
+      #studentInfo  {
+        color:#afafaf;
       }
 
-      .field {
-        padding-left:10px;
+      .marker-done {
+        background:var(--paper-pink-500);
+      }
+
+      .marker-new {
+        background:var(--paper-green-500);
+      }
+
+      .marker-working {
+        background:var(--paper-blue-500);
+      }
+
+      .info {
+        margin-left:5px;
+        padding-left:5px;
+        background:#ffffff;
+      }
+      .info:hover {
+        background:#efefef;
       }
     </style>
-   
-    <div class="layout horizontal end-justified formName">
-      <span>{{_formName(data.key.5)}}</span>
-    </div>
-    <div class="layout horizontal pad" on-tap="_tap">
-      <span class="flex-1 field">{{data.key.7}}</span>
-      <span class="flex-1">{{_status}}</span>
-      <div class="flex-1">
-        <div class="layout end-justified horizontal">
-          <span>{{_dateTime}}</span>
+     
+    <div class$="marker-{{_info.status.type}}">
+     <div class="layout horizontal center info" on-tap="_tap">
+      <div class="flex"> 
+        <div id="formName">{{_info.form.label}}</div>
+        <div id="studentInfo">
+         <span>{{_info.dateTime}}</span>
+         <span>{{_info.studentName}}</span>
+         (<span>{{_info.status.label}}</span>)
         </div>
-      </div>
     </div>
-    <div id="formPanel" hidden$="{{!showForm}}"></div>
+    </div>
   </template>
 
   <script>
     Polymer({
       is: 'assignment-card',
       listeners: {
-        'update':'_update'
+        'update':'_update',
+        'mouseover':'_show'
       },
       behaviors: [
-        Polymer.AppLocalizeBehavior
+        Polymer.AppLocalizeBehavior,
+        Polymer.NeonAnimationRunnerBehavior
       ],
       properties: {
         showForm: {
@@ -75,80 +81,93 @@
         },
         data: {
           type:Object,
-          notify:true,
-          observer:'_onDataChanged'
+          notify:true
         },
         formElement: {
           type:Object
         },
-        _dateTime: {
-          type:String,
-          computed:'_computeDate(data.key.8)'
+        _info : {
+          type:Object,
+          computed:'__computeInfo(data)'
         },
-        _status:{
-          type:String,
-          computed:'_computeStatus(data.key.4)'
-        }
-      },
-      _onDataChanged:function(data) {
-        this.showForm=false;
-        var cform = this.$.formPanel.firstChild;
-        if(cform) {
-          cform.remove();
+        animationConfig: {
+          value:function() {
+            return {
+              'formNameEntry' : {
+                name: 'slide-from-right-animation',
+                node: this.$.formName
+              },
+              'detailExit' : {
+                name: 'slide-from-right-animation',
+                node: this.$.formName
+              }
+            }
+          }
         }
       },
       _update:function(e) {
         var _old = this.data.key.concat();
-        this.data.key[8] = e.detail.value.ts;
-        this.data.key[4] = e.detail.value.status;
-        var keys = this.data.key; 
-        this.set('data.key',[]);
-        this.set('data.key',keys);
+        var keys = _old[_old.length-2];
+        keys[4] = e.detail.value.ts;
+        keys[0] = e.detail.value.status;
+        
+        this.set('data',{'key':_old,'value':this.data.value});
+        /*
         this.fire('assignment-update',{
           'old':{'key':_old,'value':this.data.value},
           'new':this.data
         });
+        */
       },
       _tap: function(e) {
-        var first = this.$.formPanel.firstChild;
-        if(!first) {
-          var eleName = this.data.key[5];
-          if(eleName) {
-            var ele = document.createElement(eleName);
-            var doc = {'key':this.data.value};
-            ele.setAttribute('document',JSON.stringify(doc));
-            this.$.formPanel.appendChild(ele);
-          }
-        }
-        this.showForm=!this.showForm;
-        this.fire('select-assignment',{});
-           
-      },
-      _computeDate:function(ts) {
-        if(!ts) return;
-        var d = new Date();
-        d.setTime(ts*-1);
-        var str = ("0" + d.getDate()).slice(-2) + "-" + 
-          ("0"+(d.getMonth()+1)).slice(-2) + "-" +
-          d.getFullYear() + " " + 
-          ("0" + d.getHours()).slice(-2) + ":" + 
-          ("0" + d.getMinutes()).slice(-2);
-        return str;
-      },
-      _computeStatus: function(status) {
-        var dict = {
-          'new':'ใหม่',
-          'working':'กำลังดำเนินการ',
-          'done':'ประเมินแล้ว'
-        }
-        return dict[status];
+        var ele = this._info.form.element;
+        var doc = {'key':this.data.value};
+        ele.setAttribute('document',JSON.stringify(doc));
+        ele.addEventListener('update',this._update.bind(this));
+        this.fire('select-assignment',{
+          'formElement':ele
+        });
       },
       attached:function() {
         this.loadResources(this.resolveUrl('../locales.json'));
       },
+      __computeInfo:function(data) {
+        var tmp = {};
+        if(data.key) {
+          var status_dict = {
+            'new':'ใหม่',
+            'working':'กำลังดำเนินการ',
+            'done':'ประเมินแล้ว'
+          }
+          var keys = data.key[data.key.length-2];
+          tmp['studentName']=keys[3];
+          tmp['status']={
+            'label':status_dict[keys[0]],
+            'type':keys[0]
+          };
+          var d = new Date();
+          d.setTime(keys[4]*-1);
+          var str = ("0" + d.getDate()).slice(-2) + "-" +
+            ("0"+(d.getMonth()+1)).slice(-2) + "-" +
+            d.getFullYear() + " " +
+            ("0" + d.getHours()).slice(-2) + ":" +
+            ("0" + d.getMinutes()).slice(-2);
+          tmp['dateTime']=str;
+
+          var ele = document.createElement(keys[1]);
+          tmp['form']= {
+             'label':ele.getAttribute('name'),
+             'element':ele
+          };
+        }
+        return tmp;
+      },
       _formName:function(name) {
         var ele = document.createElement(name);
         return ele.getAttribute('name');
+      },
+      _show:function(e) {
+       // this.playAnimation('formNameEntry');
       }
     });
   </script>

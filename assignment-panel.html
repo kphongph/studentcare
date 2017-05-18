@@ -1,11 +1,17 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../iron-scroll-threshold/iron-scroll-threshold.html">
+<link rel="import" href="../iron-pages/iron-pages.html">
 <link rel="import" href="../paper-progress/paper-progress.html">
+<link rel="import" href="../app-layout/app-layout.html">
 <link rel="import" href="../paper-material/paper-material.html">
-<link rel="import" href="../paper-tabs/paper-tabs.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../paper-styles/color.html">
+<link rel="import" href="../paper-styles/typography.html">
 <link rel="import" href="local/assignment-card.html">
-<link rel="import" href="leveldb-query.html">
-<link rel="import" href="assignment-paginator.html">
+<link rel="import" href="view-iterator.html">
 
 <dom-module id="assignment-panel">
   <template>
@@ -14,45 +20,74 @@
         @apply(--layout-vertical);
         display: block;
       }
-          
-      paper-tabs, paper-toolbar {
-        background:#f1f1f1;
-        color:#000000;
+
+      .query-form {
+        padding-left:5px;
+        padding-right:15px;
+        padding-top:15px;
       }
-      
-      paper-tab.iron-selected {
-        background:#cccccc;
+
+      .no-icon {
+        padding-left:40px;
       }
-      
+
+      .top-panel {
+        @apply(--layout-horizontal);
+        @apply(--layout-center);
+        @apply(--paper-font-body2);
+        padding:5px;
+        height:40px;
+        background:var(--paper-grey-200);
+      }
+     
+      .assignment-list {
+        @apply(--layout-vertical);
+      }
     </style>
 
-    <leveldb-query url="https://maas.nuqlis.com:9000/api"
-      db-name="students_care"
-      view-name="assignment"
-      data="{{data}}"
-      query="{{query}}">
-    </leveldb-query>
+    <div class="top-panel">
+     <template is="dom-if" if="{{_equal(page,'form')}}">
+      <paper-icon-button icon="arrow-back" on-tap="_back">
+      </paper-icon-button>
+      <div>แบบประเมิน</div>
+     </template>
+     <template is="dom-if" if="{{_equal(page,'list')}}">
+      <paper-icon-button icon="search" on-tap="_toggleSearch">
+      </paper-icon-button>
+      <div>รายการแบบประเมิน</div>
+     </template>
+    </div>
 
-    <paper-tabs selected="{{status}}" attr-for-selected="name" no-bar>
-     <paper-tab name="new">ใหม่
-      (<span>{{_newCount}}</span>)
-     </paper-tab>
-     <paper-tab name="working">กำลังดำเนินการ
-      (<span>{{_workingCount}}</span>)
-     </paper-tab>
-     <paper-tab name="done">ประเมินแล้ว
-       (<span>{{_doneCount}}</span>)
-     </paper-tab>
-    </paper-tabs>
+    <iron-pages selected="{{page}}" attr-for-selected="name">
+     <div name="list" class="layout horizontal">
+      <div class="query-form" hidden="{{!_search}}">
+        <paper-checkbox checked="{{_evaluated}}">ประเมินแล้ว</paper-checkbox>
+      </div>
+      <div class="assignment-list flex">
+        <template is="dom-repeat" items="{{data}}"> 
+          <assignment-card data="{{item}}"></assignment-card>  
+        </template>
+       
+        <div class="layout horizontal">
+          <paper-button raised 
+            on-tap="_loadMore"
+            disabled="{{_end}}">More</paper-button>
+          <view-iterator 
+           id="viewer"
+           url="https://maas.nuqlis.com:9000/api"
+           db-name="students_care"
+           view-name="assignments_by_room"
+           data="{{data}}"
+           end="{{_end}}"
+           query="{{query}}">
+          </view-iterator>
+        </div>
+      </div>
+     </div>
 
-    <assignment-paginator per-page="10" data="{{data}}" items="{{items}}">
-      <paper-material elevation="1" class="flex">
-       <template is="dom-repeat" items="{{items}}"> 
-        <assignment-card data="{{item}}" on-select-assignment="_onSelect">
-        </assignment-card>  
-       </template>
-      </paper-material>
-    </assignment-paginator>
+     <div name="form" id="formEntry">
+     </div>
+   </iron-pages>
 
   </template>
 
@@ -60,7 +95,8 @@
     Polymer({
       is: 'assignment-panel',
       listeners:{
-        'assignment-update':'_onAssignmentUpdate'
+        'assignment-update':'_onAssignmentUpdate',
+        'select-assignment':'_onSelectAssignment'
       },
       properties: {
         host: {
@@ -73,32 +109,38 @@
           type:String
         },
         status: {
-          type:String,
-          value:''
+          type:Boolean,
+          value:false
+        },
+        _search:{
+          type:Boolean,
+          value:false
         },
         limit: {
           type:Number,
           value:1
         },
         page: {
-          type:Number,
+          type:String,
           readOnly:true,
-          value:0
+          value:"list"
         },
         query:{
           type:Object,
-          computed:'__computeQuery(host,level,room,status)'
+          computed:'__computeQuery(host,level,room,_evaluated)'
         }
       },
       observers:[
-        '_onDataChanged(data)',
       ],
-      __computeQuery:function(host,level,room,status) {
-        console.log('query',host,level,room,status);
-        if(status.length > 0) {
-          return {"match":[host,level,room,status],"limit":-1};
-        }
-        return {"match":[host,level,room],"limit":-1};
+      __computeQuery:function(host,level,room,_evaluated) {
+        return {"match":[host,level,room,_evaluated],"limit":5};
+      },
+      _loadMore:function(e) {;
+        this.$.viewer.next(function() {
+        });
+      },
+      _getScrollTarget:function() {
+        return this.$.header.scrollTarget;
       },
       _onAssignmentUpdate:function(e) {
         var card = e.target;
@@ -108,42 +150,25 @@
         status='_'+e.target.data.key[4]+'Count';
         this.set(status,this.get(status)+1);
       },
-      _onDataChanged:function(data) {
-        this._updateStatus(data);
+      _onSelectAssignment:function(e) {
+        this._setPage("form");
+        var node = this.$.formEntry;
+        while(node.firstChild) {
+          node.removeChild(node.firstChild);
+        }
+        var formElement = e.detail.formElement;
+        this.$.formEntry.appendChild(formElement);
       },
-      _updateStatus:function(data) {
-        var dict = {
-          'working':0,
-          'new':0,
-          'done':0
-        };
-        var status = this.status;
-        data.forEach(function(item) {
-          if(dict[item.key[4]] >=0 ) dict[item.key[4]]++;
-        });
-        for(var key in dict) {
-          if(this.status == key || this.status.length==0) {
-            this.set('_'+key+'Count',dict[key]);
-          }
+      _equal:function(a,b) {
+        return a == b;
+      },
+      _back:function(e) {
+        if(this.page == "form") {
+          this._setPage("list");
         }
       },
-      filterByType:function(str) {
-        return function(a) {
-          return a.key[4] == str;
-        }
-      },
-      _onSelect:function(e) { 
-        /*
-        var self = this;
-        var show=e.target.showForm;
-        var key =e.target.data.value;
-        var eles =Polymer.dom(this.root)
-         .querySelectorAll('assignment-card');
-        eles.forEach(function(ele) {
-          if(ele.data.value != key)  {
-          }
-        });
-        */
+      _toggleSearch:function(e) {
+        this.set('_search',!this._search);
       }
     });
   </script>

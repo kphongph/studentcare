@@ -296,11 +296,6 @@
         '_result(document.value.form_result)',
         '_nextSection(document.value.form_value.p1_p1_1,document.value.form_value.p1_p1_2,document.value.form_value.p1_p1_3)',
       ],
-      _tap:function(e) {
-        if(e.detail.type == "save") {
-          this.$.control.save();
-        }
-      },
       _evaluate:function() {
         var values = this.document.value.form_value;
         var score = {};
