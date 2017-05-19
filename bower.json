@@ -27,7 +27,8 @@
     "app-layout": "PolymerElements/app-layout#^0.10.7",
     "paper-checkbox": "PolymerElements/paper-checkbox#^1.4.2",
     "iron-scroll-threshold": "PolymerElements/iron-scroll-threshold#^1.0.3",
-    "paper-spinner": "PolymerElements/paper-spinner#^2.0.0"
+    "paper-spinner": "PolymerElements/paper-spinner#^2.0.0",
+    "kjur-jsrsasign": "jsrsasign#^7.1.4"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",

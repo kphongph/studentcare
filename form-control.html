@@ -12,6 +12,8 @@
 <link rel="import" href="../app-leveldb/app-leveldb.html">
 <link rel="import" href="../app-leveldb/app-leveldb-document.html">
 
+<script src="../kjur-jsrsasign/jsrsasign-all-min.js"></script>
+
 <dom-module id="form-control">
   <template>
     <style include="iron-flex iron-flex-alignment">
@@ -141,8 +143,11 @@
           method:"GET"
         }).then(function(res) {
           var ts = Number(res.response)*-1;
+          var a = self.jwtToken.token.split(".");
+          var uClaim = b64utos(a[1]);
+          var pClaim = KJUR.jws.JWS.readSafeJSONString(uClaim);
+          self.docValue.user_id = pClaim.UserID;
           self.docValue.ts = ts;
-          console.log('set',ts);
           if(!self.$.doc.error) {
             self.$.doc.save();
           }
