@@ -8,9 +8,8 @@
 <link rel="import" href="../../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../../iron-pages/iron-pages.html">
 <link rel="import" href="../../app-localize-behavior/app-localize-behavior.html">
-<link rel="import" href="../../paper-toast/paper-toast.html">
-<link rel="import" href="../../app-leveldb/app-leveldb.html">
-<link rel="import" href="../../app-leveldb/app-leveldb-document.html">
+<link rel="import" href="../../paper-input/paper-input.html">
+
 <link rel="import" href="sdq-form-choice.html">
 <link rel="import" href="sdq-form-teacher.html">
 <link rel="import" href="../form-control.html">
@@ -18,17 +17,7 @@
 
 <dom-module id="dl2-form">
   <template>
-    <style include="iron-flex iron-flex-alignment">
-      @media (min-width:320px) {
-        #toastsave{
-          --paper-toast-background-color: green;
-          --paper-toast-color: white;
-            bottom: 0;
-            left: 0;
-            height: 20px;
-            width: 100%;
-        }
-      }
+    <style include="iron-flex iron-flex-alignment iron-flex-factors">
       paper-tabs {
         background:var(--paper-green-300);
         color:white;
@@ -58,7 +47,15 @@
         </iron-pages>
       </div>
       <div class="evaluation">
-         ผลการประเมิน
+        ผลการประเมิน
+        <div class="layout vertical">
+        <template is="dom-repeat" items="{{_result}}">
+          <paper-input label="{{item.label}}"
+            readonly
+            value="{{item.result}}">
+          </paper-input>
+        </template>
+        </div>
       </div>
     </form-control> 
     
@@ -79,32 +76,155 @@
         part:{
           type:Number,
           value:0
+        },
+        _result:{
+          type:Array,
+          computed:'__computeResult(document.value.form_result)',
+          value:function() {
+            return [];
+          }
         }
       },  
+      __computeResult:function(result) {
+        var tmp = [];
+        for(var k in result) {
+          tmp.push(result[k]);
+        }
+        return tmp;
+      },
       _evaluate:function() {
         var values = this.document.value.form_value;
+        console.log(values);
         var i_order = {
           'score':['n','m','y'],
-          'item':[3,8,13,16,24]
         };
         var d_order = {
           'score':['y','m','n'],
-          'item':[]
+          'item':[7,11,14,21,25]
         }
         var score = {
-          emotion:{'item':[3,8,13,16,24],'score':0}
+          emotion:{
+            '_item':[3,8,13,16,24],
+            'score':0,
+            'label':'ด้านอารมณ์',
+            'result':'',
+            '_result':{
+              'ปกติ':[0,5],
+              'เสี่ยง':[6,6],
+              'มีปัญหา':[7,10],
+            }
+          },
+          behavior:{
+            '_item':[5,7,12,18,22],
+            'score':0,
+            'label':'ด้านความประพฤติ / เกเร',
+            'result':'',
+            '_result':{
+              'ปกติ':[0,4],
+              'เสี่ยง':[5,5],
+              'มีปัญหา':[6,10],
+            }
+          },
+          behavior_active:{
+            '_item':[2,10,15,21,25],
+            'score':0,
+            'label':'ด้านพฤติกรรมไม่อยู่นิ่ง',
+            'result':'',
+            '_result':{
+              'ปกติ':[0,5],
+              'เสี่ยง':[6,6],
+              'มีปัญหา':[7,10],
+            }
+          },
+          friend:{
+            '_item':[6,11,14,19,23],
+            'score':0,
+            'label':'ด้านความสัมพันธ์กับเพื่อน',
+            'result':'',
+            '_result':{
+              'ปกติ':[0,3],
+              'เสี่ยง':[4,4],
+              'มีปัญหา':[5,10],
+            }
+          },
+          social:{
+            '_item':[1,4,9,17,20],
+            'score':0,
+            'label':'ด้านสัมพันธภาพทางสังคม',
+            'result':'',
+            '_result':{
+              'ปกติ':[4,10],
+              'เสี่ยง':[3,3],
+              'มีปัญหา':[0,2],
+            }
+          }
         };
         for(var t in score) {
-          for(var i=0;i<score[t].item.length;i++) {
-            var p = score[t].item[i];
-            var _index = [];
-            if(i_order.item.indexOf(p)!=-1) {
-              _index=i_order.score;
-            } else {
+          var _type = score[t];
+          for(var i=0;i<_type._item.length;i++) {
+            var p = _type._item[i];
+            var _index = i_order.score;
+            if(d_order.item.indexOf(p)!=-1) {
               _index=d_order.score;
             }
-            score[t].score+=_index.indexOf(values['f_q'+p]);
+            _type.score+=_index.indexOf(values['f_q'+p]);
           }
+          for(var l in _type._result) {
+            if(_type.score >= _type._result[l][0] && 
+               _type.score <= _type._result[l][1]) {
+              _type.result = l;
+            }
+          }
+          for(var att in _type) {
+            if(/^_/.test(att)) {
+               delete _type[att];
+            }
+          }
+        }
+        score['weakness'] = {
+          'score':0,
+          'label':'รวมพฤติกรรมที่เป็นปัญหา',
+          'result':''
+        };
+        
+        for(var t in score) {
+          if(t != 'social' && t != 'weakness') { 
+            score['weakness'].score += score[t].score;
+          }
+        }
+        if(score['weakness'].score <= 40) {
+          score['weakness'].result = "มีปัญหา";
+        }
+        if(score['weakness'].score <= 18) {
+          score['weakness'].result = "เสี่ยง";
+        }
+        if(score['weakness'].score <= 16) {
+          score['weakness'].result = "ปกติ";
+        }
+        // second part
+        score['back'] = {
+          'score':0,
+          'label':'สรุปการแปลผลด้านหลัง',
+          'result':''
+        };
+        var _attrs = ['friend','social','study','unhappy'];
+        if(values['exist']=='y') {
+          _attrs.forEach(function(attr) {
+            var _score = Number(values[attr]);
+            console.log(attr,_score);
+            if(_score >= 2) {
+              score['back'].score+=_score-1;
+            }
+          });
+        }
+        if(score['back'].score >= 0) {
+          score['back'].result = "ปกติ";
+        }
+        if(score['back'].score >= 1) {
+          score['back'].result = "รุนแรงปานกลาง";
+        }
+        if(score['back'].score >= 3) {
+          score['back'].result = "รุนแรงมาก";
         }
         console.log(score);
         return score;

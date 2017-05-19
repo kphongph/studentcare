@@ -18,56 +18,62 @@
       },
     },
     observers:[
-      'generate(student,forms)'
+      'generate(forms)'
     ],
-    requireForm:function() {
-      return false;
+    requireForm:function(cb) {
+      cb(false);
     },
-    generate:function(student,forms) {
-      if(this.requireForm()) {
-        var time = document.createElement('iron-request');
-        var self = this;
-        time.send({
-          method:'GET',
-          url:'https://maas.nuqlis.com:9001/servertime'
-        }).then(function(res) {
-          var ts = Number(res.response)*-1;
-          var ele = document.createElement('iron-request');
-          var assignment = {
-            doc_type:"assignment",
-            dmc:{
-              host:self.student.CODE10,
-              year:self.year,
-              level:self.student.LEVEL,
-              room:self.student.CLASSROOM
-            },
-            status:"new",
-            ts:ts,
-            form_type:self.formType,
-            student:{
-              cid:self.student.IDNO,
-              name:self.student.NAME+' '+self.student.LNAME,
-            },
-            form_value:{},
-            form_result:{}
-          };
-          ele.send({
-            method:'POST',
-            url:'https://maas.nuqlis.com:9000/api/dbs/students_care',
-            headers:{
-              'Content-Type':'application/json',
-              'Authorization':'JWT '+self.jwtToken
-            },
-            handleAs:'json',
-            body:assignment
-          }).then(function(res) {
-            if(res.response.ok) {
-              console.log(res.response);
-              self.fire('form-generated',{'key':res.response.key});
-            }
-          });
+    generate:function(forms) {
+      var self = this;
+      this.requireForm(function(_required) {
+        self.fire('required-form-checked',{
+          'form_type':self.formType,
+          'required':_required
         });
-      }
+        if(_required) {
+         var time = document.createElement('iron-request');
+         time.send({
+           method:'GET',
+           url:'https://maas.nuqlis.com:9001/servertime'
+         }).then(function(res) {
+           var ts = Number(res.response)*-1;
+           var ele = document.createElement('iron-request');
+           var assignment = {
+             doc_type:"assignment",
+             dmc:{
+               host:self.student.CODE10,
+               year:self.year,
+               level:self.student.LEVEL,
+               room:self.student.CLASSROOM
+             },
+             status:"new",
+             ts:ts,
+             form_type:self.formType,
+             student:{
+               cid:self.student.IDNO,
+               name:self.student.NAME+' '+self.student.LNAME,
+             },
+             form_value:{},
+             form_result:{}
+           };
+           ele.send({
+             method:'POST',
+             url:'https://maas.nuqlis.com:9000/api/dbs/students_care',
+             headers:{
+               'Content-Type':'application/json',
+               'Authorization':'JWT '+self.jwtToken
+             },
+             handleAs:'json',
+             body:assignment
+           }).then(function(res) {
+             if(res.response.ok) {
+               console.log(res.response);
+               self.fire('form-generated',{'key':res.response.key});
+             }
+           });
+         });
+        }
+      });
     }
   }
 </script>

@@ -1,6 +1,7 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../paper-item/paper-item.html">
 <link rel="import" href="../paper-listbox/paper-listbox.html">
+<link rel="import" href="../paper-progress/paper-progress.html">
 <link rel="import" href="../paper-button/paper-button.html">
 <link rel="import" href="../iron-icons/iron-icons.html">
 <link rel="import" href="../iron-ajax/iron-ajax.html">
@@ -11,10 +12,9 @@
 
 <dom-module id="student-form">
   <template>
-    <style include="iron-flex iron-flex-alignment iron-flex-factors">
+    <style is="custom-style" include="iron-flex iron-flex-alignment iron-flex-factors">
       :host {
         @apply(--layout-vertical);
-        display: block;
       }
 
       .iron-selected {
@@ -40,23 +40,31 @@
     <form-generator 
       id="generator"
       student="{{student}}" 
+      loading="{{loading}}"
       on-form-generated="_formGenerated"
+      on-required-form-checked="_formChecked"
       forms="{{forms}}"
       year="{{year}}">
     </form-generator>
 
-    <template is="dom-repeat" items="{{forms}}" sort="_sortByTime">
-      <assignment-card data="{{item}}">
-      </assignment-card>
-    </template>
-
-    <div class="horizontal layout control">
-      <paper-button hidden$="{{!_requiredReload}}" raised 
-        on-tap="_reload">
+    <div class="horizontal layout">
+      <paper-progress indeterminate hidden$="{{!loading}}" class="flex">
+      </paper-progress>
+    </div>
+    <div hidden$="{{loading}}">
+    <div class="horizontal layout control" hidden$="{{!_requiredReload}}">
+      <paper-button raised on-tap="_reload">
        <iron-icon icon="cached"></iron-icon>
        Reload
       </paper-button>
     </div>
+
+    <template is="dom-repeat" items="{{forms}}" sort="_sortByTime">
+     <assignment-card data="{{item}}">
+     </assignment-card>
+    </template>
+    </div>
+
 
   </template>
 
@@ -82,6 +90,9 @@
       },
       _formGenerated:function(e) {
         this.set('_requiredReload',true);
+      },
+      _formChecked:function(e) {
+        console.log(e.detail);
       },
       _reload:function(e) {
         this.$.generator.reload();

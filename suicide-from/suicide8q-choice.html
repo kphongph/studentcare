@@ -8,33 +8,19 @@
   <template>
   <style include="iron-flex iron-flex-alignment iron-flex-factors">
   :host {
-    @apply(--paper-font-display);
+    @apply(--paper-font-body1);
     @apply(--layout-vertical);
     display: block;
-    border-bottom:1px solid #bfbfbf;
     padding:5px;
-  }
-
-  iron-icon {
-    margin:3px;
-    padding:0px;
-    background-color:white
   }
 
   .invalid {
     border: 1px solid #ee0000;
   }
-  paper-radio-group {
-    background:#efefef;
-  }
   </style>
-  <div id="main" class="layout horizontal center">
-    <span class="flex" id="label">{{label}}</span>
-    <span class="valueText"><b>{{_valueStr}}</b></span>
-  </div>
-  <div hidden$="{{!hovered}}" class="layout horizontal">
+  <div>{{label}}</div>
+  <div class="layout horizontal">
     <paper-radio-group selected="{{value}}"
-    class="flex"
     aria-labelledby="label">
     <paper-radio-button name="n">ไม่ใช่</paper-radio-button>
     <paper-radio-button name="y">ใช่</paper-radio-button>

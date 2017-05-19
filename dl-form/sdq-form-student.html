@@ -27,8 +27,8 @@
           โดยรวมคุณคิดว่าตัวเองมีปัญหาในด้านอารมณ์ ด้านสมาธิ ด้านพฤติกรรมหรือความสามารถเข้ากับผู้อื่น ด้านใดด้านหนึ่งหรือไม่
         </div>
         <paper-radio-group selected="{{value.exist}}">
-          <paper-radio-button name="N">ไม่</paper-radio-button>
-          <paper-radio-button name="Y">ใช่</paper-radio-button>
+          <paper-radio-button name="n">ไม่</paper-radio-button>
+          <paper-radio-button name="y">ใช่</paper-radio-button>
         </paper-radio-group>
       </div>      
       <div id="problemExist" class="layout vertical" hidden>
@@ -127,8 +127,8 @@
       _existChanged: function(exist) {
         if(exist){
           var dict = {
-            'Y': true,
-            'N': false
+            'y': true,
+            'n': false
           };              
           this.$.problemExist.hidden = !dict[exist];
         }
@@ -151,8 +151,8 @@
           this.$.r_exist.classList.add('invalid');
           return false;
         } else {
+          this.$.r_exist.classList.remove('invalid');
           if(obj.exist == 'Y') {
-            this.$.r_exist.classList.remove('invalid');
             var attrs = ['level','time',
               'unhappy','friend','study','social'];
             for(var i=0;i<attrs.length;i++) {
@@ -162,7 +162,6 @@
             }
           }
         }
-        console.log('pass');
         return true;
       }
     });

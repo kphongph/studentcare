@@ -1,0 +1,25 @@
+<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="check-only-level-behavior.html">
+
+<dom-module is="st5-generator">
+ <script>
+  Polymer({
+    is:"st5-generator",
+    behaviors:[
+     CheckOnlyLevelBehavior
+    ],
+    properties:{
+      formType:{
+        type:String,
+        value:'st5-form'
+      },
+      atLevel:{
+        type:Array,
+        value:function() {
+          return ["10","11","12","13"];
+        }
+      }
+    }
+  });
+ </script>
+</dom-module>

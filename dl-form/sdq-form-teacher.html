@@ -25,8 +25,8 @@
       <div id="r_exist">
         <div class="question">โดยรวมคุณคิดว่าเด็กมีปัญหาในด้านอารมณ์ ด้านสมาธิ ด้านพฤติกรรม  หรือความสามารถเข้ากับผู้อื่นหรือไม่</div>
           <paper-radio-group selected="{{value.exist}}">
-            <paper-radio-button name="N">ไม่</paper-radio-button>
-            <paper-radio-button name="Y">ใช่</paper-radio-button>
+            <paper-radio-button name="n">ไม่</paper-radio-button>
+            <paper-radio-button name="y">ใช่</paper-radio-button>
           </paper-radio-group>
       </div>
       
@@ -108,8 +108,8 @@
       _existChanged: function(exist) {
         if(exist){
           var dict = {
-            'Y': true,
-            'N': false
+            'y': true,
+            'n': false
           };              
           this.$.problemExist.hidden = !dict[exist];
         }

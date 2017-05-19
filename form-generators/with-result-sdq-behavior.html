@@ -1,0 +1,57 @@
+<link rel="import" href="../form-generator-behavior.html">
+<link rel="import" href="../../iron-ajax/iron-request.html">
+<script>
+  WithResultSdqBehaviorImpl = {
+    properties : {
+      atLevel:{
+        type:Array
+      }
+    },
+    requireForm:function(cb) {
+      var result=false;
+      var exists=false;
+      console.log(this.formType,this.atLevel);
+      if(this.atLevel.indexOf(this.student.LEVEL) != -1) {
+        for(var i=0;i<this.forms.length;i++) {
+          if(this.forms[i].key[3]==this.formType) {
+            exists=true;
+          }
+        }
+      }
+      if(!exists) {
+        // check sdq
+        for(var i=0;i<this.forms.length;i++) {
+          if(this.forms[i].key[3]=="dl2-form") {
+            if(this.forms[i].key[4][0]=="done") {
+              var ele = document.createElement('iron-request');
+              ele.send({
+                method:'GET',
+                url:'https://maas.nuqlis.com:9000/api/dbs/students_care/'+
+                  this.forms[i].value,
+                headers:{
+                 'Content-Type':'application/json',
+                 'Authorization':'JWT '+this.jwtToken
+                },
+                handleAs:'json'
+              }).then(function(res) {
+                var docValue = res.response;
+                if(docValue.form_result) {
+                  var weakness = docValue.form_result.weakness;
+                  console.log(weakness);
+                  if(weakness && weakness.score >= 17) {
+                    console.log('generate');
+                    cb(true);
+                  }
+                }
+                cb(false);
+              });
+            }
+          }
+        }
+      } else {
+        cb(false);
+      }
+    }
+  }
+  WithResultSdqBehavior = [FormGeneratorBehavior,WithResultSdqBehaviorImpl];
+</script>

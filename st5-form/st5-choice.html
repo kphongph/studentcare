@@ -8,40 +8,26 @@
   <template>
   <style include="iron-flex iron-flex-alignment iron-flex-factors">
   :host {
-    @apply(--paper-font-display);
+    @apply(--paper-font-body1);
     @apply(--layout-vertical);
     display: block;
-    border-bottom:1px solid #bfbfbf;
     padding:5px;
-  }
-
-  iron-icon {
-    margin:3px;
-    padding:0px;
-    background-color:white
   }
 
   .invalid {
     border: 1px solid #ee0000;
   }
-  paper-radio-group {
-    background:#efefef;
-  }
   </style>
-  <div id="main" class="layout horizontal center">
-    <span class="flex" id="label">{{label}}</span>
-    <span class="valueText"><b>{{_valueStr}}</b></span>
-  </div>
-  <div hidden$="{{!hovered}}" class="layout horizontal">
-    <paper-radio-group selected="{{value}}"
-    class="flex"
+  <div>{{label}}</div>
+  <div class="layout horizontal">
+   <paper-radio-group selected="{{value}}"
     aria-labelledby="label">
     <paper-radio-button name="n">แทบไม่มี</paper-radio-button>
     <paper-radio-button name="s">เป็นบางครั้ง</paper-radio-button>
     <paper-radio-button name="u">บ่อยครั้ง</paper-radio-button>
     <paper-radio-button name="a">เป็นประจำ</paper-radio-button>
-  </paper-radio-group>
-</div>
+   </paper-radio-group>
+  </div>
 </template>
 
 <script>

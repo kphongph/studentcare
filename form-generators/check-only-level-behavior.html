@@ -6,20 +6,25 @@
         type:Array
       }
     },
-    requireForm:function() {
+    requireForm:function(cb) {
       console.log('check',this.formType);
+      var _required=false;
       var exists=false;
       console.log(this.formType,this.atLevel);
       if(this.atLevel.indexOf(this.student.LEVEL) != -1) {
+        _required=true;
         for(var i=0;i<this.forms.length;i++) {
           if(this.forms[i].key[3]==this.formType) {
             exists=true;
+            break;
           }
         }
-      } else { 
-        return false;
       }
-      return !exists;
+      if(!exists && _required) {
+        cb(true);
+      } else {
+        cb(false);
+      }
     }
   }
   CheckOnlyLevelBehavior = [FormGeneratorBehavior,CheckOnlyLevelBehaviorImpl];
