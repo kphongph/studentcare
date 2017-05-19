@@ -3,6 +3,7 @@
 <link rel="import" href="../iron-pages/iron-pages.html">
 <link rel="import" href="../app-layout/app-layout.html">
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../paper-material/paper-material.html">
 <link rel="import" href="student-room.html">
 <link rel="import" href="student-form.html">
 
@@ -20,17 +21,21 @@ Polymer Component for StudentCare project
         @apply(--layout-vertical);
         display: block;
       }
+      paper-material {
+        padding:2px;
+      }
       app-toolbar {
         background-color:var(--paper-red-500);
         color:white;
       }
    </style>
 
+   <paper-material elevation="1">
    <app-toolbar>
       <paper-icon-button icon="arrow-back" hidden$="{{_isEqual(page,0)}}"
         on-tap="_back">
       </paper-icon-button>
-     <div main-title>แบบประเมิน</div>
+     <div main-title>{{_title}}</div>
    </app-toolbar>
 
    <iron-pages selected="{{page}}">
@@ -44,6 +49,7 @@ Polymer Component for StudentCare project
     <div id="formEntry">
     </div>
    </iron-pages>
+   </paper-material>
 
   </template>
 
@@ -62,11 +68,25 @@ Polymer Component for StudentCare project
           type:Number, 
           readOnly:true,
           value:0
+        },
+        _title: {
+          type:String,
+          computed:'_computeTitle(page)'
         }
       },
       listeners:{
        'student-selected':'_selectStudent',
        'select-assignment':'_selectAssignment'
+      },
+      _computeTitle:function(page) {
+        var title = 'แบบประเมิน';
+        if(page == 0) {
+          title = "รายชื่อนักเรียน";
+        }
+        if(page == 1) {
+          title = "รายการแบบประเมิน";
+        }
+        return title;
       },
       _selectStudent:function(e) {
         this.set('db',e.detail.db);
