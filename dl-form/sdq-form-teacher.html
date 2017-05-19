@@ -132,8 +132,8 @@
           this.$.r_exist.classList.add('invalid');
           return false;
         } else {
+          this.$.r_exist.classList.remove('invalid');
           if(obj.exist == 'Y') {
-            this.$.r_exist.classList.remove('invalid');
             var attrs = ['level','time',
               'unhappy','friend','study','social'];
             for(var i=0;i<attrs.length;i++) {
@@ -143,7 +143,6 @@
             }
           }
         }
-        console.log('pass');
         return true;
       }
     });

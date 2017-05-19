@@ -16,7 +16,6 @@
 <link rel="import" href="../form-control.html">
 <link rel="import" href="../studentcare-form-behavior.html">
 
-
 <dom-module id="dl2-form">
   <template>
     <style include="iron-flex iron-flex-alignment">
@@ -44,20 +43,22 @@
         <p>เลือกคำตอบเพียงข้อเดียวในแต่ละข้อคำถามที่ใกล้เคียงกับพฤติกรรมของนักเรียนที่เกิดขึ้นในช่วง  6  เดือนที่ผ่านมา</p>
       </div>
       <div class="formEntry">
-
         <paper-tabs selected="{{part}}" class="flex">
           <paper-tab>หน้าแรก</paper-tab>
           <paper-tab>หน้าหลัง</paper-tab>
         </paper-tabs>
     
         <iron-pages selected="{{part}}">
-          <sdq-form-choice id="formChoiceId"
+          <sdq-form-choice id="formStudent" 
             value="{{document.value.form_value}}">
           </sdq-form-choice>      
           <sdq-form-teacher id="formTeacher" 
             value="{{document.value.form_value}}">
           </sdq-form-teacher>      
         </iron-pages>
+      </div>
+      <div class="evaluation">
+         ผลการประเมิน
       </div>
     </form-control> 
     
@@ -79,7 +80,48 @@
           type:Number,
           value:0
         }
+      },  
+      _evaluate:function() {
+        var values = this.document.value.form_value;
+        var i_order = {
+          'score':['n','m','y'],
+          'item':[3,8,13,16,24]
+        };
+        var d_order = {
+          'score':['y','m','n'],
+          'item':[]
+        }
+        var score = {
+          emotion:{'item':[3,8,13,16,24],'score':0}
+        };
+        for(var t in score) {
+          for(var i=0;i<score[t].item.length;i++) {
+            var p = score[t].item[i];
+            var _index = [];
+            if(i_order.item.indexOf(p)!=-1) {
+              _index=i_order.score;
+            } else {
+              _index=d_order.score;
+            }
+            score[t].score+=_index.indexOf(values['f_q'+p]);
+          }
+        }
+        console.log(score);
+        return score;
+      },
+      _validate:function() {
+        if(!this.$.formStudent.validate()) {
+          this.set('part',0);
+          return false;
+        } else {
+          if(!this.$.formTeacher.validate()) {
+            this.set('part',1);
+            return false;
+          }
+        }
+        return true;
       }
+
     });
   </script>
 </dom-module>

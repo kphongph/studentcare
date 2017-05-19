@@ -13,6 +13,9 @@
     .idx {
         width:10px;
     }
+    .invalid {
+      border:1px solid #ff0000; 
+    }
     sdq-radio {
       margin-top:2px;
       margin-bottom:2px;
@@ -114,13 +117,13 @@
       },
       validate:function() {
         var els = Polymer.dom(this.root).querySelectorAll('sdq-radio');
-        var valid_list = [];
-        
-        els.forEach(function(el) {
-          valid_list.push(el.validate());
-        });
-        for(var i=0;i<valid_list.length;i++) {
-          if(!valid_list[i]) return false;
+        for(var i=0;i<els.length;i++) {
+          if(!els[i].validate()) {
+            els[i].classList.add('invalid');
+            return false;
+          } else {
+            els[i].classList.remove('invalid');
+          }
         }
         return true;
       }
