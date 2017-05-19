@@ -3,11 +3,10 @@
 <link rel="import" href="../../paper-item/paper-item.html">
 <link rel="import" href="../../paper-item/paper-icon-item.html">
 <link rel="import" href="../../paper-item/paper-item-body.html">
+<link rel="import" href="../../iron-ajax/iron-request.html">
+<link rel="import" href="../../paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../iron-flex-layout/iron-flex-layout-classes.html">
-<link rel="import" href="../../app-localize-behavior/app-localize-behavior.html">
-<link rel="import" href="../../neon-animation/neon-animations.html">
-<link rel="import" href="../../neon-animation/neon-animatable.html">
-<link rel="import" href="../../neon-animation/neon-animation-runner-behavior.html">
+<link rel="import" href="../../app-storage/app-localstorage/app-localstorage-document.html">
 <link rel="import" href="../forms.html"> 
 
 <dom-module id="assignment-card">
@@ -17,11 +16,13 @@
         display: block;
         @apply(--paper-font-body2);
         @apply(--layout-vertical);
-        border-bottom:1px solid #efefef;
         cursor: pointer; 
         cursor: hand; 
       }
 
+      .content {
+        border-bottom:1px solid #efefef;
+      }
 
       #studentInfo  {
         color:#afafaf;
@@ -48,17 +49,30 @@
         background:#efefef;
       }
     </style>
+
+   <app-localstorage-document key="jwtToken" data="{{jwtToken}}">
+   </app-localstorage-document>
+
+   <iron-ajax
+     id="deleteAjax"
+     method="DELETE"
+     handle-as="json"
+     url$="https://maas.nuqlis.com:9000/api/dbs/students_care/{{data.value}}"
+     headers$='{"Authorization":"JWT {{jwtToken.token}}"}'
+     on-response="_response">
+   </iron-ajax>
      
-    <div class$="marker-{{_info.status.type}}">
-     <div class="layout horizontal center info" on-tap="_tap">
-      <div class="flex"> 
+   <div class$="marker-{{_info.status.type}} content" hidden$="{{hide}}">
+     <div class="layout horizontal center info"> 
+      <div class="flex" on-tap="_tap"> 
         <div id="formName">{{_info.form.label}}</div>
         <div id="studentInfo">
-         <span>{{_info.dateTime}}</span>
-         (<span>{{_info.status.label}}</span>)
+         {{_info.dateTime}} ({{_info.status.label}})
         </div>
-    </div>
-    </div>
+      </div>
+      <paper-icon-button icon="delete" on-tap="_delete">
+      </paper-icon-button>
+   </div>
   </template>
 
   <script>
@@ -66,7 +80,6 @@
       is: 'assignment-card',
       listeners: {
         'update':'_update',
-        'mouseover':'_show'
       },
       behaviors: [
         Polymer.AppLocalizeBehavior,
@@ -87,6 +100,13 @@
         _info : {
           type:Object,
           computed:'__computeInfo(data)'
+        },
+        hide:{
+          type:Boolean,
+          readOnly:true,
+          value:function() {
+            return false;
+          }
         }
       },
       _update:function(e) {
@@ -110,6 +130,7 @@
       },
       __computeInfo:function(data) {
         var tmp = {};
+        this._setHide(false);
         if(data.key) {
           var status_dict = {
             'new':'ใหม่',
@@ -143,8 +164,13 @@
         var ele = document.createElement(name);
         return ele.getAttribute('name');
       },
-      _show:function(e) {
-       // this.playAnimation('formNameEntry');
+      _delete:function(e) {
+        this.$.deleteAjax.generateRequest();
+      },
+      _response:function(e) {
+        if(e.detail.response.ok) {
+          this._setHide(true);
+        }
       }
     });
   </script>

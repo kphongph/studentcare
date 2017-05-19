@@ -61,7 +61,6 @@
             handleAs:'json',
             body:assignment
           }).then(function(res) {
-            console.log(res.response);
             if(res.response.ok) {
               console.log(res.response);
               self.fire('form-generated',{'key':res.response.key});

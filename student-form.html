@@ -36,7 +36,7 @@
       year="{{year}}">
     </form-generator>
 
-    <template is="dom-repeat" items="{{forms}}">
+    <template is="dom-repeat" items="{{forms}}" sort="_sortByTime">
       <assignment-card data="{{item}}">
       </assignment-card>
     </template>
@@ -57,6 +57,9 @@
       ],
       __execute:function(jwtToken,db,key) {
         this.$.getAjax.generateRequest();
+      },
+      _sortByTime:function(a,b) {
+        return a.key[4][1] - b.key[4][1];
       }
     });
   </script>

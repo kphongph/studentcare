@@ -29,6 +29,18 @@
      student="{{student}}">
    </dl2-generator>
 
+   <eq-teacher-generator jwt-token="{{jwtToken.token}}"
+     year="{{year}}"
+     forms="{{forms}}" 
+     student="{{student}}">
+   </eq-teacher-generator>
+
+   <disability-autistic-generator jwt-token="{{jwtToken.token}}"
+     year="{{year}}"
+     forms="{{forms}}" 
+     student="{{student}}">
+   </disability-autistic-generator>
+
  </template>
  <script>
   Polymer({
