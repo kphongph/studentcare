@@ -8,7 +8,6 @@
 
 <dom-module is="form-generator">
  <template>
-   Form Generator
    <app-localstorage-document key="jwtToken" data="{{jwtToken}}">
    </app-localstorage-document>
 
@@ -29,17 +28,83 @@
      student="{{student}}">
    </dl2-generator>
 
+   <dl3-generator jwt-token="{{jwtToken.token}}"
+     year="{{year}}"
+     forms="{{forms}}" 
+     student="{{student}}">
+   </dl3-generator>
+
    <eq-teacher-generator jwt-token="{{jwtToken.token}}"
      year="{{year}}"
      forms="{{forms}}" 
      student="{{student}}">
    </eq-teacher-generator>
 
+   <eq-student-generator jwt-token="{{jwtToken.token}}"
+     year="{{year}}"
+     forms="{{forms}}" 
+     student="{{student}}">
+   </eq-student-generator>
+
    <disability-autistic-generator jwt-token="{{jwtToken.token}}"
      year="{{year}}"
      forms="{{forms}}" 
      student="{{student}}">
    </disability-autistic-generator>
+
+   <disability-behavior-generator jwt-token="{{jwtToken.token}}"
+     year="{{year}}"
+     forms="{{forms}}" 
+     student="{{student}}">
+   </disability-behavior-generator>
+
+   <disability-communication-generator jwt-token="{{jwtToken.token}}"
+     year="{{year}}"
+     forms="{{forms}}" 
+     student="{{student}}">
+   </disability-communication-generator>
+
+   <disability-health-generator jwt-token="{{jwtToken.token}}"
+     year="{{year}}"
+     forms="{{forms}}" 
+     student="{{student}}">
+   </disability-health-generator>
+
+   <disability-hearing-generator jwt-token="{{jwtToken.token}}"
+     year="{{year}}"
+     forms="{{forms}}" 
+     student="{{student}}">
+   </disability-hearing-generator>
+
+   <disability-intelligence-generator jwt-token="{{jwtToken.token}}"
+     year="{{year}}"
+     forms="{{forms}}" 
+     student="{{student}}">
+   </disability-intelligence-generator>
+
+   <disability-learning-elementary-generator jwt-token="{{jwtToken.token}}"
+     year="{{year}}"
+     forms="{{forms}}" 
+     student="{{student}}">
+   </disability-learning-elementary-generator>
+
+   <disability-learning-secondary-generator jwt-token="{{jwtToken.token}}"
+     year="{{year}}"
+     forms="{{forms}}" 
+     student="{{student}}">
+   </disability-learning-secondary-generator>
+
+   <disability-visual-generator jwt-token="{{jwtToken.token}}"
+     year="{{year}}"
+     forms="{{forms}}" 
+     student="{{student}}">
+   </disability-visual-generator>
+
+   <snap-generator jwt-token="{{jwtToken.token}}"
+     year="{{year}}"
+     forms="{{forms}}" 
+     student="{{student}}">
+   </snap-generator>
 
  </template>
  <script>
@@ -53,16 +118,13 @@
         notify:true
       }
     },
-    listeners:{
-     'form-generated':'__relistForm'
-    },
     observers:[
      '__listForm(jwtToken,student,year)'
     ],
     __listForm:function(jwtToken,student,year) {
      this.$.listFormAjax.generateRequest();
     },
-    __relistForm:function(e) {
+    reload:function() {
      this.$.listFormAjax.generateRequest();
     },
     _listResponse:function(e) {

@@ -1,6 +1,8 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../paper-item/paper-item.html">
 <link rel="import" href="../paper-listbox/paper-listbox.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
 <link rel="import" href="../iron-ajax/iron-ajax.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../app-storage/app-localstorage/app-localstorage-document.html">
@@ -18,6 +20,9 @@
       .iron-selected {
         background: #eee;
       }
+      .control {
+        padding:5px;
+      }
     </style>
     
     <app-localstorage-document key="jwtToken" data="{{jwtToken}}">
@@ -28,10 +33,14 @@
       method="GET"
       url$="https://maas.nuqlis.com:9000/api/dbs/{{db}}/{{key}}"
       headers$='{"Authorization":"JWT {{jwtToken.token}}"}'
+      on-response="_getStudentResponsed"
       last-response="{{student}}">
     </iron-ajax>
     
-    <form-generator student="{{student}}" 
+    <form-generator 
+      id="generator"
+      student="{{student}}" 
+      on-form-generated="_formGenerated"
       forms="{{forms}}"
       year="{{year}}">
     </form-generator>
@@ -40,8 +49,15 @@
       <assignment-card data="{{item}}">
       </assignment-card>
     </template>
-     
-      
+
+    <div class="horizontal layout control">
+      <paper-button hidden$="{{!_requiredReload}}" raised 
+        on-tap="_reload">
+       <iron-icon icon="cached"></iron-icon>
+       Reload
+      </paper-button>
+    </div>
+
   </template>
 
   <script>
@@ -60,6 +76,16 @@
       },
       _sortByTime:function(a,b) {
         return a.key[4][1] - b.key[4][1];
+      },
+      _getStudentResponsed:function(e) {
+        this.set('_requiredReload',false);
+      },
+      _formGenerated:function(e) {
+        this.set('_requiredReload',true);
+      },
+      _reload:function(e) {
+        this.$.generator.reload();
+        this.set('_requiredReload',false);
       }
     });
   </script>

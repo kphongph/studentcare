@@ -1,31 +1,24 @@
 <link rel="import" href="../../polymer/polymer.html">
-<link rel="import" href="../form-generator-behavior.html">
+<link rel="import" href="check-only-level-behavior.html">
 
 <dom-module is="dl2-generator">
  <script>
   Polymer({
     is:"dl2-generator",
     behaviors:[
-     FormGeneratorBehavior
+     CheckOnlyLevelBehavior
     ],
     properties:{
       formType:{
         type:String,
         value:'dl2-form'
-      }
-    },
-    requireForm:function() {
-      console.log('check dl2');
-      var level = ["04","05","06","07","08","09"];
-      var exists=false;
-      if(level.indexOf(this.student.LEVEL) != -1) {
-        for(var i=0;i<this.forms.length;i++) {
-          if(this.forms[i].key[3]=="dl2-form") {
-            exists=true;
-          }
+      },
+      atLevel:{
+        type:Array,
+        value:function() {
+          return ["04","05","06","07","08","09"];
         }
       }
-      return !exists;
     }
   });
  </script>

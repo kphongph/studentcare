@@ -1,31 +1,24 @@
 <link rel="import" href="../../polymer/polymer.html">
-<link rel="import" href="../form-generator-behavior.html">
+<link rel="import" href="check-only-level-behavior.html">
 
 <dom-module is="disability-autistic-generator">
  <script>
   Polymer({
     is:"disability-autistic-generator",
     behaviors:[
-     FormGeneratorBehavior
+     CheckOnlyLevelBehavior
     ],
     properties:{
       formType:{
         type:String,
         value:'disability-autistic-form'
-      }
-    },
-    requireForm:function() {
-      console.log('check',this.formType);
-      var level = ["04","07","10"];
-      var exists=false;
-      if(level.indexOf(this.student.LEVEL) != -1) {
-        for(var i=0;i<this.forms.length;i++) {
-          if(this.forms[i].key[3]==this.formType) {
-            exists=true;
-          }
+      },
+      atLevel:{
+        type:Array,
+        value:function() {
+          return ["04","07","10"];
         }
       }
-      return !exists;
     }
   });
  </script>
