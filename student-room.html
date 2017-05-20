@@ -1,22 +1,48 @@
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../paper-item/paper-item.html">
+<link rel="import" href="../paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../paper-styles/color.html">
+<link rel="import" href="../paper-styles/typography.html">
 <link rel="import" href="../paper-listbox/paper-listbox.html">
 <link rel="import" href="../iron-ajax/iron-ajax.html">
+<link rel="import" href="../vaadin-grid/vaadin-grid.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../app-storage/app-localstorage/app-localstorage-document.html">
 
 <dom-module id="student-room">
   <template>
-    <style include="iron-flex iron-flex-alignment iron-flex-factors">
-      :host {
-        @apply(--layout-vertical);
-        display: block;
-      }
+    <style is="custom-style"> 
+      vaadin-grid {
+        --divider-color: rgba(0, 0, 0, var(--dark-divider-opacity));
+        height:auto;
+        --vaadin-grid-cell: {
+          padding:5px;
+        };
 
-      .iron-selected {
-        background: #eee;
-      }
+        --vaadin-grid-header-cell: {
+          height: 64px;
+          color: rgba(0, 0, 0, var(--dark-secondary-opacity));
+          @apply(--paper-font-caption);
+       };
 
+       --vaadin-grid-body-cell: {
+         height: 48px;
+         color: rgba(0, 0, 0, var(--dark-primary-opacity));
+         @apply(--paper-font-body1);
+       };
+
+       --vaadin-grid-body-row-hover-cell: {
+         background-color: var(--paper-grey-200);
+       };
+
+       --vaadin-grid-body-row-selected-cell: {
+         background-color: var(--paper-grey-100);
+       };
+
+       --vaadin-grid-focused-cell: {
+         box-shadow: none;
+         font-weight: bold;
+       };
+     }
     </style>
     
     <app-localstorage-document key="jwtToken" data="{{jwtToken}}">
@@ -32,16 +58,25 @@
       body$='{"match":["{{host}}","{{level}}","{{room}}"],"limit":-1}'>
     </iron-ajax>
 
+    <vaadin-grid 
+      id="grid"
+      items="[[students]]"
+      active-item="{{activeItem}}">
 
-    <paper-listbox selected="{{student}}" 
-      on-iron-select="_select"
-      attr-for-selected="name">
-    <template is="dom-repeat" items="{{students}}">
-     <paper-item name="{{item.value}}">
-      {{item.key.4.0}} {{item.key.4.2}} {{item.key.4.3}}
-     </paper-item>
-    </template>
-    </paper-listbox>
+     <vaadin-grid-column width="50px" flex-grow="0">
+      <template class="header">#</template>
+      <template>{{_plusOne(index)}}</template>
+     </vaadin-grid-column>
+
+     <vaadin-grid-column>
+      <template class="header">รหัสบัตรประชาชน</template>
+      <template>[[item.key.4.0]]</template>
+     </vaadin-grid-column>
+     <vaadin-grid-column>
+      <template class="header">ชื่อ-นามสกุล</template>
+      <template>[[item.key.4.2]] [[item.key.4.3]]</template>
+     </vaadin-grid-column>
+    </vaadin-grid>
 
   </template>
 
@@ -56,11 +91,20 @@
         db:{
           type:String,
           computed:'__computeDb(year)'
+        },
+        activeItem:{
+          observer:'_activeItemChanged'
         }
       },
       observers:[
-        '__execute(jwtToken,host,level,room,year)'
+        '__execute(jwtToken,host,level,room,year)',
       ],
+      _activeItemChanged:function(item) {
+        if(item != null) {
+          this.$.grid.selectedItems = item ? [item]:[];
+          this.fire('student-selected',{'_id':item.value,'db':this.db});
+        }
+      },
       __execute:function(jwtToken,host,level,room,year) {
         this.$.listAjax.generateRequest();
       },
@@ -71,8 +115,8 @@
         }
         return db;
       },
-      _select:function(e) {
-        this.fire('student-selected',{'_id':this.student,'db':this.db});
+      _plusOne:function(index) {
+        return index+1;
       }
     });
   </script>
