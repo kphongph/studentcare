@@ -29,7 +29,7 @@
     "iron-scroll-threshold": "PolymerElements/iron-scroll-threshold#^1.0.3",
     "paper-spinner": "PolymerElements/paper-spinner#^2.0.0",
     "kjur-jsrsasign": "jsrsasign#^7.1.4",
-    "vaadin-grid": "^2.0.2"
+    "google-chart": "GoogleWebComponents/google-chart#^1.1.2"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
