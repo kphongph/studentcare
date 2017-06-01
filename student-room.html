@@ -7,9 +7,14 @@
 <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../app-storage/app-localstorage/app-localstorage-document.html">
 
+<link rel="import" href="progress-by-room.html">
+
 <dom-module id="student-room">
   <template>
-    <style is="custom-style"> 
+    <style is="custom-style" include="iron-flex iron-flex-alignment iron-flex-factors"> 
+      :host {
+         @apply(--layout-vertial);
+      }
       paper-item {
         border-bottom:1px solid var(--paper-grey-500);
       }
@@ -45,7 +50,8 @@
     </iron-ajax>
 
 
-    <paper-listbox selected="{{student}}"
+    
+     <paper-listbox selected="{{student}}"
       on-iron-select="_selected"
       attr-for-selected="name">
       <template is="dom-repeat" items="{{students}}">
@@ -57,7 +63,10 @@
           </paper-item-body>
         </paper-item>    
       </template>
-    </paper-listbox>
+     </paper-listbox>
+     <progress-by-room year="{{year}}" level="{{level}}" room="{{room}}"
+        host="{{host}}" url="http://202.143.174.205:3000/view">
+     </progress-by-room>
   </template>
 
   <script>
