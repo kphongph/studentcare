@@ -34,9 +34,9 @@
         <span>{{label}}</span>
         <content></content>
       </span>
-      <span class="valueText"><b>{{_valueStr}}</b></span>
+      <!--<span class="valueText"><b>{{_valueStr}}</b></span>-->
     </div>
-    <div hidden$="{{!hovered}}" class="layout horizontal">
+    <div class="layout horizontal">
       <paper-radio-group selected="{{value}}" 
         class="flex"
         aria-labelledby="label">
@@ -75,11 +75,11 @@
           type:Boolean,
           value:false,
           reflectToAttribute:true
-        },
+        }/*,
         _valueStr:{
           type:String,
           computed:'_labelValue(value)'
-        }
+        }*/
       },
       behaviors:[
         Polymer.IronValidatableBehavior
