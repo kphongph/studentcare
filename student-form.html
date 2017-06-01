@@ -23,6 +23,11 @@
       .control {
         padding:5px;
       }
+      .form_group {
+        @apply(--paper-font-subhead);
+        padding:10px;
+        background: var(--paper-grey-100);
+      }
     </style>
     
     <app-localstorage-document key="jwtToken" data="{{jwtToken}}">
@@ -52,19 +57,22 @@
       </paper-progress>
     </div>
     <div hidden$="{{loading}}">
-    <div class="horizontal layout control" hidden$="{{!_requiredReload}}">
+     <div class="horizontal layout control" hidden$="{{!_requiredReload}}">
       <paper-button raised on-tap="_reload">
        <iron-icon icon="cached"></iron-icon>
        Reload
       </paper-button>
-    </div>
+     </div>
 
-    <template is="dom-repeat" items="{{forms}}" sort="_sortByTime">
-     <assignment-card data="{{item}}">
-     </assignment-card>
-    </template>
-    </div>
+     <template is="dom-repeat" as="group" items="{{formList}}"> 
+       <div class="form_group">{{group.name}}</div>
+       <template is="dom-repeat" items="{{group.forms}}" 
+         sort="_sortByStatus">
+         <assignment-card data="{{item}}"></assignment-card>
+       </template>
+     </template>
 
+   </div>
 
   </template>
 
@@ -74,7 +82,12 @@
       properties: {
         db:String,
         year:String,
-        key:String
+        key:String,
+        formList:{
+          type:Array,
+          notify:true,
+          computed:'__generateFormList(forms)'
+        }
       },
       observers:[
        '__execute(jwtToken,db,key)',
@@ -84,6 +97,10 @@
       },
       _sortByTime:function(a,b) {
         return a.key[4][1] - b.key[4][1];
+      },
+      _sortByStatus:function(a,b) {
+        var _sort = ['new','working','done'];
+        return _sort.indexOf(a.key[4][0]) - _sort.indexOf(b.key[4][0]);
       },
       _getStudentResponsed:function(e) {
         this.set('_requiredReload',false);
@@ -97,6 +114,66 @@
       _reload:function(e) {
         this.$.generator.reload();
         this.set('_requiredReload',false);
+      },
+      __generateFormList:function(forms) {
+        var data = [];
+        var group = [
+          {
+            'group':'แบบคัดกรอง SDQ', 
+            'names':[
+              'dl2-form',
+              'dl3-form'
+            ],
+            forms:[]
+          },
+          {
+            'group':'แบบคัดกรอง EQ', 
+            'names':[
+              'eq-teacher-form',
+              'eq-student-form'
+            ],
+            forms:[]
+          },
+          {
+            'group':'แบบคัดกรองความบกพร่อง 9 ด้านของ สพฐ.', 
+            'names':[
+              'disability-autistic-form',
+              'disability-behavior-form',
+              'disability-communication-form',
+              'disability-health-form',
+              'disability-hearing-form',
+              'disability-intelligence-form',
+              'disability-learning-elementary-form',
+              'disability-learning-secondary-form',
+              'disability-visual-form'
+            ],
+            'forms':[]
+          },
+          {
+            'group':'แบบคัดกรองอื่น ๆ ', 
+            'names':[
+              'st5-form','snap-form','suicide8q-form','cdi-form','game-form'
+            ],
+            forms:[]
+          },
+        ];
+
+        for(var i=0;i<forms.length;i++) {
+          for(var j=0;j<group.length;j++) {
+            if(group[j].names.indexOf(forms[i].key[3])!=-1) {
+              group[j].forms.push(forms[i]);
+              break;
+            }
+          }
+        }
+
+        for(var i=0;i<group.length;i++) {
+          if(group[i].forms.length>0) {
+            data.push({'name':group[i].group,'forms':group[i].forms});
+          }
+        }
+        console.log(data);
+        return data;
       }
     });
   </script>
