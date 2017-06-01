@@ -76,6 +76,7 @@
     </style>
 
     <div id="main" class$="{{value}} layout horizontal center">
+			<span>{{no}} . </span>
       <iron-icon icon="{{type}}" class$="{{value}}"></iron-icon>
       <span class="flex"><content></content></span>
       <span class="valueText"><b>{{_valueStr}}</b></span>
@@ -101,6 +102,9 @@
           type:Boolean,
           value:false
         },
+				no: {
+					type:String
+				},
         required:{
           type:Boolean,
           value:false,

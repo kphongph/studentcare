@@ -24,7 +24,7 @@
      <div class="layout vertical">
       <div id="r_exist">
         <div class="question">
-          โดยรวมคุณคิดว่าตัวเองมีปัญหาในด้านอารมณ์ ด้านสมาธิ ด้านพฤติกรรมหรือความสามารถเข้ากับผู้อื่น ด้านใดด้านหนึ่งหรือไม่
+          1. โดยรวมคุณคิดว่าตัวเองมีปัญหาในด้านอารมณ์ ด้านสมาธิ ด้านพฤติกรรมหรือความสามารถเข้ากับผู้อื่น ด้านใดด้านหนึ่งหรือไม่
         </div>
         <paper-radio-group selected="{{value.exist}}">
           <paper-radio-button name="n">ไม่</paper-radio-button>
@@ -33,7 +33,7 @@
       </div>      
       <div id="problemExist" class="layout vertical" hidden>
         <div id="r_level">  
-        <div class="question">คุณมีปัญหาดังกล่าวในระดับ</div>
+        <div class="question">2. คุณมีปัญหาดังกล่าวในระดับ</div>
           <paper-radio-group selected="{{value.level}}">
            <paper-radio-button name="0">เล็กน้อย</paper-radio-button>
            <paper-radio-button name="1">ชัดเจน</paper-radio-button>
@@ -41,7 +41,7 @@
           </paper-radio-group>
         </div>
        <div id="r_time">  
-        <div class="question">ปัญหานี้เกิดขึ้นมานามเท่าไหร่แล้ว</div>
+        <div class="question">3. ปัญหานี้เกิดขึ้นมานามเท่าไหร่แล้ว</div>
           <paper-radio-group selected="{{value.time}}">
            <paper-radio-button name="1m">น้อยกว่า 1 เดือน</paper-radio-button>
            <paper-radio-button name="1m-5m">1 - 5 เดือน</paper-radio-button>
@@ -50,7 +50,7 @@
           </paper-radio-group>
        </div>
        <div id="r_unhappy">  
-        <div class="question"> คุณรู้สึกหงุดหงิดหรือไม่สบายใจกับปัญหาที่มีหรือไม่</div>
+        <div class="question"> 4. คุณรู้สึกหงุดหงิดหรือไม่สบายใจกับปัญหาที่มีหรือไม่</div>
           <paper-radio-group selected="{{value.unhappy}}">
             <paper-radio-button name="0">ไม่เลย</paper-radio-button>
             <paper-radio-button name="1">เล็กน้อย</paper-radio-button>
@@ -59,7 +59,7 @@
           </paper-radio-group>
        </div>
         <div id="r_life">  
-        <div class="question">ปัญหานี้รบกวนชีวิตประจำวันของคุณในด้านความเป็นอยู่ที่บ้าน</div>        
+        <div class="question">5. ปัญหานี้รบกวนชีวิตประจำวันของคุณในด้านความเป็นอยู่ที่บ้าน</div>        
           <paper-radio-group selected="{{value.life}}">
             <paper-radio-button name="0">ไม่เลย</paper-radio-button>
             <paper-radio-button name="1">เล็กน้อย</paper-radio-button>
@@ -68,7 +68,7 @@
           </paper-radio-group>
        </div>
        <div id="r_friend">
-        <div class="question">ปัญหานี้รบกวนชีวิตประจำวันของคุณในด้านการคบเพื่อน</div>        
+        <div class="question">6. ปัญหานี้รบกวนชีวิตประจำวันของคุณในด้านการคบเพื่อน</div>        
           <paper-radio-group selected="{{value.friend}}">
              <paper-radio-button name="0">ไม่เลย</paper-radio-button>
              <paper-radio-button name="1">เล็กน้อย</paper-radio-button>
@@ -77,7 +77,7 @@
           </paper-radio-group>
        </div>
        <div id="r_study">  
-        <div class="question">ปัญหานี้รบกวนชีวิตประจำวันของคุณในด้านการเรียนในห้องเรียน</div>
+        <div class="question">7. ปัญหานี้รบกวนชีวิตประจำวันของคุณในด้านการเรียนในห้องเรียน</div>
           <paper-radio-group selected="{{value.study}}">
              <paper-radio-button name="0">ไม่เลย</paper-radio-button>
              <paper-radio-button name="1">เล็กน้อย</paper-radio-button>
@@ -86,7 +86,7 @@
           </paper-radio-group>
        </div>
        <div id="r_freetime">  
-        <div class="question">ปัญหานี้รบกวนชีวิตประจำวันของคุณในด้านกิจกรรมยามว่าง</div>
+        <div class="question">8. ปัญหานี้รบกวนชีวิตประจำวันของคุณในด้านกิจกรรมยามว่าง</div>
           <paper-radio-group selected="{{value.freetime}}">
              <paper-radio-button name="0">ไม่เลย</paper-radio-button>
              <paper-radio-button name="1">เล็กน้อย</paper-radio-button>
@@ -95,7 +95,7 @@
           </paper-radio-group>
        </div>
        <div id="r_social">  
-        <div class="question">ปัญหานี้ทำให้คยรอบข้างเกิดความยุ่งยากหรือไม่ (ครอบครัว เพื่อน ครู ฯลฯ)</div>
+        <div class="question">9. ปัญหานี้ทำให้คยรอบข้างเกิดความยุ่งยากหรือไม่ (ครอบครัว เพื่อน ครู ฯลฯ)</div>
           <paper-radio-group selected="{{value.social}}">
              <paper-radio-button name="0">ไม่เลย</paper-radio-button>
              <paper-radio-button name="1">เล็กน้อย</paper-radio-button>

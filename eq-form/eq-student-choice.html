@@ -30,6 +30,7 @@
     </style>
 
     <div id="main" class="layout horizontal center">
+			<span class="flex" id="no">{{no}}</span>
       <span class="flex" id="label">{{label}}</span>
       <span class="valueText"><b>{{_valueStr}}</b></span>
     </div>
@@ -66,6 +67,9 @@
         label:{
           type:String
         },
+				no:{
+					type:String
+				},
         disabled: {
           type:Boolean,
           value:false
