@@ -12,58 +12,85 @@
 <link rel="import" href="../app-leveldb/app-leveldb.html">
 <link rel="import" href="../app-leveldb/app-leveldb-document.html">
 
+<link href="https://fonts.googleapis.com/css?family=Itim&amp;subset=thai" rel="stylesheet">
+
 <script src="../kjur-jsrsasign/jsrsasign-all-min.js"></script>
 
 <dom-module id="form-control">
   <template>
     <style include="iron-flex iron-flex-alignment">
       paper-tabs {
-        background-color: var(--paper-light-blue-500);
-        color: #fff;
-        height:40px;
+        background-color: var(--paper-grey-50);
+        color: #F44336;
+        height: 40px;
       }
+
+       :host {
+        --paper-tab-ink: var(--paper-grey-500);/* สีเอฟเฟคตอนกดปุ่ม */
+      }
+
+      paper-tabs {
+        --paper-tabs-selection-bar-color: #F44336;/*var(--paper-grey-500); /* สีของ tab ที่เลือก */
+      }
+
       paper-button {
         margin-left: 10px;
         margin-right: 10px;
-        padding:5px;
+        padding: 5px;
       }
-      .student-info {
-        padding:10px;
-      }
-      .formControl {
-        padding:5px;
-      }
-    </style>     
 
-    <app-localstorage-document 
-      key="jwtToken" data="{{jwtToken}}">
+      .student-info {
+        padding: 10px;
+      }
+
+      .formControl {
+        padding: 5px;
+      }
+
+      .font-face {
+        font-family: 'Itim', cursive;
+
+      } 
+      .font-face-big {
+        font-family: 'Itim', cursive;
+        font-size: 120%;
+         text-decoration: underline;
+      }
+            .font-face-big-bold {
+        font-family: 'Itim', cursive;
+        font-size: 120%;
+        font-weight: bold;
+         /*text-decoration: underline;*/
+       
+      }
+    </style>
+
+    <app-localstorage-document key="jwtToken" data="{{jwtToken}}">
     </app-localstorage-document>
-    
-    <app-leveldb
-      name="test"
-      url="https://maas.nuqlis.com:9000/api"
-      db-name="students_care"
-      app="{{app}}"
-      jwt-token="{{jwtToken.token}}">
+
+    <app-leveldb name="test" url="https://maas.nuqlis.com:9000/api" db-name="students_care" app="{{app}}" jwt-token="{{jwtToken.token}}">
     </app-leveldb>
 
-    <app-leveldb-document id="doc"
-      app="{{app}}"
-      key="{{docKey}}"
-      on-response="_onResponse"
-      status="{{status}}"
-      value="{{docValue}}">
-    </app-leveldb-document>    
+    <app-leveldb-document id="doc" app="{{app}}" key="{{docKey}}" on-response="_onResponse" status="{{status}}" value="{{docValue}}">
+    </app-leveldb-document>
 
     <div class="student-info">
-      <span>{{docValue.student.cid}}</span>
-      <span>{{docValue.student.name}}</span>
+      <span class="font-face-big-bold"> เลขประจำตัวประชาชน  &nbsp;&nbsp;</span>
+      <span class="font-face-big">{{docValue.student.cid}}</span>
+      <span class="font-face-big-bold">&nbsp;&nbsp;&nbsp;ชื่อ - นามสกุล &nbsp;&nbsp;</span>
+      <span class="font-face-big">{{docValue.student.name}}</span>
     </div>
 
     <paper-tabs selected="{{page}}">
-      <paper-tab>คำชี้แจง</paper-tab>
-      <paper-tab>แบบประเมิน</paper-tab>
-      <paper-tab>ผลการประเมิน</paper-tab>
+      <paper-tab>
+        <div class="font-face-big-bold">คำชี้แจง</div>
+      </paper-tab>
+      <paper-tab>
+        <div class="font-face-big-bold">แบบประเมิน</div>
+      </paper-tab>
+      <paper-tab>
+        <div class="font-face-big-bold">ผลการประเมิน</div>
+      </paper-tab>
     </paper-tabs>
 
     <iron-pages selected="{{page}}">
@@ -72,18 +99,18 @@
         <div class="layout horizontal formControl">
           <paper-button raised on-tap="_onSave">
             <iron-icon icon="save"></iron-icon>
-            บันทึก
+            <div class="font-face">บันทึก</div>
           </paper-button>
           <paper-button raised on-tap="_undo">
             <iron-icon icon="undo"></iron-icon>
-            เริ่มใหม่
+            <div class="font-face">เริ่มใหม่</div>
           </paper-button>
           <paper-button raised on-tap="_process">
             <iron-icon icon="assignment-returned"></iron-icon>
-            ประเมิน
+            <div class="font-face">ประเมิน</div>
           </paper-button>
         </div>
-        <div>{{message}}</div>
+        <div class="font-face">{{message}}</div>
         <content select=".formEntry"></content>
       </div>
       <div>
@@ -98,57 +125,57 @@
       behaviors: [
         Polymer.AppLocalizeBehavior
       ],
-      properties: {      
-        docKey:{
-          type:String
+      properties: {
+        docKey: {
+          type: String
         },
-        docValue:{
-          type:Object,
-          notify:true
+        docValue: {
+          type: Object,
+          notify: true
         },
         page: {
-          type:Number,
-          value:0
+          type: Number,
+          value: 0
         }
       },
-      _onSave:function(e) {
+      _onSave: function (e) {
         console.log('_save');
-        this.fire('form-action',{'type':'save'});
+        this.fire('form-action', { 'type': 'save' });
       },
-      _undo:function(e) {
-        this.fire('form-action',{'type':'undo'});
+      _undo: function (e) {
+        this.fire('form-action', { 'type': 'undo' });
       },
-      _process:function(e) {
-        this.fire('form-action',{'type':'process'});
+      _process: function (e) {
+        this.fire('form-action', { 'type': 'process' });
       },
-      _onResponse:function(e) {
+      _onResponse: function (e) {
         console.log('_onResponse');
         var self = this;
-        if(!this.$.doc.error) {
-          this.set('message','บันทึกเรียบร้อย');
-          this.fire('update',{'key':this.docKey,'value':this.docValue}); 
-          setTimeout(function() {
-            self.set('message','');
-          },2000);
+        if (!this.$.doc.error) {
+          this.set('message', 'บันทึกเรียบร้อย');
+          this.fire('update', { 'key': this.docKey, 'value': this.docValue });
+          setTimeout(function () {
+            self.set('message', '');
+          }, 2000);
         }
       },
-      save:function(e) {
-        if(!this.docKey) {
-          this.set('docKey',null);
+      save: function (e) {
+        if (!this.docKey) {
+          this.set('docKey', null);
         }
         var ele = document.createElement('iron-request');
         var self = this;
         ele.send({
-          url:"https://maas.nuqlis.com:9001/servertime",
-          method:"GET"
-        }).then(function(res) {
-          var ts = Number(res.response)*-1;
+          url: "https://maas.nuqlis.com:9001/servertime",
+          method: "GET"
+        }).then(function (res) {
+          var ts = Number(res.response) * -1;
           var a = self.jwtToken.token.split(".");
           var uClaim = b64utos(a[1]);
           var pClaim = KJUR.jws.JWS.readSafeJSONString(uClaim);
           self.docValue.user_id = pClaim.UserID;
           self.docValue.ts = ts;
-          if(!self.$.doc.error) {
+          if (!self.$.doc.error) {
             self.$.doc.save();
           }
         });

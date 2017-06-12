@@ -5,51 +5,56 @@
 <link rel="import" href="../paper-button/paper-button.html">
 <link rel="import" href="../iron-icons/iron-icons.html">
 <link rel="import" href="../iron-ajax/iron-ajax.html">
+<link rel="import" href="../paper-styles/color.html">
+<link rel="import" href="../paper-styles/typography.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../app-storage/app-localstorage/app-localstorage-document.html">
 <link rel="import" href="./local/assignment-card.html">
 <link rel="import" href="./form-generator.html">
 
+<link href="https://fonts.googleapis.com/css?family=Itim&amp;subset=thai" rel="stylesheet">
+
 <dom-module id="student-form">
   <template>
     <style is="custom-style" include="iron-flex iron-flex-alignment iron-flex-factors">
-      :host {
+       :host {
         @apply(--layout-vertical);
+        --paper-progress-active-color: #d14836;
+        /*สีตัวโหลด*/
+        --paper-progress-indeterminate-cycle-duration: 0.8s;
+        /*ระยะเวลาการโหลด*/
       }
+
 
       .iron-selected {
         background: #eee;
       }
+
       .control {
-        padding:5px;
+        padding: 5px;
       }
+
       .form_group {
         @apply(--paper-font-subhead);
-        padding:10px;
+        padding: 10px;
         background: var(--paper-grey-100);
       }
+
+      .font-face {
+        font-family: 'Itim', cursive;
+        font-weight: bold;
+      }
     </style>
-    
+
     <app-localstorage-document key="jwtToken" data="{{jwtToken}}">
     </app-localstorage-document>
 
-    <iron-ajax 
-      id="getAjax"
-      method="GET"
-      url$="https://maas.nuqlis.com:9000/api/dbs/{{db}}/{{key}}"
-      headers$='{"Authorization":"JWT {{jwtToken.token}}"}'
-      on-response="_getStudentResponsed"
-      last-response="{{student}}">
+    <iron-ajax id="getAjax" method="GET" url$="https://maas.nuqlis.com:9000/api/dbs/{{db}}/{{key}}" headers$='{"Authorization":"JWT {{jwtToken.token}}"}'
+      on-response="_getStudentResponsed" last-response="{{student}}">
     </iron-ajax>
-    
-    <form-generator 
-      id="generator"
-      student="{{student}}" 
-      loading="{{loading}}"
-      on-form-generated="_formGenerated"
-      on-required-form-checked="_formChecked"
-      forms="{{forms}}"
-      year="{{year}}">
+
+    <form-generator id="generator" student="{{student}}" loading="{{loading}}" on-form-generated="_formGenerated" on-required-form-checked="_formChecked"
+      forms="{{forms}}" year="{{year}}">
     </form-generator>
 
     <div class="horizontal layout">
@@ -57,22 +62,21 @@
       </paper-progress>
     </div>
     <div hidden$="{{loading}}">
-     <div class="horizontal layout control" hidden$="{{!_requiredReload}}">
-      <paper-button raised on-tap="_reload">
-       <iron-icon icon="cached"></iron-icon>
-       Reload
-      </paper-button>
-     </div>
+      <div class="horizontal layout control" hidden$="{{!_requiredReload}}">
+        <paper-button raised on-tap="_reload">
+          <iron-icon icon="cached"></iron-icon>
+          Reload
+        </paper-button>
+      </div>
 
-     <template is="dom-repeat" as="group" items="{{formList}}"> 
-       <div class="form_group">{{group.name}}</div>
-       <template is="dom-repeat" items="{{group.forms}}" 
-         sort="_sortByStatus">
-         <assignment-card data="{{item}}"></assignment-card>
-       </template>
-     </template>
+      <template is="dom-repeat" as="group" items="{{formList}}">
+        <div class="form_group font-face">{{group.name}}</div>
+        <template is="dom-repeat" items="{{group.forms}}" sort="_sortByStatus">
+          <assignment-card data="{{item}}"></assignment-card>
+        </template>
+      </template>
 
-   </div>
+    </div>
 
   </template>
 
@@ -80,63 +84,63 @@
     Polymer({
       is: 'student-form',
       properties: {
-        db:String,
-        year:String,
-        key:String,
-        formList:{
-          type:Array,
-          notify:true,
-          computed:'__generateFormList(forms)'
+        db: String,
+        year: String,
+        key: String,
+        formList: {
+          type: Array,
+          notify: true,
+          computed: '__generateFormList(forms)'
         }
       },
-      observers:[
-       '__execute(jwtToken,db,key)',
+      observers: [
+        '__execute(jwtToken,db,key)',
       ],
-      __execute:function(jwtToken,db,key) {
+      __execute: function (jwtToken, db, key) {
         this.$.getAjax.generateRequest();
       },
-      _sortByTime:function(a,b) {
+      _sortByTime: function (a, b) {
         return a.key[4][1] - b.key[4][1];
       },
-      _sortByStatus:function(a,b) {
-        var _sort = ['new','working','done'];
+      _sortByStatus: function (a, b) {
+        var _sort = ['new', 'working', 'done'];
         return _sort.indexOf(a.key[4][0]) - _sort.indexOf(b.key[4][0]);
       },
-      _getStudentResponsed:function(e) {
-        this.set('_requiredReload',false);
+      _getStudentResponsed: function (e) {
+        this.set('_requiredReload', false);
       },
-      _formGenerated:function(e) {
-        this.set('_requiredReload',true);
+      _formGenerated: function (e) {
+        this.set('_requiredReload', true);
       },
-      _formChecked:function(e) {
+      _formChecked: function (e) {
         console.log(e.detail);
       },
-      _reload:function(e) {
+      _reload: function (e) {
         this.$.generator.reload();
-        this.set('_requiredReload',false);
+        this.set('_requiredReload', false);
       },
-      __generateFormList:function(forms) {
+      __generateFormList: function (forms) {
         var data = [];
         var group = [
           {
-            'group':'แบบคัดกรอง SDQ', 
-            'names':[
+            'group': 'แบบคัดกรอง SDQ',
+            'names': [
               'dl2-form',
               'dl3-form'
             ],
-            forms:[]
+            forms: []
           },
           {
-            'group':'แบบคัดกรอง EQ', 
-            'names':[
+            'group': 'แบบคัดกรอง EQ',
+            'names': [
               'eq-teacher-form',
               'eq-student-form'
             ],
-            forms:[]
+            forms: []
           },
           {
-            'group':'แบบคัดกรองความบกพร่อง 9 ด้านของ สพฐ.', 
-            'names':[
+            'group': 'แบบคัดกรองความบกพร่อง 9 ด้านของ สพฐ.',
+            'names': [
               'disability-autistic-form',
               'disability-behavior-form',
               'disability-communication-form',
@@ -147,29 +151,29 @@
               'disability-learning-secondary-form',
               'disability-visual-form'
             ],
-            'forms':[]
+            'forms': []
           },
           {
-            'group':'แบบคัดกรองอื่น ๆ ', 
-            'names':[
-              'st5-form','snap-form','suicide8q-form','cdi-form','game-form'
+            'group': 'แบบคัดกรองอื่น ๆ ',
+            'names': [
+              'st5-form', 'snap-form', 'suicide8q-form', 'cdi-form', 'game-form'
             ],
-            forms:[]
+            forms: []
           },
         ];
 
-        for(var i=0;i<forms.length;i++) {
-          for(var j=0;j<group.length;j++) {
-            if(group[j].names.indexOf(forms[i].key[3])!=-1) {
+        for (var i = 0; i < forms.length; i++) {
+          for (var j = 0; j < group.length; j++) {
+            if (group[j].names.indexOf(forms[i].key[3]) != -1) {
               group[j].forms.push(forms[i]);
               break;
             }
           }
         }
 
-        for(var i=0;i<group.length;i++) {
-          if(group[i].forms.length>0) {
-            data.push({'name':group[i].group,'forms':group[i].forms});
+        for (var i = 0; i < group.length; i++) {
+          if (group[i].forms.length > 0) {
+            data.push({ 'name': group[i].group, 'forms': group[i].forms });
           }
         }
         return data;

@@ -16,6 +16,7 @@
 <link rel="import" href="../form-control.html">
 <link rel="import" href="../studentcare-form-behavior.html">
 
+<link href="https://fonts.googleapis.com/css?family=Itim&amp;subset=thai" rel="stylesheet">
 
 <dom-module id="dl3-form">
   <template>
@@ -35,19 +36,36 @@
         color:white;
         height:40px;
       }
+
+            .font-face {
+        font-family: 'Itim', cursive;
+        font-size: 120%;
+      }
+
+            #title {
+    --paper-input-container-input: {
+      /*font-size: 24px;*/
+      font-family: 'Itim', cursive;
+    };
+    --paper-input-container-label:{
+       font-family: 'Itim', cursive;
+    };
+    --paper-input-container-focus-color:#F44336; 
+  }
+  
     </style>
 
     <form-control id="control"
       doc-key="{{document.key}}"
       doc-value="{{document.value}}">
-      <div class="description">
+      <div class="description font-face">
         <p>เลือกคำตอบเพียงข้อเดียวในแต่ละข้อคำถามที่ใกล้เคียงกับพฤติกรรมของนักเรียนที่เกิดขึ้นในช่วง  6  เดือนที่ผ่านมา</p>
       </div>
       <div class="formEntry">
 
         <paper-tabs selected="{{part}}" class="flex">
-          <paper-tab>หน้าแรก</paper-tab>
-          <paper-tab>หน้าหลัง</paper-tab>
+          <paper-tab><div class="font-face">หน้าแรก</div></paper-tab>
+          <paper-tab><div class="font-face">หน้าหลัง</div></paper-tab>
         </paper-tabs>
     
         <iron-pages selected="{{part}}">
@@ -59,11 +77,12 @@
           </sdq-form-student>      
         </iron-pages>
       </div>
-      <div class="evaluation">
-        ผลการประเมิน
+      <div class="evaluation ">
+        <!--ผลการประเมิน-->
+        
         <div class="layout vertical">
         <template is="dom-repeat" items="{{_result}}">
-          <paper-input label="{{item.label}}"
+          <paper-input  id="title" label="{{item.label}}"
             readonly
             value="{{item.result}}">
           </paper-input>

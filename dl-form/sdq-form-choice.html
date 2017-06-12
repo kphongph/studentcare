@@ -4,6 +4,8 @@
 <link rel="import" href="../../paper-styles/typography.html">
 <link rel="import" href="sdq-radio.html">
 
+<link href="https://fonts.googleapis.com/css?family=Itim&amp;subset=thai" rel="stylesheet">
+
 <dom-module id="sdq-form-choice">
   <template>
   <style include="iron-flex iron-flex-alignment iron-flex-factors">
@@ -20,83 +22,88 @@
       margin-top:2px;
       margin-bottom:2px;
     }
+          .font-face {
+        font-family: 'Itim', cursive;
+        font-size: 110%;
+      }
 
   </style>
   <div class="layout vertical">    
-    <sdq-radio required no="1" value="{{value.f_q1}}">
-    ห่วงใยความรู้สึกคนอื่น
+    <sdq-radio required class="font-face" no="1" value="{{value.f_q1}}">
+    <div class="font-face">ห่วงใยความรู้สึกคนอื่น</div>
     </sdq-radio>
-    <sdq-radio required no="2" value="{{value.f_q2}}">
-    อยู่ไม่นิ่ง นั่งนิ่ง ๆ ไม่ได้ 
+    <sdq-radio required  class="font-face"no="2" value="{{value.f_q2}}">
+    
+    <div class="font-face">อยู่ไม่นิ่ง นั่งนิ่ง ๆ ไม่ได้</div>
     </sdq-radio>
-    <sdq-radio required no="3" value="{{value.f_q3}}">
-    มักจะบ่นว่าปวดศีรษะปวดท้อง
+    <sdq-radio required  class="font-face"no="3" value="{{value.f_q3}}">
+     <div class="font-face">มักจะบ่นว่าปวดศีรษะปวดท้อง</div>
     </sdq-radio>
-    <sdq-radio required no="4" value="{{value.f_q4}}">
-    เต็มใจแบ่งปันสิ่งของให้เพื่อน (ขนม, ของเล่น, ดินสอเป็นต้น)
+    <sdq-radio required  class="font-face"no="4" value="{{value.f_q4}}">
+    <div class="font-face">เต็มใจแบ่งปันสิ่งของให้เพื่อน (ขนม, ของเล่น, ดินสอเป็นต้น)</div>
     </sdq-radio>
-    <sdq-radio required no="5" value="{{value.f_q5}}">
-    มักจะอาละวาดหรือโมโหร้าย 
+    <sdq-radio required  class="font-face"no="5" value="{{value.f_q5}}">
+    <div class="font-face">มักจะอาละวาดหรือโมโหร้าย</div>
     </sdq-radio>
-    <sdq-radio required no="6" value="{{value.f_q6}}">
-    ค่อนข้างแยกตัวชอบเล่นคนเดียว
+    <sdq-radio required  class="font-face"no="6" value="{{value.f_q6}}">
+    <div class="font-face">ค่อนข้างแยกตัวชอบเล่นคนเดียว</div>
     </sdq-radio>
-    <sdq-radio required no="7" value="{{value.f_q7}}">
-    เชื่อฟัง มัก จะทำตามที่ผู้ใหญ่ต้องการ
+    <sdq-radio required  class="font-face"no="7" value="{{value.f_q7}}">
+    <div class="font-face">เชื่อฟัง มัก จะทำตามที่ผู้ใหญ่ต้องการ</div>
     </sdq-radio>
-    <sdq-radio required no="8" value="{{value.f_q8}}">
-    กังวลใจหลายเรื่อง ดูกังวลเสมอ
+    <sdq-radio required  class="font-face"no="8" value="{{value.f_q8}}">
+    <div class="font-face">กังวลใจหลายเรื่อง ดูกังวลเสมอ</div>
     </sdq-radio>
-    <sdq-radio required no="9" value="{{value.f_q9}}">
-    เป็นที่พึ่งได้เวลาที่คนอื่นเสียใจ อารมณ์ไม่ดี หรือไม่สบายใจ 
+    <sdq-radio required  class="font-face"no="9" value="{{value.f_q9}}">
+     <div class="font-face">เป็นที่พึ่งได้เวลาที่คนอื่นเสียใจ อารมณ์ไม่ดี หรือไม่สบายใจ</div>
     </sdq-radio>
-    <sdq-radio required no="10" value="{{value.f_q10}}">
-    อยู่ไม่สุข วุ่นวายอย่างมาก 
+    <sdq-radio required  class="font-face"no="10" value="{{value.f_q10}}">
+     <div class="font-face">อยู่ไม่สุข วุ่นวายอย่างมาก</div>
     </sdq-radio>
-    <sdq-radio required no="11" value="{{value.f_q11}}">
-    มีเพื่อนสนิท
+    <sdq-radio required  class="font-face"no="11" value="{{value.f_q11}}">
+    <div class="font-face">มีเพื่อนสนิท</div>
     </sdq-radio>
-    <sdq-radio required no="12" value="{{value.f_q12}}">
-    มักจะมีเรื่องทะเลาะวิวาทกับเด็กอื่น หรือรังแกเด็กอื่น
+    <sdq-radio required  class="font-face"no="12" value="{{value.f_q12}}">
+    <div class="font-face">มักจะมีเรื่องทะเลาะวิวาทกับเด็กอื่น หรือรังแกเด็กอื่น</div>
     </sdq-radio>
-    <sdq-radio required no="13" value="{{value.f_q13}}">
-    ดูไม่มีความสุข ท้อแท้
+    <sdq-radio required  class="font-face"no="13" value="{{value.f_q13}}">
+    <div class="font-face">ดูไม่มีความสุข ท้อแท้</div>
     </sdq-radio>
-    <sdq-radio required no="14" value="{{value.f_q14}}">
-    เป็นที่ชื่นชอบของเพื่อน
+    <sdq-radio required  class="font-face"no="14" value="{{value.f_q14}}">
+    <div class="font-face">เป็นที่ชื่นชอบของเพื่อน</div>
     </sdq-radio>
-    <sdq-radio required no="15" value="{{value.f_q15}}">
-    วอกแวกง่าย สมาธิสั้น
+    <sdq-radio required  class="font-face"no="15" value="{{value.f_q15}}">
+    <div class="font-face">วอกแวกง่าย สมาธิสั้น</div>
     </sdq-radio>
-    <sdq-radio required no="16" value="{{value.f_q16}}">
-    เครียดไม่ยอมห่างเวลาอยู่ในสถานการณ์ที่ไม่คุ้น และขาดความมั่นใจในตนเอง
+    <sdq-radio required  class="font-face"no="16" value="{{value.f_q16}}">
+    <div class="font-face">เครียดไม่ยอมห่างเวลาอยู่ในสถานการณ์ที่ไม่คุ้น และขาดความมั่นใจในตนเอง</div>
     </sdq-radio>
-    <sdq-radio required no="17" value="{{value.f_q17}}">
-    ใจดีกับเด็กที่เล็กกว่า
+    <sdq-radio required  class="font-face"no="17" value="{{value.f_q17}}">
+    <div class="font-face">ใจดีกับเด็กที่เล็กกว่า</div>
     </sdq-radio>
-    <sdq-radio required no="18" value="{{value.f_q18}}">
-    ชอบโกหก หรือขี้โกง
+    <sdq-radio required  class="font-face"no="18" value="{{value.f_q18}}">
+    <div class="font-face">ชอบโกหก หรือขี้โกง</div>
     </sdq-radio>
-    <sdq-radio required no="19" value="{{value.f_q19}}">
-    ถูกเด็กคนอื่นล้อเลียนหรือรังแก
+    <sdq-radio required  class="font-face"no="19" value="{{value.f_q19}}">
+    <div class="font-face">ถูกเด็กคนอื่นล้อเลียนหรือรังแก</div>
     </sdq-radio>
-    <sdq-radio required no="20" value="{{value.f_q20}}">
-    ชอบอาสาช่วยเหลือผู้อื่น (พ่อ, แม่, ครู, เด็กคนอื่น)
+    <sdq-radio required  class="font-face"no="20" value="{{value.f_q20}}">
+    <div class="font-face">ชอบอาสาช่วยเหลือผู้อื่น (พ่อ, แม่, ครู, เด็กคนอื่น)</div>
     </sdq-radio>
-    <sdq-radio required no="21" value="{{value.f_q21}}">
-    คิดก่อนทำ
+    <sdq-radio required  class="font-face"no="21" value="{{value.f_q21}}">
+    <div class="font-face">คิดก่อนทำ</div>
     </sdq-radio>
-    <sdq-radio required  no="22" value="{{value.f_q22}}">
-    ขโมยของที่บ้าน ที่โรงเรียนหรือที่อื่น
+    <sdq-radio required   class="font-face"no="22" value="{{value.f_q22}}">
+    <div class="font-face">ขโมยของที่บ้าน ที่โรงเรียนหรือที่อื่น</div>
     </sdq-radio>
-    <sdq-radio required no="23" value="{{value.f_q23}}">
-    เข้ากับผู้ใหญ่ได้ดีกว่าเด็กวัยเดียวกัน
+    <sdq-radio required  class="font-face"no="23" value="{{value.f_q23}}">
+    <div class="font-face">เข้ากับผู้ใหญ่ได้ดีกว่าเด็กวัยเดียวกัน</div>
     </sdq-radio>
-    <sdq-radio required no="24" value="{{value.f_q24}}">
-    ขี้กลัว รู้สึกหวาดกลัวได้ง่าย
+    <sdq-radio required  class="font-face"no="24" value="{{value.f_q24}}">
+    <div class="font-face">ขี้กลัว รู้สึกหวาดกลัวได้ง่าย</div>
     </sdq-radio>
-    <sdq-radio required no="25" value="{{value.f_q25}}">
-    ทำงานได้จนเสร็จ มีความตั้งอกตั้งใจในการทำงาน
+    <sdq-radio required  class="font-face"no="25" value="{{value.f_q25}}">
+   <div class="font-face">ทำงานได้จนเสร็จ มีความตั้งอกตั้งใจในการทำงาน</div>
     </sdq-radio>
   </div>
 
