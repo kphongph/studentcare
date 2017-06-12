@@ -1,0 +1,25 @@
+<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="check-only-level-behavior.html">
+
+<dom-module is="screening-elementary-generator">
+ <script>
+  Polymer({
+    is:"screening-elementary-generator",
+    behaviors:[
+     CheckOnlyLevelBehavior
+    ],
+    properties:{
+      formType:{
+        type:String,
+        value:'screening-elementary-form'
+      },
+      atLevel:{
+        type:Array,
+        value:function() {
+          return ["04","05","06","07","08","09"];
+        }
+      }
+    }
+  });
+ </script>
+</dom-module>
