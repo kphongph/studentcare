@@ -10,6 +10,8 @@
 <link rel="import" href="../form-control.html">
 <link rel="import" href="../studentcare-form-behavior.html">
 
+<link href="https://fonts.googleapis.com/css?family=Itim&amp;subset=thai" rel="stylesheet">
+
 <dom-module id="screening-elementary-form">
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors">
@@ -45,7 +47,10 @@
       }
       
       .topic1 paper-input {
+        /*font-family: 'Itim', cursive;
+         font-size: 120%;*/
         margin-left:50px;
+        
       }
 
       .topic1 paper-checkbox {
@@ -55,6 +60,38 @@
       .check-icon {
         width:30px;
       }
+     
+      .font-face-normal {
+        font-family: 'Itim', cursive;
+        font-size: 120%;
+      }
+            .font-face-normal {
+        font-family: 'Itim', cursive;
+        font-size: 120%;
+      }
+            .font-face-bolder {
+        font-family: 'Itim', cursive;
+        font-size: 120%;
+        font-weight: bold;
+      }
+
+      .flex-1{
+        font-family: 'Itim', cursive;
+        font-size: 120%;
+      }
+      label{
+ font-family: 'Itim', cursive;
+        font-size: 120%;
+      }
+            .headQ{
+        font-weight: bold;
+          font-size: 120%;
+      }
+      /*.label2{
+ font-family: 'Itim', cursive;
+        font-size: 120%;
+      }*/
+
     </style>
 
     <form-control id="control" 
@@ -62,17 +99,17 @@
       doc-key="{{document.key}}"
       doc-value="{{document.value}}">
       <div class="description">
-        <ol class="num"><b> คำชี้แจง</b>
-         <li>ให้เลือกว่าอาการในแต่ละข้อนั้นตรงกับลักษณะของเด็กที่ท่านประเมินเพียงใด</li>
+        <ol class="num"><b class="font-face-bolder"> คำชี้แจง</b>
+         <li class="font-face-normal">ให้เลือกว่าอาการในแต่ละข้อนั้นตรงกับลักษณะของเด็กที่ท่านประเมินเพียงใด</li>
         </ol>
       </div>
       <div class="formEntry">
        <ol>
          <li>
-           <label id="label1">ความสามารถพิเศษ (ความถนัดและความสนใจในวิชาที่เรียน)</label>
+           <label id="label1" class="headQ">ความสามารถพิเศษ (ความถนัดและความสนใจในวิชาที่เรียน)</label>
            <paper-radio-group aria-labelledby="label1" selected="{{document.value.form_value.q1}}">
-             <paper-radio-button name="y">มี</paper-radio-button>
-             <paper-radio-button name="n">ไม่มี</paper-radio-button>
+             <paper-radio-button name="y" class ="font-face-normal" >มี</paper-radio-button>
+             <paper-radio-button name="n"class ="font-face-normal">ไม่มี</paper-radio-button>
            </paper-radio-group>
            <div class="topic1" hidden$="{{!_isEquals(document.value.form_value.q1,'y')}}">
 
@@ -187,7 +224,7 @@
            </div>
          </li>
          <li>
-           <label id="label2">ด้านการเรียน</label>
+           <label id="label2"  class="headQ">ด้านการเรียน</label>
            <paper-input label="ผลการประเมิน" readonly 
              value="{{_q2Text(document.value.form_value.q2)}}"> 
            </paper-input>
@@ -285,7 +322,7 @@
            </div>
          </li>
          <li>
-           <label id="label2">ด้านสุขภาพ</label>
+           <label id="label2"  class="headQ">ด้านสุขภาพ</label>
            <paper-input label="ผลการประเมิน" readonly 
              value=""> 
            </paper-input>
@@ -318,7 +355,7 @@
 
          </li>
          <li>
-           <label id="label2">ด้านพฤติกรรม</label>
+           <label id="label2"  class="headQ">ด้านพฤติกรรม</label>
            <paper-input label="ผลการประเมิน" readonly 
              value=""> 
            </paper-input>
@@ -346,7 +383,7 @@
            </div>
          </li>
                   <li>
-           <label id="label2">ด้านอื่นๆ</label>
+           <label id="label2"  class="headQ">ด้านอื่นๆ</label>
            <paper-input label="ผลการประเมิน" readonly 
              value=""> 
            </paper-input>
@@ -380,7 +417,7 @@
            </div>
          </li>
                   <li>
-           <label id="label2">ด้านสังคม</label>
+           <label id="label2"  class="headQ">ด้านสังคม</label>
            <paper-input label="ผลการประเมิน" readonly 
              value=""> 
            </paper-input>
