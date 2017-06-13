@@ -191,7 +191,7 @@
            <paper-input label="ผลการประเมิน" readonly 
              value="{{_q2Text(document.value.form_value.q2)}}"> 
            </paper-input>
-           <div class="layout horizontal">
+           <div class="layout horizontal"><!-- หัวตาราง -->
              <paper-checkbox class="flex-1" checked="{{document.value.form_value.q2_1_m}}">
                ผลการเรียนเฉลี่ย 1.00 - 2.00
              </paper-checkbox>
@@ -200,10 +200,10 @@
              </paper-checkbox>
            </div>
            <div class="layout horizontal">
-             <paper-checkbox class="flex-1" checked="{{document.value.form_value.q2_2_m}}">
+             <paper-checkbox class="flex-1" checked="{{document.value.form_value.q2_2_m}}"><!-- M ซ้าย -->
                ติด 0, ร, มส, มผ 1-2 วิชา ต่อ 1 ภาคเรียน
              </paper-checkbox>
-             <paper-checkbox class="flex-1" checked="{{document.value.form_value.q2_2_p}}">
+             <paper-checkbox class="flex-1" checked="{{document.value.form_value.q2_2_p}}"><!-- P ขวา -->
                ติด 0, ร, มส, มผ มากกว่า 2 วิชา ต่อ 1 ภาคเรียน
              </paper-checkbox>
            </div>
@@ -281,6 +281,115 @@
              </paper-checkbox>
              <paper-checkbox class="flex-1" checked="{{document.value.form_value.q2_13_p}}">
                 ผลการประเมินการอ่านคิดวิเคราะห์และเขียนสื่อความไม่ผ่าน
+             </paper-checkbox>
+           </div>
+         </li>
+         <li>
+           <label id="label2">ด้านสุขภาพ</label>
+           <paper-input label="ผลการประเมิน" readonly 
+             value=""> 
+           </paper-input>
+            <div class="layout horizontal">
+             <paper-checkbox class="flex-1" checked="{{document.value.form_value.q3_1_m}}">
+                น้ำหนักผิดปกติ  และไม่สัมพันธ์กับส่วนสูง  หรืออายุ
+             </paper-checkbox>
+             <paper-checkbox class="flex-1" checked="{{document.value.form_value.q3_1_p}}">
+                ป่วยเป็นโรคหรือมีความพิการทางร่างกายมีความบกพร่องทางการได้ยินการมองเห็น  และความเจ็บป่วย  หรือบกพร่องดังกล่าวมีผลกระทบต่อความสามารถด้านการเรียนในระดับมีปัญหา
+             </paper-checkbox>
+           </div>
+           <div class="layout horizontal">
+             <paper-checkbox class="flex-1" checked="{{document.value.form_value.q3_2_m}}">
+                มีโรงประจำตัวหรือเจ็บป่วยบ่อยๆ
+             </paper-checkbox>
+           </div>
+            <div class="layout horizontal">
+             <paper-checkbox class="flex-1" checked="{{document.value.form_value.q3_3_m}}">
+                มีความพิการทางร่างกายหรือบกพร่องด้านการยิน การฟัง การมองเห็น  หรืออื่นๆ
+             </paper-checkbox>
+           </div>
+           <div class="layout horizontal">
+             <paper-checkbox class="flex-1" checked="{{document.value.form_value.q3_4_m}}">
+                ให้นักเรียนพิจารณาใช้แบบประเมินพฤติกรรมหรือเครื่องมืออื่นๆ ตามความเหมาะสมกับสภาพโรงเรียน
+             </paper-checkbox>
+             <paper-checkbox class="flex-1" checked="{{document.value.form_value.q3_4_p}}">
+                ให้นักเรียนพิจารณาใช้แบบประเมินพฤติกรรมหรือเครื่องมืออื่นๆ ตามความเหมาะสมกับสภาพโรงเรียน
+             </paper-checkbox>
+           </div>
+
+         </li>
+         <li>
+           <label id="label2">ด้านพฤติกรรม</label>
+           <paper-input label="ผลการประเมิน" readonly 
+             value=""> 
+           </paper-input>
+            <div class="layout horizontal">
+             <paper-checkbox class="flex-1" checked="{{document.value.form_value.q4_1_m}}">
+                มีพฤติกรรมแสดงออกดังนี้
+                1.	ความเฉี่อยชา
+                2.	ชอบเก็บตัว
+                3.	การลักขโมย
+                4.	การโกหก
+                ฯลฯ
+                ซึ่งเป็นพฤติกรรมที่แสดงออกเป็นครั้งคราว
+
+             </paper-checkbox>
+             <paper-checkbox class="flex-1" checked="{{document.value.form_value.q4_1_p}}">
+                มีพฤติกรรมแสดงออกดังนี้
+                1.	ความก้าวร้าว
+                2.	หนีโรงเรียน
+                3.	ชอบรังแกคนอื่น/สัตว์
+                4.	การใช้สารเสพติด
+                ฯลฯ
+                ซึ่งเป็นพฤติกรรมที่แสดงออกเป็นประจำ
+
+             </paper-checkbox>
+           </div>
+         </li>
+                  <li>
+           <label id="label2">ด้านอื่นๆ</label>
+           <paper-input label="ผลการประเมิน" readonly 
+             value=""> 
+           </paper-input>
+            <div class="layout horizontal">
+             <paper-checkbox class="flex-1" checked="{{document.value.form_value.q5_1_m}}">
+                มีการทดลองดื่มเบียร์ สุรา หรือสูบบุหรี่โดยตนเองหรือเพื่อนชักชวน
+             </paper-checkbox>
+             <paper-checkbox class="flex-1" checked="{{document.value.form_value.q5_1_p}}">
+                ใช้ยาเสพติด  สารเสพติด ดื่มเบียร์  สุรา  หรือสูบบุหรี่เป็นครั้งคราวและมีแนวโน้นว่าจะเพิ่มขึ้นและเป็นผู้ชวนให้ผู้อื่นปฏิบัติตาม
+             </paper-checkbox>
+           </div>
+            <div class="layout horizontal">
+             <paper-checkbox class="flex-1" checked="{{document.value.form_value.q5_2_m}}">
+                ติดเพื่อนต่างเพศแนวชู้สาว
+             </paper-checkbox>
+             <paper-checkbox class="flex-1" checked="{{document.value.form_value.q5_2_p}}">
+                ติดต่อเพื่อนต่างเพศในแนวชู้สาว  หรือถึงขั้นมีความสัมพันธ์ทางเพศ
+             </paper-checkbox>
+           </div>
+           <div class="layout horizontal">
+             <paper-checkbox class="flex-1" checked="{{document.value.form_value.q5_3_m}}">
+                จับคู่ชัดเจนและแยกอยู่กันสองต่อสองบ่อยๆ
+             </paper-checkbox>
+
+           </div>
+           <div class="layout horizontal">
+             <paper-checkbox class="flex-1" checked="{{document.value.form_value.q5_3_m}}">
+                มีพฤติกรรมเบี่ยงเบนทางเพศ  จนมีผลต่อการเรียน
+             </paper-checkbox>
+    
+           </div>
+         </li>
+                  <li>
+           <label id="label2">ด้านสังคม</label>
+           <paper-input label="ผลการประเมิน" readonly 
+             value=""> 
+           </paper-input>
+            <div class="layout horizontal">
+             <paper-checkbox class="flex-1" checked="{{document.value.form_value.q6_1_m}}">
+                สามารถปรับตัวได้ในบางเรื่องบางกรณี  และมักปฏิบัติตนขัดแย้งกับกฎเกณฑ์ต่างๆของโรงเรียน  ห้องเรียนเมื่อได้รับการตักเตือนก็เลิกพฤติกรรมนั้นได้
+             </paper-checkbox>
+             <paper-checkbox class="flex-1" checked="{{document.value.form_value.q6_1_p}}">
+                สามารถปรับตัวได้ในบางกรณี  แต่มีข้อขัดแย้งสม่ำเสมอ ก่อปัญหาให้แก้ไข  อยู่เสมอ  เมื่อได้รับการตักเตือนก็ไม่หยุดพฤติกรรมต่อด้าน
              </paper-checkbox>
            </div>
          </li>
