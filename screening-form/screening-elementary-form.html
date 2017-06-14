@@ -92,6 +92,17 @@
         font-size: 120%;
       }*/
 
+     #res {
+    --paper-input-container-input: {
+      /*font-size: 24px;*/
+      font-family: 'Itim', cursive;
+    };
+    --paper-input-container-label:{
+       font-family: 'Itim', cursive;
+    };
+    --paper-input-container-focus-color:#F44336; 
+     }
+
     </style>
 
     <form-control id="control" 
@@ -114,109 +125,109 @@
            <div class="topic1" hidden$="{{!_isEquals(document.value.form_value.q1,'y')}}">
 
              <paper-checkbox checked="{{document.value.form_value.q1_1}}">
-             กลุ่มสาระการเรียนรู้คณิตศาสตร์ 
+              <div class="font-face-normal">กลุ่มสาระการเรียนรู้คณิตศาสตร์</div>
              </paper-checkbox>
-             <paper-input value="{{document.value.form_value.q1_1_t1}}" 
+             <paper-input id ="res" value="{{document.value.form_value.q1_1_t1}}" 
                label="ลำดับที่ 1"
                disabled="{{!document.value.form_value.q1_1}}">
              </paper-input>
-             <paper-input value="{{document.value.form_value.q1_1_t2}}"
+             <paper-input id ="res" value="{{document.value.form_value.q1_1_t2}}"
                label="ลำดับที่ 2"
                disabled="{{!document.value.form_value.q1_1}}">
              </paper-input>
 
              <paper-checkbox checked="{{document.value.form_value.q1_2}}">
-             กลุ่มสาระการเรียนรู้ภาษาไทย
+             <div class="font-face-normal">กลุ่มสาระการเรียนรู้ภาษาไทย</div>
              </paper-checkbox>
-             <paper-input value="{{document.value.form_value.q1_2_t1}}" 
+             <paper-input id ="res" value="{{document.value.form_value.q1_2_t1}}" 
                label="ลำดับที่ 1"
                disabled="{{!document.value.form_value.q1_2}}">
              </paper-input>
-             <paper-input value="{{document.value.form_value.q1_2_t2}}"
+             <paper-input id ="res" value="{{document.value.form_value.q1_2_t2}}"
                label="ลำดับที่ 2"
                disabled="{{!document.value.form_value.q1_2}}">
              </paper-input>
 
              <paper-checkbox checked="{{document.value.form_value.q1_3}}">
-             กลุ่มสาระการเรียนรู้ภาษาต่างประเทศ
+             <div class="font-face-normal">กลุ่มสาระการเรียนรู้ภาษาต่างประเทศ</div>
              </paper-checkbox>
-             <paper-input value="{{document.value.form_value.q1_3_t1}}" 
+             <paper-input id ="res" value="{{document.value.form_value.q1_3_t1}}" 
                label="ลำดับที่ 1"
                disabled="{{!document.value.form_value.q1_3}}">
              </paper-input>
-             <paper-input value="{{document.value.form_value.q1_3_t2}}"
+             <paper-input id ="res" value="{{document.value.form_value.q1_3_t2}}"
                label="ลำดับที่ 2"
                disabled="{{!document.value.form_value.q1_3}}">
              </paper-input>
 
              <paper-checkbox checked="{{document.value.form_value.q1_4}}">
-             กลุ่มสาระการเรียนรู้วิทยาศาสตร์
+             <div class="font-face-normal">กลุ่มสาระการเรียนรู้วิทยาศาสตร์</div>
              </paper-checkbox>
-             <paper-input value="{{document.value.form_value.q1_4_t1}}" 
+             <paper-input id ="res" value="{{document.value.form_value.q1_4_t1}}" 
                label="ลำดับที่ 1"
                disabled="{{!document.value.form_value.q1_4}}">
              </paper-input>
-             <paper-input value="{{document.value.form_value.q1_4_t2}}"
+             <paper-input id ="res" value="{{document.value.form_value.q1_4_t2}}"
                label="ลำดับที่ 2"
                disabled="{{!document.value.form_value.q1_4}}">
              </paper-input>
 
              <paper-checkbox checked="{{document.value.form_value.q1_5}}">
-             กลุ่มสาระการเรียนรู้ศิลปะ
+             <div class="font-face-normal">กลุ่มสาระการเรียนรู้ศิลปะ</div>
              </paper-checkbox>
-             <paper-input value="{{document.value.form_value.q1_5_t1}}" 
+             <paper-input id ="res" value="{{document.value.form_value.q1_5_t1}}" 
                label="ลำดับที่ 1"
                disabled="{{!document.value.form_value.q1_5}}">
              </paper-input>
-             <paper-input value="{{document.value.form_value.q1_5_t2}}"
+             <paper-input id ="res" value="{{document.value.form_value.q1_5_t2}}"
                label="ลำดับที่ 2"
                disabled="{{!document.value.form_value.q1_5}}">
              </paper-input>
 
              <paper-checkbox checked="{{document.value.form_value.q1_6}}">
-             กลุ่มสาระการเรียนรู้การงานอาชีพและเทคโนโลยี
+             <div class="font-face-normal">กลุ่มสาระการเรียนรู้การงานอาชีพและเทคโนโลยี</div>
              </paper-checkbox>
-             <paper-input value="{{document.value.form_value.q1_6_t1}}" 
+             <paper-input id ="res" value="{{document.value.form_value.q1_6_t1}}" 
                label="ลำดับที่ 1"
                disabled="{{!document.value.form_value.q1_6}}">
              </paper-input>
-             <paper-input value="{{document.value.form_value.q1_6_t2}}"
+             <paper-input id ="res" value="{{document.value.form_value.q1_6_t2}}"
                label="ลำดับที่ 2"
                disabled="{{!document.value.form_value.q1_6}}">
              </paper-input>
 
              <paper-checkbox checked="{{document.value.form_value.q1_7}}">
-             กลุ่มสาระการเรียนรู้สุขศึกษาและพลศึกษา
+             <div class="font-face-normal">กลุ่มสาระการเรียนรู้สุขศึกษาและพลศึกษา</div>
              </paper-checkbox>
-             <paper-input value="{{document.value.form_value.q1_7_t1}}" 
+             <paper-input id ="res" value="{{document.value.form_value.q1_7_t1}}" 
                label="ลำดับที่ 1"
                disabled="{{!document.value.form_value.q1_7}}">
              </paper-input>
-             <paper-input value="{{document.value.form_value.q1_7_t2}}"
+             <paper-input id ="res" value="{{document.value.form_value.q1_7_t2}}"
                label="ลำดับที่ 2"
                disabled="{{!document.value.form_value.q1_7}}">
              </paper-input>
 
              <paper-checkbox checked="{{document.value.form_value.q1_8}}">
-             กลุ่มสาระการเรียนรู้สังคมศึกษา ศาสนา และวัฒนธรรม
+             <div class="font-face-normal">กลุ่มสาระการเรียนรู้สังคมศึกษา ศาสนา และวัฒนธรรม</div>
              </paper-checkbox>
-             <paper-input value="{{document.value.form_value.q1_8_t1}}" 
+             <paper-input id ="res" value="{{document.value.form_value.q1_8_t1}}" 
                label="ลำดับที่ 1"
                disabled="{{!document.value.form_value.q1_8}}">
              </paper-input>
-             <paper-input value="{{document.value.form_value.q1_8_t2}}"
+             <paper-input id ="res" value="{{document.value.form_value.q1_8_t2}}"
                label="ลำดับที่ 2"
                disabled="{{!document.value.form_value.q1_8}}">
              </paper-input>
 
              <paper-checkbox checked="{{document.value.form_value.q1_9}}">
-             อื่น ๆ
+            <div class="font-face-normal"> อื่น ๆ</div>
              </paper-checkbox>
-             <paper-input value="{{document.value.form_value.q1_9_t1}}" 
+             <paper-input id ="res" value="{{document.value.form_value.q1_9_t1}}" 
                label="ลำดับที่ 1"
                disabled="{{!document.value.form_value.q1_9}}">
              </paper-input>
-             <paper-input value="{{document.value.form_value.q1_9_t2}}"
+             <paper-input id ="res" value="{{document.value.form_value.q1_9_t2}}"
                label="ลำดับที่ 2"
                disabled="{{!document.value.form_value.q1_9}}">
              </paper-input>
@@ -225,7 +236,7 @@
          </li>
          <li>
            <label id="label2"  class="headQ">ด้านการเรียน</label>
-           <paper-input label="ผลการประเมิน" readonly 
+           <paper-input id ="res"  label="ผลการประเมิน" readonly 
              value="{{_q2Text(document.value.form_value.q2)}}"> 
            </paper-input>
            <div class="layout horizontal"><!-- หัวตาราง -->
@@ -323,7 +334,7 @@
          </li>
          <li>
            <label id="label2"  class="headQ">ด้านสุขภาพ</label>
-           <paper-input label="ผลการประเมิน" readonly 
+           <paper-input id ="res" label="ผลการประเมิน" readonly 
              value=""> 
            </paper-input>
             <div class="layout horizontal">
@@ -356,27 +367,27 @@
          </li>
          <li>
            <label id="label2"  class="headQ">ด้านพฤติกรรม</label>
-           <paper-input label="ผลการประเมิน" readonly 
+           <paper-input id ="res" label="ผลการประเมิน" readonly 
              value=""> 
            </paper-input>
             <div class="layout horizontal">
              <paper-checkbox class="flex-1" checked="{{document.value.form_value.q4_1_m}}">
-                มีพฤติกรรมแสดงออกดังนี้
-                1.	ความเฉี่อยชา
-                2.	ชอบเก็บตัว
-                3.	การลักขโมย
-                4.	การโกหก
-                ฯลฯ
+                มีพฤติกรรมแสดงออกดังนี้<br>
+                1.	ความเฉี่อยชา<br>
+                2.	ชอบเก็บตัว<br>
+                3.	การลักขโมย<br>
+                4.	การโกหก<br>
+                ฯลฯ<br>
                 ซึ่งเป็นพฤติกรรมที่แสดงออกเป็นครั้งคราว
 
              </paper-checkbox>
              <paper-checkbox class="flex-1" checked="{{document.value.form_value.q4_1_p}}">
-                มีพฤติกรรมแสดงออกดังนี้
-                1.	ความก้าวร้าว
-                2.	หนีโรงเรียน
-                3.	ชอบรังแกคนอื่น/สัตว์
-                4.	การใช้สารเสพติด
-                ฯลฯ
+                มีพฤติกรรมแสดงออกดังนี้<br>
+                1.	ความก้าวร้าว<br>
+                2.	หนีโรงเรียน<br>
+                3.	ชอบรังแกคนอื่น/สัตว์<br>
+                4.	การใช้สารเสพติด<br>
+                ฯลฯ<br>
                 ซึ่งเป็นพฤติกรรมที่แสดงออกเป็นประจำ
 
              </paper-checkbox>
@@ -384,7 +395,7 @@
          </li>
                   <li>
            <label id="label2"  class="headQ">ด้านอื่นๆ</label>
-           <paper-input label="ผลการประเมิน" readonly 
+           <paper-input id ="res" label="ผลการประเมิน" readonly 
              value=""> 
            </paper-input>
             <div class="layout horizontal">
@@ -418,7 +429,7 @@
          </li>
                   <li>
            <label id="label2"  class="headQ">ด้านสังคม</label>
-           <paper-input label="ผลการประเมิน" readonly 
+           <paper-input id ="res" label="ผลการประเมิน" readonly 
              value=""> 
            </paper-input>
             <div class="layout horizontal">
@@ -456,7 +467,7 @@
        </div>
       </div>
       -->
-      ไม่มีหลักเกณฑ์
+      <div class="font-face-normal">ไม่มีหลักเกณฑ์</div>
      </div>
     </form-control>
 
