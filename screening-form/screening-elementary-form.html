@@ -9,6 +9,7 @@
 <link rel="import" href="../../paper-input/paper-input.html">
 <link rel="import" href="../form-control.html">
 <link rel="import" href="../studentcare-form-behavior.html">
+<link rel="import" href="homevisit-query.html">
 
 <link href="https://fonts.googleapis.com/css?family=Itim&amp;subset=thai" rel="stylesheet">
 
@@ -79,6 +80,13 @@
         font-family: 'Itim', cursive;
         font-size: 120%;
       }
+
+      .checkbox-font {
+        font-family: 'Itim', cursive;
+        font-size: 120%;
+      }
+      
+
       label{
  font-family: 'Itim', cursive;
         font-size: 120%;
@@ -104,6 +112,10 @@
      }
 
     </style>
+    <homevisit-query host="{{document.value.dmc.host}}" 
+       cid="{{document.value.student.cid}}" 
+       document="{{homevisit}}">
+    </homevisit-query>
 
     <form-control id="control" 
       on-form-action="_tap" 
@@ -332,8 +344,24 @@
              </paper-checkbox>
            </div>
          </li>
+           <template is="dom-repeat" items="{{homevisit}}" as="subject">
+             <li>
+               <div>
+                <label id="label2" class="headQ">{{subject.text}} (แบบเยี่ยมบ้าน)</label>
+               </div>
+               <div class="layout vertical">
+               <template is="dom-repeat" items="{{subject.values}}">
+                 <paper-checkbox checked="{{item.checked}}" disabled class="checkbox-font">
+                 {{item.text}}
+                 </paper-checkbox>
+               </template>
+               </div>
+             </li>
+           </template>
          <li>
-           <label id="label2"  class="headQ">ด้านสุขภาพ</label>
+           
+           <label id="label2" class="headQ">ด้านสุขภาพ</label>
+           
            <paper-input id ="res" label="ผลการประเมิน" readonly 
              value=""> 
            </paper-input>

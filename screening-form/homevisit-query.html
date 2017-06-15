@@ -1,0 +1,69 @@
+<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../iron-ajax/iron-ajax.html">
+<link rel="import" href="../../app-storage/app-localstorage/app-localstorage-document.html">
+
+<dom-module id="homevisit-query">
+ <template>
+   <app-localstorage-document key="jwtToken" data="{{jwtToken}}">
+   </app-localstorage-document>
+
+   <iron-ajax 
+     method="POST"
+     id="query"
+     url="https://maas.nuqlis.com:9000/api/query/form_record_homevisit/hostid_cid"
+     content-type="application/json"
+     handle-as="json"
+     headers$='{"Authorization":"JWT {{jwtToken.token}}"}'
+     body='{"match":["1094300126","1959800256181"],"include_doc":true}'
+     on-response="handleResponse">
+   </iron-ajax>
+   
+ </template>
+ <script>
+   Polymer({
+     is:'homevisit-query',
+     properties:{
+       cid:String,
+       host:String,
+       document: {
+         type:Object,
+         notify:true
+       }
+     },
+     observers:[
+       'executeQuery(host,cid,jwtToken.token)'
+     ],
+     executeQuery:function(host,cid,token) {
+       this.$.query.generateRequest();
+     },
+     handleResponse:function(e) {
+       var res = e.detail.response;
+       if(res.length == 0) return;
+       var form = res[0].value.doc;
+       var _document = [];
+       var handle = function(group,question) {
+         if(group.id == "0002" && 
+            (question.id == "0001" || 
+             question.id == "0002" ||
+             question.id == "0009" ||
+             question.id == "0011" ||
+             question.id == "0012" ||
+             question.id == "0010" )) {
+           var _doc = {'text':question.text};
+           _doc['values']=[];
+           question.answers.forEach(function(answer) {
+             _doc['values'].push({'text':answer.text,'checked':answer.checked?answer.checked:false});
+           });
+           _document.push(_doc);
+         }
+       };
+       form.group.forEach(function(group) {
+         group.questions.forEach(function(question) {
+           handle(group,question);  
+         });
+       });
+       this.set('document',_document);
+     }
+   });
+ </script>
+</dom-module>
