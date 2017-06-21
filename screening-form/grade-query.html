@@ -1,0 +1,58 @@
+<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../iron-ajax/iron-ajax.html">
+<link rel="import" href="../../app-storage/app-localstorage/app-localstorage-document.html">
+
+<dom-module id="grade-query">
+ <template>
+   <app-localstorage-document key="jwtToken" data="{{jwtToken}}">
+   </app-localstorage-document>
+
+   <iron-ajax 
+     method="POST"
+     id="query"
+     url="https://maas.nuqlis.com:9000/api/query/obec_grade/cid"
+     content-type="application/json"
+     handle-as="json"
+     headers$='{"Authorization":"JWT {{jwtToken.token}}"}'
+     body='{"match":["{{cid}}"],"include_doc":true}'
+     on-response="handleResponse">
+   </iron-ajax>
+
+ </template>
+ <script>
+   Polymer({
+     is:'grade-query',
+     properties:{
+       cid:String,
+       host:String,
+	   isGpaxLessthanOne:{
+		type:Boolean,
+		notify:true,
+		computed:'__computedIsGpaxLessThanOne(document)'
+	   },
+       document: {
+         type:Object,
+         notify:true
+       }
+     },
+     observers:[
+       'executeQuery(host,cid,jwtToken.token)'
+     ],
+     executeQuery:function(host,cid,token) {
+       this.$.query.generateRequest();
+     },
+     handleResponse:function(e) {
+       var res = e.detail.response;
+       if(res.length == 0) return;
+       var form = res[0].value.doc;
+	   this.set('document',form);
+     },
+     __computedIsGpaxLessThanOne(document) {
+	   console.log(document);
+	   var gpaxN = Number(document.GPAX);
+	   console.log(gpaxN);
+	   return (gpaxN / 100.0) < 1.0;
+	 }
+   });
+ </script>
+</dom-module>
