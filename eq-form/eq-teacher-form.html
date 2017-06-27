@@ -25,7 +25,9 @@
       }
 
       .formEntry div {
+        
         @apply(--paper-font-title);
+        font-family: 'Itim', cursive;
         margin: 3px;
         padding: 0px;
         background: #efefef;
@@ -53,11 +55,11 @@
       .font-face-bold {
         font-family: 'Itim', cursive;
         font-weight: bold;
-        font-size: 120%;
+        font-size: 17px;
       }
             .font-face {
         font-family: 'Itim', cursive;
-        font-size: 120%;
+        font-size: 17px;
       }
     </style>
 
@@ -109,7 +111,7 @@
           <li class="font-face">ก่อนและหลังประเมินครูควรจัดกิจกรรมส่งเสริมความฉลาดทางอารมณ์ เพื่อพัฒนาความฉลาดทางอารมณ์แก่เด็กอย่างต่อเนื่อง</li>
         </ul>
       </div>
-      <div class="formEntry">
+      <div class="formEntry font-face">
         <div>ดี</div>
         <eq-teacher-choice no="1" value="{{document.value.form_value.q1}}" label="รู้จักให้กำลังใจผู้อื่น">
         </eq-teacher-choice>
