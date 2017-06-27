@@ -49,21 +49,57 @@
 
       .font-face {
         font-family: 'Itim', cursive;
-
+      } 
+      .font-face-status {
+        font-family: 'Itim', cursive;
+         font-size: 20px;
+         font-weight: bold;
       } 
       .font-face-big {
         font-family: 'Itim', cursive;
-        font-size: 120%;
+        font-size: 17px;
          text-decoration: underline;
       }
             .font-face-big-bold {
         font-family: 'Itim', cursive;
-        font-size: 120%;
+        font-size: 17px;
         font-weight: bold;
          /*text-decoration: underline;*/
        
       }
     </style>
+    <custom-style>
+      <style is="custom-style">
+        paper-button.giant-cal {
+          --paper-icon-button-ink-color: var(--paper-orange-500);
+          background-color: var(--paper-light-blue-500);
+          color: white;
+          border-radius: 3px;
+          padding: 2px;
+          width: 100px;
+          height: 100px;
+          }
+          paper-button.giant-new {
+          --paper-icon-button-ink-color: var(--paper-orange-500);
+          background-color:#ff8000;
+          color: white;
+          border-radius: 3px;
+          padding: 2px;
+          width: 100px;
+          height: 100px;
+          }
+          paper-button.giant-abc {
+          --paper-icon-button-ink-color: var(--paper-orange-500);
+          background-color:#9ACD32;
+          color: white;
+          border-radius: 3px;
+          padding: 2px;
+          width: 100px;
+          height: 100px;
+          }
+  
+      </style>
+    </custom-style>
 
     <app-localstorage-document key="jwtToken" data="{{jwtToken}}">
     </app-localstorage-document>
@@ -95,23 +131,30 @@
 
     <iron-pages selected="{{page}}">
       <content select=".description"></content>
+
       <div class="layout vertical">
-        <div class="layout horizontal formControl">
-          <paper-button raised on-tap="_onSave">
+         <content select=".formEntry"></content>
+
+        <div class="layout horizontal formControl center-justified">
+
+          <paper-button raised class="giant-new" on-tap="_undo">
+            <iron-icon icon="settings-backup-restore"></iron-icon>
+            <div class="font-face-big-bold">เริ่มใหม่</div>
+          </paper-button>
+          <paper-button raised class="giant-cal" on-tap="_process">
+            <iron-icon icon="search"></iron-icon>
+            <div class="font-face-big-bold">ประเมิน</div>
+          </paper-button>
+          <paper-button raised class="giant-abc" on-tap="_onSave">
             <iron-icon icon="save"></iron-icon>
-            <div class="font-face">บันทึก</div>
-          </paper-button>
-          <paper-button raised on-tap="_undo">
-            <iron-icon icon="undo"></iron-icon>
-            <div class="font-face">เริ่มใหม่</div>
-          </paper-button>
-          <paper-button raised on-tap="_process">
-            <iron-icon icon="assignment-returned"></iron-icon>
-            <div class="font-face">ประเมิน</div>
+            <div class="font-face-big-bold">บันทึก</div>
           </paper-button>
         </div>
-        <div class="font-face">{{message}}</div>
-        <content select=".formEntry"></content>
+
+        <center>
+        <div class="font-face-status">{{message}}</div>
+       </center>
+
       </div>
       <div>
         <content select=".evaluation"></content>

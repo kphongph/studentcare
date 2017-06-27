@@ -29,7 +29,7 @@
 
       .font-face {
         font-family: 'Itim', cursive;
-        font-size: 120%;
+        font-size: 17px;
       }
 
       #title {
@@ -40,6 +40,7 @@
     --paper-input-container-label:{
        font-family: 'Itim', cursive;
     };
+    
 
         /*--paper-input-container-color:red;*/
 
@@ -47,6 +48,19 @@
 
        /*--paper-input-container-input-color:var blue;*/
   }
+      paper-tabs {
+        background-color: var(--paper-grey-400);
+        color: white;
+        height: 40px;
+      }
+
+       :host {
+        --paper-tab-ink: var(--paper-grey-500);/* สีเอฟเฟคตอนกดปุ่ม */
+      }
+
+      paper-tabs {
+        --paper-tabs-selection-bar-color: var(--paper-grey-500);/*var(--paper-grey-500); /* สีของ tab ที่เลือก */
+      }
       
     </style>
 
@@ -56,12 +70,10 @@
       </div>
       <div class="formEntry">
         <paper-tabs selected="{{part}}" class="flex">
-          <paper-tab>
-            <div class="font-face">หน้าแรก</div>
-          </paper-tab>
-          <paper-tab>
-            <div class="font-face">หน้าหลัง</div>
-          </paper-tab>
+          <paper-tab><iron-icon icon="description"></iron-icon>
+            <div class="font-face">หน้าแรก</div></paper-tab>
+          <paper-tab><iron-icon icon="description"></iron-icon>
+            <div class="font-face">หน้าสอง</div></paper-tab>
         </paper-tabs>
 
         <iron-pages selected="{{part}}">
