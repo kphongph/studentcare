@@ -2,7 +2,7 @@
 <link rel="import" href="../../iron-ajax/iron-ajax.html">
 <link rel="import" href="../../app-storage/app-localstorage/app-localstorage-document.html">
 
-<dom-module id="studentcare-query">
+<dom-module id="studentcare-eq-query">
  <template>
 
    <app-localstorage-document key="jwtToken" data="{{jwtToken}}">
@@ -15,17 +15,18 @@
      content-type="application/json"
      handle-as="json"
      headers$='{"Authorization":"JWT {{jwtToken.token}}"}'
-     body='{"match":["{{cid}}","{{year}}","dl2-form"],"include_doc":true}'
+     body='{"match":["{{cid}}","{{year}}","eq-teacher-form"],"include_doc":true}'
      on-response="handleResponse">
    </iron-ajax>
 
  </template>
  <script>
    Polymer({
-     is:'studentcare-query',
+     is:'studentcare-eq-query',
      properties:{
        cid:String,
        host:String,
+       year:String,
 	   Report:{
       type:Boolean,
       notify:true,

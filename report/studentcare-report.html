@@ -2,7 +2,9 @@
 <link rel="import" href="../../paper-material/paper-material.html">
 <link rel="import" href="../../iron-ajax/iron-ajax.html">
 <link rel="import" href="../../iron-image/iron-image.html">
-<link rel="import" href="studentcare-query.html">
+<link rel="import" href="studentcare-sdq-query.html">
+<link rel="import" href="studentcare-eq-query.html">
+<link rel="import" href="studentcare-screening-query.html">
 
 <link href="https://fonts.googleapis.com/css?family=Itim&amp;subset=thai" rel="stylesheet">
 
@@ -93,13 +95,42 @@
         margin-right:24px;
       }
 
+      .flex-3 {
+        @apply(--layout-flex-3); 
+      }
+      .flex-5 {
+        @apply(--layout-flex-5); 
+      }
+      .flex-8 {
+        @apply(--layout-flex-8); 
+      }
+      .flex-10 {
+        @apply(--layout-flex-10); 
+      }    
     </style>
 
-    <studentcare-query host="{{host}}" 
+    <studentcare-sdq-query host="{{host}}" 
        cid="{{cid}}" 
-       year="2016"
+       year="{{year}}"
        document="{{report}}">
-    </studentcare-query>
+    </studentcare-sdq-query>
+
+    <studentcare-eq-query host="{{host}}" 
+       cid="{{cid}}" 
+       year="{{year}}"
+       document="{{eq}}">
+    </studentcare-eq-query>
+
+    <studentcare-screening-query host="{{host}}" 
+       cid="{{cid}}" 
+       year="{{year}}"
+       document="{{screening}}">
+    </studentcare-screening-query>
+
+    <!--<div>
+        <span class="font-face-big">{{eqResult}}</span>
+        <span class="font-face-big">{{screening.form_result.q1.y}}</span>
+      </div>-->
 
     <div class="student-info">
       <span class="font-face-big-bold"> เลขประจำตัวประชาชน  &nbsp;&nbsp;</span>
@@ -108,41 +139,50 @@
       <span class="font-face-big">{{report.student.name}}</span>
     </div>
 
-    <!--<div id="example-full-width-container">
-        <iron-image id="example-full-width" src="../images/green.png"></iron-image>
-        <iron-image id="example-full-width" src="../images/yellow.png"></iron-image>
-        <iron-image id="example-full-width" src="../images/red.png"></iron-image>
-    </div>-->
-
     <paper-material>
       <div class="vertical">
-		  <div class="horizontal header center-layout">
+        <div class="horizontal header center-layout">
             <div class="margin-left-style font-face-big-bold">แบบคัดกรอง SDQ</div>
 		  </div>
-          <div class="horizontal caption center-layout">
-            <div class="margin-left-style font-face-big-bold">ผลการประเมิน</div>
+		  <div class="horizontal caption center-layout">
+        <div class="flex-10 center-layout margin-left-style font-face-big-bold">ด้าน</div>
+        <div class="flex-5 center-layout margin-left-style font-face-big-bold">ผลการประเมิน</div>
 		  </div>
-          <div class="horizontal content center-layout">
-            <div class="margin-left-style font-face-big-bold">{{report.form_result.emotion.label}}</div>
-		  </div>
-          <div class="horizontal content center-layout">
-            <div class="margin-left-style font-face-big-bold">{{report.form_result.behavior.label}}</div>
-		  </div>
-          <div class="horizontal content center-layout">
-            <div class="margin-left-style font-face-big-bold">{{report.form_result.behavior_active.label}}</div>
-		  </div>
-          <div class="horizontal content center-layout">
-            <div class="margin-left-style font-face-big-bold">{{report.form_result.friend.label}}</div>
-		  </div>
-          <div class="horizontal content center-layout">
-            <div class="margin-left-style font-face-big-bold">{{report.form_result.social.label}}</div>
-		  </div>
-          <div class="horizontal content center-layout">
-            <div class="margin-left-style font-face-big-bold">{{report.form_result.weakness.label}}</div>
-		  </div>
-          <div class="horizontal content center-layout">
-            <div class="margin-left-style font-face-big-bold">{{report.form_result.back.label}}</div>
-		  </div>
+
+		 <template is="dom-repeat" items="{{sdq}}" as="data">
+        <div class="horizontal content center-layout">
+          <div class="flex-10 center-layout margin-left-style font-face-big-bold">{{data.label}}</div>
+          <div class="flex-5 center-layout margin-left-style font-face-big-bold">
+            <template is="dom-if" if="{{!data.chk}}">
+              {{data.result}}
+            </template>
+            <div id="example-full-width-container">
+              <template is="dom-if" if="{{data.chk}}">
+                <iron-image id="example-full-width" src="{{data.result}}"></iron-image>
+              </template>
+            </div>
+          </div>
+		    </div>
+		 </template>
+      </div>
+
+      <div class="vertical">
+        <div class="horizontal header center-layout">
+            <div class="margin-left-style font-face-big-bold">แบบคัดกรองนักเรียนรายบุคคล</div>
+		    </div>
+        <div class="content center-layout margin-left-style font-face-big-bold">ยังไม่มีการประเมิน</div>
+      </div>
+
+      <div class="vertical">
+        <div class="horizontal header center-layout">
+            <div class="margin-left-style font-face-big-bold">แบบคัดกรอง EQ</div>
+		    </div>
+        <div class="margin-left-style horizontal content center-layout">
+          <div id="example-full-width-container">
+            <iron-image id="example-full-width" src="{{eqResult.0.emo}}"></iron-image>
+          </div>
+          <div class="center-layout margin-left-style font-face-big-bold">{{eqResult.0.text}}</div>
+        </div>
       </div>
     </paper-material>
   </template>
@@ -153,8 +193,82 @@
       properties: {
           cid:String,
           host:String,
-          year:String
-      }
+          year:String,
+          sdq:{
+            type:Object,
+            notify: true,
+            computed:'___sdqResult(report)'
+          },
+          eqResult:{
+            type:Object,
+            notify: true,
+            computed:'___eqResult(eq)'
+          },
+          result:{
+            type:Object,
+            notify: true,
+            computed:'___result(screening)'
+          }
+      },
+      ___eqResult(eq){
+        var chkEQ = this.eq.form_result.score;
+        console.log(chkEQ);
+        var eq_score=[];
+        if(chkEQ > 56){
+          eq_score.push({"emo":'../images/green.png',"text":'ความฉลาดทางอารมณ์สูงกว่าปกติ'});
+        }else if(chkEQ > 42 && chkEQ <= 56){
+          eq_score.push({"emo":'../images/yellow.png',"text":'ความฉลาดทางอารมณ์ปานกลาง'});
+        }else{
+          eq_score.push({"emo":'../images/red.png',"text":'ความฉลาดทางอารมณ์ต่ำกว่าปกติ'});
+        }
+        console.log(eq_score);
+        return eq_score;
+      },
+      ___result(screening){
+
+      },
+      ___sdqResult(report) {
+		  //console.log(this.report.form_result);
+		  var emotion = this.report.form_result.emotion;
+      var behavior = this.report.form_result.behavior;
+      var behavior_active = this.report.form_result.behavior_active;
+      var friend = this.report.form_result.friend;
+      var social = this.report.form_result.social;
+      var weakness = this.report.form_result.weakness;
+      var back = this.report.form_result.back;
+      var tmp = [];
+      tmp.push({"label":emotion.label,"result":emotion.result},
+      {"label":behavior.label,"result":behavior.result},
+      {"label":behavior_active.label,"result":behavior_active.result},
+      {"label":friend.label,"result":friend.result},
+      {"label":social.label,"result":social.result},
+      {"label":weakness.label,"result":weakness.result},
+      {"label":back.label,"result":back.result});
+      //console.log(tmp);
+      var img;
+      var chk;
+      var data = [];
+      for(var i=0;i<tmp.length;i++) {
+        var chkResult = tmp[i].result;
+        //console.log(chkResult);
+        if(chkResult=="ปกติ"){
+          img="../images/green.png";
+          chk=true;
+        }else if(chkResult=="เสี่ยง"){
+          img="../images/yellow.png";
+          chk=true;
+        }else if(chkResult=="มีปัญหา"){
+          img="../images/red.png";
+          chk=true;
+        }else{
+          img=chkResult;
+          chk=false;
+        }
+        data.push({"label":tmp[i].label,"result":img,"chk":chk});
+		  }
+      console.log(data);
+		  return data;
+	   }
     });
   </script>
 </dom-module>
