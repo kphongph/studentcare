@@ -1,0 +1,160 @@
+<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../paper-material/paper-material.html">
+<link rel="import" href="../../iron-ajax/iron-ajax.html">
+<link rel="import" href="../../iron-image/iron-image.html">
+<link rel="import" href="studentcare-query.html">
+
+<link href="https://fonts.googleapis.com/css?family=Itim&amp;subset=thai" rel="stylesheet">
+
+<dom-module id="studentcare-report">
+  <template>
+    <style>
+      /* ---font---- */
+      .font-face-big {
+        font-family: 'Itim', cursive;
+        font-size: 120%;
+        text-decoration: underline;
+      }
+
+      .font-face-big-bold {
+        font-family: 'Itim', cursive;
+        font-size: 120%;
+        font-weight: bold;
+      }
+
+      .student-info {
+        padding: 10px;
+        height:40px;
+      }
+
+      /* ---image---- */
+      #example-full-width-container {
+        width: 40px;
+      }
+
+      #example-full-width {
+        width: 100%;
+        --iron-image-width: 100%;
+      }
+
+      /* ---table---- */
+      :host {
+        display: block;
+        box-sizing: border-box;
+      }
+
+      .center-layout{
+        @apply(--layout-center);
+        @apply(--layout);
+      }
+
+      .horizontal {
+        @apply(--layout-horizontal);
+      }
+      
+      .vertical {
+        @apply(--layout-vertical);
+
+      }
+        
+      .header {
+        background-color: #F44336;
+        text-align:left;
+        color: #fff;
+        font-family: 'Itim', cursive;
+        font-size: 16px;
+        height:60px;
+      }
+
+      .caption {
+        text-align:left;
+        color: #000;
+        opacity: 0.87;
+        height:48px;
+        border-bottom-width:1px;
+        border-bottom-style:solid;
+        border-bottom-color: var(--divider-color);
+      }
+
+      .content {
+        text-align:left;
+        color: #000;
+        font-family: 'Itim', cursive;
+        font-size: 14px;
+        height:50px;
+        opacity: 0.50;
+      }
+
+      .margin-left-style{
+        margin-left:24px;
+      }
+
+      .margin-right-style{
+        margin-right:24px;
+      }
+
+    </style>
+
+    <studentcare-query host="{{host}}" 
+       cid="{{cid}}" 
+       year="2016"
+       document="{{report}}">
+    </studentcare-query>
+
+    <div class="student-info">
+      <span class="font-face-big-bold"> เลขประจำตัวประชาชน  &nbsp;&nbsp;</span>
+      <span class="font-face-big">{{cid}}</span>
+      <span class="font-face-big-bold">&nbsp;&nbsp;&nbsp;ชื่อ - นามสกุล &nbsp;&nbsp;</span>
+      <span class="font-face-big">{{report.student.name}}</span>
+    </div>
+
+    <!--<div id="example-full-width-container">
+        <iron-image id="example-full-width" src="../images/green.png"></iron-image>
+        <iron-image id="example-full-width" src="../images/yellow.png"></iron-image>
+        <iron-image id="example-full-width" src="../images/red.png"></iron-image>
+    </div>-->
+
+    <paper-material>
+      <div class="vertical">
+		  <div class="horizontal header center-layout">
+            <div class="margin-left-style font-face-big-bold">แบบคัดกรอง SDQ</div>
+		  </div>
+          <div class="horizontal caption center-layout">
+            <div class="margin-left-style font-face-big-bold">ผลการประเมิน</div>
+		  </div>
+          <div class="horizontal content center-layout">
+            <div class="margin-left-style font-face-big-bold">{{report.form_result.emotion.label}}</div>
+		  </div>
+          <div class="horizontal content center-layout">
+            <div class="margin-left-style font-face-big-bold">{{report.form_result.behavior.label}}</div>
+		  </div>
+          <div class="horizontal content center-layout">
+            <div class="margin-left-style font-face-big-bold">{{report.form_result.behavior_active.label}}</div>
+		  </div>
+          <div class="horizontal content center-layout">
+            <div class="margin-left-style font-face-big-bold">{{report.form_result.friend.label}}</div>
+		  </div>
+          <div class="horizontal content center-layout">
+            <div class="margin-left-style font-face-big-bold">{{report.form_result.social.label}}</div>
+		  </div>
+          <div class="horizontal content center-layout">
+            <div class="margin-left-style font-face-big-bold">{{report.form_result.weakness.label}}</div>
+		  </div>
+          <div class="horizontal content center-layout">
+            <div class="margin-left-style font-face-big-bold">{{report.form_result.back.label}}</div>
+		  </div>
+      </div>
+    </paper-material>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'studentcare-report',
+      properties: {
+          cid:String,
+          host:String,
+          year:String
+      }
+    });
+  </script>
+</dom-module>

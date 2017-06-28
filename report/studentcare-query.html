@@ -2,39 +2,35 @@
 <link rel="import" href="../../iron-ajax/iron-ajax.html">
 <link rel="import" href="../../app-storage/app-localstorage/app-localstorage-document.html">
 
-<dom-module id="grade-query">
+<dom-module id="studentcare-query">
  <template>
+
    <app-localstorage-document key="jwtToken" data="{{jwtToken}}">
    </app-localstorage-document>
 
    <iron-ajax 
      method="POST"
      id="query"
-     url="https://maas.nuqlis.com:9000/api/query/obec_grade/cid"
+     url="https://maas.nuqlis.com:9000/api/query/students_care/cid_year_type"
      content-type="application/json"
      handle-as="json"
      headers$='{"Authorization":"JWT {{jwtToken.token}}"}'
-     body='{"match":["{{cid}}"],"include_doc":true}'
+     body='{"match":["{{cid}}","{{year}}","dl2-form"],"include_doc":true}'
      on-response="handleResponse">
    </iron-ajax>
 
  </template>
  <script>
    Polymer({
-     is:'grade-query',
+     is:'studentcare-query',
      properties:{
        cid:String,
        host:String,
-	   isGpaxLessthanOne:{
-		type:Boolean,
-		notify:true,
-		computed:'__computedIsGpaxLessThanOne(document)'
-	   },
-	   isGpaxBetween:{
-		type:Boolean,
-		notify:true,
-		computed:'__computedIsGpaxBetween(document)'
-	   },
+	   Report:{
+      type:Boolean,
+      notify:true,
+      computed:'__computedIsReport(document)'
+    },
        document: {
          type:Object,
          notify:true
@@ -52,22 +48,8 @@
        var form = res[0].value.doc;
 	   this.set('document',form);
      },
-     __computedIsGpaxLessThanOne(document) {
+     __computedIsReport(document) {
 	   console.log(document);
-	   var gpaxN = Number(document.GPAX);
-	   console.log(gpaxN);
-	   return (gpaxN / 100.0) < 1.0;
-	 },
-     __computedIsGpaxBetween(document) {
-	   console.log(document);
-	   var gpaxN = Number(document.GPAX);
-	   console.log(gpaxN);
-	   var gpaxC = gpaxN / 100.0;
-	   if(gpaxC >= 1.0 && gpaxC <= 2.0){
-		   return true;
-	   }else{
-		   return false;
-	   }
 	 }
    });
  </script>

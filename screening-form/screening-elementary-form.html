@@ -122,9 +122,9 @@
 	<grade-query host="{{document.value.dmc.host}}" 
        cid="{{document.value.student.cid}}" 
 	   is-gpax-lessthan-one="{{document.value.form_value.q2_1_p}}"
+	   is-gpax-between="{{document.value.form_value.q2_1_m}}"
        document="{{gradedoc}}">
     </grade-query>
-
     <form-control id="control" 
       on-form-action="_tap" 
       doc-key="{{document.key}}"
@@ -260,10 +260,10 @@
              value="{{_q2Text(document.value.form_value.q2)}}"> 
            </paper-input>
            <div class="layout horizontal"><!-- หัวตาราง -->
-             <paper-checkbox class="flex-1" checked="{{document.value.form_value.q2_1_m}}">
+             <paper-checkbox class="flex-1" checked="{{document.value.form_value.q2_1_m}}" disabled>
                ผลการเรียนเฉลี่ย 1.00 - 2.00
              </paper-checkbox>
-             <paper-checkbox class="flex-1" checked="{{document.value.form_value.q2_1_p}}">
+             <paper-checkbox class="flex-1" checked="{{document.value.form_value.q2_1_p}}" disabled>
                ผลการเรียนเฉลี่ยต่ำกว่า 1.00 
              </paper-checkbox>
            </div>

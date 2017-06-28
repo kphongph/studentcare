@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>studentcare-components demo</title>
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../../iron-flex-layout/iron-flex-layout-classes.html">
+    <link rel="import" href="../../paper-input/paper-input.html">
+    <link rel="import" href="../report/studentcare-report.html">
+
+    <style is="custom-style" include="demo-pages-shared-styles iron-flex iron-flex-alignment iron-flex-factors">
+    </style>
+  </head>
+  <body>
+    <div class="vertical-section-container">
+      <h3>studentcare-report</h3>
+      <demo-snippet>
+        <template is="dom-bind">
+          <paper-input label="ID" value="{{cid}}"></paper-input>
+          <paper-input label="year" value="{{year}}"></paper-input>  
+          <div class="layout horizontal">
+            <div class="flex">
+              <studentcare-report host="1071020101" 
+               cid="1110201386787"
+               year="2016">
+              </studentcare-report>
+            </div>
+          </di>
+        </template>
+      </demo-snippet>
+    </div>
+  </body>
+</html>
