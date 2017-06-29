@@ -127,64 +127,73 @@
        document="{{screening}}">
     </studentcare-screening-query>
 
-    <!--<div>
-        <span class="font-face-big">{{eqResult}}</span>
-        <span class="font-face-big">{{screening.form_result.q1.y}}</span>
-      </div>-->
+    <template is="dom-if" if="{{hasPlan}}">
+      <!-- แสดงรายละเอียด -->    
+      <div class="student-info">
+        <span class="font-face-big-bold"> เลขประจำตัวประชาชน  &nbsp;&nbsp;</span>
+        <span class="font-face-big">{{cid}}</span>
+        <span class="font-face-big-bold">&nbsp;&nbsp;&nbsp;ชื่อ - นามสกุล &nbsp;&nbsp;</span>
+        <span class="font-face-big">{{eq.student.name}}</span>
+      </div>
 
-    <div class="student-info">
-      <span class="font-face-big-bold"> เลขประจำตัวประชาชน  &nbsp;&nbsp;</span>
-      <span class="font-face-big">{{cid}}</span>
-      <span class="font-face-big-bold">&nbsp;&nbsp;&nbsp;ชื่อ - นามสกุล &nbsp;&nbsp;</span>
-      <span class="font-face-big">{{report.student.name}}</span>
-    </div>
-
-    <paper-material>
-      <div class="vertical">
-        <div class="horizontal header center-layout">
-            <div class="margin-left-style font-face-big-bold">แบบคัดกรอง SDQ</div>
-		  </div>
-		  <div class="horizontal caption center-layout">
-        <div class="flex-10 center-layout margin-left-style font-face-big-bold">ด้าน</div>
-        <div class="flex-5 center-layout margin-left-style font-face-big-bold">ผลการประเมิน</div>
-		  </div>
-
-		 <template is="dom-repeat" items="{{sdq}}" as="data">
-        <div class="horizontal content center-layout">
-          <div class="flex-10 center-layout margin-left-style font-face-big-bold">{{data.label}}</div>
-          <div class="flex-5 center-layout margin-left-style font-face-big-bold">
-            <template is="dom-if" if="{{!data.chk}}">
-              {{data.result}}
+      <paper-material>
+        <div class="vertical">
+          <div class="horizontal header center-layout">
+              <div class="margin-left-style font-face-big-bold">แบบคัดกรอง SDQ</div>
+          </div>
+          <div class="horizontal caption center-layout">
+            <div class="flex-10 center-layout margin-left-style font-face-big-bold">ด้าน</div>
+            <div class="flex-5 center-layout margin-left-style font-face-big-bold">ผลการประเมิน</div>
+          </div>
+          <!-- ถ้ามีผลการประเมิน SDQ --> 
+          <template is="dom-if" if="{{hasSDQ}}"> 
+            <template is="dom-repeat" items="{{sdq}}" as="data">
+                <div class="horizontal content center-layout">
+                  <div class="flex-10 center-layout margin-left-style font-face-big-bold">{{data.label}}</div>
+                  <div class="flex-5 center-layout margin-left-style font-face-big-bold">
+                    <template is="dom-if" if="{{!data.chk}}">
+                      {{data.result}}
+                    </template>
+                    <div id="example-full-width-container">
+                      <template is="dom-if" if="{{data.chk}}">
+                        <iron-image id="example-full-width" src="{{data.result}}"></iron-image>
+                      </template>
+                    </div>
+                  </div>
+                </div>
             </template>
-            <div id="example-full-width-container">
-              <template is="dom-if" if="{{data.chk}}">
-                <iron-image id="example-full-width" src="{{data.result}}"></iron-image>
-              </template>
-            </div>
-          </div>
-		    </div>
-		 </template>
-      </div>
-
-      <div class="vertical">
-        <div class="horizontal header center-layout">
-            <div class="margin-left-style font-face-big-bold">แบบคัดกรองนักเรียนรายบุคคล</div>
-		    </div>
-        <div class="content center-layout margin-left-style font-face-big-bold">ยังไม่มีการประเมิน</div>
-      </div>
-
-      <div class="vertical">
-        <div class="horizontal header center-layout">
-            <div class="margin-left-style font-face-big-bold">แบบคัดกรอง EQ</div>
-		    </div>
-        <div class="margin-left-style horizontal content center-layout">
-          <div id="example-full-width-container">
-            <iron-image id="example-full-width" src="{{eqResult.0.emo}}"></iron-image>
-          </div>
-          <div class="center-layout margin-left-style font-face-big-bold">{{eqResult.0.text}}</div>
+          </template>
+           <!-- ถ้าไม่มีผลการประเมิน SDQ --> 
+          <template is="dom-if" if="{{!hasSDQ}}">
+             <div class="content center-layout margin-left-style font-face-big-bold">ยังไม่มีการประเมิน</div>
+          </template>
         </div>
-      </div>
-    </paper-material>
+
+        <div class="vertical">
+          <div class="horizontal header center-layout">
+              <div class="margin-left-style font-face-big-bold">แบบคัดกรองนักเรียนรายบุคคล</div>
+          </div>
+          <div class="content center-layout margin-left-style font-face-big-bold">ยังไม่มีการประเมิน</div>
+        </div>
+
+        <div class="vertical">
+          <div class="horizontal header center-layout">
+              <div class="margin-left-style font-face-big-bold">แบบคัดกรอง EQ</div>
+          </div>
+          <!-- ถ้ามีผลการประเมิน EQ --> 
+          <template is="dom-if" if="{{hasEQ}}">
+            <div class="margin-left-style horizontal content center-layout">
+              <div id="example-full-width-container"><iron-image id="example-full-width" src="{{eqResult.0.emo}}"></iron-image></div>
+              <div class="center-layout margin-left-style font-face-big-bold">{{eqResult.0.text}}</div>
+            </div>
+          </template>
+          <!-- ถ้าไม่มีผลการประเมิน EQ --> 
+          <template is="dom-if" if="{{!hasEQ}}">
+             <div class="content center-layout margin-left-style font-face-big-bold">ยังไม่มีการประเมิน</div>
+          </template>
+        </div>
+      </paper-material>
+    </template>
   </template>
 
   <script>
@@ -194,6 +203,10 @@
           cid:String,
           host:String,
           year:String,
+          /*name:{
+            type:String,
+            computed:'___Name(report,eq,screening)'
+          },*/
           sdq:{
             type:Object,
             notify: true,
@@ -208,8 +221,36 @@
             type:Object,
             notify: true,
             computed:'___result(screening)'
+          },
+          hasPlan: {
+            type:Boolean,
+            value: false,
+            notify:true
+          },
+          hasSDQ: {
+            type:Boolean,
+            value: false,
+            notify:true
+          }
+          ,
+          hasEQ: {
+            type:Boolean,
+            value: false,
+            notify:true
+          }
+          ,
+          hasPersonal: {
+            type:Boolean,
+            value: false,
+            notify:true
           }
       },
+      /*___Name(report,eq,screening){
+        var fname;
+        console.log(this.report.student.name);
+        console.log(this.eq.student.name);
+        console.log(this.screening.student.name);
+      },*/
       ___eqResult(eq){
         var chkEQ = this.eq.form_result.score;
         console.log(chkEQ);
@@ -222,10 +263,12 @@
           eq_score.push({"emo":'../images/red.png',"text":'ความฉลาดทางอารมณ์ต่ำกว่าปกติ'});
         }
         console.log(eq_score);
+        this.set('hasPlan',true);
+        this.set('hasEQ',true);
         return eq_score;
       },
       ___result(screening){
-
+        console.log(this.screening);
       },
       ___sdqResult(report) {
 		  //console.log(this.report.form_result);
@@ -267,6 +310,8 @@
         data.push({"label":tmp[i].label,"result":img,"chk":chk});
 		  }
       console.log(data);
+      this.set('hasPlan',true);
+      this.set('hasSDQ',true);
 		  return data;
 	   }
     });
