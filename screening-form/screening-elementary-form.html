@@ -503,7 +503,13 @@
        </div>
       </div>
       -->
-      <div class="font-face-normal">ไม่มีหลักเกณฑ์</div>
+      <div>ด้านการเรียน : {{document.value.form_result.q2.result}}</div>
+      <div>ด้านสุขภาพ : {{document.value.form_result.homevisit.0.type}}</div>
+      <div>ด้านสวัสดิการหรือความปลอดภัย : {{document.value.form_result.homevisit.1.type}}</div>
+      <div>ด้านพฤติกรรมการใช้สารเสพติด : {{document.value.form_result.homevisit.2.type}}</div>
+      <div>ด้านพฤติกรรมการใช้ความรุนแรง : {{document.value.form_result.homevisit.3.type}}</div>
+      <div>ด้านพฤติกรรมทางเพศ : {{document.value.form_result.homevisit.4.type}}</div>
+      <div>ด้านการติดเกม : {{document.value.form_result.homevisit.5.type}}</div>
      </div>
     </form-control>
 
@@ -564,14 +570,56 @@
       _evaluate:function() {
         var values = this.document.value.form_value;
         var score = {};
+        /*
         for(var q in values) {
           var p = q.split('_')[0];
           if(!score[p]) score[p] = {'y':0,'n':0};
           score[p][values[q]]++;
         }
+        */
+        var name_dict = {
+          'q2':'ด้านการเรียน'
+        };
+        var result_dict = {
+          'm':'เสี่ยง',
+          'p':'มีปัญหา'
+        };
+
+        for(var q in values) {
+          if(name_dict[q]) {
+            var obj = {'name':name_dict[q],'result':result_dict[values[q]]};
+            score[q] = obj;
+          }          
+        }
+        /*console.log(this.homevisit);*/
+        
+        var result_homevisit = [];
+        var result_type;
+        var tmp_homevisit = this.homevisit;
+        for(var i=0;i<tmp_homevisit.length;i++) {
+            /*console.log(tmp_homevisit[i]);
+           console.log(tmp_homevisit[i].values.length);*/
+            for(var j=0;j<tmp_homevisit[i].values.length;j++){
+              /*console.log(tmp_homevisit[i].values[j].type);*/
+              var chk_type = tmp_homevisit[i].values[j].type;
+              if(chk_type == "มีปัญหา"){
+                result_type = "มีปัญหา";
+              }else{
+                result_type = "เสี่ยง";
+              }
+            }
+            result_homevisit.push({
+              "text":tmp_homevisit[i].text,
+              "type":result_type
+            });   
+		    }
+        /*console.log(result_homevisit);*/
+        score["homevisit"] = result_homevisit;
+        console.log(score);
         return score;
       },
       _validate:function() {
+        /*
         var eles =Polymer.dom(this.root)
          .querySelectorAll('snap-choice');
         for(var i=0;i<eles.length;i++) {
@@ -583,6 +631,7 @@
             eles[i].classList.remove('invalid');
           }
         }
+        */
         return true;
       },
       _isEquals:function(a,b) {

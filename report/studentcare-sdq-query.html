@@ -15,7 +15,7 @@
      content-type="application/json"
      handle-as="json"
      headers$='{"Authorization":"JWT {{jwtToken.token}}"}'
-     body='{"match":["{{cid}}","{{year}}","dl2-form"],"include_doc":true}'
+     body='{"match":["{{cid}}","{{year}}","{{Lavel}}"],"include_doc":true}'
      on-response="handleResponse">
    </iron-ajax>
 
@@ -27,11 +27,16 @@
        cid:String,
        host:String,
        year:String,
+     Lavel:{
+      type:String,
+      notify:true,
+      computed:'__chkLavel(lavel)'
+     },
 	   Report:{
       type:Boolean,
       notify:true,
       computed:'__computedIsReport(document)'
-    },
+     },
        document: {
          type:Object,
          notify:true
@@ -50,8 +55,18 @@
 	   this.set('document',form);
      },
      __computedIsReport(document) {
-	   console.log(document);
-	 }
+	    console.log(document);
+	   },
+     __chkLavel(lavel){
+       //console.log(lavel);
+       var chkLavel;
+       if((lavel=="10")||(lavel=="11")||(lavel=="12")){
+        chkLavel="dl3-form";
+       }else{
+        chkLavel="dl2-form";
+       }
+       return chkLavel;
+     }
    });
  </script>
 </dom-module>

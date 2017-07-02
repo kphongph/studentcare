@@ -27,6 +27,11 @@
        cid:String,
        host:String,
        year:String,
+     Lavel:{
+      type:String,
+      notify:true,
+      computed:'__chkLavel(lavel)'
+     },
 	   Report:{
       type:Boolean,
       notify:true,
@@ -51,7 +56,17 @@
      },
      __computedIsReport(document) {
 	   console.log(document);
-	 }
+	 },
+     __chkLavel(lavel){
+       //console.log(lavel);
+       var chkLavel;
+       if((lavel=="10")||(lavel=="11")||(lavel=="12")){
+        chkLavel="screening-secondary-form";
+       }else{
+        chkLavel="screening-elementary-form";
+       }
+       return chkLavel;
+     }
    });
  </script>
 </dom-module>
