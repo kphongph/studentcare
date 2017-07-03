@@ -21,6 +21,7 @@
       return {};
     },
     _onFormAction : function(e) {
+      console.log(this.document);
       if(e.detail.type == "save") {
         this.document.value.status = "working";
         e.target.save();
