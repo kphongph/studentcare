@@ -17,7 +17,7 @@
      url="https://maas.nuqlis.com:9000/api/query/students_care/cid_year_type"
      content-type="application/json"
      headers$='{"Authorization":"JWT {{jwtToken.token}}"}'
-     body='{"match":["{{student.IDNO}}","{{year}}"],"limit":-1}'
+     body='{"match":["assignment","{{student.IDNO}}","{{year}}"],"limit":-1}'
      loading="{{loading}}"
      last-response="{{forms}}">
    </iron-ajax>
