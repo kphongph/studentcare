@@ -77,9 +77,15 @@ Polymer Component for StudentCare project
           computed: '_computeTitle(page)'
         }
       },
+      observers:[
+        'onHostLevelRoomChanged(host,level,room)'
+      ],
       listeners: {
         'student-selected': '_selectStudent',
         'select-assignment': '_selectAssignment'
+      },
+      onHostLevelRoomChanged: function(host,level,room) {
+        this._setPage(0);
       },
       _computeTitle: function (page) {
         var title = 'แบบประเมิน';
