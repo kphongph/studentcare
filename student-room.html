@@ -66,7 +66,7 @@
           <!--{{_firstLetter(item.key.4.2)}}-->
           <paper-item-body two-line>
             <div class="font-face">{{student.name}} {{student.lastname}}</div>
-            <div secondary class="font-face">{{student.name}}</div>
+            <div secondary class="font-face">{{student.cid}}</div>
           </paper-item-body>
           <paper-icon-button icon="star" alt="favourite this!">
           </paper-icon-button>
@@ -97,7 +97,7 @@
         '__execute(jwtToken,host,level,room,year)',
       ],
       __execute: function (jwtToken, host, level, room,year) {
-				console.log(jwtToken, host, level, room,year);
+				//console.log(jwtToken, host, level, room,year);
 				if(jwtToken == null || host == null || level == null
 					 || year == null || level.length == 0 || room.length == 0
 					 || room == null) return;
