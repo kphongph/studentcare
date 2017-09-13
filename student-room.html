@@ -48,15 +48,15 @@
     <app-localstorage-document key="jwtToken" data="{{jwtToken}}">
     </app-localstorage-document>
 
-    <iron-ajax id="listAjax" 
-			 method="POST" 
-			 url="https://maas.nuqlis.com:8000/v2/obec/obec_students/query" 
+    <iron-ajax id="listAjax"
+			 method="POST"
+			 url="https://maas.nuqlis.com:8000/v2/obec/obec_students/query"
 			 content-type="application/json"
-       headers$='{"Authorization":"JWT {{jwtToken.token}}"}' 
-			 last-response="{{students}}" 
+       headers$='{"Authorization":"JWT {{jwtToken.token}}"}'
+			 last-response="{{students}}"
 			 body$='{"query":{"class":"{{level}}","room":"{{room}}","year":{{year}},"hostid":"{{host}}"}}'>
     </iron-ajax>
-		
+
     <paper-listbox selected="{{student}}" on-iron-select="_selected" attr-for-selected="name">
       <template is="dom-repeat" items="{{students}}" as="student">
         <paper-item name="{{student.value}}">
@@ -64,12 +64,12 @@
           <div class="icon-name font-face">{{_firstLetter(student.name)}}</div>
           <!--{{_firstLetter(item.key.4.2)}}-->
           <paper-item-body two-line>
-            <div class="font-face">{{student.name}} {{item.lastname}}</div>
+            <div class="font-face">{{student.name}} {{student.lastname}}</div>
             <div secondary class="font-face">{{student.cid}}</div>
           </paper-item-body>
           <paper-icon-button icon="star" alt="favourite this!">
           </paper-icon-button>
-          
+
         </paper-item>
       </template>
     </paper-listbox>
@@ -96,9 +96,9 @@
         '__execute(jwtToken,host,level,room,year)',
       ],
       __execute: function (jwtToken, host, level, room,year) {
-				console.log(jwtToken, host, level, room,year);
-				if(jwtToken == null || host == null || level == null 
-					 || year == null || level.length == 0 || room.length == 0 
+				//console.log(jwtToken, host, level, room,year);
+				if(jwtToken == null || host == null || level == null
+					 || year == null || level.length == 0 || room.length == 0
 					 || room == null) return;
         this.$.listAjax.generateRequest();
       },
