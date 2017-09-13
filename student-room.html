@@ -49,28 +49,27 @@
     </app-localstorage-document>
 
     <iron-ajax id="listAjax"
-			 method="POST"
-			 url="https://maas.nuqlis.com:8000/v2/obec/obec_students/query"
-			 content-type="application/json"
+       method="POST"
+       url="https://maas.nuqlis.com:8000/v2/obec/student_data_db/query"
+       content-type="application/json"
        headers$='{"Authorization":"JWT {{jwtToken.token}}"}'
-			 last-response="{{students}}"
-			 body$='{"query":{"class":"{{level}}","room":"{{room}}","year":{{year}},"hostid":"{{host}}"}}'>
+       last-response="{{students}}"
+       body$='{"query":{"class":"{{level}}","room":"{{room}}","year":{{year}},"hostid":"{{host}}"}}'>
     </iron-ajax>
 
-		<!--{{students.0.name}}-->
+    <!--{{students.0.name}}-->
     <paper-listbox selected="{{student}}" on-iron-select="_selected" attr-for-selected="name">
-      <template is="dom-repeat" items="{{students}}" as="student">
-        <paper-item name="{{item.value}}">
+      <template is="dom-repeat" items="{{students}}">
+        <paper-item name="{{item._id}}">
           <!--<div class="avatar" slot="item-icon"></div>-->
-          <div class="icon-name font-face">{{_firstLetter(student.name)}}</div>
+          <div class="icon-name font-face">{{_firstLetter(item.name)}}</div>
           <!--{{_firstLetter(item.key.4.2)}}-->
           <paper-item-body two-line>
-            <div class="font-face">{{student.name}} {{student.lastname}}</div>
-            <div secondary class="font-face">{{student.cid}}</div>
+            <div class="font-face">{{item.name}} {{item.lastname}}</div>
+            <div secondary class="font-face">{{item.cid}}</div>
           </paper-item-body>
           <paper-icon-button icon="star" alt="favourite this!">
           </paper-icon-button>
-
         </paper-item>
       </template>
     </paper-listbox>
@@ -87,37 +86,22 @@
         host: String,
         level: String,
         room: String,
-        year: String,
-        /*db: {
-          type: String,
-          computed: '__computeDb(year)'
-        }*/
+        year: String
       },
       observers: [
         '__execute(jwtToken,host,level,room,year)',
       ],
       __execute: function (jwtToken, host, level, room,year) {
-				//console.log(jwtToken, host, level, room,year);
-				if(jwtToken == null || host == null || level == null
-					 || year == null || level.length == 0 || room.length == 0
-					 || room == null) return;
+	if(jwtToken == null || host == null || level == null 
+           || year == null || level.length == 0 || room.length == 0
+	   || room == null) return;
         this.$.listAjax.generateRequest();
       },
-      /*__computeDb: function (year) {
-        var db = "dmc59_1";
-        if (year == "2016") {
-          db = "dmc59_1";
-        }
-        if (year == "2017") {
-          db = "obec_students";
-        }
-        return db;
-      },*/
       _firstLetter: function (str) {
         return str[0];
       },
       _selected: function (e) {
-        this.fire('student-selected', { '_id': this.student, 'db': this.db });
+        this.fire('student-selected', { '_id': this.student});
       }
     });
   </script>

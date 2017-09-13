@@ -49,8 +49,9 @@
     <app-localstorage-document key="jwtToken" data="{{jwtToken}}">
     </app-localstorage-document>
 
-    <iron-ajax id="getAjax" method="GET" 
-      url$="https://maas.nuqlis.com:9000/api/dbs/{{db}}/{{key}}" 
+    <iron-ajax id="getAjax" 
+      method="GET" 
+      url$="https://maas.nuqlis.com:8000/v2/obec/student_data_db/data/{{key}}" 
       headers$='{"Authorization":"JWT {{jwtToken.token}}"}'
       on-response="_getStudentResponsed" 
       last-response="{{student}}">
@@ -100,9 +101,9 @@
         }
       },
       observers: [
-        '__execute(jwtToken,db,key)',
+        '__execute(jwtToken,key)',
       ],
-      __execute: function (jwtToken, db, key) {
+      __execute: function (jwtToken, key) {
         this.$.getAjax.generateRequest();
       },
       _sortByTime: function (a, b) {
