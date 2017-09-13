@@ -14,10 +14,10 @@
    <iron-ajax
      id="listFormAjax"
      method="POST"
-     url="https://maas.nuqlis.com:9000/api/query/students_care/cid_year_type"
+     url="https://maas.nuqlis.com:8000/v2/obec/students_care/query"
      content-type="application/json"
      headers$='{"Authorization":"JWT {{jwtToken.token}}"}'
-     body='{"match":["assignment","{{student.IDNO}}","{{year}}"],"limit":-1}'
+     body='{"query":{"doc_type":"assignment","student.cid":"{{student.cid}}","dmc.year":"{{year}}"}}'
      loading="{{loading}}"
      last-response="{{forms}}">
    </iron-ajax>

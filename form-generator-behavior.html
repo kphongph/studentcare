@@ -41,17 +41,17 @@
            var assignment = {
              doc_type:"assignment",
              dmc:{
-               host:self.student.CODE10,
+               host:self.student.hostid,
                year:self.year,
-               level:self.student.LEVEL,
-               room:self.student.CLASSROOM
+               level:self.student['class'],
+               room:self.student.room
              },
              status:"new",
              ts:ts,
              form_type:self.formType,
              student:{
-               cid:self.student.IDNO,
-               name:self.student.NAME+' '+self.student.LNAME,
+               cid:self.student.cid,
+               name:self.student.name+' '+self.student.lastname,
              },
              form_value:{},
              form_result:{}

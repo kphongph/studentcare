@@ -179,7 +179,7 @@
 
         for (var i = 0; i < forms.length; i++) {
           for (var j = 0; j < group.length; j++) {
-            if (group[j].names.indexOf(forms[i].key[4]) != -1) {
+            if (group[j].names.indexOf(forms[i].form_type) != -1) {
               group[j].forms.push(forms[i]);
               break;
             }
