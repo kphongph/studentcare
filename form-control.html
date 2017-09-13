@@ -8,6 +8,7 @@
 <link rel="import" href="../app-storage/app-localstorage/app-localstorage-document.html">
 <link rel="import" href="../app-localize-behavior/app-localize-behavior.html">
 <link rel="import" href="../iron-ajax/iron-request.html">
+<link rel="import" href="../iron-ajax/iron-ajax.html">
 <link rel="import" href="../paper-toast/paper-toast.html">
 <link rel="import" href="../app-leveldb/app-leveldb.html">
 <link rel="import" href="../app-leveldb/app-leveldb-document.html">
@@ -68,6 +69,28 @@
     <app-localstorage-document key="jwtToken" data="{{jwtToken}}">
     </app-localstorage-document>
 
+    <iron-ajax 
+      id="getAjax"
+      method="GET"
+      url$="https://maas.nuqlis.com:8000/v2/obec/students_care/data/{{docKey}}"
+      headers$='{"Authorization":"JWT {{jwtToken.token}}"}'
+      handle-as="json"
+      last-response="{{docValue}}">
+    </iron-ajax>
+
+    <iron-ajax 
+      id="saveAjax"
+      method="POST"
+      url$="https://maas.nuqlis.com:8000/v2/obec/students_care/data/{{docKey}}"
+      headers$='{"Authorization":"JWT {{jwtToken.token}}"}'
+      content-type="application/json"
+      on-response="_onResponse"
+      body="{{docValue}}"
+      handle-as="json">
+    </iron-ajax>
+       
+    <!--
+
     <app-leveldb name="test" 
         url="https://maas.nuqlis.com:9000/api" 
         db-name="students_care" 
@@ -83,6 +106,7 @@
         status="{{status}}" 
         value="{{docValue}}">
     </app-leveldb-document>
+    -->
 
     <div class="student-info">
       <span class="font-face-big-bold"> เลขประจำตัวประชาชน  &nbsp;&nbsp;</span>
@@ -141,7 +165,7 @@
       ],
       properties: {
         docKey: {
-          type: String
+          type: String,
         },
         docValue: {
           type: Object,
@@ -151,6 +175,13 @@
           type: Number,
           value: 0
         }
+      },
+      observers:[
+        '_getDocument(docKey,jwtToken.token)'
+      ],
+      _getDocument:function(key,token) {
+        if(key == null || token == null) return;
+        this.$.getAjax.generateRequest();
       },
       _isDone:function(status) {
         return status == "done";
@@ -166,7 +197,7 @@
       },
       _onResponse: function (e) {
         var self = this;
-        if (!this.$.doc.error) {
+        if(e.detail.response.ok) {
           this.set('message', 'บันทึกเรียบร้อย');
           this.fire('update', { 'key': this.docKey, 'value': this.docValue });
           setTimeout(function () {
@@ -188,11 +219,10 @@
           var a = self.jwtToken.token.split(".");
           var uClaim = b64utos(a[1]);
           var pClaim = KJUR.jws.JWS.readSafeJSONString(uClaim);
+          self.notifyPath('docValue.status');
           self.docValue.user_id = pClaim.UserID;
           self.docValue.ts = ts;
-          if (!self.$.doc.error) {
-            self.$.doc.save();
-          }
+          self.$.saveAjax.generateRequest();
         });
       }
     });
