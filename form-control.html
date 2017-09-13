@@ -68,16 +68,26 @@
     <app-localstorage-document key="jwtToken" data="{{jwtToken}}">
     </app-localstorage-document>
 
-    <app-leveldb name="test" url="https://maas.nuqlis.com:9000/api" db-name="students_care" app="{{app}}" jwt-token="{{jwtToken.token}}">
+    <app-leveldb name="test" 
+        url="https://maas.nuqlis.com:9000/api" 
+        db-name="students_care" 
+        app="{{app}}" 
+        jwt-token="{{jwtToken.token}}">
     </app-leveldb>
 
-    <app-leveldb-document id="doc" app="{{app}}" key="{{docKey}}" on-response="_onResponse" status="{{status}}" value="{{docValue}}">
+    <app-leveldb-document 
+        id="doc" 
+        app="{{app}}" 
+        key="{{docKey}}" 
+        on-response="_onResponse" 
+        status="{{status}}" 
+        value="{{docValue}}">
     </app-leveldb-document>
 
     <div class="student-info">
       <span class="font-face-big-bold"> เลขประจำตัวประชาชน  &nbsp;&nbsp;</span>
       <span class="font-face-big">{{docValue.student.cid}}</span>
-      <span class="font-face-big-bold">&nbsp;&nbsp;&nbsp;ชื่อ - นามสกุล &nbsp;&nbsp;</span>
+      <span class="font-face-big-bold">ชื่อ - นามสกุล {{docValue.status}}</span>
       <span class="font-face-big">{{docValue.student.name}}</span>
     </div>
 
@@ -88,9 +98,11 @@
       <paper-tab>
         <div class="font-face-big-bold">แบบประเมิน</div>
       </paper-tab>
-      <paper-tab>
-        <div class="font-face-big-bold">ผลการประเมิน</div>
-      </paper-tab>
+      <template is="dom-if" if="{{_isDone(docValue.status)}}">
+        <paper-tab hidden$="{{!_isDone(docValue.status)}}">
+          <div class="font-face-big-bold">ผลการประเมิน</div>
+        </paper-tab>
+      </template>
     </paper-tabs>
 
     <iron-pages selected="{{page}}">
@@ -105,10 +117,12 @@
             <iron-icon icon="undo"></iron-icon>
             <div class="font-face">เริ่มใหม่</div>
           </paper-button>
+          <!--
           <paper-button raised on-tap="_process">
             <iron-icon icon="assignment-returned"></iron-icon>
             <div class="font-face">ประเมิน</div>
           </paper-button>
+          -->
         </div>
         <div class="font-face">{{message}}</div>
         <content select=".formEntry"></content>
@@ -138,8 +152,10 @@
           value: 0
         }
       },
+      _isDone:function(status) {
+        return status == "done";
+      },
       _onSave: function (e) {
-        console.log('_save');
         this.fire('form-action', { 'type': 'save' });
       },
       _undo: function (e) {
@@ -149,7 +165,6 @@
         this.fire('form-action', { 'type': 'process' });
       },
       _onResponse: function (e) {
-        console.log('_onResponse');
         var self = this;
         if (!this.$.doc.error) {
           this.set('message', 'บันทึกเรียบร้อย');
