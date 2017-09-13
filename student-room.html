@@ -56,17 +56,16 @@
 			 last-response="{{students}}" 
 			 body$='{"query":{"class":"{{level}}","room":"{{room}}","year":{{year}},"hostid":"{{host}}"}}'>
     </iron-ajax>
-
-		{{students.length}}
+		
     <paper-listbox selected="{{student}}" on-iron-select="_selected" attr-for-selected="name">
-      <template is="dom-repeat" items="{{students}}">
-        <paper-item name="{{item.value}}">
+      <template is="dom-repeat" items="{{students}}" as="student">
+        <paper-item name="{{student.value}}">
           <!--<div class="avatar" slot="item-icon"></div>-->
-          <div class="icon-name font-face">{{_firstLetter(item.key.4.2)}}</div>
+          <div class="icon-name font-face">{{_firstLetter(student.name)}}</div>
           <!--{{_firstLetter(item.key.4.2)}}-->
           <paper-item-body two-line>
-            <div class="font-face">{{item.name}} {{item.lastname}}</div>
-            <div secondary class="font-face">{{item.key.4.0}}</div>
+            <div class="font-face">{{student.name}} {{item.lastname}}</div>
+            <div secondary class="font-face">{{student.cid}}</div>
           </paper-item-body>
           <paper-icon-button icon="star" alt="favourite this!">
           </paper-icon-button>
