@@ -16,7 +16,12 @@
       atLevel:{
         type:Array,
         value:function() {
-          return ["04","05","06","07","08","09"];
+          var level = [1,2,3,4,5,6];
+          var result = [];
+          level.forEach(function(item) {
+            result.push('ประถมศึกษาปีที่ '+item);
+          });
+          return result;
         }
       }
     }
