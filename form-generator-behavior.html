@@ -10,7 +10,8 @@
         type:Object
       },
       forms: {
-        type:Array
+        type:Array,
+        notify:true
       },
       document: {
         type:Object,
@@ -69,6 +70,8 @@
              if(res.response.ok) {
                console.log(res.response);
                self.fire('form-generated',{'key':res.response.key});
+               assignment['_id']=res.response.key;
+               self.push('forms',assignment);
              }
            });
          });
