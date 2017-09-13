@@ -14,7 +14,7 @@
       console.log(this.formType,this.atLevel);
       if(this.atLevel.indexOf(this.student.LEVEL) != -1) {
         for(var i=0;i<this.forms.length;i++) {
-          if(this.forms[i].key[3]==this.formType) {
+          if(this.forms[i].key[4]==this.formType) {
             exists=true;
           }
         }
@@ -24,8 +24,8 @@
       if(!exists && required) {
         // check sdq
         for(var i=0;i<this.forms.length;i++) {
-          if(this.forms[i].key[3]=="dl2-form") {
-            if(this.forms[i].key[4][0]=="done") {
+          if(this.forms[i].key[4]=="dl2-form") {
+            if(this.forms[i].key[5][0]=="done") {
               var ele = document.createElement('iron-request');
               ele.send({
                 method:'GET',

@@ -66,7 +66,7 @@
      id="deleteAjax"
      method="DELETE"
      handle-as="json"
-     url$="https://maas.nuqlis.com:9000/api/dbs/students_care/{{data.value}}"
+     url$="https://maas.nuqlis.com:8000/v2/obec/students_care/data/{{data._id}}"
      headers$='{"Authorization":"JWT {{jwtToken.token}}"}'
      on-response="_response">
    </iron-ajax>
@@ -119,15 +119,11 @@
         }
       },
       _update:function(e) {
-        var _old = this.data.key.concat();
-        var keys = _old[_old.length-2];
-        keys[1] = e.detail.value.ts;
-        keys[0] = e.detail.value.status;
-        this.set('data',{'key':_old,'value':this.data.value});
+        this.set('data',e.detail.value);
       },
       _tap: function(e) {
         var ele = this._info.form.element;
-        var doc = {'key':this.data.value};
+        var doc = {'key':this.data._id};
         ele.setAttribute('document',JSON.stringify(doc));
         ele.addEventListener('update',this._update.bind(this));
         this.fire('select-assignment',{
@@ -140,33 +136,31 @@
       __computeInfo:function(data) {
         var tmp = {};
         this._setHide(false);
-        if(data.key) {
-          var status_dict = {
-            'new':'ใหม่',
-            'working':'กำลังดำเนินการ',
-            'done':'ประเมินแล้ว'
-          }
-          var keys = data.key[data.key.length-2];
-          //tmp['studentName']=keys[3];
-          tmp['status']={
-            'label':status_dict[keys[0]],
-            'type':keys[0]
-          };
-          var d = new Date();
-          d.setTime(keys[1]*-1);
-          var str = ("0" + d.getDate()).slice(-2) + "-" +
-            ("0"+(d.getMonth()+1)).slice(-2) + "-" +
-            d.getFullYear() + " " +
-            ("0" + d.getHours()).slice(-2) + ":" +
-            ("0" + d.getMinutes()).slice(-2);
-          tmp['dateTime']=str;
-
-          var ele = document.createElement(data.key[3]);
-          tmp['form']= {
-             'label':ele.getAttribute('name'),
-             'element':ele
-          };
+        var status_dict = {
+          'new':'ใหม่',
+          'working':'กำลังดำเนินการ',
+          'done':'ประเมินแล้ว'
         }
+        //var keys = data.key[data.key.length-2];
+        //tmp['studentName']=keys[3];
+        tmp['status']={
+          'label':status_dict[data.status],
+          'type':data.form_type
+        };
+        var d = new Date();
+        d.setTime(data.ts*-1);
+        var str = ("0" + d.getDate()).slice(-2) + "-" +
+          ("0"+(d.getMonth()+1)).slice(-2) + "-" +
+          d.getFullYear() + " " +
+          ("0" + d.getHours()).slice(-2) + ":" +
+          ("0" + d.getMinutes()).slice(-2);
+        tmp['dateTime']=str;
+
+        var ele = document.createElement(data.form_type);
+        tmp['form']= {
+           'label':ele.getAttribute('name'),
+           'element':ele
+        };
         return tmp;
       },
       _formName:function(name) {
@@ -175,6 +169,9 @@
       },
       _delete:function(e) {
         this.$.deleteAjax.generateRequest();
+        this.fire('delete-assignment',{
+          'form':this.data
+        });
       },
       _response:function(e) {
         if(e.detail.response.ok) {

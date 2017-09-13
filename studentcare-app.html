@@ -47,7 +47,7 @@ Polymer Component for StudentCare project
       <iron-pages selected="{{page}}">
         <student-room year="{{year}}" host="{{host}}" level="{{level}}" room="{{room}}">
         </student-room>
-        <student-form db="{{db}}" key="{{key}}" year="{{year}}">
+        <student-form key="{{key}}" year="{{year}}">
         </student-form>
         <div id="formEntry">
         </div>
@@ -77,9 +77,15 @@ Polymer Component for StudentCare project
           computed: '_computeTitle(page)'
         }
       },
+      observers:[
+        'onHostLevelRoomChanged(host,level,room)'
+      ],
       listeners: {
         'student-selected': '_selectStudent',
         'select-assignment': '_selectAssignment'
+      },
+      onHostLevelRoomChanged: function(host,level,room) {
+        this._setPage(0);
       },
       _computeTitle: function (page) {
         var title = 'แบบประเมิน';
@@ -92,8 +98,8 @@ Polymer Component for StudentCare project
         return title;
       },
       _selectStudent: function (e) {
-        this.set('db', e.detail.db);
         this.set('key', e.detail._id);
+        console.log(e.detail._id);
         this._setPage(1);
       },
       _selectAssignment: function (e) {
