@@ -60,12 +60,24 @@ Polymer Component for StudentCare project
     Polymer({
       is: 'studentcare-app',
       properties: {
-        host: String,
+        host: {
+          type:String,
+          reflectToAttribute:true,
+          notify:true
+        },
         level: {
-          type: String
+          type: String,
+          reflectToAttribute:true,
         },
         room: {
-          type: String
+          type: String,
+          reflectToAttribute:true,
+          notify:true
+        },
+        year: {
+          type: String,
+          reflectToAttribute:true,
+          notify:true
         },
         page: {
           type: Number,

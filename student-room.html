@@ -72,25 +72,34 @@
         </paper-item>
       </template>
     </paper-listbox>
-    <!--
-    <progress-by-room year="{{year}}" level="{{level}}" room="{{room}}" host="{{host}}" url="http://202.143.174.205:3000/view">
-    </progress-by-room>
-    -->
   </template>
 
   <script>
     Polymer({
       is: 'student-room',
       properties: {
-        host: String,
-        level: String,
-        room: String,
-        year: String
+        host: {
+          type:String,
+          reflectToAttribute:true
+        },
+        level: {
+          type:String,
+          reflectToAttribute:true
+        },
+        room: {
+          type:String,
+          reflectToAttribute:true
+        },
+        year: {
+          type:String,
+          reflectToAttribute:true
+        }
       },
       observers: [
         '__execute(jwtToken,host,level,room,year)',
       ],
       __execute: function (jwtToken, host, level, room,year) {
+        
 	       if(jwtToken.token == null || host == null || level == null
             || year == null || level.length == 0 || room.length == 0
 	          || room == null) return;
