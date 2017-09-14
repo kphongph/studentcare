@@ -67,8 +67,8 @@
             <div class="font-face">{{item.name}} {{item.lastname}}</div>
             <div secondary class="font-face">{{item.cid}}</div>
           </paper-item-body>
-          <paper-icon-button icon="star" alt="favourite this!">
-          </paper-icon-button>
+          <!--<paper-icon-button icon="star" alt="favourite this!">
+          </paper-icon-button>-->
         </paper-item>
       </template>
     </paper-listbox>
@@ -91,7 +91,7 @@
         '__execute(jwtToken,host,level,room,year)',
       ],
       __execute: function (jwtToken, host, level, room,year) {
-        
+
 	       if(jwtToken.token == null || host == null || level == null
             || year == null || level.length == 0 || room.length == 0
 	          || room == null) return;

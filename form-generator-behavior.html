@@ -25,6 +25,7 @@
       cb(false);
     },
     generate:function(forms) {
+      if(forms == null) return;
       var self = this;
       this.requireForm(function(_required) {
         self.fire('required-form-checked',{
