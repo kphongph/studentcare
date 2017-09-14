@@ -2,16 +2,29 @@
 <link rel="import" href="../../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../../iron-icons/iron-icons.html">
 <link rel="import" href="../../iron-selector/iron-selector.html">
+<link rel="import" href="../../paper-radio-group/paper-radio-group.html">
 <link rel="import" href="../../iron-validatable-behavior/iron-validatable-behavior.html">
 <link rel="import" href="../../paper-styles/typography.html">
+
+<link href="https://fonts.googleapis.com/css?family=Itim&amp;subset=thai" rel="stylesheet">
 
 <dom-module id="sdq-radio">
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors">
-      
+
       :host {
+        @apply(--layout-vertical);
         @apply(--paper-font-caption);
         display: block;
+
+          font-family: 'Itim', cursive;
+          font-size: 110%;
+
+      }
+
+      paper-radio-button {
+          font-family: 'Itim', cursive;
+          font-size: 110%;
       }
 
       iron-icon {
@@ -38,7 +51,7 @@
       .valueText {
         margin-right:10px;
       }
-      
+
       @media (min-width:400px) {
       :host {
         @apply(--paper-font-body1);
@@ -74,12 +87,13 @@
       }
     }
     </style>
-
-    <div id="main" class$="{{value}} layout horizontal center">
-			<span>{{no}} . </span>
-      <iron-icon icon="{{type}}" class$="{{value}}"></iron-icon>
-      <span class="flex"><content></content></span>
-      <span class="valueText"><b>{{_valueStr}}</b></span>
+    <div class="layout vertical" id="main">
+      <content></content>              
+      <paper-radio-group selected="{{value}}">
+        <paper-radio-button name="y">จริง</paper-radio-button>
+        <paper-radio-button name="m">ค่อนข้างจริง</paper-radio-button>
+        <paper-radio-button name="n">ไม่จริง</paper-radio-button>
+      </paper-radio-group>
     </div>
   </template>
 
@@ -133,13 +147,13 @@
       regularTap:function(e) {
         if(!this.disabled) {
           var value_list = ['y','m','n'];
-          var idx = value_list.indexOf(this.value)+1; 
+          var idx = value_list.indexOf(this.value)+1;
           this.set('value',idx<3?value_list[idx]:value_list[0]);
           this.fire('change',{});
         }
       },
       _valueChanged:function() {
-        if(this.value == 'y' || this.value == 'm') { 
+        if(this.value == 'y' || this.value == 'm') {
           this.type='check';
         } else {
           if(this.value) {

@@ -1,13 +1,14 @@
 <link rel="import" href="../../polymer/polymer.html">
 <link rel="import" href="../../paper-styles/typography.html">
 <link rel="import" href="../../paper-item/paper-item.html">
+<link rel="import" href="../../paper-dialog/paper-dialog.html">
 <link rel="import" href="../../paper-item/paper-icon-item.html">
 <link rel="import" href="../../paper-item/paper-item-body.html">
 <link rel="import" href="../../iron-ajax/iron-request.html">
 <link rel="import" href="../../paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../../app-storage/app-localstorage/app-localstorage-document.html">
-<link rel="import" href="../forms.html"> 
+<link rel="import" href="../forms.html">
 
 <link href="https://fonts.googleapis.com/css?family=Itim&amp;subset=thai" rel="stylesheet">
 
@@ -18,8 +19,8 @@
         display: block;
         @apply(--paper-font-body2);
         @apply(--layout-vertical);
-        cursor: pointer; 
-        cursor: hand; 
+        cursor: pointer;
+        cursor: hand;
       }
 
       .content {
@@ -31,15 +32,15 @@
       }
 
       .marker-done {
-        background:var(--paper-pink-500);
-      }
-
-      .marker-new {
         background:var(--paper-green-500);
       }
 
+      .marker-new {
+        background:transparent;
+      }
+
       .marker-working {
-        background:var(--paper-blue-500);
+        background:var(--paper-deep-orange-500);
       }
 
       .info {
@@ -70,18 +71,31 @@
      headers$='{"Authorization":"JWT {{jwtToken.token}}"}'
      on-response="_response">
    </iron-ajax>
-     
+
    <div class$="marker-{{_info.status.type}} content" hidden$="{{hide}}">
-     <div class="layout horizontal center info"> 
-      <div class="flex" on-tap="_tap"> 
+     <div class="layout horizontal center info">
+      <div class="flex" on-tap="_tap">
         <div id="formName" class="font-face-big">{{_info.form.label}}</div>
         <div id="studentInfo" class="font-face-normal">
          {{_info.dateTime}} ({{_info.status.label}})
         </div>
       </div>
-      <paper-icon-button icon="delete" on-tap="_delete">
+      <paper-icon-button icon="delete" on-tap="_toggleDialog">
       </paper-icon-button>
    </div>
+
+
+  <paper-dialog id="dialog" modal>
+    <h2>Header</h2>
+    <paper-dialog-scrollable>
+      Lorem ipsum...
+    </paper-dialog-scrollable>
+    <div class="buttons">
+      <paper-button dialog-dismiss>ยกเลิก</paper-button>
+      <paper-button dialog-confirm autofocus on-tap="_delete">ยืนยัน</paper-button>
+    </div>
+  </paper-dialog>
+
   </template>
 
   <script>
@@ -118,6 +132,9 @@
           }
         }
       },
+      _toggleDialog:function(e) {
+        this.$.dialog.open();
+      },
       _update:function(e) {
         this.set('data',e.detail.value);
       },
@@ -145,7 +162,7 @@
         //tmp['studentName']=keys[3];
         tmp['status']={
           'label':status_dict[data.status],
-          'type':data.form_type
+          'type':data.status
         };
         var d = new Date();
         d.setTime(data.ts*-1);

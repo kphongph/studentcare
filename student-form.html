@@ -50,17 +50,17 @@
     <app-localstorage-document key="jwtToken" data="{{jwtToken}}">
     </app-localstorage-document>
 
-    <iron-ajax id="getAjax" 
-      method="GET" 
-      url$="https://maas.nuqlis.com:8000/v2/obec/student_data_db/data/{{key}}" 
+    <iron-ajax id="getAjax"
+      method="GET"
+      url$="https://maas.nuqlis.com:8000/v2/obec/student_data_db/data/{{key}}"
       headers$='{"Authorization":"JWT {{jwtToken.token}}"}'
       last-response="{{student}}">
     </iron-ajax>
 
-    <form-generator id="generator" student="{{student}}" loading="{{loading}}" 
-      on-form-generated="_formGenerated" 
+    <form-generator id="generator" student="{{student}}" loading="{{loading}}"
+      on-form-generated="_formGenerated"
       on-required-form-checked="_formChecked"
-      forms="{{forms}}" 
+      forms="{{forms}}"
       year="{{year}}">
     </form-generator>
 
@@ -101,6 +101,7 @@
         '__execute(jwtToken,key)',
       ],
       __execute: function (jwtToken, key) {
+        if(!jwtToken.token || key == null) return;
         this.$.getAjax.generateRequest();
       },
       _sortByTime: function (a, b) {
@@ -201,7 +202,7 @@
             data.push({ 'name': group[i].group, 'forms': group[i].forms });
           }
         }
-        console.log(data);
+        //console.log(data);
         return data;
       }
     });

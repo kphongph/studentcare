@@ -91,6 +91,7 @@
         '__execute(jwtToken,host,level,room,year)',
       ],
       __execute: function (jwtToken, host, level, room,year) {
+        
 	       if(jwtToken.token == null || host == null || level == null
             || year == null || level.length == 0 || room.length == 0
 	          || room == null) return;
