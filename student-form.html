@@ -111,10 +111,11 @@
         return _sort.indexOf(a.status) - _sort.indexOf(b.status);
       },
       _isEmpty:function(list) {
-        return list.length == 0;
+        return !list || list.length == 0;
       },
       _onAssignmentDelete:function(e) {
         var d_form = e.detail.form;
+        console.log(d_form);
         var forms = this.forms;
         var tmp = [];
         forms.forEach(function(form) {
@@ -135,6 +136,7 @@
         this.set('_requiredReload', false);
       },
       __generateFormList: function(forms) {
+        console.log('__generateFormList');
         var data = [];
         var group = [
           {
@@ -199,6 +201,7 @@
             data.push({ 'name': group[i].group, 'forms': group[i].forms });
           }
         }
+        console.log(data);
         return data;
       }
     });
