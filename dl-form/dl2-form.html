@@ -20,7 +20,7 @@
 <dom-module id="dl2-form">
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors">
-      
+
       paper-tabs {
         background: var(--paper-green-300);
         color: white;
@@ -47,7 +47,7 @@
 
        /*--paper-input-container-input-color:var blue;*/
   }
-      
+
     </style>
 
     <form-control id="control" doc-key="{{document.key}}" doc-value="{{document.value}}">
@@ -107,6 +107,9 @@
             return [];
           }
         }
+      },
+      _reset : function() {
+        this.set('document.value.form_value',{});
       },
       __computeResult: function (result) {
         var tmp = [];
