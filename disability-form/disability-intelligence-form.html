@@ -7,12 +7,15 @@
 <link rel="import" href="../form-control.html">
 <link rel="import" href="../studentcare-form-behavior.html">
 <link rel="import" href="disability-choice.html">
+
+<link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">
 <dom-module id="disability-intelligence-form">
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors">
       :host {
         @apply --paper-font-display;
         @apply --layout-vertical;
+        font-family: 'Athiti', sans-serif;
         display: block;
       }
 
@@ -23,9 +26,9 @@
       paper-radio-group {
         background:#efefef;
       }
-      
+
       .formEntry div {
-        @apply --paper-font-title);
+        @apply --paper-font-title;
         margin:3px;
         padding:0px;
         background:#efefef;
@@ -33,12 +36,12 @@
 
       .description ol {
         @apply --paper-font-body1;
-        .num {list-style-type: decimal;}
         margin:3px;
         padding:0px;
         background:#efefef;
+        .num {list-style-type: decimal;}
       }
-     
+
       .evaluation {
         padding:5px;
       }
@@ -48,8 +51,8 @@
       }
     </style>
 
-    <form-control id="control" 
-      on-form-action="_tap" 
+    <form-control id="control"
+      on-form-action="_tap"
       doc-key="{{document.key}}"
       doc-value="{{document.value}}">
       <div slot="description">
@@ -60,10 +63,10 @@
           <li>ผู้คัดกรองควรจะมีอย่างน้อย 2 คนขึ้นไป</li>
         </ol>
         <ol class="num"> <b>เกณฑ์การพิจารณา</b>
-          <li> 
-          แต่ละทักษะจะต้องมีผลการวิเคราะห์พฤติกรรมทักษะว่าใช่ทั้ง 2 ข้อ 
-          แสดงว่าไม่ผ่านทักษะนั้น และหากว่าพบทักษะการปรับตัวไม่ผ่าน 
-          ตั้งแต่ 2 ทักษะขึ้นไป แสดงว่ามีแนวโน้มที่จะเป็นบุคคลที่มีความบกพร่องทางสติปัญญา 
+          <li>
+          แต่ละทักษะจะต้องมีผลการวิเคราะห์พฤติกรรมทักษะว่าใช่ทั้ง 2 ข้อ
+          แสดงว่าไม่ผ่านทักษะนั้น และหากว่าพบทักษะการปรับตัวไม่ผ่าน
+          ตั้งแต่ 2 ทักษะขึ้นไป แสดงว่ามีแนวโน้มที่จะเป็นบุคคลที่มีความบกพร่องทางสติปัญญา
           ให้จัดบริการช่วยเหลือทางการศึกษาพิเศษ และส่งต่อให้ แพทย์ตรวจวินิจฉัยต่อไป
           </li>
         </ol>
@@ -216,7 +219,7 @@
         return true;
       },
       _reset:function() {
-        this.set('document.value.form_value',{});        
+        this.set('document.value.form_value',{});
       },
       _result:function(score) {
         if(score && score.fail>=2) {
