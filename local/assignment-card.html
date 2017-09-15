@@ -141,7 +141,7 @@
       },
       _tap: function(e) {
         var ele = this._info.form.element;
-        var doc = {'key':this.data._id};
+        var doc = {'key':this.data._id,'value':this.data};
         ele.setAttribute('document',JSON.stringify(doc));
         ele.addEventListener('update',this._update.bind(this));
         this.fire('select-assignment',{

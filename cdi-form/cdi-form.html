@@ -158,138 +158,302 @@ CDI ฉบับภาษาไทยมี Sensitivity = 78.7% specificity = 91
         </div>
       </div>
       <div slot="formEntry">
-       <cdi-choice value="{{document.value.form_value.q1_1}}" 
-          label='["ฉันรู้สึกเศร้านานๆ ครั้ง","ฉันรู้สึกเศร้าบ่อยครั้ง","ฉันรู้สึกเศร้าตลอดเวลา"]'>
+       <cdi-choice value="{{document.value.form_value.q1_1}}">
+         <paper-radio-button slot="slot-a" name="a">
+          ฉันรู้สึกเศร้านานๆ ครั้ง
+         </paper-radio-button>
+         <paper-radio-button slot="slot-b" name="b">
+          ฉันรู้สึกเศร้าบ่อยครั้ง
+         </paper-radio-button>
+         <paper-radio-button slot="slot-c" name="c">
+          ฉันรู้สึกเศร้าตลอดเวลา
+         </paper-radio-button>
        </cdi-choice>
        <cdi-choice value="{{document.value.form_value.q2_2}}"> 
-        <span slot="cdi-a">อะไรๆ ก็มีอุปสรรคไปเสียหมด</span>
-        <span slot="cdi-b">ฉันไม่แน่ใจว่าสิ่งต่างๆ จะไปด้วยดี</span>
-        <span slot="cdi-c">สิ่งต่างๆ จะเป็นไปด้วยดีสำหรับฉัน</span>
+        <paper-radio-button slot="slot-a" name="a">
+           อะไรๆ ก็มีอุปสรรคไปเสียหมด
+        </paper-radio-button>
+        <paper-radio-button slot="slot-b" name="b">
+           ฉันไม่แน่ใจว่าสิ่งต่างๆ จะไปด้วยดี
+        </paper-radio-button>
+        <paper-radio-button slot="slot-c" name="c">
+           สิ่งต่างๆ จะเป็นไปด้วยดีสำหรับฉัน
+        </paper-radio-button>
        </cdi-choice>
        <cdi-choice value="{{document.value.form_value.q1_3}}"> 
-        <span class="cdi-a">ฉันทำอะไรๆ ได้ค่อนข้างดี</span>
-        <span class="cdi-b">ฉันทำผิดพลาดหลายอย่าง</span>
-        <span class="cdi-c">ฉันทำอะไรผิดพลาดไปหมด</span>
+         <paper-radio-button slot="slot-a" name="a">
+           ฉันทำอะไรๆ ได้ค่อนข้างดี
+         </paper-radio-button>
+         <paper-radio-button slot="slot-b" name="b">
+           ฉันทำผิดพลาดหลายอย่าง
+         </paper-radio-button>
+         <paper-radio-button slot="slot-c" name="c">
+           ฉันทำอะไรผิดพลาดไปหมด
+         </paper-radio-button>
        </cdi-choice>
        <cdi-choice value="{{document.value.form_value.q1_4}}"> 
-        <span class="cdi-a">ฉันรู้สึกสนุกกับหลายสิ่งหลายอย่าง</span>
-        <span class="cdi-b">ฉันรู้สึกสนุกกับบางสิ่งบางอย่าง</span>
-        <span class="cdi-c">ไม่มีอะไรสนุกสสนานเลยสำหรับฉัน</span>
+         <paper-radio-button slot="slot-a" name="a">
+           ฉันรู้สึกสนุกกับหลายสิ่งหลายอย่าง
+         </paper-radio-button>
+         <paper-radio-button slot="slot-b" name="b">
+           ฉันรู้สึกสนุกกับบางสิ่งบางอย่าง
+         </paper-radio-button>
+         <paper-radio-button slot="slot-c" name="c">
+           ไม่มีอะไรสนุกสสนานเลยสำหรับฉัน
+         </paper-radio-button>
        </cdi-choice>
        <cdi-choice value="{{document.value.form_value.q2_5}}"> 
-        <span class="cdi-a">ฉันทำตัวไม่ดีเสมอ</span>
-        <span class="cdi-b">ฉันทำตัวไม่ดีบ่อยครั้ง</span>
-        <span class="cdi-c">ฉันทำตัวไม่ดีนานๆ ที</span>
+         <paper-radio-button slot="slot-a" name="a">
+            ฉันทำตัวไม่ดีเสมอ
+         </paper-radio-button>
+         <paper-radio-button slot="slot-b" name="b">
+            ฉันทำตัวไม่ดีบ่อยครั้ง
+         </paper-radio-button>
+         <paper-radio-button slot="slot-c" name="c">
+            ฉันทำตัวไม่ดีนานๆ ที
+         </paper-radio-button>
        </cdi-choice>
        <cdi-choice value="{{document.value.form_value.q1_6}}"> 
-        <span class="cdi-a">นานๆ ครั้งฉันจะคิดถึงสิ่งไม่ดีที่อาจเกิดขึ้นกับฉัน</span>
-        <span class="cdi-b">ฉันวิตกว่าสิ่งไม่ดีจะเกิดขึ้นกับฉัน</span>
-        <span class="cdi-c">จะต้องมีสิ่งเลวร้ายเกิดขึ้นกับฉันแน่ๆ</span>
+         <paper-radio-button slot="slot-a" name="a">
+           นานๆ ครั้งฉันจะคิดถึงสิ่งไม่ดีที่อาจเกิดขึ้นกับฉัน
+         </paper-radio-button>
+         <paper-radio-button slot="slot-b" name="b">
+           ฉันวิตกว่าสิ่งไม่ดีจะเกิดขึ้นกับฉัน
+         </paper-radio-button>
+         <paper-radio-button slot="slot-c" name="c">
+           จะต้องมีสิ่งเลวร้ายเกิดขึ้นกับฉันแน่ๆ
+         </paper-radio-button>
        </cdi-choice>
        <cdi-choice value="{{document.value.form_value.q2_7}}"> 
-        <span class="cdi-a">ฉันเกลัยดตัวเอง</span>
-        <span class="cdi-b">ฉันไม่ชอบตัวเอง</span>
-        <span class="cdi-c">ฉันชอบตัวเอง</span>
+         <paper-radio-button slot="slot-a" name="a">
+           ฉันเกลัยดตัวเอง
+         </paper-radio-button>
+         <paper-radio-button slot="slot-b" name="b">
+           ฉันไม่ชอบตัวเอง
+         </paper-radio-button>
+         <paper-radio-button slot="slot-c" name="c">
+           ฉันชอบตัวเอง
+         </paper-radio-button>
        </cdi-choice>
        <cdi-choice value="{{document.value.form_value.q2_8}}"> 
-        <span class="cdi-a">สิ่งเลวร้ายทั้งหมดที่เกิดขึ้นเป็นความผิดของฉัน</span>
-        <span class="cdi-b">สิ่งเลวร้ายหลายสิ่งที่เกิดขึ้นเป็นความผิดของฉัน</span>
-        <span class="cdi-c">สิ่งเลวร้ายที่เกิดขึ้นมามักไม่ใช่ความผิดของฉัน</span>
+         <paper-radio-button slot="slot-a" name="a">
+           สิ่งเลวร้ายทั้งหมดที่เกิดขึ้นเป็นความผิดของฉัน
+         </paper-radio-button>
+         <paper-radio-button slot="slot-b" name="b">
+           สิ่งเลวร้ายหลายสิ่งที่เกิดขึ้นเป็นความผิดของฉัน
+         </paper-radio-button>
+         <paper-radio-button slot="slot-c" name="c">
+           สิ่งเลวร้ายที่เกิดขึ้นมามักไม่ใช่ความผิดของฉัน
+         </paper-radio-button>
        </cdi-choice>
        <cdi-choice value="{{document.value.form_value.q1_9}}"> 
-        <span class="cdi-a">ฉันไม่คิดจะฆ่าตัวตาย</span>
-        <span class="cdi-b">ฉันคิดถึงการฆ่าตัวตาย</span>
-        <span class="cdi-c">ฉันต้องฆ่าตัวตาย</span>
+         <paper-radio-button slot="slot-a" name="a">
+           ฉันไม่คิดจะฆ่าตัวตาย
+         </paper-radio-button>
+         <paper-radio-button slot="slot-b" name="b">
+           ฉันคิดถึงการฆ่าตัวตาย
+         </paper-radio-button>
+         <paper-radio-button slot="slot-c" name="c">
+           ฉันต้องฆ่าตัวตาย
+         </paper-radio-button>
        </cdi-choice>
        <cdi-choice value="{{document.value.form_value.q_10}}"> 
-        <span class="cdi-a">ฉันรู้สึกอยากร้องไห้ทุกวัน</span>
-        <span class="cdi-b">ฉันรู้สึกอยากร้องไห้บ่อยครั้ง</span>
-        <span class="cdi-c">ฉันรู้สึกอยากร้องไห้นานๆ ครั้ง</span>
+         <paper-radio-button slot="slot-a" name="a">
+           ฉันรู้สึกอยากร้องไห้ทุกวัน
+         </paper-radio-button>
+         <paper-radio-button slot="slot-b" name="b">
+           ฉันรู้สึกอยากร้องไห้บ่อยครั้ง
+         </paper-radio-button>
+         <paper-radio-button slot="slot-c" name="c">
+           ฉันรู้สึกอยากร้องไห้นานๆ ครั้ง
+         </paper-radio-button>
        </cdi-choice>
        <cdi-choice value="{{document.value.form_value.q2_11}}"> 
-        <span class="cdi-a">ฉันรู้สึกหงุดหงิดใจตลอดเวลา</span>
-        <span class="cdi-b">ฉันรู้สึกหงุดหงิดใจบ่อยครั้ง</span>
-        <span class="cdi-c">ฉันรู้สึกหงุดหงิดใจนานๆครั้ง</span>
+         <paper-radio-button slot="slot-a" name="a">
+           ฉันรู้สึกหงุดหงิดใจตลอดเวลา
+         </paper-radio-button>
+         <paper-radio-button slot="slot-b" name="b">
+           ฉันรู้สึกหงุดหงิดใจบ่อยครั้ง
+         </paper-radio-button>
+         <paper-radio-button slot="slot-c" name="c">
+           ฉันรู้สึกหงุดหงิดใจนานๆครั้ง
+         </paper-radio-button>
        </cdi-choice>
        <cdi-choice value="{{document.value.form_value.q1_12}}"> 
-        <span class="cdi-a">ฉันชอบอยู่กับคนอื่น</span>
-        <span class="cdi-b">ฉันไม่ค่อยชอบอยู่กับคนอื่น</span>
-        <span class="cdi-c">ฉันไม่ต้องการอยู่กับใครเลย</span>
+         <paper-radio-button slot="slot-a" name="a">
+           ฉันชอบอยู่กับคนอื่น
+         </paper-radio-button>
+         <paper-radio-button slot="slot-b" name="b">
+           ฉันไม่ค่อยชอบอยู่กับคนอื่น
+         </paper-radio-button>
+         <paper-radio-button slot="slot-c" name="c">
+           ฉันไม่ต้องการอยู่กับใครเลย
+         </paper-radio-button>
        </cdi-choice>
        <cdi-choice value="{{document.value.form_value.q2_13}}"> 
-        <span class="cdi-a">ฉันไม่สามารถตัดสินใจอะไรต่างๆ ด้วยตนเอง</span>
-        <span class="cdi-b">ฉันตัดสินใจเรื่องต่างๆได้ลำบาก</span>
-        <span class="cdi-c">ฉันตัดสินใจเรื่องต่างๆ ได้ง่าย</span>
+         <paper-radio-button slot="slot-a" name="a">
+         ฉันไม่สามารถตัดสินใจอะไรต่างๆ ด้วยตนเอง
+         </paper-radio-button>
+         <paper-radio-button slot="slot-b" name="b">
+         ฉันตัดสินใจเรื่องต่างๆได้ลำบาก
+         </paper-radio-button>
+         <paper-radio-button slot="slot-c" name="c">
+         ฉันตัดสินใจเรื่องต่างๆ ได้ง่าย
+         </paper-radio-button>
        </cdi-choice>
        <cdi-choice value="{{document.value.form_value.q1_14}}"> 
-        <span class="cdi-a">ฉันเป็นคนหน้าตาดี</span>
-        <span class="cdi-b">ฉันเป็นคนหน้าตาไม่ค่อยดี</span>
-        <span class="cdi-c">ฉันเป็นคนหน้าตาหน้าเกลียด</span>
+         <paper-radio-button slot="slot-a" name="a">
+         ฉันเป็นคนหน้าตาดี
+         </paper-radio-button>
+         <paper-radio-button slot="slot-b" name="b">
+         ฉันเป็นคนหน้าตาไม่ค่อยดี
+         </paper-radio-button>
+         <paper-radio-button slot="slot-c" name="c">
+         ฉันเป็นคนหน้าตาหน้าเกลียด
+         </paper-radio-button>
        </cdi-choice>
        <cdi-choice value="{{document.value.form_value.q2_15}}"> 
-        <span class="cdi-a">ฉันต้องใช้ความพยายามอย่างหนักทุกครั้งที่ทำการบ้าน</span>
-        <span class="cdi-b">ฉันต้องใช้ความพยายามอย่างหนักบ่อยครั้งเวลาทำการบ้าน</span>
-        <span class="cdi-c">การทำการบ้านไม่ใช่ปัญหาใหญ่สำหรับฉัน</span>
+         <paper-radio-button slot="slot-a" name="a">
+         ฉันต้องใช้ความพยายามอย่างหนักทุกครั้งที่ทำการบ้าน
+         </paper-radio-button>
+         <paper-radio-button slot="slot-b" name="b">
+         ฉันต้องใช้ความพยายามอย่างหนักบ่อยครั้งเวลาทำการบ้าน
+         </paper-radio-button>
+         <paper-radio-button slot="slot-c" name="c">
+         การทำการบ้านไม่ใช่ปัญหาใหญ่สำหรับฉัน
+         </paper-radio-button>
        </cdi-choice>
        <cdi-choice value="{{document.value.form_value.q2_16}}"> 
-        <span class="cdi-a">ฉันนอนไม่หลับทุกคืน</span>
-        <span class="cdi-b">ฉันนอนไม่หลับหลายคืน</span>
-        <span class="cdi-c">ฉันนอนหลับสบาย</span>
+         <paper-radio-button slot="slot-a" name="a">
+         ฉันนอนไม่หลับทุกคืน
+         </paper-radio-button>
+         <paper-radio-button slot="slot-b" name="b">
+         ฉันนอนไม่หลับหลายคืน
+         </paper-radio-button>
+         <paper-radio-button slot="slot-c" name="c">
+         ฉันนอนหลับสบาย
+         </paper-radio-button>
        </cdi-choice>
        <cdi-choice value="{{document.value.form_value.q1_17}}"> 
-        <span class="cdi-a">ฉันรู้สึกเหนื่อยหลายๆ ครั้ง</span>
-        <span class="cdi-b">ฉันรู้สึกเหนื่อยบ่อยครั้ง</span>
-        <span class="cdi-c">ฉันรู้สึกเหนื่อยตลอดเวลา</span>
+         <paper-radio-button slot="slot-a" name="a">
+         ฉันรู้สึกเหนื่อยหลายๆ ครั้ง
+         </paper-radio-button>
+         <paper-radio-button slot="slot-b" name="b">
+         ฉันรู้สึกเหนื่อยบ่อยครั้ง
+         </paper-radio-button>
+         <paper-radio-button slot="slot-c" name="c">
+         ฉันรู้สึกเหนื่อยตลอดเวลา
+         </paper-radio-button>
        </cdi-choice>
        <cdi-choice value="{{document.value.form_value.q2_18}}"> 
-        <span class="cdi-a">มีหลายวันที่ฉันรู้สึกไม่อยากกินอาหาร</span>
-        <span class="cdi-b">มีบางวันที่ฉันไม่รู้สึกอยากกินอาหาร</span>
-        <span class="cdi-c">ฉันกินอาหารได้ดี</span>
+         <paper-radio-button slot="slot-a" name="a">
+         มีหลายวันที่ฉันรู้สึกไม่อยากกินอาหาร
+         </paper-radio-button>
+         <paper-radio-button slot="slot-b" name="b">
+         </paper-radio-button>
+         มีบางวันที่ฉันไม่รู้สึกอยากกินอาหาร
+         <paper-radio-button slot="slot-c" name="c">
+         ฉันกินอาหารได้ดี
+         </paper-radio-button>
        </cdi-choice>
        <cdi-choice value="{{document.value.form_value.q1_19}}"> 
-        <span class="cdi-a">ฉันไม่กังวลกับการเจ็บป่วย</span>
-        <span class="cdi-b">ฉันกังวลกับการเจ็บป่วยบ่อยครั้ง</span>
-        <span class="cdi-c">ฉันกังวลกับการเจ็บป่วยตลอดเวลา</span>
+         <paper-radio-button slot="slot-a" name="a">
+         ฉันไม่กังวลกับการเจ็บป่วย
+         </paper-radio-button>
+         <paper-radio-button slot="slot-b" name="b">
+         ฉันกังวลกับการเจ็บป่วยบ่อยครั้ง
+         </paper-radio-button>
+         <paper-radio-button slot="slot-c" name="c">
+         ฉันกังวลกับการเจ็บป่วยตลอดเวลา
+         </paper-radio-button>
        </cdi-choice>
        <cdi-choice value="{{document.value.form_value.q1_20}}"> 
-        <span class="cdi-a">ฉันไม่รู้สึกเหงา</span>
-        <span class="cdi-b">ฉันรู้สึกเหงาบ่อยๆ</span>
-        <span class="cdi-c">ฉันรู้สึกเหงาตลอดเวลา</span>
+         <paper-radio-button slot="slot-a" name="a">
+         ฉันไม่รู้สึกเหงา
+         </paper-radio-button>
+         <paper-radio-button slot="slot-b" name="b">
+         ฉันรู้สึกเหงาบ่อย ๆ
+         </paper-radio-button>
+         <paper-radio-button slot="slot-c" name="c">
+         ฉันรู้สึกเหงาตลอดเวลา
+         </paper-radio-button>
        </cdi-choice>
        <cdi-choice value="{{document.value.form_value.q2_21}}"> 
-        <span class="cdi-a">ฉันไม่รู้สึกสสนุกเลยเวลาที่อยู่โรงเรียน</span>
-        <span class="cdi-b">ฉันรู้สึกสนุกนานๆ ครั้งที่อยู่โรงเรียน</span>
-        <span class="cdi-c">ฉันรู้สึกสนุกบ่อยครั้งเวลาที่อยู่โรงเรียน</span>
+        <paper-radio-button slot="slot-a" name="a">
+        ฉันไม่รู้สึกสสนุกเลยเวลาที่อยู่โรงเรียน
+        </paper-radio-button>
+        <paper-radio-button slot="slot-b" name="b">
+        ฉันรู้สึกสนุกนานๆ ครั้งที่อยู่โรงเรียน
+        </paper-radio-button>
+        <paper-radio-button slot="slot-c" name="c">
+        ฉันรู้สึกสนุกบ่อยครั้งเวลาที่อยู่โรงเรียน
+        </paper-radio-button>
        </cdi-choice>
        <cdi-choice value="{{document.value.form_value.q1_22}}"> 
-        <span class="cdi-a">ฉันมีเพื่อนมาก</span>
-        <span class="cdi-b">ฉันมีเพื่อนไม่กี่คน และอยากมีเพื่อนมากกว่านี้</span>
-        <span class="cdi-c">ฉันไม่มีเพื่อนเลย</span>
+        <paper-radio-button slot="slot-a" name="a">
+        ฉันมีเพื่อนมาก
+        </paper-radio-button>
+        <paper-radio-button slot="slot-b" name="b">
+        </paper-radio-button>
+        ฉันมีเพื่อนไม่กี่คน และอยากมีเพื่อนมากกว่านี้
+        <paper-radio-button slot="slot-c" name="c">
+        ฉันไม่มีเพื่อนเลย
+        </paper-radio-button>
        </cdi-choice>
        <cdi-choice value="{{document.value.form_value.q1_23}}"> 
-        <span class="cdi-a">การเรียนของฉันอยู่ในขั้นใช้ได้ดี</span>
-        <span class="cdi-b">การเรียนของฉันไม่ค่อยดีเหมือนก่อน</span>
-        <span class="cdi-c">การเรียนของฉันแย่ลงมาก</span>
+        <paper-radio-button slot="slot-a" name="a">
+        การเรียนของฉันอยู่ในขั้นใช้ได้ดี
+        </paper-radio-button>
+        <paper-radio-button slot="slot-b" name="b">
+        การเรียนของฉันไม่ค่อยดีเหมือนก่อน
+        </paper-radio-button>
+        <paper-radio-button slot="slot-c" name="c">
+        การเรียนของฉันแย่ลงมาก
+        </paper-radio-button>
        </cdi-choice>
        <cdi-choice value="{{document.value.form_value.q2_24}}"> 
-        <span class="cdi-a">ฉันทำอะไรไม่ได้ดีเท่าคนอื่น</span>
-        <span class="cdi-b">ฉันทำอะไร ได้ดีเท่าคนอื่น ถ้าฉันพยายาม</span>
-        <span class="cdi-c">ฉันทำได้ดีพอๆ กับคนอื่นอยู่แล้ว ในขณะที่</span>
+        <paper-radio-button slot="slot-a" name="a">
+        ฉันทำอะไรไม่ได้ดีเท่าคนอื่น
+        </paper-radio-button>
+        <paper-radio-button slot="slot-b" name="b">
+        ฉันทำอะไร ได้ดีเท่าคนอื่น ถ้าฉันพยายาม
+        </paper-radio-button>
+        <paper-radio-button slot="slot-c" name="c">
+        ฉันทำได้ดีพอๆ กับคนอื่นอยู่แล้ว ในขณะที่
+        </paper-radio-button>
        </cdi-choice>
        <cdi-choice value="{{document.value.form_value.q2_25}}"> 
-        <span class="cdi-a">ไม่มีใครรักฉันจริง</span>
-        <span class="cdi-b">ฉันไม่แน่ใจว่ามีใครรักฉันหรือเปล่า</span>
-        <span class="cdi-c">ฉันไม่เคยทำตามคำสั่ง</span>
+        <paper-radio-button slot="slot-a" name="a">
+        ไม่มีใครรักฉันจริง
+        </paper-radio-button>
+        <paper-radio-button slot="slot-b" name="b">
+        ฉันไม่แน่ใจว่ามีใครรักฉันหรือเปล่า
+        </paper-radio-button>
+        <paper-radio-button slot="slot-c" name="c">
+        ฉันไม่เคยทำตามคำสั่ง
+        </paper-radio-button>
        </cdi-choice>
        <cdi-choice value="{{document.value.form_value.q1_26}}"> 
-        <span class="cdi-a">ฉันทำตามคำสั่งที่ได้รับเสมอ</span>
-        <span class="cdi-b">ฉันไม่ทำตามคำสั่งบ่อยครั้ง</span>
-        <span class="cdi-c">ฉันไม่เคยทำตามคำสั่ง</span>
+        <paper-radio-button slot="slot-a" name="a">
+        ฉันทำตามคำสั่งที่ได้รับเสมอ
+        </paper-radio-button>
+        <paper-radio-button slot="slot-b" name="b">
+        ฉันไม่ทำตามคำสั่งบ่อยครั้ง
+        </paper-radio-button>
+        <paper-radio-button slot="slot-c" name="c">
+        ฉันไม่เคยทำตามคำสั่ง
+        </paper-radio-button>
        </cdi-choice>
        <cdi-choice value="{{document.value.form_value.q1_27}}"> 
-        <span class="cdi-a">ฉันเข้ากับคนอื่นได้ดี</span>
-        <span class="cdi-b">ฉันทะเลาะกับคนอื่นบ่อยครั้ง</span>
-        <span class="cdi-c">ฉันทะเลาะกับคนอื่นตลอดเวลา</span>
+        <paper-radio-button slot="slot-a" name="a">
+        ฉันเข้ากับคนอื่นได้ดี
+        </paper-radio-button>
+        <paper-radio-button slot="slot-b" name="b">
+        ฉันทะเลาะกับคนอื่นบ่อยครั้ง
+        </paper-radio-button>
+        <paper-radio-button slot="slot-c" name="c">
+        ฉันทะเลาะกับคนอื่นตลอดเวลา
+        </paper-radio-button>
        </cdi-choice>
      </div>
 

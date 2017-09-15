@@ -7,6 +7,7 @@
 <link rel="import" href="../form-control.html">
 <link rel="import" href="../studentcare-form-behavior.html">
 <link rel="import" href="disability-choice.html">
+
 <dom-module id="disability-behavior-form">
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors">
@@ -227,8 +228,6 @@
   <script>
     Polymer({
       is: 'disability-behavior-form',
-      listeners : {
-      },
       properties: {
         name: {
           type:String,
@@ -238,7 +237,7 @@
       },
       behaviors:[
         Polymer.IronValidatableBehavior,
-        StudentcareFormBehavior,
+        StudentcareFormBehavior
       ],
       observers:[
         '_result(document.value.form_result)'
@@ -284,7 +283,7 @@
             break;
           }
         }
-        if(score.p1.y >= 1  && foundSub) {
+        if(score.p1 && score.p1.y >= 1  && foundSub) {
           this.$$('#markPositive').classList.add('mark');
           this.$$('#markNegative').classList.remove('mark');
           this.set('_mark',true);

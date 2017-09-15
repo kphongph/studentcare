@@ -26,9 +26,9 @@
     <div class="layout horizontal">
       <paper-radio-group selected="{{value}}" class="flex" 
         aria-labelledby="label">
-        <paper-radio-button name="a">{{label.0}}</paper-radio-button>
-        <paper-radio-button name="b">{{label.1}}</paper-radio-button>
-        <paper-radio-button name="c">{{label.2}}</paper-radio-button>
+        <slot name="slot-a"></slot>
+        <slot name="slot-b"></slot>
+        <slot name="slot-c"></slot>
       </paper-radio-group>
     </div>
   </template>
@@ -41,10 +41,6 @@
           type:String,
           reflectToAttribute:true,
           notify:true
-        },
-        label:{
-          type:Array,
-          reflectToAttribute:true
         },
         required:{
           type:Boolean,

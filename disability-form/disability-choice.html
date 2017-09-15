@@ -30,11 +30,7 @@
     </style>
 
     <div id="main" class="layout horizontal">
-      <span class="flex" id="label">
-        <span>{{label}}</span>
-        <content></content>
-      </span>
-      <!--<span class="valueText"><b>{{_valueStr}}</b></span>-->
+      <slot></slot>
     </div>
     <div class="layout horizontal">
       <paper-radio-group selected="{{value}}" 
