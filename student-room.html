@@ -98,9 +98,9 @@
         '__execute(jwtToken,host,level,room,year)',
       ],
       __execute: function (jwtToken, host, level, room,year) {
-	       if(!jwtToken.token || host == null || level == null
-            || year == null || level.length == 0 || room.length == 0
-	          || room == null) return;
+	if(!jwtToken || !jwtToken.token || host == null || level == null
+           || year == null || level.length == 0 || room.length == 0
+	   || room == null) return;
         this.$.listAjax.generateRequest();
       },
       _firstLetter: function (str) {

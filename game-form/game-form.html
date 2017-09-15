@@ -60,7 +60,7 @@
     <form-control id="control"
       doc-key="{{document.key}}"
       doc-value="{{document.value}}">
-      <div class="description">
+      <div slot="description">
         <ul class="num"><b><u>คำอธิบาย</u></b>
           <p>
                                 แบบทดสอบการติดเกม (Game Addiction Screening Test – GAST) เป็นแบบทดสอบที่พัฒนาขึ้นโดยสถาบันสุขภาพจิตเด็กและวัยรุ่นราชนครินทร์ กรมสุขภาพจิต 
@@ -229,7 +229,7 @@
           </p>
         </ul>
       </div>
-      <div class="formEntry">
+      <div slot="formEntry">
                       ตั้งแต่ฉันชอบเล่นเกม...
         <game-choice id="q1" value="{{document.value.form_value.q1}}"
           label=".....ฉันสนใจหรือทำกิจกรรมอย่างอื่นน้อยลงมาก">
@@ -280,7 +280,7 @@
           label=".....ฉันใช้เวลาว่างส่วนใหญ่ไปกับการเล่นเกม">
         </game-choice>
       </div>
-      <div class="evaluation">
+      <div slot="evaluation">
        <div class="layout horizontal">
         <paper-input label="คะแนนรวมได้ (คะแนน)" class="flex"
           readonly
