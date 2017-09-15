@@ -9,8 +9,10 @@
 <link rel="import" href="../../paper-input/paper-input.html">
 <link rel="import" href="../form-control.html">
 <link rel="import" href="../studentcare-form-behavior.html">
+<!--
 <link rel="import" href="homevisit-query.html">
 <link rel="import" href="grade-query.html">
+-->
 
 <link href="https://fonts.googleapis.com/css?family=Itim&amp;subset=thai" rel="stylesheet">
 
@@ -140,11 +142,11 @@
          <li>
            <label id="label1" class="headQ">ความสามารถพิเศษ (ความถนัดและความสนใจในวิชาที่เรียน)</label>
            <paper-radio-group aria-labelledby="label1" selected="{{document.value.form_value.q1}}">
-             <paper-radio-button name="y" class ="font-face-normal" >มี</paper-radio-button>
-             <paper-radio-button name="n"class ="font-face-normal">ไม่มี</paper-radio-button>
+             <paper-radio-button name="y" class="font-face-normal">มี</paper-radio-button>
+             <paper-radio-button name="n" class="font-face-normal">ไม่มี</paper-radio-button>
            </paper-radio-group>
-           <div class="topic1" hidden$="{{!_isEquals(document.value.form_value.q1,'y')}}">
-
+           <template is="dom-if" if="{{_isEquals(document.value.form_value.q1,'y')}}">
+           <div class="topic1">
              <paper-checkbox checked="{{document.value.form_value.q1_1}}">
               <div class="font-face-normal">กลุ่มสาระการเรียนรู้คณิตศาสตร์</div>
              </paper-checkbox>
@@ -242,7 +244,7 @@
              </paper-input>
 
              <paper-checkbox checked="{{document.value.form_value.q1_9}}">
-            <div class="font-face-normal"> อื่น ๆ</div>
+             <div class="font-face-normal"> อื่น ๆ</div>
              </paper-checkbox>
              <paper-input id ="res" value="{{document.value.form_value.q1_9_t1}}" 
                label="ลำดับที่ 1"
@@ -252,8 +254,8 @@
                label="ลำดับที่ 2"
                disabled="{{!document.value.form_value.q1_9}}">
              </paper-input>
-
            </div>
+           </template>
          </li>
          <li>
            <label id="label2"  class="headQ">ด้านการเรียน</label>

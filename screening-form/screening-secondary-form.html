@@ -122,8 +122,8 @@
              <paper-radio-button name="y" class ="font-face-normal" >มี</paper-radio-button>
              <paper-radio-button name="n"class ="font-face-normal">ไม่มี</paper-radio-button>
            </paper-radio-group>
-           <div class="topic1" hidden$="{{!_isEquals(document.value.form_value.q1,'y')}}">
-
+           <template is="dom-if" if="{{_isEquals(document.value.form_value.q1,'y')}}">
+           <div class="topic1">
              <paper-checkbox checked="{{document.value.form_value.q1_1}}">
               <div class="font-face-normal">กลุ่มสาระการเรียนรู้คณิตศาสตร์</div>
              </paper-checkbox>
@@ -231,8 +231,8 @@
                label="ลำดับที่ 2"
                disabled="{{!document.value.form_value.q1_9}}">
              </paper-input>
-
            </div>
+           </template>
          </li>
          <li>
            <label id="label2"  class="headQ">ด้านการเรียน</label>
