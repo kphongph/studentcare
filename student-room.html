@@ -56,7 +56,6 @@
        last-response="{{students}}"
        body$='{"query":{"class":"{{level}}","room":"{{room}}","year":{{year}},"hostid":"{{host}}"}}'>
     </iron-ajax>
-
     <paper-listbox selected="{{student}}" on-iron-select="_selected" attr-for-selected="name">
       <template is="dom-repeat" items="{{students}}">
         <paper-item name="{{item._id}}">
@@ -108,7 +107,9 @@
         return str[0];
       },
       _selected: function (e) {
-        this.fire('student-selected', { '_id': this.student});
+        //console.log(e.detail);
+
+        this.fire('student-selected', { '_id': e.detail.item.name});
       }
     });
   </script>

@@ -16,10 +16,11 @@
         @apply(--layout-vertical);
         @apply(--paper-font-caption);
         display: block;
+      }
 
-          font-family: 'Itim', cursive;
-          font-size: 110%;
-
+      .font-face {
+        font-family: 'Itim', cursive;
+        font-size: 110%;
       }
 
       paper-radio-button {
@@ -88,7 +89,7 @@
     }
     </style>
     <div class="layout vertical" id="main">
-      <content></content>              
+      <slot class="font-face"></slot>
       <paper-radio-group selected="{{value}}">
         <paper-radio-button name="y">จริง</paper-radio-button>
         <paper-radio-button name="m">ค่อนข้างจริง</paper-radio-button>

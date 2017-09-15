@@ -6,17 +6,17 @@
     "polymer": "Polymer/polymer#^1.4.0",
     "app-leveldb": "git://github.com/kphongph/app-leveldb.git#pk",
     "paper-dropdown-menu": "PolymerElements/paper-dropdown-menu#^2.0.0",
-    "paper-listbox": "PolymerElements/paper-listbox#^1.1.2",
+    "paper-listbox": "PolymerElements/paper-listbox#^2.0.0",
     "paper-item": "^1.2.1",
     "iron-selector": "^1.5.2",
     "paper-progress": "^1.0.11",
     "app-localize-behavior": "PolymerElements/app-localize-behavior#^0.10.1",
     "paper-stepper": "Zecat/paper-stepper#v2.0-beta.5",
-    "paper-radio-group": "^1.2.1",
+    "paper-radio-group": "PolymerElements/paper-radio-group#^2.0.0",
     "neon-animation": "PolymerElements/neon-animation#^2.0.1",
     "grid-element": "^0.4.4",
     "paper-dialog": "PolymerElements/paper-dialog#^1.1.0",
-    "paper-tabs": "PolymerElements/paper-tabs#^1.8.0",
+    "paper-tabs": "PolymerElements/paper-tabs#^2.0.0",
     "iron-pages": "^1.0.8",
     "iron-validator-behavior": "PolymerElements/iron-validator-behavior#^1.0.1",
     "iron-validatable-behavior": "PolymerElements/iron-validatable-behavior#^1.1.1",
@@ -29,7 +29,8 @@
     "iron-scroll-threshold": "PolymerElements/iron-scroll-threshold#^1.0.3",
     "paper-spinner": "PolymerElements/paper-spinner#^2.0.0",
     "kjur-jsrsasign": "jsrsasign#^7.1.4",
-    "google-chart": "GoogleWebComponents/google-chart#^1.1.2"
+    "google-chart": "GoogleWebComponents/google-chart#^1.1.2",
+    "paper-button": "PolymerElements/paper-button#^2.0.0"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
@@ -40,6 +41,10 @@
   },
   "resolutions": {
     "paper-dropdown-menu": "^2.0.0",
-    "neon-animation": "^2.0.1"
+    "neon-animation": "^2.0.1",
+    "paper-listbox": "^2.0.0",
+    "paper-button": "^2.0.0",
+    "paper-tabs": "^2.0.0",
+    "paper-radio-group": "^2.0.0"
   }
 }

@@ -115,6 +115,7 @@
         },
         data: {
           type:Object,
+          reflectToAttribute: true,
           notify:true
         },
         formElement: {
@@ -175,7 +176,7 @@
 
         var ele = document.createElement(data.form_type);
         tmp['form']= {
-           'label':ele.getAttribute('name'),
+           'label':ele.name,
            'element':ele
         };
         return tmp;

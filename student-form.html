@@ -85,8 +85,14 @@
       is: 'student-form',
       properties: {
         db: String,
-        year: String,
-        key: String,
+        year: {
+          type:String,
+          reflectToAttribute:true
+        },
+        key: {
+          type:String,
+          reflectToAttribute:true
+        },
         formList: {
           type: Array,
           notify: true,

@@ -51,7 +51,7 @@
       .font-face {
         font-family: 'Itim', cursive;
 
-      } 
+      }
       .font-face-big {
         font-family: 'Itim', cursive;
         font-size: 120%;
@@ -62,14 +62,14 @@
         font-size: 120%;
         font-weight: bold;
          /*text-decoration: underline;*/
-       
+
       }
     </style>
 
     <app-localstorage-document key="jwtToken" data="{{jwtToken}}">
     </app-localstorage-document>
 
-    <iron-ajax 
+    <iron-ajax
       id="getAjax"
       method="GET"
       url$="https://maas.nuqlis.com:8000/v2/obec/students_care/data/{{docKey}}"
@@ -78,7 +78,7 @@
       last-response="{{docValue}}">
     </iron-ajax>
 
-    <iron-ajax 
+    <iron-ajax
       id="saveAjax"
       method="POST"
       url$="https://maas.nuqlis.com:8000/v2/obec/students_care/data/{{docKey}}"
@@ -88,22 +88,22 @@
       body="{{docValue}}"
       handle-as="json">
     </iron-ajax>
-       
+
     <!--
 
-    <app-leveldb name="test" 
-        url="https://maas.nuqlis.com:9000/api" 
-        db-name="students_care" 
-        app="{{app}}" 
+    <app-leveldb name="test"
+        url="https://maas.nuqlis.com:9000/api"
+        db-name="students_care"
+        app="{{app}}"
         jwt-token="{{jwtToken.token}}">
     </app-leveldb>
 
-    <app-leveldb-document 
-        id="doc" 
-        app="{{app}}" 
-        key="{{docKey}}" 
-        on-response="_onResponse" 
-        status="{{status}}" 
+    <app-leveldb-document
+        id="doc"
+        app="{{app}}"
+        key="{{docKey}}"
+        on-response="_onResponse"
+        status="{{status}}"
         value="{{docValue}}">
     </app-leveldb-document>
     -->
@@ -130,7 +130,9 @@
     </paper-tabs>
 
     <iron-pages selected="{{page}}">
-      <content select=".description"></content>
+      <div>
+        <slot name="description"></slot>
+      </div>
       <div class="layout vertical">
         <div class="layout horizontal formControl">
           <paper-button raised on-tap="_onSave">
@@ -149,10 +151,10 @@
           -->
         </div>
         <div class="font-face">{{message}}</div>
-        <content select=".formEntry"></content>
+        <slot name="formEntry"></slot>
       </div>
       <div>
-        <content select=".evaluation"></content>
+        <slot select="evaluation"></slot>
       </div>
     </iron-pages>
 
@@ -166,10 +168,13 @@
       properties: {
         docKey: {
           type: String,
+          notify: true,
+          reflectToAttribute: true
         },
         docValue: {
           type: Object,
-          notify: true
+          notify: true,
+          reflectToAttribute: true,
         },
         page: {
           type: Number,

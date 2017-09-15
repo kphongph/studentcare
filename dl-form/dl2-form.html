@@ -51,10 +51,10 @@
     </style>
 
     <form-control id="control" doc-key="{{document.key}}" doc-value="{{document.value}}">
-      <div class="description">
+      <div slot="description">
         <p class="font-face">เลือกคำตอบเพียงข้อเดียวในแต่ละข้อคำถามที่ใกล้เคียงกับพฤติกรรมของนักเรียนที่เกิดขึ้นในช่วง 6 เดือนที่ผ่านมา</p>
       </div>
-      <div class="formEntry">
+      <div slot="formEntry">
         <paper-tabs selected="{{part}}" class="flex">
           <paper-tab>
             <div class="font-face">หน้าแรก</div>
@@ -71,7 +71,7 @@
           </sdq-form-teacher>
         </iron-pages>
       </div>
-      <div class="evaluation font-face">
+      <div class="font-face" slot="evaluation">
         ผลการประเมิน
         <div class="layout vertical">
           <template is="dom-repeat" items="{{_result}}" class="font-face">
@@ -94,6 +94,7 @@
         name: {
           type: String,
           reflectToAttribute: true,
+          readOnly:true,
           value: "แบบประเมินพฤติกรรมเด็ก (SDQ) ฉบับครูเป็นผู้ประเมินนักเรียน"
         },
         part: {

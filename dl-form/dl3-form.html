@@ -50,36 +50,34 @@
     --paper-input-container-label:{
        font-family: 'Itim', cursive;
     };
-    --paper-input-container-focus-color:#F44336; 
+    --paper-input-container-focus-color:#F44336;
   }
-  
+
     </style>
 
     <form-control id="control"
       doc-key="{{document.key}}"
       doc-value="{{document.value}}">
-      <div class="description font-face">
+      <div class="font-face" slot="description">
         <p>เลือกคำตอบเพียงข้อเดียวในแต่ละข้อคำถามที่ใกล้เคียงกับพฤติกรรมของนักเรียนที่เกิดขึ้นในช่วง  6  เดือนที่ผ่านมา</p>
       </div>
-      <div class="formEntry">
-
+      <div slot="formEntry">
         <paper-tabs selected="{{part}}" class="flex">
           <paper-tab><div class="font-face">หน้าแรก</div></paper-tab>
           <paper-tab><div class="font-face">หน้าหลัง</div></paper-tab>
         </paper-tabs>
-    
+
         <iron-pages selected="{{part}}">
           <sdqself-form-choice id="formChoice"
             value="{{document.value.form_value}}">
-          </sdqself-form-choice>      
-          <sdq-form-student id="formStudent" 
+          </sdqself-form-choice>
+          <sdq-form-student id="formStudent"
             value="{{document.value.form_value}}">
-          </sdq-form-student>      
+          </sdq-form-student>
         </iron-pages>
       </div>
-      <div class="evaluation ">
+      <div slot="evaluation">
         <!--ผลการประเมิน-->
-        
         <div class="layout vertical">
         <template is="dom-repeat" items="{{_result}}">
           <paper-input  id="title" label="{{item.label}}"
@@ -89,8 +87,8 @@
         </template>
         </div>
       </div>
-    </form-control> 
-    
+    </form-control>
+
   </template>
   <script>
     Polymer({
@@ -116,7 +114,7 @@
             return [];
           }
         }
-      },  
+      },
       __computeResult:function(result) {
         var tmp = [];
         for(var k in result) {
@@ -202,7 +200,7 @@
             _type.score+=_index.indexOf(values['f_q'+p]);
           }
           for(var l in _type._result) {
-            if(_type.score >= _type._result[l][0] && 
+            if(_type.score >= _type._result[l][0] &&
                _type.score <= _type._result[l][1]) {
               _type.result = l;
             }
@@ -219,7 +217,7 @@
           'result':''
         };
         for(var t in score) {
-          if(t != 'social' && t != 'weakness') { 
+          if(t != 'social' && t != 'weakness') {
             score['weakness'].score += score[t].score;
           }
         }

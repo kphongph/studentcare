@@ -6,6 +6,7 @@
       },
       document: {
         type:Object,
+        reflectToAttribute: true,
         notify:true
       }
     },
@@ -27,14 +28,14 @@
           var _result = this._evaluate();
           this.set('document.value.status',"done");
           this.set('document.value.form_result',_result);
-        }  
-        e.target.save();
+        }
+        e.target.$.control.save();
       }
 
       if(e.detail.type == "undo") {
         this.document.value.status = "new";
         this._reset();
-        e.target.save();
+        e.target.$.control.save();
       }
 
       if(e.detail.type == "process") {
@@ -42,8 +43,8 @@
           var _result = this._evaluate();
           this.set('document.value.status',"done");
           this.set('document.value.form_result',_result);
-          e.target.save();
-        } 
+          e.target.$.control.save();
+        }
       }
     }
   }

@@ -8,29 +8,32 @@
   <template>
   <style include="iron-flex iron-flex-alignment iron-flex-factors">
     .paper-font-headline {
-      @apply(--paper-font-body2);
+      @apply --paper-font-body2;
     }
     .idx {
-        width:10px;
-      }
+      width:10px;
+    }
     sdq-radio {
       margin-top:2px;
       margin-bottom:2px;
+      font-family: 'Itim', cursive;
+      font-size: 110%;
     }
     @media (min-width:400px) {
       :host {
-        @apply(--paper-font-body1);
+        @apply --paper-font-body1;
         display: block;
         width: 100%;
         --paper-radio-group-item-padding: 5px 12px 5px 12px;
       }
       .paper-font-headline {
-        @apply(--paper-font-headline);
+        @apply --paper-font-headline;
       }
+
     }
 
   </style>
-  <div class="layout vertical">    
+  <div class="layout vertical">
     <sdq-radio required value="{{value.f_q1}}">
     ฉันพยายามทำตัวดีกับคนอื่น ฉันใส่ใจความรู้สึกของคนอื่น
     </sdq-radio>
