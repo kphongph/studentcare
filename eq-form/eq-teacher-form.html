@@ -15,8 +15,8 @@
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors">
        :host {
-        @apply(--paper-font-display);
-        @apply(--layout-vertical);
+        @apply --paper-font-display;
+        @apply --layout-vertical;
         display: block;
       }
 
@@ -25,21 +25,20 @@
       }
 
       .formEntry div {
-        @apply(--paper-font-title);
+        @apply --paper-font-title;
         margin: 3px;
         padding: 0px;
         background: #efefef;
       }
 
       .description ol {
-        @apply(--paper-font-body1);
-        .num {
-          list-style-type: decimal;
-          
-        }
+        @apply --paper-font-body1;
         margin:3px;
         padding:0px;
         background:#efefef;
+        .num {
+          list-style-type: decimal;
+        }
       }
 
       .check-icon {
@@ -55,14 +54,15 @@
         font-weight: bold;
         font-size: 120%;
       }
-            .font-face {
+
+      .font-face {
         font-family: 'Itim', cursive;
         font-size: 120%;
       }
     </style>
 
     <form-control id="control" on-form-action="_tap" doc-key="{{document.key}}" doc-value="{{document.value}}">
-      <div class="description">
+      <div slot="description">
         <ol class="num"><b class="font-face-bold"><u>ความหมาย</u></b>
           <li class="font-face">ความฉลาดทางอารมณ์ของเด็กเป็นความพร้อมทางอารมณ์ที่จะอยู่ร่วมกับผู้อื่นด้อย่างราบรื่น โดยรู้จักอารมณ์ตนเองและผู้อื่น
             แสดงความเห็นใจหรือปลอบใจผู้อื่น อดทนและรอคอยได้ มีน้ำใจ รู้จักให้ รู้จักแบ่งปัน รู้ว่าทำผิด หรือยอมรับผิด พร้อมที่จะพัฒนาตนไปสู่ความสำเร็จ
@@ -109,7 +109,7 @@
           <li class="font-face">ก่อนและหลังประเมินครูควรจัดกิจกรรมส่งเสริมความฉลาดทางอารมณ์ เพื่อพัฒนาความฉลาดทางอารมณ์แก่เด็กอย่างต่อเนื่อง</li>
         </ul>
       </div>
-      <div class="formEntry">
+      <div slot="formEntry">
         <div>ดี</div>
         <eq-teacher-choice no="1" value="{{document.value.form_value.q1}}" label="รู้จักให้กำลังใจผู้อื่น">
         </eq-teacher-choice>
@@ -145,7 +145,7 @@
         </eq-teacher-choice>
       </div>
 
-      <div class="evaluation">
+      <div slot="evaluation">
         <div class="layout vertical">
           <div class="layout horizontal">
             <div class="check-icon">

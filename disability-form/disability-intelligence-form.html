@@ -11,8 +11,8 @@
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors">
       :host {
-        @apply(--paper-font-display);
-        @apply(--layout-vertical);
+        @apply --paper-font-display;
+        @apply --layout-vertical;
         display: block;
       }
 
@@ -25,14 +25,14 @@
       }
       
       .formEntry div {
-        @apply(--paper-font-title);
+        @apply --paper-font-title);
         margin:3px;
         padding:0px;
         background:#efefef;
       }
 
       .description ol {
-        @apply(--paper-font-body1);
+        @apply --paper-font-body1;
         .num {list-style-type: decimal;}
         margin:3px;
         padding:0px;
@@ -52,7 +52,7 @@
       on-form-action="_tap" 
       doc-key="{{document.key}}"
       doc-value="{{document.value}}">
-      <div class="description">
+      <div slot="description">
         <ol class="num"><b> คำชี้แจง</b>
           <li>แบบคัดกรองฉบับนี้เป็นแบบคัดกรองเพื่อประโยชน์ในทางการจัดการศึกษาเท่านั้น</li>
           <li>วิเคราะห์ลักษณะ / พฤติกรรม ของเด็ก ซึ่งเป็นลักษณะหรือพฤติกรรม ที่เด็กแสดงออกบ่อย ๆ โดยให้เลือกติ๊กลงในช่อง  <b>“ใช่”</b> หรือ <b>“ไม่ใช่”</b> ที่ตรงกับลักษณะหรือพฤติกรรมนั้น ๆ ของเด็ก</li>
@@ -68,7 +68,7 @@
           </li>
         </ol>
       </div>
-      <div class="formEntry">
+      <div slot="formEntry">
        <div>ทักษะการสื่อสาร</div>
        <disability-choice value="{{document.value.form_value.p1_1}}" 
         label="ใช้ภาษาไม่สมวัย">
@@ -141,7 +141,7 @@
        </disability-choice>     
      </div>
 
-     <div class="evaluation">
+     <div slot="evaluation">
       <div class="layout vertical">
        <div class="layout horizontal">
         <div class="check-icon">

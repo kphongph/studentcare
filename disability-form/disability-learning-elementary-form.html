@@ -11,8 +11,8 @@
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors">
       :host {
-        @apply(--paper-font-display);
-        @apply(--layout-vertical);
+        @apply --paper-font-display;
+        @apply --layout-vertical;
         display: block;
       }
 
@@ -31,19 +31,19 @@
       }
 
       .section-label {
-        @apply(--paper-font-body2);
+        @apply --paper-font-body2;
         padding-left:10px;
         font-weight:bold;
       }
 
       .section-head {
-        @apply(--paper-font-display);
+        @apply --paper-font-display;
         padding-left:10px;
         font-weight:bold;
       }
 
       .description ol {
-        @apply(--paper-font-display);
+        @apply --paper-font-display;
         .num {list-style-type: decimal;}
         margin:3px;
         padding:0px;
@@ -63,7 +63,7 @@
     <form-control id="control" 
       doc-key="{{document.key}}"
       doc-value="{{document.value}}">
-      <div class="description">
+      <div slot="description">
         <ol class="num"><b> คำชี้แจง</b>
           <li>แบบคัดกรองฉบับนี้เป็นแบบคัดกรองเพื่อประโยชน์ในทางการจัดการศึกษาเท่านั้น</li>
           <li>วิเคราะห์ลักษณะ / พฤติกรรม ของเด็ก ซึ่งเป็นลักษณะหรือพฤติกรรม ที่เด็กแสดงออกบ่อย ๆ โดยให้เลือกติ๊กลงในช่อง  <b>“ใช่”</b> หรือ <b>“ไม่ใช่”</b> ที่ตรงกับลักษณะหรือพฤติกรรมนั้น ๆ ของเด็ก</li>
@@ -84,7 +84,7 @@
           </li>
         </ol>
      </div>
-     <div class="formEntry">
+     <div slot="formEntry">
        <div class="section">
          <div class="section-head">
          การวิเคราะห์เบื้องต้น / ข้อมูลพื้นฐานของบุคคลที่มีความบกพร่องทางการเรียนรู้
@@ -245,7 +245,7 @@
        </div>
      </div>
 
-     <div class="evaluation">
+     <div slot="evaluation">
       <div class="layout vertical">
        <span>ความบกพร่องทางการเรียนรู้</span>
        <span class="result">{{_resultp1p1}}</span>

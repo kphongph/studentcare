@@ -19,8 +19,8 @@
     <style include="iron-flex iron-flex-alignment iron-flex-factors">
 
       :host {
-        @apply(--paper-font-display);
-        @apply(--layout-vertical);
+        @apply --paper-font-display;
+        @apply --layout-vertical;
         display: block;
       }
 
@@ -29,7 +29,7 @@
       }
 
       .formEntry div {
-        @apply(--paper-font-display);
+        @apply --paper-font-display;
         margin:3px;
         padding:0px;
       }
@@ -45,7 +45,7 @@
       .topic1 {
         padding:20px;
         margin-right:20px;
-        @apply(--layout-vertical);
+        @apply --layout-vertical;
       }
       
       .topic1 paper-input {
@@ -67,11 +67,11 @@
         font-family: 'Itim', cursive;
         font-size: 120%;
       }
-            .font-face-normal {
+      .font-face-normal {
         font-family: 'Itim', cursive;
         font-size: 120%;
       }
-            .font-face-bolder {
+      .font-face-bolder {
         font-family: 'Itim', cursive;
         font-size: 120%;
         font-weight: bold;
@@ -89,12 +89,12 @@
       
 
       label{
- font-family: 'Itim', cursive;
+        font-family: 'Itim', cursive;
         font-size: 120%;
       }
-            .headQ{
+      .headQ{
         font-weight: bold;
-          font-size: 120%;
+        font-size: 120%;
       }
       /*.label2{
  font-family: 'Itim', cursive;
@@ -102,14 +102,14 @@
       }*/
 
      #res {
-    --paper-input-container-input: {
-      /*font-size: 24px;*/
-      font-family: 'Itim', cursive;
-    };
-    --paper-input-container-label:{
-       font-family: 'Itim', cursive;
-    };
-    --paper-input-container-focus-color:#F44336; 
+      --paper-input-container-input: {
+        /*font-size: 24px;*/
+        font-family: 'Itim', cursive;
+      };
+      --paper-input-container-label:{
+        font-family: 'Itim', cursive;
+      };
+      --paper-input-container-focus-color:#F44336; 
      }
 
     </style>
@@ -130,12 +130,12 @@
       on-form-action="_tap" 
       doc-key="{{document.key}}"
       doc-value="{{document.value}}">
-      <div class="description">
+      <div slot="description">
         <ol class="num"><b class="font-face-bolder"> คำชี้แจง</b>
          <li class="font-face-normal">ให้เลือกว่าอาการในแต่ละข้อนั้นตรงกับลักษณะของเด็กที่ท่านประเมินเพียงใด</li>
         </ol>
       </div>
-      <div class="formEntry">
+      <div slot="formEntry">
        <ol>
          <li>
            <label id="label1" class="headQ">ความสามารถพิเศษ (ความถนัดและความสนใจในวิชาที่เรียน)</label>
@@ -481,7 +481,7 @@
        </ol>
      </div>
 
-     <div class="evaluation">
+     <div slot="evaluation">
       <!--
       <div class="layout vertical">
        <div class="layout horizontal">

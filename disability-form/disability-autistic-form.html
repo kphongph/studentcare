@@ -12,8 +12,8 @@
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors">
       :host {
-        @apply(--paper-font-display);
-        @apply(--layout-vertical);
+        @apply --paper-font-display;
+        @apply --layout-vertical;
         display: block;
       }
 
@@ -26,14 +26,14 @@
       }
       
       .formEntry div {
-        @apply(--paper-font-title);
+        @apply --paper-font-title;
         margin:3px;
         padding:0px;
         background:#efefef;
       }
 
       .description ol {
-        @apply(--paper-font-body1);
+        @apply --paper-font-body1;
         .num {list-style-type: decimal;}
         margin:3px;
         padding:0px;
@@ -54,7 +54,7 @@
       on-form-action="_tap" 
       doc-key="{{document.key}}"
       doc-value="{{document.value}}">
-      <div class="description">
+      <div slot="description">
         <ol class="num"><b> คำชี้แจง</b>
           <li>แบบคัดกรองฉบับนี้เป็นแบบคัดกรองเพื่อประโยชน์ในทางการจัดการศึกษาเท่านั้น</li>
           <li>1.	วิเคราะห์ลักษณะ / พฤติกรรม ของเด็ก ซึ่งเป็นลักษณะหรือพฤติกรรม ที่เด็กแสดงออกบ่อย ๆ โดยให้เลือกติ๊กลงในช่อง <b>“ใช่”</b> หรือ <b>“ไม่ใช่”</b> ที่ตรงกับลักษณะหรือพฤติกรรมนั้น ๆ ของเด็ก</li>
@@ -67,7 +67,7 @@
           </li>
         </ol>
       </div>
-      <div class="formEntry">
+      <div slot="formEntry">
        <div>ด้านพฤติกรรม / อารมณ์</div>
        <disability-choice value="{{document.value.form_value.q_1}}"> 
       มีพฤติกรรมกระตุ้นตัวเอง ซึ่งเป็นพฤติกรรมซ้ำๆ เช่นสะบัดนิ้ว  เล่นมือ  ดม เคาะ หรือหมุนสิ่งของ เป็นต้น
@@ -127,7 +127,7 @@
        </disability-choice>            
      </div>
 
-     <div class="evaluation">
+     <div slot="evaluation">
       <div class="layout vertical">
        <span class="result">{{_resultq}}</span>
       </div>

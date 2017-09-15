@@ -14,8 +14,8 @@
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors">
       :host {
-        @apply(--paper-font-display);
-        @apply(--layout-vertical);
+        @apply --paper-font-display;
+        @apply --layout-vertical;
         display: block;
       }
       .invalid {
@@ -26,18 +26,18 @@
       }
 
       .formEntry div {
-        @apply(--paper-font-title);
+        @apply --paper-font-title;
         margin:3px;
         padding:0px;
         background:#efefef;
       }
 
       .description ol {
-        @apply(--paper-font-body1);
-        .num {list-style-type: decimal;}
+        @apply --paper-font-body1;
         margin:3px;
         padding:0px;
         background:#efefef;
+        .num {list-style-type: decimal;}
       }
       table, td, th {
         border: 1px solid black;
@@ -60,13 +60,13 @@
         font-weight:bold;
       }
 
-            .font-face-bold {
+      .font-face-bold {
         font-family: 'Itim', cursive;
         font-weight: bold;
         font-size: 120%;
       }
 
-                  .font-face {
+      .font-face {
         font-family: 'Itim', cursive;
         font-size: 120%;
       }
@@ -76,7 +76,7 @@
       on-form-action="_tap"
       doc-key="{{document.key}}"
       doc-value="{{document.value}}">
-     <div class="description">
+     <div slot="description">
       <ol class="num"><b class="font-face-bold"><u>ความหมาย</u></b>
         <li class="font-face">ความฉลาดทางอารมณ์ คือ ความสามารถทางอารมณ์ในการดำเนินชีวิตอย่างสร้างสรรค์และมีความสุข การรู้จักความฉลาดทางอารมณ์ของตนเองเพื่อการพัฒนาและการใช้ศักยภาพตนเองในการดำเนินชีต ครอบครัวการทำงานและการอยู่ร่วมกับผู้อื่นได้อย่างมีความสุขและประสบความสำเร็จ กรมสุขภาพจิตได้ตระหนักถึงความสำคัญของความฉลาดทางอารมณ์ จึงได้สร้างแบบประเมินสำหรับประชาชนเพื่อใช้ประเมินตนเอง</li>
       </ol>
@@ -184,7 +184,7 @@
         <li class="font-face">"ด้านสุข" หมายถึง 	ความสามารถในการดำเนินชีวิตอย่างเป็นสุข</li>
       </ol>
      </div>
-     <div class="formEntry font-face">
+     <div class="font-face" slot="formEntry">
        <div>ควบคุมตนเอง</div>
        <eq-student-choice no="1" value="{{document.value.form_value.q1}}"
         label="เวลาโกรธหรือไม่สบายใจ ฉันรับรู้ได้ว่าเกิดอะไรขึ้นกับฉัน">
@@ -352,10 +352,10 @@
        </eq-student-choice>
      </div>
 
-    <div class="evaluation">
+    <div slot="evaluation">
     <br>
     <center>
-    <table  class="font-face">
+    <table class="font-face">
         <tr>
           <th>ด้าน</th>
           <th>ด้านย่อย</th>

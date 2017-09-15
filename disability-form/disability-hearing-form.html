@@ -11,8 +11,8 @@
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors">
       :host {
-        @apply(--paper-font-display);
-        @apply(--layout-vertical);
+        @apply --paper-font-display;
+        @apply --layout-vertical;
         display: block;
       }
 
@@ -25,14 +25,14 @@
       }
       
       .formEntry div {
-        @apply(--paper-font-title);
+        @apply --paper-font-title;
         margin:3px;
         padding:0px;
         background:#efefef;
       }
 
       .description ol {
-        @apply(--paper-font-body1);
+        @apply --paper-font-body1;
         .num {list-style-type: decimal;}
         margin:3px;
         padding:0px;
@@ -52,7 +52,7 @@
       on-form-action="_tap" 
       doc-key="{{document.key}}"
       doc-value="{{document.value}}">
-      <div class="description">
+      <div slot="description">
         <ol class="num"><b> คำชี้แจง</b>
           <li>แบบคัดกรองฉบับนี้เป็นแบบคัดกรองเพื่อประโยชน์ในทางการจัดการศึกษาเท่านั้น</li>
           <li>วิเคราะห์ลักษณะ / พฤติกรรม ของเด็ก ซึ่งเป็นลักษณะหรือพฤติกรรม ที่เด็กแสดงออกบ่อย ๆ โดยให้เลือกติ๊กลงในช่อง  <b>“ใช่”</b> หรือ <b>“ไม่ใช่”</b> ที่ตรงกับลักษณะหรือพฤติกรรมนั้น ๆ ของเด็ก</li>
@@ -63,7 +63,7 @@
           <li>ถ้าตอบว่าใช่ 3 ข้อ ขึ้นไป แสดงว่ามีแนวโน้มที่จะเป็นบุคคลที่มีความบกพร่องทางการได้ยิน ให้จัดบริการช่วยเหลือทางการศึกษาพิเศษ และส่งต่อให้แพทย์ตรวจวินิจฉัยต่อไป</li>
         </ol>
       </div>
-      <div class="formEntry">
+      <div slot="formEntry">
        <disability-choice value="{{document.value.form_value.q1}}" 
         label="ไม่หันศรีษะหาเสียงเมื่อเรียกชื่อจากข้างหลัง">
        </disability-choice>     
@@ -92,7 +92,7 @@
           label="การแสดงออกทางพฤติกรรมในชีวิตประจำวันที่ส่งเสียงดังมากกว่าปกติ เช่น การเดินลงส้นเท้า การรับประทานอาหารโดยช้อนกระทบจาน เป็นต้น">
        </disability-choice>     
      </div>
-     <div class="evaluation">
+     <div slot="evaluation">
       <div class="layout vertical">
        <div class="layout horizontal">
         <div class="check-icon">
