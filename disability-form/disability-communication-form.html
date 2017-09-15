@@ -7,12 +7,15 @@
 <link rel="import" href="../form-control.html">
 <link rel="import" href="../studentcare-form-behavior.html">
 <link rel="import" href="disability-choice.html">
+
+<link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">
 <dom-module id="disability-communication-form">
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors">
       :host {
         @apply --paper-font-display;
         @apply --layout-vertical;
+        font-family: 'Athiti', sans-serif;
         display: block;
       }
 
@@ -23,7 +26,7 @@
       paper-radio-group {
         background:#efefef;
       }
-      
+
       .formEntry div {
         @apply --paper-font-title;
         margin:3px;
@@ -33,12 +36,12 @@
 
       .description ol {
         @apply --paper-font-body1;
-        .num {list-style-type: decimal;}
         margin:3px;
         padding:0px;
         background:#efefef;
+        .num {list-style-type: decimal;}
       }
-     
+
       .evaluation {
         padding:5px;
       }
@@ -48,8 +51,8 @@
       }
     </style>
 
-    <form-control id="control" 
-      on-form-action="_tap" 
+    <form-control id="control"
+      on-form-action="_tap"
       doc-key="{{document.key}}"
       doc-value="{{document.value}}">
       <div slot="description">
@@ -60,46 +63,43 @@
           <li>ผู้คัดกรองควรจะมีอย่างน้อย 2 คนขึ้นไป</li>
         </ol>
         <ol class="num"> <b>เกณฑ์การพิจารณา</b>
-          <li> 
-          ถ้าตอบว่าใช่ 5 ข้อ ขึ้นไป 
-          แสดงว่ามีแนวโน้มที่จะเป็นบุคคลที่มีความบกพร่องทางการพูดและภาษา 
+          <li>
+          ถ้าตอบว่าใช่ 5 ข้อ ขึ้นไป
+          แสดงว่ามีแนวโน้มที่จะเป็นบุคคลที่มีความบกพร่องทางการพูดและภาษา
           ให้จัดบริการช่วยเหลือทางการศึกษาพิเศษ และส่งต่อให้แพทย์ตรวจวินิจฉัยต่อไป
           </li>
         </ol>
       </div>
       <div slot="formEntry">
-       <disability-choice value="{{document.value.form_value.q_1}}"> 
-       อวัยวะที่ใช่ในการออกเสียงมีความผิดปกติ
+       <disability-choice value="{{document.value.form_value.q_1}}">
+         1. อวัยวะที่ใช่ในการออกเสียงมีความผิดปกติ
        </disability-choice>
-       <disability-choice value="{{document.value.form_value.q_2}}"> 
-       ใช่หน่วยเสียงหนักแทนกัน เช่น แทนที่จะพูดว่า “นาฬิกา” พูดว่า “นากิ๊กา” “เสือ” เป็น “เฉือ” เป็นต้น
+       <disability-choice value="{{document.value.form_value.q_2}}">
+         2. ใช่หน่วยเสียงหนักแทนกัน เช่น แทนที่จะพูดว่า “นาฬิกา” พูดว่า “นากิ๊กา” “เสือ” เป็น “เฉือ” เป็นต้น
        </disability-choice>
-       <disability-choice value="{{document.value.form_value.q_3}}"> 
-       พูดด้วยน้ำเสียงไม่ชัดเจน เสียงเพี้ยนมาก หรือเป็นเสียงพึมพำฟังแล้วไม่เข้าใจ
+       <disability-choice value="{{document.value.form_value.q_3}}">
+         3. พูดด้วยน้ำเสียงไม่ชัดเจน เสียงเพี้ยนมาก หรือเป็นเสียงพึมพำฟังแล้วไม่เข้าใจ
        </disability-choice>
-       <disability-choice value="{{document.value.form_value.q_4}}"> 
-       เสียงบางส่วนของคำขาดหายไป เช่น “ความ” เป็น “คาม” เป็นต้น
+       <disability-choice value="{{document.value.form_value.q_4}}">
+         4. เสียงบางส่วนของคำขาดหายไป เช่น “ความ” เป็น “คาม” เป็นต้น
        </disability-choice>
-       <disability-choice value="{{document.value.form_value.q_5}}"> 
-       ความบกพร่องของระดับเสียง เช่น เสียงสูงเสียงต่ำตลอดเวลาหรือเสียงที่พูด
-       อยู่ในระดับเดียวตลอด เสียงผิดเพศ ผิดวัย
+       <disability-choice value="{{document.value.form_value.q_5}}">
+         5. ความบกพร่องของระดับเสียง เช่น เสียงสูงเสียงต่ำตลอดเวลาหรือเสียงที่พูดอยู่ในระดับเดียวตลอด เสียงผิดเพศ ผิดวัย
        </disability-choice>
-       <disability-choice value="{{document.value.form_value.q_6}}"> 
-       พูดไม่ถูกลำดับขั้นตอน ไม่เป็นไปตามโครงสร้างของภาษา เช่น ฉันตลาดไป
-       ข้าวกินฉัน เป็นต้น
+       <disability-choice value="{{document.value.form_value.q_6}}">
+         6. พูดไม่ถูกลำดับขั้นตอน ไม่เป็นไปตามโครงสร้างของภาษา เช่น ฉันตลาดไปข้าวกินฉัน เป็นต้น
        </disability-choice>
-       <disability-choice value="{{document.value.form_value.q_7}}"> 
-       การเว้นวรรคตอนไม่ถูกต้อง เช่น “ผ้าสีเขียวขี้...ม้า” เป็นต้น
+       <disability-choice value="{{document.value.form_value.q_7}}">
+         7. การเว้นวรรคตอนไม่ถูกต้อง เช่น “ผ้าสีเขียวขี้...ม้า” เป็นต้น
        </disability-choice>
-       <disability-choice value="{{document.value.form_value.q_8}}"> 
-       อัตราการพูดเร็วหรือช้าเกินไป
+       <disability-choice value="{{document.value.form_value.q_8}}">
+         8. อัตราการพูดเร็วหรือช้าเกินไป
        </disability-choice>
-       <disability-choice value="{{document.value.form_value.q_9}}"> 
-       พูดตะกุกตะกักหรือพูดติดอ่าง
+       <disability-choice value="{{document.value.form_value.q_9}}">
+         9. พูดตะกุกตะกักหรือพูดติดอ่าง
        </disability-choice>
-       <disability-choice value="{{document.value.form_value.q_10}}"> 
-       บกพร่องในเรื่องความเข้าใจหรือการใช้ภาษาพูด หรือภาษาเขียนหรือระบบ
-       สัญลักษณ์
+       <disability-choice value="{{document.value.form_value.q_10}}">
+         10. บกพร่องในเรื่องความเข้าใจหรือการใช้ภาษาพูด หรือภาษาเขียนหรือระบบสัญลักษณ์
        </disability-choice>
      </div>
 
@@ -177,7 +177,7 @@
         return true;
       },
       _reset:function() {
-        this.set('document.value.form_value',{});        
+        this.set('document.value.form_value',{});
       },
       _result:function(score) {
         if(score && score.q.y>=5) {

@@ -8,7 +8,7 @@
 <link rel="import" href="../studentcare-form-behavior.html">
 <link rel="import" href="eq-student-choice.html">
 
-<link href="https://fonts.googleapis.com/css?family=Itim&amp;subset=thai" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">
 
 <dom-module id="eq-student-form">
   <template>
@@ -48,26 +48,26 @@
       }
       td {
         vertical-align: bottom;
-        font-family: 'Itim', cursive;
-        font-size:32;
+        font-family: 'Athiti', sans-serif;
+        font-size:120%;
       }
       th {
         vertical-align: bottom;
-        font-family: 'Itim', cursive;
-         font-size:32;
+        font-family: 'Athiti', sans-serif;
+        font-size:120%;
       }
       .mark {
         font-weight:bold;
       }
 
       .font-face-bold {
-        font-family: 'Itim', cursive;
+        font-family: 'Athiti', sans-serif;
         font-weight: bold;
         font-size: 120%;
       }
 
       .font-face {
-        font-family: 'Itim', cursive;
+        font-family: 'Athiti', sans-serif;
         font-size: 120%;
       }
     </style>
@@ -186,169 +186,169 @@
      </div>
      <div class="font-face" slot="formEntry">
        <div>ควบคุมตนเอง</div>
-       <eq-student-choice no="1" value="{{document.value.form_value.q1}}"
-        label="เวลาโกรธหรือไม่สบายใจ ฉันรับรู้ได้ว่าเกิดอะไรขึ้นกับฉัน">
+       <eq-student-choice value="{{document.value.form_value.q1}}"
+        label="1. เวลาโกรธหรือไม่สบายใจ ฉันรับรู้ได้ว่าเกิดอะไรขึ้นกับฉัน">
        </eq-student-choice>
-       <eq-student-choice no="2" value="{{document.value.form_value.q2}}"
-          label="ฉันบอกไม่ได้ว่าอะไรทำให้ฉันรู้สึกโกรธ">
+       <eq-student-choice value="{{document.value.form_value.q2}}"
+          label="2. ฉันบอกไม่ได้ว่าอะไรทำให้ฉันรู้สึกโกรธ">
        </eq-student-choice>
-       <eq-student-choice no="3" value="{{document.value.form_value.q3}}"
-          label="เมื่อถูกขัดใจ ฉันมักรู้สึกหงุดหงิดจนควบคุมอารมณ์ไม่ได้">
+       <eq-student-choice value="{{document.value.form_value.q3}}"
+          label="3. เมื่อถูกขัดใจ ฉันมักรู้สึกหงุดหงิดจนควบคุมอารมณ์ไม่ได้">
        </eq-student-choice>
-       <eq-student-choice no="4" value="{{document.value.form_value.q4}}"
-          label="ฉันสามารถคอยเพื่อให้บรรลุเป้าหมายที่พอใจ">
+       <eq-student-choice value="{{document.value.form_value.q4}}"
+          label="4. ฉันสามารถคอยเพื่อให้บรรลุเป้าหมายที่พอใจ">
        </eq-student-choice>
-       <eq-student-choice no="5" value="{{document.value.form_value.q5}}"
-          label="ฉันมักมีปฏิกิริยาโต้ตอบรุนแรงต่อปัญหาเพียงเล็กน้อย">
+       <eq-student-choice value="{{document.value.form_value.q5}}"
+          label="5. ฉันมักมีปฏิกิริยาโต้ตอบรุนแรงต่อปัญหาเพียงเล็กน้อย">
        </eq-student-choice>
-       <eq-student-choice no="6" value="{{document.value.form_value.q6}}"
-          label="เมื่อถูกบังคับให้ทำในสิ่งที่ไม่ชอบ ฉันจะอธิบายเหตุผลจนผู้อื่นยอมรับได้">
+       <eq-student-choice value="{{document.value.form_value.q6}}"
+          label="6. เมื่อถูกบังคับให้ทำในสิ่งที่ไม่ชอบ ฉันจะอธิบายเหตุผลจนผู้อื่นยอมรับได้">
        </eq-student-choice>
        <div>เห็นใจผู้อื่น</div>
-       <eq-student-choice no="1" value="{{document.value.form_value.q7}}"
-          label="ฉันสังเกตได้ เมื่อคนใกล้ชิดมีอารมณ์เปลี่ยนแปลง">
+       <eq-student-choice value="{{document.value.form_value.q7}}"
+          label="1. ฉันสังเกตได้ เมื่อคนใกล้ชิดมีอารมณ์เปลี่ยนแปลง">
        </eq-student-choice>
-       <eq-student-choice no="2" value="{{document.value.form_value.q8}}"
-          label="ฉันไม่สนใจกับความทุกข์ของผู้อื่นที่ฉันไม่รู้จัก">
+       <eq-student-choice value="{{document.value.form_value.q8}}"
+          label="2. ฉันไม่สนใจกับความทุกข์ของผู้อื่นที่ฉันไม่รู้จัก">
        </eq-student-choice>
-       <eq-student-choice no="3" value="{{document.value.form_value.q9}}"
-          label="ฉันไม่ยอมรับในสิ่งที่ผู้อื่นทำต่างจากที่ฉันคิด">
+       <eq-student-choice value="{{document.value.form_value.q9}}"
+          label="3. ฉันไม่ยอมรับในสิ่งที่ผู้อื่นทำต่างจากที่ฉันคิด">
        </eq-student-choice>
-       <eq-student-choice no="4" value="{{document.value.form_value.q10}}"
-          label="ฉันยอมรับได้ว่าผู้อื่นก็อาจมีเหตุผลที่จะไม่พอใจการกระทำของฉัน">
+       <eq-student-choice value="{{document.value.form_value.q10}}"
+          label="4. ฉันยอมรับได้ว่าผู้อื่นก็อาจมีเหตุผลที่จะไม่พอใจการกระทำของฉัน">
        </eq-student-choice>
-       <eq-student-choice no="5" value="{{document.value.form_value.q11}}"
-          label="ฉันรู้สึกว่าผู้อื่นชอบเรียกร้องความสนใจมากเกินไป">
+       <eq-student-choice value="{{document.value.form_value.q11}}"
+          label="5. ฉันรู้สึกว่าผู้อื่นชอบเรียกร้องความสนใจมากเกินไป">
        </eq-student-choice>
-       <eq-student-choice no="6" value="{{document.value.form_value.q12}}"
-          label="แม้จะมีภาระที่ต้องทำ ฉันก็ยินดีรับฟังความทุกข์ของผู้อื่นที่ต้องการความช่วยเหลือ">
+       <eq-student-choice value="{{document.value.form_value.q12}}"
+          label="6. แม้จะมีภาระที่ต้องทำ ฉันก็ยินดีรับฟังความทุกข์ของผู้อื่นที่ต้องการความช่วยเหลือ">
        </eq-student-choice>
        <div>รับผิดชอบ</div>
-       <eq-student-choice no="1" value="{{document.value.form_value.q13}}"
-          label="เป็นเรื่องธรรมดาที่จะเอาเปรียบผู้อื่นเมื่อมีโอกาส">
+       <eq-student-choice value="{{document.value.form_value.q13}}"
+          label="1. เป็นเรื่องธรรมดาที่จะเอาเปรียบผู้อื่นเมื่อมีโอกาส">
        </eq-student-choice>
-       <eq-student-choice no="2" value="{{document.value.form_value.q14}}"
-          label="ฉันเห็นคุณค่าในน้ำใจที่ผู้อื่นมีต่อฉัน">
+       <eq-student-choice value="{{document.value.form_value.q14}}"
+          label="2. ฉันเห็นคุณค่าในน้ำใจที่ผู้อื่นมีต่อฉัน">
        </eq-student-choice>
-       <eq-student-choice no="3" value="{{document.value.form_value.q15}}"
-          label="เมื่อทำผิด ฉันสามารถกล่าวคำ “ขอโทษ” ผู้อื่นได้">
+       <eq-student-choice value="{{document.value.form_value.q15}}"
+          label="3. เมื่อทำผิด ฉันสามารถกล่าวคำ “ขอโทษ” ผู้อื่นได้">
        </eq-student-choice>
-       <eq-student-choice no="4" value="{{document.value.form_value.q16}}"
-          label="ฉันยอมรับข้อผิดพลาดของผู้อื่นได้ยาก">
+       <eq-student-choice value="{{document.value.form_value.q16}}"
+          label="4. ฉันยอมรับข้อผิดพลาดของผู้อื่นได้ยาก">
        </eq-student-choice>
-       <eq-student-choice no="5" value="{{document.value.form_value.q17}}"
-          label="ถึงแม้จะต้องเสียประโยชน์ส่วนตัวไปบ้าง ฉันก็ยินดีที่จะทำเพื่อส่วนรวม">
+       <eq-student-choice value="{{document.value.form_value.q17}}"
+          label="5. ถึงแม้จะต้องเสียประโยชน์ส่วนตัวไปบ้าง ฉันก็ยินดีที่จะทำเพื่อส่วนรวม">
        </eq-student-choice>
-       <eq-student-choice no="6" value="{{document.value.form_value.q18}}"
-          label="ฉันรู้สึกลำบากใจในการทำสิ่งใดสิ่งหนึ่งเพื่อผู้อื่น">
+       <eq-student-choice value="{{document.value.form_value.q18}}"
+          label="5. ฉันรู้สึกลำบากใจในการทำสิ่งใดสิ่งหนึ่งเพื่อผู้อื่น">
        </eq-student-choice>
        <div>มีแรงจูงใจ</div>
-       <eq-student-choice no="1" value="{{document.value.form_value.q19}}"
-          label="ฉันไม่รู้ว่าฉันเก่งเรื่องอะไร">
+       <eq-student-choice value="{{document.value.form_value.q19}}"
+          label="1. ฉันไม่รู้ว่าฉันเก่งเรื่องอะไร">
        </eq-student-choice>
-       <eq-student-choice no="2" value="{{document.value.form_value.q20}}"
-          label="แม้จะเป็นงานยาก ฉันก็มั่นใจว่าสามารถทำได้">
+       <eq-student-choice value="{{document.value.form_value.q20}}"
+          label="2. แม้จะเป็นงานยาก ฉันก็มั่นใจว่าสามารถทำได้">
        </eq-student-choice>
-       <eq-student-choice no="3" value="{{document.value.form_value.q21}}"
-          label="เมื่อทำสิ่งใดไม่สำเร็จ ฉันรู้สึกหมดกำลังใจ">
+       <eq-student-choice value="{{document.value.form_value.q21}}"
+          label="3. เมื่อทำสิ่งใดไม่สำเร็จ ฉันรู้สึกหมดกำลังใจ">
        </eq-student-choice>
-       <eq-student-choice no="4" value="{{document.value.form_value.q22}}"
-          label="ฉันรู้สึกมีคุณค่าเมื่อได้ทำสิ่งต่างๆ อย่างเต็มความสามารถ">
+       <eq-student-choice value="{{document.value.form_value.q22}}"
+          label="4. ฉันรู้สึกมีคุณค่าเมื่อได้ทำสิ่งต่างๆ อย่างเต็มความสามารถ">
        </eq-student-choice>
-       <eq-student-choice no="5" value="{{document.value.form_value.q23}}"
-          label="เมื่อต้องเผชิญกับอุปสรรคและความผิดหวัง ฉันก็จะไม่ยอมแพ้">
+       <eq-student-choice value="{{document.value.form_value.q23}}"
+          label="5. เมื่อต้องเผชิญกับอุปสรรคและความผิดหวัง ฉันก็จะไม่ยอมแพ้">
        </eq-student-choice>
-       <eq-student-choice no="6" value="{{document.value.form_value.q24}}"
-          label="เมื่อเริ่มทำสิ่งหนึ่งสิ่งใด ฉันมักทำต่อไปไม่สำเร็จ">
+       <eq-student-choice value="{{document.value.form_value.q24}}"
+          label="6. เมื่อเริ่มทำสิ่งหนึ่งสิ่งใด ฉันมักทำต่อไปไม่สำเร็จ">
        </eq-student-choice>
        <div>ตัดสินใจและแก้ปัญหา</div>
-       <eq-student-choice no="1" value="{{document.value.form_value.q25}}"
-         label="ฉันพยายามหาสาเหตุที่แท้จริงของปัญหาโดยไม่คิดเอาเองตามใจชอบ">
+       <eq-student-choice value="{{document.value.form_value.q25}}"
+         label="1. ฉันพยายามหาสาเหตุที่แท้จริงของปัญหาโดยไม่คิดเอาเองตามใจชอบ">
        </eq-student-choice>
-       <eq-student-choice no="2" value="{{document.value.form_value.q26}}"
-          label="บ่อยครั้งที่ฉันไม่รู้ว่าอะไรทำให้ฉันไม่มีความสุข">
+       <eq-student-choice value="{{document.value.form_value.q26}}"
+          label="2. บ่อยครั้งที่ฉันไม่รู้ว่าอะไรทำให้ฉันไม่มีความสุข">
        </eq-student-choice>
-       <eq-student-choice no="3" value="{{document.value.form_value.q27}}"
-          label="ฉันรู้สึกว่าการติดสินใจแก้ปัญหาเป็นเรื่องยากสำหรับฉัน">
+       <eq-student-choice value="{{document.value.form_value.q27}}"
+          label="3. ฉันรู้สึกว่าการติดสินใจแก้ปัญหาเป็นเรื่องยากสำหรับฉัน">
        </eq-student-choice>
-       <eq-student-choice no="4" value="{{document.value.form_value.q28}}"
-          label="เมื่อต้องทำอะไรหลายอย่างในเวลาเดียวกัน ฉันตัดสินใจได้ว่าจะทำอะไรก่อนหลัง">
+       <eq-student-choice value="{{document.value.form_value.q28}}"
+          label="4. เมื่อต้องทำอะไรหลายอย่างในเวลาเดียวกัน ฉันตัดสินใจได้ว่าจะทำอะไรก่อนหลัง">
        </eq-student-choice>
-       <eq-student-choice no="5" value="{{document.value.form_value.q29}}"
-          label="ฉันลำบากใจเมื่อต้องอยู่กับคนแปลกหน้าหรือคนที่ไม่คุ้นเคย">
+       <eq-student-choice value="{{document.value.form_value.q29}}"
+          label="5. ฉันลำบากใจเมื่อต้องอยู่กับคนแปลกหน้าหรือคนที่ไม่คุ้นเคย">
        </eq-student-choice>
-       <eq-student-choice no="6" value="{{document.value.form_value.q30}}"
-          label="ฉันทนไม่ได้เมื่อต้องอยู่ในสังคมที่มีกฎระเบียบขัดกับความเคยชินของฉัน">
+       <eq-student-choice value="{{document.value.form_value.q30}}"
+          label="6. ฉันทนไม่ได้เมื่อต้องอยู่ในสังคมที่มีกฎระเบียบขัดกับความเคยชินของฉัน">
        </eq-student-choice>
        <div>สัมพันธภาพ</div>
-       <eq-student-choice no="1" value="{{document.value.form_value.q31}}"
-          label="ฉันทำความรู้จักผู้อื่นได้ง่าย">
+       <eq-student-choice value="{{document.value.form_value.q31}}"
+          label="1. ฉันทำความรู้จักผู้อื่นได้ง่าย">
        </eq-student-choice>
-       <eq-student-choice no="2" value="{{document.value.form_value.q32}}"
-          label="ฉันมีเพื่อสนิทหลายคนที่คบกันมานาน">
+       <eq-student-choice value="{{document.value.form_value.q32}}"
+          label="2. ฉันมีเพื่อสนิทหลายคนที่คบกันมานาน">
        </eq-student-choice>
-       <eq-student-choice no="3" value="{{document.value.form_value.q33}}"
-          label="ฉันไม่กล้าบอกความต้องการของฉันให้ผู้อื่นรู้">
+       <eq-student-choice value="{{document.value.form_value.q33}}"
+          label="3. ฉันไม่กล้าบอกความต้องการของฉันให้ผู้อื่นรู้">
        </eq-student-choice>
-       <eq-student-choice no="4" value="{{document.value.form_value.q34}}"
-          label="ฉันทำในสิ่งที่ต้องการโดยไม่ทำให้ผู้อื่นเดือดร้อน">
+       <eq-student-choice value="{{document.value.form_value.q34}}"
+          label="4. ฉันทำในสิ่งที่ต้องการโดยไม่ทำให้ผู้อื่นเดือดร้อน">
        </eq-student-choice>
-       <eq-student-choice no="5" value="{{document.value.form_value.q35}}"
-          label="เป็นการยากสำหรับฉันที่จะโต้แย้งกับผู้อื่น แม้จะมีเหตุผลเพียงพอ">
+       <eq-student-choice value="{{document.value.form_value.q35}}"
+          label="5. เป็นการยากสำหรับฉันที่จะโต้แย้งกับผู้อื่น แม้จะมีเหตุผลเพียงพอ">
        </eq-student-choice>
-       <eq-student-choice no="6" value="{{document.value.form_value.q36}}"
-          label="เมื่อไม่เห็นด้วยกับผู้อื่น ฉันสามารถอธิบายเหตุผลที่เขายอมรับได้">
+       <eq-student-choice value="{{document.value.form_value.q36}}"
+          label="6. เมื่อไม่เห็นด้วยกับผู้อื่น ฉันสามารถอธิบายเหตุผลที่เขายอมรับได้">
        </eq-student-choice>
        <div>ภูมิใจตนเอง</div>
-       <eq-student-choice no="1" value="{{document.value.form_value.q37}}"
-          label="ฉันรู้สึกด้อยกว่าผู้อื่น">
+       <eq-student-choice value="{{document.value.form_value.q37}}"
+          label="1. ฉันรู้สึกด้อยกว่าผู้อื่น">
        </eq-student-choice>
-       <eq-student-choice no="2" value="{{document.value.form_value.q38}}"
-          label="ฉันทำหน้าที่ได้ดี ไม่ว่าจะอยู่ในบทบาทใด">
+       <eq-student-choice value="{{document.value.form_value.q38}}"
+          label="2. ฉันทำหน้าที่ได้ดี ไม่ว่าจะอยู่ในบทบาทใด">
        </eq-student-choice>
-       <eq-student-choice no="3" value="{{document.value.form_value.q39}}"
-          label="ฉันสามารถทำงานที่ได้รับมอบหมายได้ดีที่สุด">
+       <eq-student-choice value="{{document.value.form_value.q39}}"
+          label="3. ฉันสามารถทำงานที่ได้รับมอบหมายได้ดีที่สุด">
        </eq-student-choice>
-       <eq-student-choice no="4" value="{{document.value.form_value.q40}}"
-          label="ฉันไม่มั่นใจในการทำงานที่ยากลำบาก">
+       <eq-student-choice value="{{document.value.form_value.q40}}"
+          label="4. ฉันไม่มั่นใจในการทำงานที่ยากลำบาก">
        </eq-student-choice>
        <div>พอใจชีวิต</div>
-       <eq-student-choice no="1" value="{{document.value.form_value.q41}}"
-          label="แม้สถานการณ์จะเลวร้าย ฉันก็มีความหวังว่าจะดีขึ้น">
+       <eq-student-choice value="{{document.value.form_value.q41}}"
+          label="1. แม้สถานการณ์จะเลวร้าย ฉันก็มีความหวังว่าจะดีขึ้น">
        </eq-student-choice>
-       <eq-student-choice no="2" value="{{document.value.form_value.q42}}"
-          label="ทุกปัญหามักมีทางออกเสมอ">
+       <eq-student-choice value="{{document.value.form_value.q42}}"
+          label="2. ทุกปัญหามักมีทางออกเสมอ">
        </eq-student-choice>
-       <eq-student-choice no="3" value="{{document.value.form_value.q43}}"
-          label="เมื่อมีเรื่องที่ทำให้เครียด ฉันมักปรับเปลี่ยนให้เป็นเรื่องผ่อนคลายหรือสนุกสนานได้">
+       <eq-student-choice value="{{document.value.form_value.q43}}"
+          label="3. เมื่อมีเรื่องที่ทำให้เครียด ฉันมักปรับเปลี่ยนให้เป็นเรื่องผ่อนคลายหรือสนุกสนานได้">
        </eq-student-choice>
-       <eq-student-choice no="4" value="{{document.value.form_value.q44}}"
-          label="ฉันสนุกสนานทุกครั้งกับกิจกรรมในวันสุดสัปดาห์และวันหยุดพักผ่อน">
+       <eq-student-choice value="{{document.value.form_value.q44}}"
+          label="4. ฉันสนุกสนานทุกครั้งกับกิจกรรมในวันสุดสัปดาห์และวันหยุดพักผ่อน">
        </eq-student-choice>
-       <eq-student-choice no="5" value="{{document.value.form_value.q45}}"
-          label="ฉันรู้สึกไม่พอใจที่ผู้อื่นได้รับสิ่งดีๆ มากกว่าฉัน">
+       <eq-student-choice value="{{document.value.form_value.q45}}"
+          label="5. ฉันรู้สึกไม่พอใจที่ผู้อื่นได้รับสิ่งดีๆ มากกว่าฉัน">
        </eq-student-choice>
        <div>สุขสงบทางใจ</div>
-       <eq-student-choice no="1" value="{{document.value.form_value.q46}}"
-          label="ฉันพอใจกับสิ่งที่ฉันเป็นอยู่">
+       <eq-student-choice value="{{document.value.form_value.q46}}"
+          label="1. ฉันพอใจกับสิ่งที่ฉันเป็นอยู่">
        </eq-student-choice>
-       <eq-student-choice no="2" value="{{document.value.form_value.q47}}"
-          label="ฉันไม่รู้ว่าจะหาอะไรทำ เมื่อรู้สึกเบื่อหน่าย">
+       <eq-student-choice value="{{document.value.form_value.q47}}"
+          label="2. ฉันไม่รู้ว่าจะหาอะไรทำ เมื่อรู้สึกเบื่อหน่าย">
        </eq-student-choice>
-       <eq-student-choice no="3" value="{{document.value.form_value.q48}}"
-          label="เมื่อว่างเว้นจากภาระหน้าที่ ฉันจะทำในสิ่งที่ฉันชอบ">
+       <eq-student-choice value="{{document.value.form_value.q48}}"
+          label="3. เมื่อว่างเว้นจากภาระหน้าที่ ฉันจะทำในสิ่งที่ฉันชอบ">
        </eq-student-choice>
-       <eq-student-choice no="4" value="{{document.value.form_value.q49}}"
-          label="เมื่อรู้สึกไม่สบายใจ ฉันมีวิธีผ่อนคลายอารมณ์ได้">
+       <eq-student-choice value="{{document.value.form_value.q49}}"
+          label="4. เมื่อรู้สึกไม่สบายใจ ฉันมีวิธีผ่อนคลายอารมณ์ได้">
        </eq-student-choice>
-       <eq-student-choice no="5" value="{{document.value.form_value.q50}}"
-          label="ฉันสามารถผ่อนคลายตนเองได้ แม้จะเหน็ดเหนื่อยจากภาระหน้าที่">
+       <eq-student-choice value="{{document.value.form_value.q50}}"
+          label="5. ฉันสามารถผ่อนคลายตนเองได้ แม้จะเหน็ดเหนื่อยจากภาระหน้าที่">
        </eq-student-choice>
-       <eq-student-choice no="6" value="{{document.value.form_value.q51}}"
-          label="ฉันไม่สามารถทำใจให้เป็นสุขได้จนกว่าจะได้ทุกสิ่งที่ต้องการ">
+       <eq-student-choice value="{{document.value.form_value.q51}}"
+          label="6. ฉันไม่สามารถทำใจให้เป็นสุขได้จนกว่าจะได้ทุกสิ่งที่ต้องการ">
        </eq-student-choice>
-       <eq-student-choice no="7" value="{{document.value.form_value.q52}}"
-          label="ฉันมักทุกข์ร้อนกับเรื่องเล็กๆ น้อยๆ ที่เกิดขึ้นเสมอ">
+       <eq-student-choice value="{{document.value.form_value.q52}}"
+          label="7. ฉันมักทุกข์ร้อนกับเรื่องเล็กๆ น้อยๆ ที่เกิดขึ้นเสมอ">
        </eq-student-choice>
      </div>
 
@@ -539,7 +539,7 @@
       },
       _validate: function() {
         var eles = Polymer.dom(this.root)
-          .querySelectorAll('eq-student-form');
+          .querySelectorAll('eq-student-choice');
         for (var i = 0; i < eles.length; i++) {
           if (!eles[i].value) {
             eles[i].classList.add('invalid');
@@ -551,7 +551,7 @@
         return true;
       },
       _reset: function() {
-        this.set('document.value.form_value', {}); 
+        this.set('document.value.form_value', {});
         this.set('document.value.form_result',{});
       },
       _result: function(score) {
