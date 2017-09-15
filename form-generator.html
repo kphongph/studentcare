@@ -174,11 +174,7 @@
      '__listForm(jwtToken,student,year)'
     ],
     __listForm:function(jwtToken,student,year) {
-<<<<<<< HEAD
       if(!jwtToken.token || student == null || year == null) return;
-=======
-      if(!jwtToken || !jwtToken.token || student == null || year == null) return;
->>>>>>> pk
       this.$.listFormAjax.generateRequest();
     },
     reload:function() {
