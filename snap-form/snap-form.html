@@ -56,12 +56,12 @@
       on-form-action="_tap" 
       doc-key="{{document.key}}"
       doc-value="{{document.value}}">
-      <div class="description">
+      <div slot="description">
         <ol class="num"><b> คำชี้แจง</b>
          <li>ให้เลือกว่าอาการในแต่ละข้อนั้นตรงกับลักษณะของเด็กที่ท่านประเมินเพียงใด</li>
         </ol>
       </div>
-      <div class="formEntry">
+      <div slot="formEntry">
        <snap-choice value="{{document.value.form_value.q_1}}"> 
        1. มักไม่ละเอียดรอบคอบหรือสะเพร่าในการทำงานต่างๆ เช่น การบ้าน 
        </snap-choice>
@@ -142,7 +142,7 @@
        </snap-choice>
      </div>
 
-     <div class="evaluation">
+     <div slot="evaluation">
       <!--
       <div class="layout vertical">
        <div class="layout horizontal">

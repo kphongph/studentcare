@@ -58,7 +58,7 @@
     <form-control id="control"
       doc-key="{{document.key}}"
       doc-value="{{document.value}}">
-      <div class="description">
+      <div slot="description">
         <ul class="num"><b><u>คำชี้แจง</u></b>
           <li>ใช้ประเมินร่วมกับแบบประเมินโรคซึมเศร้า 9 คำถาม (9Q) </li>
         </ul>
@@ -106,7 +106,7 @@
           <br>
         </ul>
       </div>
-      <div class="formEntry">
+      <div slot="formEntry">
         <suicide8q-choice id="q1" value="{{document.value.form_value.q1}}"
           label="ในเดือนที่ผ่านมารวมวันนี้ คิดอยากตาย หรือ คิดว่าตายไปจะดีกว่า">
         </suicide8q-choice>
@@ -135,7 +135,7 @@
           label="ตั้งแต่เกิดมา ท่านเคยพยายามฆ่าตัวตาย">
         </suicide8q-choice>
       </div>
-      <div class="evaluation">
+      <div slot="evaluation">
        <div class="layout horizontal">
         <paper-input label="คะแนนรวมได้ (คะแนน)" class="flex"
           readonly

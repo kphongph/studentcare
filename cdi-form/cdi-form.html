@@ -54,7 +54,7 @@
       on-form-action="_tap" 
       doc-key="{{document.key}}"
       doc-value="{{document.value}}">
-      <div class="description">
+      <div slot="description">
         <div class="layout vertical pad">
           <h3>คำชี้แจง</h3>
           <p> 
@@ -157,16 +157,14 @@ CDI ฉบับภาษาไทยมี Sensitivity = 78.7% specificity = 91
           </ol>
         </div>
       </div>
-      <div class="formEntry">
-       <cdi-choice value="{{document.value.form_value.q1_1}}"> 
-        <span class="cdi-a">ฉันรู้สึกเศร้านานๆ ครั้ง</span>
-        <span class="cdi-b">ฉันรู้สึกเศร้าบ่อยครั้ง</span>
-        <span class="cdi-c">ฉันรู้สึกเศร้าตลอดเวลา</span>
+      <div slot="formEntry">
+       <cdi-choice value="{{document.value.form_value.q1_1}}" 
+          label='["ฉันรู้สึกเศร้านานๆ ครั้ง","ฉันรู้สึกเศร้าบ่อยครั้ง","ฉันรู้สึกเศร้าตลอดเวลา"]'>
        </cdi-choice>
        <cdi-choice value="{{document.value.form_value.q2_2}}"> 
-        <span class="cdi-a">อะไรๆ ก็มีอุปสรรคไปเสียหมด</span>
-        <span class="cdi-b">ฉันไม่แน่ใจว่าสิ่งต่างๆ จะไปด้วยดี</span>
-        <span class="cdi-c">สิ่งต่างๆ จะเป็นไปด้วยดีสำหรับฉัน</span>
+        <span slot="cdi-a">อะไรๆ ก็มีอุปสรรคไปเสียหมด</span>
+        <span slot="cdi-b">ฉันไม่แน่ใจว่าสิ่งต่างๆ จะไปด้วยดี</span>
+        <span slot="cdi-c">สิ่งต่างๆ จะเป็นไปด้วยดีสำหรับฉัน</span>
        </cdi-choice>
        <cdi-choice value="{{document.value.form_value.q1_3}}"> 
         <span class="cdi-a">ฉันทำอะไรๆ ได้ค่อนข้างดี</span>
@@ -295,7 +293,7 @@ CDI ฉบับภาษาไทยมี Sensitivity = 78.7% specificity = 91
        </cdi-choice>
      </div>
 
-     <div class="evaluation">
+     <div slot="evaluation">
       <div class="layout vertical">
        <div class="layout horizontal">
         <div class="check-icon">
@@ -362,9 +360,10 @@ CDI ฉบับภาษาไทยมี Sensitivity = 78.7% specificity = 91
         return score;
       },
       _validate:function() {
-        var eles =Polymer.dom(this.root)
-         .querySelectorAll('cdi-choice');
+        var eles =Polymer.dom(this.root).querySelectorAll('cdi-choice');
+        console.log(eles.length);
         for(var i=0;i<eles.length;i++) {
+          console.log(eles[i]);
           if(!eles[i].value)  {
             eles[i].classList.add('invalid');
             return false;

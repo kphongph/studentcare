@@ -4,6 +4,8 @@
 <link rel="import" href="../../iron-validatable-behavior/iron-validatable-behavior.html">
 <link rel="import" href="../../paper-styles/typography.html">
 <link rel="import" href="../../paper-radio-group/paper-radio-group.html">
+<link rel="import" href="../../paper-radio-button/paper-radio-button.html">
+
 <dom-module id="cdi-choice">
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors">
@@ -16,32 +18,17 @@
         border-bottom: 1px solid #efefef;
       }
 
-      iron-icon {
-        margin:3px;
-        padding:0px;
-        background-color:white
-      }
-
       .invalid {
         border: 1px solid #ee0000;
-      }
-      paper-radio-group {
       }
     </style>
 
     <div class="layout horizontal">
-      <paper-radio-group selected="{{value}}" 
-        class="flex"
+      <paper-radio-group selected="{{value}}" class="flex" 
         aria-labelledby="label">
-        <paper-radio-button name="a">
-         <content select=".cdi-a"></content>
-        </paper-radio-button>
-        <paper-radio-button name="b">
-         <content select=".cdi-b"></content>
-        </paper-radio-button>
-        <paper-radio-button name="c">
-         <content select=".cdi-c"></content>
-        </paper-radio-button>
+        <paper-radio-button name="a">{{label.0}}</paper-radio-button>
+        <paper-radio-button name="b">{{label.1}}</paper-radio-button>
+        <paper-radio-button name="c">{{label.2}}</paper-radio-button>
       </paper-radio-group>
     </div>
   </template>
@@ -49,58 +36,25 @@
   <script>
     Polymer({
       is: 'cdi-choice',
-      listeners : {
-        'mouseover':'_onHovered',
-        'mouseout':'_onUnhovered'
-      },
       properties: {
         value:{
           type:String,
-          notify:true,
-          observer:'_valueChanged'
-        },
-        hovered: {
-          type:Boolean,
-          readOnly:true,
-          value:false
+          reflectToAttribute:true,
+          notify:true
         },
         label:{
-          type:String
-        },
-        disabled: {
-          type:Boolean,
-          value:false
+          type:Array,
+          reflectToAttribute:true
         },
         required:{
           type:Boolean,
           value:false,
           reflectToAttribute:true
-        },
-        _valueStr:{
-          type:String,
-        //  computed:'_labelValue(value)'
         }
       },
       behaviors:[
         Polymer.IronValidatableBehavior
-      ],
-      _onHovered:function(e) {
-        this._setHovered(true);
-      },
-      _onUnhovered:function(e) {
-        this._setHovered(false);
-      },
-      _valueChanged:function() {
-        if(this.value == 'y' || this.value == 'm') { 
-          this.type='check';
-        } else {
-          if(this.value) {
-            this.type='clear';
-          } else {
-            this.type='';
-          }
-        }
-      }
+      ]
     });
   </script>
 </dom-module>

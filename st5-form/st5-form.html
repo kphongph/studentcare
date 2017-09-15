@@ -42,7 +42,7 @@
     <form-control id="control"
       doc-key="{{document.key}}"
       doc-value="{{document.value}}">
-      <div class="description">
+      <div slot="description">
         <ul class="num"><b><u>การแปลผล</u></b>
           <li>0–4 คะแนน  เครียดน้อย </li>
           <li>5–7 คะแนน เครียดปานกลาง  </li>
@@ -66,7 +66,7 @@
           <li>ให้ผู้ถูกประเมินตอบให้ตรงตามความรู้สึก ในระยะ 2 – 4 สัปดาห์ </li>
         </ul>
       </div>
-      <div class="formEntry">
+      <div slot="formEntry">
         <st5-choice id="q1" value="{{document.value.form_value.q1}}"
           label="มีปัญหาการนอน นอนไม่หลับ หรือนอนมาก">
         </st5-choice>
@@ -83,7 +83,7 @@
           label="ไม่อยากพบปะผู้คน">
         </st5-choice>
       </div>
-      <div class="evaluation">
+      <div slot="evaluation">
        <div class="layout horizontal">
         <paper-input label="คะแนนรวม 5 ข้อ ได้ (คะแนน)" class="flex"
           readonly
