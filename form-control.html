@@ -21,17 +21,17 @@
   <template>
     <style include="iron-flex iron-flex-alignment">
       paper-tabs {
-        background-color: var(--paper-grey-50);
-        color: #F44336;
+        background-color: #f5f5f5;
+        color: black;
         height: 40px;
       }
 
       :host {
-        --paper-tab-ink: var(--paper-grey-500);/* สีเอฟเฟคตอนกดปุ่ม */
+        --paper-tab-ink: #ff9999;/* สีเอฟเฟคตอนกดปุ่ม */
       }
 
       paper-tabs {
-        --paper-tabs-selection-bar-color: #F44336;/*var(--paper-grey-500); /* สีของ tab ที่เลือก */
+        --paper-tabs-selection-bar-color:red;/*var(--paper-grey-500); /* สีของ tab ที่เลือก */
       }
 
       paper-button {
@@ -41,15 +41,22 @@
       }
 
       .student-info {
+        background-color: white;
         padding: 10px;
       }
 
       .formControl {
+        background-color: white;
         padding: 5px;
       }
 
       .font-face {
         font-family: 'Athiti', sans-serif;
+      }
+
+      .font-alert{
+        font-family: 'Athiti', sans-serif;
+        color: green;
       }
 
       .font-face-big {
@@ -111,7 +118,7 @@
     <div class="student-info">
       <span class="font-face-big-bold"> เลขประจำตัวประชาชน  &nbsp;&nbsp;</span>
       <span class="font-face-big">{{docValue.student.cid}}</span>
-      <span class="font-face-big-bold">ชื่อ - นามสกุล {{docValue.status}}</span>
+      <span class="font-face-big-bold">ชื่อ - นามสกุล</span>
       <span class="font-face-big">{{docValue.student.name}}</span>
     </div>
 
@@ -149,8 +156,8 @@
             <div class="font-face">ประเมิน</div>
           </paper-button>
           -->
+          <div class="font-alert"> {{message}}</div>
         </div>
-        <div class="font-face">{{message}}</div>
         <slot name="formEntry"></slot>
       </div>
       <div>

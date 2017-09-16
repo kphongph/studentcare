@@ -16,7 +16,7 @@
 <link rel="import" href="../form-control.html">
 <link rel="import" href="../studentcare-form-behavior.html">
 
-<link href="https://fonts.googleapis.com/css?family=Itim&amp;subset=thai" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">
 
 <dom-module id="dl3-form">
   <template>
@@ -31,28 +31,37 @@
             width: 100%;
         }
       }
+
+      :host{
+        background-color: white;
+      }
+
       paper-tabs {
-        background:var(--paper-green-300);
+        background:#20acbb;
         color:white;
         height:40px;
       }
 
       .font-face {
-        font-family: 'Itim', cursive;
+        font-family: 'Athiti', sans-serif;
         font-size: 120%;
       }
 
       #title {
         --paper-input-container-input: {
           /*font-size: 24px;*/
-          font-family: 'Itim', cursive;
+          font-family: 'Athiti', sans-serif;
         };
         --paper-input-container-label:{
-          font-family: 'Itim', cursive;
+          font-family: 'Athiti', sans-serif;
         };
-        --paper-input-container-focus-color:#F44336;
-      }
 
+          /*--paper-input-container-color:red;*/
+
+          --paper-input-container-focus-color:#e94a60;
+
+         /*--paper-input-container-input-color:var blue;*/
+       }
     </style>
 
     <form-control id="control"

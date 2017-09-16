@@ -10,7 +10,7 @@
 <link rel="import" href="../../app-storage/app-localstorage/app-localstorage-document.html">
 <link rel="import" href="../forms.html">
 
-<link href="https://fonts.googleapis.com/css?family=Itim&amp;subset=thai" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">
 
 <dom-module id="assignment-card">
   <template>
@@ -21,6 +21,7 @@
         @apply --layout-vertical;
         cursor: pointer;
         cursor: hand;
+        font-family: 'Athiti', sans-serif;
       }
 
       .content {
@@ -36,11 +37,11 @@
       }
 
       .marker-new {
-        background:transparent;
+        background:#e3e3e3;
       }
 
       .marker-working {
-        background:var(--paper-deep-orange-500);
+        background:#ffe680;
       }
 
       .info {
@@ -52,11 +53,11 @@
         background:#efefef;
       }
       .font-face-big {
-        font-family: 'Itim', cursive;
+        font-family: 'Athiti', sans-serif;
         font-size: 120%;
       }
       .font-face-normal {
-        font-family: 'Itim', cursive;
+        font-family: 'Athiti', sans-serif;
       }
     </style>
 
@@ -72,23 +73,23 @@
      on-response="_response">
    </iron-ajax>
 
-   <div class$="marker-{{_info.status.type}} content" hidden$="{{hide}}">
-     <div class="layout horizontal center info">
-      <div class="flex" on-tap="_tap">
-        <div id="formName" class="font-face-big">{{_info.form.label}}</div>
-        <div id="studentInfo" class="font-face-normal">
-         {{_info.dateTime}} ({{_info.status.label}})
+    <div class$="marker-{{_info.status.type}} content" hidden$="{{hide}}">
+      <div class="layout horizontal center info">
+        <div class="flex" on-tap="_tap">
+          <div id="formName" class="font-face-big">{{_info.form.label}}</div>
+          <div id="studentInfo" class="font-face-normal">
+            {{_info.dateTime}} ({{_info.status.label}})
+          </div>
         </div>
+        <paper-icon-button icon="delete" on-tap="_toggleDialog"></paper-icon-button>
       </div>
-      <paper-icon-button icon="delete" on-tap="_toggleDialog">
-      </paper-icon-button>
-   </div>
+    </div>
 
 
   <paper-dialog id="dialog">
-    <h2>Header</h2>
+    <h2>ยืนยัน</h2>
     <paper-dialog-scrollable>
-      Lorem ipsum...
+      คุณต้องการลบ {{_info.form.label}} จริงหรือไม่?
     </paper-dialog-scrollable>
     <div class="buttons">
       <paper-button dialog-dismiss>ยกเลิก</paper-button>

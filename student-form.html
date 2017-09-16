@@ -50,6 +50,13 @@
        background-color: #fff;
        height: 70px;
       }
+
+      .note{
+        border:2px solid white;
+        font-family: 'Athiti', sans-serif;
+        background: white;
+        color: #ff6666;
+      }
     </style>
 
     <app-localstorage-document key="jwtToken" data="{{jwtToken}}">
@@ -76,6 +83,13 @@
 
     <div class="flex option-style">
       <option-forms forms="{{forms}}" student="{{student}}"></option-forms>
+    </div>
+
+    <div class="flex note">
+      *หมายเหตุ
+      สีเทา หมายถึง ฟอร์มใหม่
+      สีเหลือง หมายถึง กำลังดำเนินการ
+      สีเขียว หมายถึง ดำเนินการเสร็จสิ้น
     </div>
 
     <template is="dom-repeat" as="group" items="{{formList}}">

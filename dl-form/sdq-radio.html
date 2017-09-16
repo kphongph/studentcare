@@ -6,7 +6,7 @@
 <link rel="import" href="../../iron-validatable-behavior/iron-validatable-behavior.html">
 <link rel="import" href="../../paper-styles/typography.html">
 
-<link href="https://fonts.googleapis.com/css?family=Itim&amp;subset=thai" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">
 
 <dom-module id="sdq-radio">
   <template>
@@ -15,39 +15,28 @@
       :host {
         @apply --layout-vertical;
         @apply --paper-font-caption;
+        background-color: white;
         display: block;
       }
 
       .font-face {
-        font-family: 'Itim', cursive;
-        font-size: 110%;
+        font-family: 'Athiti', sans-serif;
+        font-size: 100%;
       }
 
       paper-radio-button {
-          font-family: 'Itim', cursive;
-          font-size: 110%;
+        font-family: 'Athiti', sans-serif;
+        font-size: 100%;
       }
 
-      iron-icon {
+      /*iron-icon {
         margin:3px;
         padding:0px;
         background-color:white
-      }
+      }*/
 
-      div {
-        background-color:var(--paper-grey-100);
-      }
-      div.y {
-        background-color:var(--paper-green-100);
-      }
-      div.m {
-        background-color:var(--paper-yellow-100);
-      }
-      div.n {
-        background-color:var(--paper-red-100);
-      }
       .invalid {
-        border: 1px solid #ee0000;
+        border: 1px solid red;
       }
       .valueText {
         margin-right:10px;
@@ -58,7 +47,11 @@
         @apply --paper-font-body1;
         display: block;
       }
-      iron-icon {
+
+      .bg-white{
+        background-color: white;
+      }
+      /*iron-icon {
         padding:2px;
         background-color:white
       }
@@ -85,10 +78,10 @@
       }
       .invalid {
         border: 1px solid #ee0000;
-      }
+      }*/
     }
     </style>
-    <div class="layout vertical" id="main">
+    <div class="layout vertical bg-white" id="main">
       <slot class="font-face"></slot>
       <paper-radio-group selected="{{value}}">
         <paper-radio-button name="y">จริง</paper-radio-button>
