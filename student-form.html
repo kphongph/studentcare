@@ -13,19 +13,19 @@
 <link rel="import" href="./form-generator.html">
 <link rel="import" href="./option-forms.html">
 
-<link href="https://fonts.googleapis.com/css?family=Itim&amp;subset=thai" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">
 
 <dom-module id="student-form">
   <template>
     <style is="custom-style" include="iron-flex iron-flex-alignment iron-flex-factors">
        :host {
         @apply --layout-vertical;
+        font-family: 'Athiti', sans-serif;
         --paper-progress-active-color: #d14836;
         /*สีตัวโหลด*/
         --paper-progress-indeterminate-cycle-duration: 0.8s;
         /*ระยะเวลาการโหลด*/
       }
-
 
       .iron-selected {
         background: #eee;
@@ -42,8 +42,13 @@
       }
 
       .font-face {
-        font-family: 'Itim', cursive;
+        font-family: 'Athiti', sans-serif;
         font-weight: bold;
+      }
+
+      .option-style{
+       background-color: #fff;
+       height: 70px;
       }
     </style>
 
@@ -69,14 +74,16 @@
       </paper-progress>
     </div>
 
+    <div class="flex option-style">
+      <option-forms forms="{{forms}}" student="{{student}}"></option-forms>
+    </div>
+
     <template is="dom-repeat" as="group" items="{{formList}}">
       <div class="form_group font-face" hidden$="{{_isEmpty(group.forms)}}">{{group.name}}</div>
       <template is="dom-repeat" items="{{group.forms}}" sort="_sortByStatus">
         <assignment-card data="{{item}}"></assignment-card>
       </template>
     </template>
-
-    <option-forms forms="{{forms}}" student="{{student}}"></option-forms>
 
   </template>
 

@@ -9,7 +9,7 @@
 <link rel="import" href="../app-storage/app-localstorage/app-localstorage-document.html">
 <link rel="import" href="./forms.html">
 
-<link href="https://fonts.googleapis.com/css?family=Itim&amp;subset=thai" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">
 
 <dom-module id="option-forms">
   <template>
@@ -22,17 +22,42 @@
         --paper-progress-indeterminate-cycle-duration: 0.8s;
         /*ระยะเวลาการโหลด*/
         padding:5px;
+        font-family: 'Athiti', sans-serif;
       }
 
+      paper-dropdown-menu.custom {
+        --paper-input-container-label: {
+          font-family: 'Athiti', sans-serif;
+        };
+        --paper-input-container-input: {
+          font-family: 'Athiti', sans-serif;
+        }
+       }
+
+      /*paper-dropdown-menu{
+        background-color: #fff;
+      }*/
+
+      paper-item{
+        font-family: 'Athiti', sans-serif;
+      }
       .control {
         padding: 5px;
+      }
+
+      paper-button{
+        font-family: 'Athiti', sans-serif;
+        font-weight: bold;
+        height: 40px;
+        background-color: #44ada8;
+        color: #fff;
       }
 
     </style>
 
     <app-localstorage-document key="jwtToken" data="{{jwtToken}}">
     </app-localstorage-document>
-    <paper-dropdown-menu label="แบบประเมินทางเลือก" class="flex">
+    <paper-dropdown-menu label="แบบประเมินทางเลือก" class="flex custom">
       <paper-listbox slot="dropdown-content" selected="{{form}}" attr-for-selected="name">
         <template is="dom-repeat" items="{{formList}}">
           <paper-item name="{{item.type}}">{{item.name}}</paper-item>
