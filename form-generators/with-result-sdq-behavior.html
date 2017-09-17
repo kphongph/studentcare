@@ -11,10 +11,9 @@
       var result=false;
       var exists=false;
       var required=true;
-      console.log(this.formType,this.atLevel);
-      if(this.atLevel.indexOf(this.student.LEVEL) != -1) {
+      if(this.atLevel.indexOf(this.student['class']) != -1) {
         for(var i=0;i<this.forms.length;i++) {
-          if(this.forms[i].key[4]==this.formType) {
+          if(this.forms[i].form_type==this.formType) {
             exists=true;
           }
         }
@@ -24,13 +23,13 @@
       if(!exists && required) {
         // check sdq
         for(var i=0;i<this.forms.length;i++) {
-          if(this.forms[i].key[4]=="dl2-form") {
-            if(this.forms[i].key[5][0]=="done") {
+          if(this.forms[i].form_type == "dl2-form") {
+            if(this.forms[i].status == "done") {
               var ele = document.createElement('iron-request');
               ele.send({
                 method:'GET',
-                url:'https://maas.nuqlis.com:9000/api/dbs/students_care/'+
-                  this.forms[i].value,
+                url:'https://maas.nuqlis.com:8000/v2/obec/students_care/data/'+
+                  this.forms[i]._id,
                 headers:{
                  'Content-Type':'application/json',
                  'Authorization':'JWT '+this.jwtToken
@@ -40,9 +39,7 @@
                 var docValue = res.response;
                 if(docValue.form_result) {
                   var weakness = docValue.form_result.weakness;
-                  console.log(weakness);
                   if(weakness && weakness.score >= 17) {
-                    console.log('generate');
                     cb(true);
                   } else {
                     cb(false);
