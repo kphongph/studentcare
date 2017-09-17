@@ -41,7 +41,9 @@
           <paper-radio-button name="y">ใช่</paper-radio-button>
         </paper-radio-group>
       </div>
-      <div id="problemExist" class="layout vertical" hidden>
+      <template is="dom-if" if="{{_isEquals(value.exist,'y')}}">
+      <!--<div id="problemExist" class="layout vertical" hidden>-->
+      <div class="layout vertical">
         <div id="r_level">
         <div class="question">2. คุณมีปัญหาดังกล่าวในระดับ</div>
           <paper-radio-group selected="{{value.level}}">
@@ -114,6 +116,7 @@
           </paper-radio-group>
        </div>
       </div>
+    </template>
   </template>
 
   <script>
@@ -135,13 +138,19 @@
         '_existChanged(value.exist)',
       ],
       _existChanged: function(exist) {
+        //console.log(exist);
         if(exist){
           var dict = {
             'y': true,
             'n': false
           };
-          this.$.problemExist.hidden = !dict[exist];
+          //console.log(!dict[exist]);
+          //document.getElementById("problemExist").hidden = !dict[exist];
+          //this.$.problemExist.hidden = !dict[exist];
         }
+      },
+      _isEquals:function(a,b) {
+        return a != null && a == b ;
       },
       _getValidity: function() {
         var obj = this.value;

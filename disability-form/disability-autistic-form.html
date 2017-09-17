@@ -15,6 +15,7 @@
       :host {
         @apply --paper-font-display;
         @apply --layout-vertical;
+        background-color: white;
         font-family: 'Athiti', sans-serif;
         display: block;
       }
@@ -50,6 +51,18 @@
         padding-left:20px;
         font-weight:bold;
       }
+
+      .font-face-underline {
+        margin-left: 5px;
+        font-family: 'Athiti', sans-serif;
+        font-weight: bold;
+        text-decoration: underline;
+        font-size: 120%;
+      }
+
+      disability-choice{
+        font-family: 'Athiti', sans-serif;
+      }
     </style>
 
     <form-control id="control"
@@ -70,7 +83,7 @@
         </ol>
       </div>
       <div slot="formEntry">
-       <div>ด้านพฤติกรรม / อารมณ์</div>
+       <div class="font-face-underline">ด้านพฤติกรรม / อารมณ์</div>
        <disability-choice value="{{document.value.form_value.q_1}}">
          1. มีพฤติกรรมกระตุ้นตัวเอง ซึ่งเป็นพฤติกรรมซ้ำๆ เช่นสะบัดนิ้ว  เล่นมือ  ดม เคาะ หรือหมุนสิ่งของ เป็นต้น
        </disability-choice>
@@ -86,7 +99,7 @@
        <disability-choice value="{{document.value.form_value.q_5}}">
          5. ไม่เข้าใจอารมณ์ของผู้อื่น  เช่นไม่เข้าใจเวลาเพื่อนโกรธ เศร้า เสียใจ เป็นต้น
        </disability-choice>
-       <div>ด้านการสือความหมาย</div>
+       <div class="font-face-underline">ด้านการสือความหมาย</div>
        <disability-choice value="{{document.value.form_value.q_6}}">
          1. แสดงความต้องการดดยการจูงมือ  เช่น เด็กจะจูงมือผู้ปกครอง / ครูเพื่อนำไปทำสิ่งที่ต้องการ เป็นต้น
        </disability-choice>
@@ -108,7 +121,7 @@
        <disability-choice value="{{document.value.form_value.q_12}}">
          7. ไม่เข้าใจคำที่เป็นนามธรรม เช่น การเอื้อเฟื้อเผื่อแผ่
        </disability-choice>
-       <div>ด้านสังคม</div>
+       <div class="font-face-underline">ด้านสังคม</div>
        <disability-choice value="{{document.value.form_value.q_13}}">
          1. ไม่มองสบตากับผู้อื่นขณะสนทนา
        </disability-choice>

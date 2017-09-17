@@ -16,6 +16,7 @@
       :host {
         @apply --paper-font-display;
         @apply --layout-vertical;
+        background-color:white;
         font-family: 'Athiti', sans-serif;
         display: block;
       }
@@ -50,6 +51,10 @@
       .check-icon {
         width:30px;
       }
+
+      disability-choice{
+        font-family: 'Athiti', sans-serif;
+      }
     </style>
 
     <form-control id="control"
@@ -68,35 +73,35 @@
         </ol>
       </div>
       <div slot="formEntry">
-       <disability-choice value="{{document.value.form_value.q1}}"
-          label="1. มักก้มศรีษะมองสิ่งของ หนังสือ รูปภาพหรือนำเข้ามาดูใกล้ ๆ ตา">
+       <disability-choice value="{{document.value.form_value.q1}}">
+          1. มักก้มศรีษะมองสิ่งของ หนังสือ รูปภาพหรือนำเข้ามาดูใกล้ ๆ ตา
        </disability-choice>
-       <disability-choice value="{{document.value.form_value.q2}}"
-          label="2. เมื่อดูป้ายข้อความ รูปภาพ วัตถุสิ่งของต่าง ๆ ตามสาธารณะ ต้องเข้าไปดูใกล้ ๆ">
+       <disability-choice value="{{document.value.form_value.q2}}">
+          2. เมื่อดูป้ายข้อความ รูปภาพ วัตถุสิ่งของต่าง ๆ ตามสาธารณะ ต้องเข้าไปดูใกล้ ๆ
        </disability-choice>
-       <disability-choice value="{{document.value.form_value.q3}}"
-          label="3. ขณะอ่านหนังสือ มักจะอ่านซ้ำบรรทัดเดิม หรืออ่านข้ามบรรทัด">
+       <disability-choice value="{{document.value.form_value.q3}}">
+          3. ขณะอ่านหนังสือ มักจะอ่านซ้ำบรรทัดเดิม หรืออ่านข้ามบรรทัด
        </disability-choice>
-       <disability-choice value="{{document.value.form_value.q4}}"
-          label="4. มักใช้ประสาทสัมผัสส่วนอื่น เพื่อสำรวจ / หาสิ่งของ ควบคู่กับการใช้สายตา">
+       <disability-choice value="{{document.value.form_value.q4}}">
+          4. มักใช้ประสาทสัมผัสส่วนอื่น เพื่อสำรวจ / หาสิ่งของ ควบคู่กับการใช้สายตา
        </disability-choice>
-       <disability-choice value="{{document.value.form_value.q5}}"
-          label="5. บอกรายละเอียดองภาพหรือสิ่งของไม่ได้">
+       <disability-choice value="{{document.value.form_value.q5}}">
+          5. บอกรายละเอียดองภาพหรือสิ่งของไม่ได้
        </disability-choice>
-       <disability-choice value="{{document.value.form_value.q6}}"
-          label="6. เดินด้วยความระมัดระวังมากกว่าปกติ เดินไม่คล่องตัว มักชนและสะดุดวัตถุ">
+       <disability-choice value="{{document.value.form_value.q6}}">
+          6. เดินด้วยความระมัดระวังมากกว่าปกติ เดินไม่คล่องตัว มักชนและสะดุดวัตถุ
        </disability-choice>
-       <disability-choice value="{{document.value.form_value.q7}}"
-          label="7. หรี่ตา กระพริบตา ขยี้ตา กดตา เมื่อใช้สายตามาก ๆ">
+       <disability-choice value="{{document.value.form_value.q7}}">
+          7. หรี่ตา กระพริบตา ขยี้ตา กดตา เมื่อใช้สายตามาก ๆ
        </disability-choice>
-       <disability-choice value="{{document.value.form_value.q8}}"
-          label="8. เคลื่อนศรีษะไปมา เพื่อหาจุดที่มองเห็นชัดที่สุด">
+       <disability-choice value="{{document.value.form_value.q8}}">
+          8. เคลื่อนศรีษะไปมา เพื่อหาจุดที่มองเห็นชัดที่สุด
        </disability-choice>
-       <disability-choice value="{{document.value.form_value.q9}}"
-          label="9. มักมีอาการปวดศรีษะ ปวดตา ตาลาย คันตา มองเห็นสิ่งของเคลื่อนไหวไปมา">
+       <disability-choice value="{{document.value.form_value.q9}}">
+          9. มักมีอาการปวดศรีษะ ปวดตา ตาลาย คันตา มองเห็นสิ่งของเคลื่อนไหวไปมา
        </disability-choice>
-       <disability-choice value="{{document.value.form_value.q10}}"
-          label="10. บอกความแตกต่างของสีที่ใกล้เคียงกัน หรือสีที่ไม่ตัดกันไม่ได้ เช่น สีเขียวกับสีฟ้า สีแดงกับสีส้ม">
+       <disability-choice value="{{document.value.form_value.q10}}">
+          10. บอกความแตกต่างของสีที่ใกล้เคียงกัน หรือสีที่ไม่ตัดกันไม่ได้ เช่น สีเขียวกับสีฟ้า สีแดงกับสีส้ม
        </disability-choice>
      </div>
      <div slot="evaluation">

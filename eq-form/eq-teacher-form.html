@@ -49,15 +49,27 @@
         font-weight: bold;
       }
 
+      .font-face-underline {
+        margin-left: 5px;
+        font-family: 'Athiti', sans-serif;
+        font-weight: bold;
+        text-decoration: underline;
+        font-size: 120%;
+      }
+
       .font-face-bold {
         font-family: 'Athiti', sans-serif;
         font-weight: bold;
-        font-size: 120%;
+        /*font-size: 120%;*/
       }
 
       .font-face {
         font-family: 'Athiti', sans-serif;
-        font-size: 120%;
+        /*font-size: 120%;*/
+      }
+
+      .bg-color{
+        background-color: white;
       }
     </style>
 
@@ -109,8 +121,8 @@
           <li class="font-face">ก่อนและหลังประเมินครูควรจัดกิจกรรมส่งเสริมความฉลาดทางอารมณ์ เพื่อพัฒนาความฉลาดทางอารมณ์แก่เด็กอย่างต่อเนื่อง</li>
         </ul>
       </div>
-      <div slot="formEntry">
-        <div>ดี</div>
+      <div slot="formEntry" class="bg-color">
+        <div class="font-face-underline">ดี</div>
         <eq-teacher-choice value="{{document.value.form_value.q1}}"
           label="1. รู้จักให้กำลังใจผู้อื่น">
         </eq-teacher-choice>
@@ -126,7 +138,7 @@
         <eq-teacher-choice value="{{document.value.form_value.q5}}"
           label="5. ทักทายหรือทำความรู้จักกับเพื่อนใหม่ ">
         </eq-teacher-choice>
-        <div>เก่ง</div>
+        <div class="font-face-underline">เก่ง</div>
         <eq-teacher-choice value="{{document.value.form_value.q6}}"
           label="1. มีความตั้งใจเมื่อทำสิ่งต่างๆ ที่สนใจ">
         </eq-teacher-choice>
@@ -142,7 +154,7 @@
         <eq-teacher-choice value="{{document.value.form_value.q10}}"
           label="5. เมื่อมีปัญหา ชอบคิดหาวิธีแก้ปัญหาหลายๆทาง">
         </eq-teacher-choice>
-        <div>สุข</div>
+        <div class="font-face-underline">สุข</div>
         <eq-teacher-choice value="{{document.value.form_value.q11}}"
           label="1. ภูมิใจในจุดดีของตนเอง">
         </eq-teacher-choice>

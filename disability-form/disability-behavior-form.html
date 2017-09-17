@@ -15,6 +15,7 @@
       :host {
         @apply --paper-font-display;
         @apply --layout-vertical;
+        background-color: white;
         font-family: 'Athiti', sans-serif;
         display: block;
       }
@@ -53,6 +54,18 @@
       .check-icon {
         width:30px;
       }
+
+      .font-face-underline {
+        margin-left: 5px;
+        font-family: 'Athiti', sans-serif;
+        font-weight: bold;
+        text-decoration: underline;
+        font-size: 120%;
+      }
+
+      disability-choice{
+        font-family: 'Athiti', sans-serif;
+      }
     </style>
 
     <form-control id="control"
@@ -84,7 +97,7 @@
         </ol>
       </div>
       <div slot="formEntry">
-       <div>ก้าวร้าว ก่อกวนเป็นอันตรายแก่ตนเองและผู้อื่น</div>
+       <div class="font-face-underline">ก้าวร้าว ก่อกวนเป็นอันตรายแก่ตนเองและผู้อื่น</div>
        <disability-choice value="{{document.value.form_value.p1_1}}">
          1. ก้าวร้าว ก่อกวนเป็นอันตรายแก่ตนเองและผู้อื่น
        </disability-choice>
@@ -108,7 +121,7 @@
           1.4 ก่อกวนเพื่อน
         </span>
        </disability-choice>
-       <div>เคลื่อนไหวผิดปกติ</div>
+       <div class="font-face-underline">เคลื่อนไหวผิดปกติ</div>
        <disability-choice value="{{document.value.form_value.p1_2}}">
          2. เคลื่อนไหวผิดปกติ
        </disability-choice>
@@ -122,7 +135,7 @@
           2.2 มีความสนใจสั้น สนใจบทเรียนไม่ได้นาน ขาดสมาธิในการเรียน
         </span>
        </disability-choice>
-       <div>มีปัญหาปรับตัวทางสังคม มีการฝ่าฝืนกฏเกณฑ์ที่เป็นที่ยอมรับของสังคม</div>
+       <div class="font-face-underline">มีปัญหาปรับตัวทางสังคม มีการฝ่าฝืนกฏเกณฑ์ที่เป็นที่ยอมรับของสังคม</div>
        <disability-choice value="{{document.value.form_value.p1_3}}">
          3. มีปัญหาปรับตัวทางสังคม มีการฝ่าฝืนกฏเกณฑ์ที่เป็นที่ยอมรับของสังคม
        </disability-choice>
@@ -151,9 +164,9 @@
           3.5 ไม่เคารพ ไม่เชื่อฟัง ครูและพ่อแม่ ผู้ปกครองอย่างรุนแรง
         </span>
        </disability-choice>
-       <div>มีความรู้สึกกกังวลและปมด้อย อย่างรุนแรงสม่ำเสมอ</div>
+       <div class="font-face-underline">มีความรู้สึกกกังวลและปมด้อย อย่างรุนแรงสม่ำเสมอ</div>
        <disability-choice value="{{document.value.form_value.p1_4}}">
-         4. มีความรู้สึกกกังวลและปมด้อย อย่างรุนแรงสม่ำเสมอ
+         4. มีความรู้สึกกังวลและปมด้อย อย่างรุนแรงสม่ำเสมอ
        </disability-choice>
        <disability-choice value="{{document.value.form_value.s4_1}}">
         <span class="sub-question">
@@ -175,7 +188,7 @@
           4.4 ร้องไห้บ่อย
         </span>
        </disability-choice>
-       <div>หนีสังคม ปลีกตัวออกจากสังคม อันมีผลต่อการเรียน</div>
+       <div class="font-face-underline">หนีสังคม ปลีกตัวออกจากสังคม อันมีผลต่อการเรียน</div>
        <disability-choice value="{{document.value.form_value.p1_5}}">
          5. หนีสังคม ปลีกตัวออกจากสังคม อันมีผลต่อการเรียน
        </disability-choice>
