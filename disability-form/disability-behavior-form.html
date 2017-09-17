@@ -48,7 +48,12 @@
       }
 
       .sub-question {
-        padding-left:20px;
+        margin-left: 30px;
+      }
+
+      .main-question {
+        border-bottom: 1px solid #c6c6c9;
+        margin-right: 5px;
       }
 
       .check-icon {
@@ -64,6 +69,7 @@
       }
 
       disability-choice{
+        margin-left: 5px;
         font-family: 'Athiti', sans-serif;
       }
     </style>
@@ -98,119 +104,81 @@
       </div>
       <div slot="formEntry">
        <div class="font-face-underline">ก้าวร้าว ก่อกวนเป็นอันตรายแก่ตนเองและผู้อื่น</div>
-       <disability-choice value="{{document.value.form_value.p1_1}}">
+       <disability-choice class="main-question" value="{{document.value.form_value.p1_1}}">
          1. ก้าวร้าว ก่อกวนเป็นอันตรายแก่ตนเองและผู้อื่น
        </disability-choice>
-       <disability-choice value="{{document.value.form_value.s1_1}}">
-        <span class="sub-question">
+       <disability-choice class="sub-question" value="{{document.value.form_value.s1_1}}">
           1.1 โหดร้าย ทารุณ รังแกสัตว์
-        </span>
        </disability-choice>
-       <disability-choice value="{{document.value.form_value.s1_2}}">
-        <span class="sub-question">
+       <disability-choice class="sub-question" value="{{document.value.form_value.s1_2}}">
           1.2 ชกต่อย ทำร้ายร่างกายตนเองและผู้อื่น
-        </span>
        </disability-choice>
-       <disability-choice value="{{document.value.form_value.s1_3}}">
-        <span class="sub-question">
+       <disability-choice class="sub-question" value="{{document.value.form_value.s1_3}}">
           1.3 ข่มขู่ คุกคาม หวีดร้อง กระทืบเท้า
-        </span>
        </disability-choice>
-       <disability-choice value="{{document.value.form_value.s1_4}}">
-        <span class="sub-question">
+       <disability-choice class="sub-question" value="{{document.value.form_value.s1_4}}">
           1.4 ก่อกวนเพื่อน
-        </span>
        </disability-choice>
        <div class="font-face-underline">เคลื่อนไหวผิดปกติ</div>
-       <disability-choice value="{{document.value.form_value.p1_2}}">
+       <disability-choice  class="main-question" value="{{document.value.form_value.p1_2}}">
          2. เคลื่อนไหวผิดปกติ
        </disability-choice>
-       <disability-choice value="{{document.value.form_value.s2_1}}">
-        <span class="sub-question">
+       <disability-choice class="sub-question" value="{{document.value.form_value.s2_1}}">
           2.1 ไม่อยู่นิ่ง เคลื่อนไหวตลอดเวลาโดยปราศจากจุดมุ่งหมาย
-        </span>
        </disability-choice>
-       <disability-choice value="{{document.value.form_value.s2_2}}">
-        <span class="sub-question">
+       <disability-choice class="sub-question" value="{{document.value.form_value.s2_2}}">
           2.2 มีความสนใจสั้น สนใจบทเรียนไม่ได้นาน ขาดสมาธิในการเรียน
-        </span>
        </disability-choice>
        <div class="font-face-underline">มีปัญหาปรับตัวทางสังคม มีการฝ่าฝืนกฏเกณฑ์ที่เป็นที่ยอมรับของสังคม</div>
-       <disability-choice value="{{document.value.form_value.p1_3}}">
+       <disability-choice  class="main-question" value="{{document.value.form_value.p1_3}}">
          3. มีปัญหาปรับตัวทางสังคม มีการฝ่าฝืนกฏเกณฑ์ที่เป็นที่ยอมรับของสังคม
        </disability-choice>
-       <disability-choice value="{{document.value.form_value.s3_1}}">
-        <span class="sub-question">
+       <disability-choice class="sub-question" value="{{document.value.form_value.s3_1}}">
           3.1 ทำลายสาธารณสมบัติ
-        </span>
        </disability-choice>
-       <disability-choice value="{{document.value.form_value.s3_2}}">
-        <span class="sub-question">
+       <disability-choice class="sub-question" value="{{document.value.form_value.s3_2}}">
           3.2 ลักขโมย
-        </span>
        </disability-choice>
-       <disability-choice value="{{document.value.form_value.s3_3}}">
-        <span class="sub-question">
+       <disability-choice class="sub-question" value="{{document.value.form_value.s3_3}}">
           3.3 วิวาทกับผู้อื่นเสมอ
-        </span>
        </disability-choice>
-       <disability-choice value="{{document.value.form_value.s3_4}}">
-        <span class="sub-question">
+       <disability-choice class="sub-question" value="{{document.value.form_value.s3_4}}">
           3.4 ประทุษร้ายทางเพศ
-        </span>
        </disability-choice>
-       <disability-choice value="{{document.value.form_value.s3_5}}">
-        <span class="sub-question">
+       <disability-choice class="sub-question" value="{{document.value.form_value.s3_5}}">
           3.5 ไม่เคารพ ไม่เชื่อฟัง ครูและพ่อแม่ ผู้ปกครองอย่างรุนแรง
-        </span>
        </disability-choice>
        <div class="font-face-underline">มีความรู้สึกกกังวลและปมด้อย อย่างรุนแรงสม่ำเสมอ</div>
-       <disability-choice value="{{document.value.form_value.p1_4}}">
+       <disability-choice  class="main-question" value="{{document.value.form_value.p1_4}}">
          4. มีความรู้สึกกังวลและปมด้อย อย่างรุนแรงสม่ำเสมอ
        </disability-choice>
-       <disability-choice value="{{document.value.form_value.s4_1}}">
-        <span class="sub-question">
+       <disability-choice class="sub-question" value="{{document.value.form_value.s4_1}}">
           4.1 ไม่กล้าพูด ไม่กล้าแสดงออก
-        </span>
        </disability-choice>
-       <disability-choice value="{{document.value.form_value.s4_2}}">
-        <span class="sub-question">
+       <disability-choice class="sub-question" value="{{document.value.form_value.s4_2}}">
           4.2 มีการประหม่าอย่างมากเมื่อให้ออกไปแสดงออก เช่น รายงาน
-        </span>
        </disability-choice>
-       <disability-choice value="{{document.value.form_value.s4_3}}">
-        <span class="sub-question">
+       <disability-choice class="sub-question" value="{{document.value.form_value.s4_3}}">
           4.3 มีอาการเจ็บป่วยทางกายเมื่อมาโรงเรียน
-        </span>
        </disability-choice>
-       <disability-choice value="{{document.value.form_value.s4_4}}">
-        <span class="sub-question">
+       <disability-choice class="sub-question" value="{{document.value.form_value.s4_4}}">
           4.4 ร้องไห้บ่อย
-        </span>
        </disability-choice>
        <div class="font-face-underline">หนีสังคม ปลีกตัวออกจากสังคม อันมีผลต่อการเรียน</div>
-       <disability-choice value="{{document.value.form_value.p1_5}}">
+       <disability-choice  class="main-question" value="{{document.value.form_value.p1_5}}">
          5. หนีสังคม ปลีกตัวออกจากสังคม อันมีผลต่อการเรียน
        </disability-choice>
-       <disability-choice value="{{document.value.form_value.s5_1}}">
-        <span class="sub-question">
+       <disability-choice class="sub-question" value="{{document.value.form_value.s5_1}}">
           5.1 ไม่พูดคุย ไม่เล่นกับเพื่อน
-        </span>
        </disability-choice>
-       <disability-choice value="{{document.value.form_value.s5_2}}">
-        <span class="sub-question">
+       <disability-choice class="sub-question" value="{{document.value.form_value.s5_2}}">
           5.2 ไม่ร่วมกิจกรรมที่ทางโรงเรียนจัดให้
-        </span>
        </disability-choice>
-       <disability-choice value="{{document.value.form_value.s5_3}}">
-        <span class="sub-question">
+       <disability-choice class="sub-question" value="{{document.value.form_value.s5_3}}">
           5.3 เจ้าอารมณ์ รุนแรง
-        </span>
        </disability-choice>
-       <disability-choice value="{{document.value.form_value.s5_4}}">
-        <span class="sub-question">
+       <disability-choice class="sub-question" value="{{document.value.form_value.s5_4}}">
           5.4 แยกตัวอยู่คนเดียว ทำงานคนเดียวตลอดเวลา
-        </span>
        </disability-choice>
      </div>
 

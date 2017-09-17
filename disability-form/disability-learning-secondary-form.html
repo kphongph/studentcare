@@ -62,7 +62,26 @@
         font-weight:bold;
       }
 
+      .font-face{
+        font-family: 'Athiti', sans-serif;
+      }
+
+      .font-face-bold{
+        font-family: 'Athiti', sans-serif;
+        font-weight: bold;
+        text-decoration: underline;;
+      }
+
+      dl {
+        display: block;
+        margin-top: 0px;
+        margin-bottom: 0px;
+        margin-left: 0px;
+        margin-right: 0px;
+      }
+
       disability-choice{
+        margin-left: 5px;
         font-family: 'Athiti', sans-serif;
       }
     </style>
@@ -105,12 +124,12 @@
          1. ดูฉลาดหรือปกติ ในด้านอื่น ๆ นอกจากในด้านการเรียน
        </disability-choice>
        <disability-choice value="{{document.value.form_value.p1_p1_2}}">
-        2. มีปัญหาทางการเรียน ซึ่งอาจทำไม่ได้เลยหรือทำได้ต่ำกว่า 2 ชั้นเรียน ในด้านใดด้านหนึ่ง หรือมากกว่า 1 ด้าน ต่อไปนี้
-          <ol>
-          <li>ด้านการอ่าน</li>
-          <li>ด้านการเขียน</li>
-          <li>ด้านการคำนวณ</li>
-          </ol>
+        <dl>
+          <dt>2. มีปัญหาทางการเรียน ซึ่งอาจทำไม่ได้เลยหรือทำได้ต่ำกว่า 2 ชั้นเรียน ในด้านใดด้านหนึ่ง หรือมากกว่า 1 ด้าน ต่อไปนี้</dt>
+          <dd>- ด้านการอ่าน</dd>
+          <dd>- ด้านการเขียน</dd>
+          <dd>- ด้านการคำนวณ</dd>
+        </dl>
        </disability-choice>
        <disability-choice value="{{document.value.form_value.p1_p1_3}}">
           3. ไม่มีปัญหาทางด้านการเห็น การได้ยิน สติปัญญา หรือออทิสติก หรือจากการถูกละทิ้ง ละเลย หรือความด้อยโอกาสอื่น ๆ
@@ -120,7 +139,7 @@
          <div class="section-head">การวิเคราะห์ความบกพร่องทางการเรียนรู้ของเด็กในแต่ละด้าน</div>
         </div>
         <div class="section">
-         <div class="section-label">ด้านการอ่าน</div>
+         <div class="section-label font-face-bold">ด้านการอ่าน</div>
         </div>
         <disability-choice value="{{document.value.form_value.p2_p1_1}}">
           1. อ่านข้ามบรรทัด อ่านซ้ำบรรทัด
@@ -153,7 +172,7 @@
           10. อ่านจับใจความสำคัญของเรื่องไม่ได้
         </disability-choice>
         <div class="section">
-         <div class="section-label">ด้านการเขียน</div>
+         <div class="section-label font-face-bold">ด้านการเขียน</div>
         </div>
         <disability-choice value="{{document.value.form_value.p2_p2_1}}">
           1. ฟังคำบรรยายแล้วจดโน้ตย่อไม่ได้
@@ -186,7 +205,7 @@
           10. เขียนตามคำบอกไม่ได้
         </disability-choice>
         <div class="section">
-         <div class="section-label">ด้านการคำนวณ</div>
+         <div class="section-label font-face-bold">ด้านการคำนวณ</div>
         </div>
         <disability-choice value="{{document.value.form_value.p2_p3_1}}">
           1. ไม่เข้าใจความหมายและสัญลักษณ์ทางคณิตศาสตร์
@@ -219,7 +238,7 @@
           10. ไม่เข้าใจเกี่ยวกับระบบจำนวน
         </disability-choice>
         <div class="section">
-         <div class="section-label">ด้านพฤติกรรมทั่วไป</div>
+         <div class="section-label font-face-bold">ด้านพฤติกรรมทั่วไป</div>
         </div>
         <disability-choice value="{{document.value.form_value.p2_p4_1}}">
           1. ลังเลในความสามารถของตนเอง มักจะพึ่งโชคลางหรือสิ่งภายนอกมากกว่าการทำงานหนัก

@@ -23,6 +23,7 @@
       :host {
         @apply --paper-font-display;
         @apply --layout-vertical;
+        background-color: white;
         display: block;
       }
 
@@ -113,10 +114,10 @@
 
     </style>
 
-    <homevisit-query host="{{document.value.dmc.host}}"
+    <!--<homevisit-query host="{{document.value.dmc.host}}"
        cid="{{document.value.student.cid}}"
        document="{{homevisit}}">
-    </homevisit-query>
+    </homevisit-query>-->
 
 	<grade-query host="{{document.value.dmc.host}}"
        cid="{{document.value.student.cid}}"
@@ -567,16 +568,16 @@
         }
         this.set('document.value.form_value.q2',current_max);
       },
-      _evaluate:function() {
+      /*_evaluate:function() {
         var values = this.document.value.form_value;
         var score = {};
-        /*
-        for(var q in values) {
-          var p = q.split('_')[0];
-          if(!score[p]) score[p] = {'y':0,'n':0};
-          score[p][values[q]]++;
-        }
-        */
+
+        //for(var q in values) {
+          //var p = q.split('_')[0];
+          //if(!score[p]) score[p] = {'y':0,'n':0};
+          //score[p][values[q]]++;
+        //}
+
         var name_dict = {
           'q2':'ด้านการเรียน'
         };
@@ -591,16 +592,16 @@
             score[q] = obj;
           }
         }
-        /*console.log(this.homevisit);*/
+        //console.log(this.homevisit);
 
         var result_homevisit = [];
         var result_type;
         var tmp_homevisit = this.homevisit;
         for(var i=0;i<tmp_homevisit.length;i++) {
-            /*console.log(tmp_homevisit[i]);
-           console.log(tmp_homevisit[i].values.length);*/
+            //console.log(tmp_homevisit[i]);
+           //console.log(tmp_homevisit[i].values.length);
             for(var j=0;j<tmp_homevisit[i].values.length;j++){
-              /*console.log(tmp_homevisit[i].values[j].type);*/
+              //console.log(tmp_homevisit[i].values[j].type);
               var chk_type = tmp_homevisit[i].values[j].type;
               if(chk_type == "มีปัญหา"){
                 result_type = "มีปัญหา";
@@ -613,11 +614,11 @@
               "type":result_type
             });
 		    }
-        /*console.log(result_homevisit);*/
+        //console.log(result_homevisit);
         score["homevisit"] = result_homevisit;
         console.log(score);
         return score;
-      },
+      },*/
       _validate:function() {
         /*
         var eles =Polymer.dom(this.root)

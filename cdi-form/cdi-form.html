@@ -8,12 +8,15 @@
 <link rel="import" href="../studentcare-form-behavior.html">
 <link rel="import" href="cdi-choice.html">
 
+<link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">
 <dom-module id="cdi-form">
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors">
       :host {
         @apply --paper-font-display;
         @apply --layout-vertical;
+        font-family: 'Athiti', sans-serif;
+        background-color: white;
         display: block;
       }
 
@@ -24,7 +27,7 @@
       paper-radio-group {
         background:#efefef;
       }
-      
+
       .formEntry div {
         @apply --paper-font-display;
         margin:3px;
@@ -36,11 +39,11 @@
         @apply --paper-font-body1;
         padding:5px;
       }
-     
+
       .evaluation {
         padding:5px;
       }
-      
+
       .sub-question {
         padding-left:20px;
       }
@@ -48,88 +51,95 @@
       .check-icon {
         width:30px;
       }
+
+      div{
+        margin-left: 10px;
+      }
+      paper-radio-button{
+        font-family: 'Athiti', sans-serif;
+      }
     </style>
 
-    <form-control id="control" 
-      on-form-action="_tap" 
+    <form-control id="control"
+      on-form-action="_tap"
       doc-key="{{document.key}}"
       doc-value="{{document.value}}">
       <div slot="description">
         <div class="layout vertical pad">
           <h3>คำชี้แจง</h3>
-          <p> 
-ความรู้สึกเศร้า 
-หรือไม่มีความสุขเป็นสิ่งที่พบได้เสมอในชีวิตประจำวัน 
-ไม่ว่าจะเป็นผู้ใหญ่ หรือเด็กการมีความรู้สึกเศร้าในช่วงระยะ 
-สั้นๆ และคราวนั้นถือว่าเป็นสิ่งปกติ 
-แต่ถ้าความรู้สึกเศร้านั้นมีอยู่เป็นระยะเวลานาน 
+          <p>
+ความรู้สึกเศร้า
+หรือไม่มีความสุขเป็นสิ่งที่พบได้เสมอในชีวิตประจำวัน
+ไม่ว่าจะเป็นผู้ใหญ่ หรือเด็กการมีความรู้สึกเศร้าในช่วงระยะ
+สั้นๆ และคราวนั้นถือว่าเป็นสิ่งปกติ
+แต่ถ้าความรู้สึกเศร้านั้นมีอยู่เป็นระยะเวลานาน
 และรุนแรง จนส่งผลกระทบถึงการปฏิบัติหน้าที่ใน
-ชีวิตประจำวัน ก็จัดว่าเป็นภาวะปกติ 
-ในทางคลินิกภาวะซึมเศร้าดังกล่าวมมีหลายแบบขึ้นอยู่กับลักษณะอาการ 
-และความรุนแรง เช่น 
-ภาวะเศร้าอันเป็นผลจากความผิดปกติในการปรับตัวต่อความเครียด(adjustment disorder) 
-โรคซึมเศร้าเรื้อรัง (dysthymia) 
+ชีวิตประจำวัน ก็จัดว่าเป็นภาวะปกติ
+ในทางคลินิกภาวะซึมเศร้าดังกล่าวมมีหลายแบบขึ้นอยู่กับลักษณะอาการ
+และความรุนแรง เช่น
+ภาวะเศร้าอันเป็นผลจากความผิดปกติในการปรับตัวต่อความเครียด(adjustment disorder)
+โรคซึมเศร้าเรื้อรัง (dysthymia)
 และโรคซึมเศร้ารุนแรง (major depression) เป็นต้น
           </p>
           <p>
-อาการซึมเศร้าที่เกิดขึ้นในผู้ป่วยส่วนใหญ่เป็นความรู้สึก 
+อาการซึมเศร้าที่เกิดขึ้นในผู้ป่วยส่วนใหญ่เป็นความรู้สึก
 หรือสภาวะที่เกิดภายในที่รับรู้ได้เฉพาะตัวผู้ป่วย ยากแก่การสังเกตของผู้คน
-รอบข้าง เฉพาะเมื่ออาการนั้นมีความรุนแรง 
+รอบข้าง เฉพาะเมื่ออาการนั้นมีความรุนแรง
 จึงจะปรากฏชัดต่อสายตาของผู้ใกล้ชิด เช่น ความรู้สึกเบื่อหน่ายต่อสิ่งรอบตัว(anhedonia) ถ้าเป็น
-น้อยผู้ป่วยอาจเพียงแต่รู่สึกไม่ค่อยสนุกกับสิ่งที่เคยสนุก 
+น้อยผู้ป่วยอาจเพียงแต่รู่สึกไม่ค่อยสนุกกับสิ่งที่เคยสนุก
 ถ้าเป็นมากผู้อื่นอาจสังเกตได้ว่าผู้ป่วยหงอยแยกตัวไม่ค่อยทำอะไร หรือยุ่งกับใคร
-ความรู้สึกผิดก็เช่นกัน ถ้าเป็นไม่มากผู้ป่วยอาจเพียงมีความรู้สึกว่าตนเองเป็นคนไม่ดี 
+ความรู้สึกผิดก็เช่นกัน ถ้าเป็นไม่มากผู้ป่วยอาจเพียงมีความรู้สึกว่าตนเองเป็นคนไม่ดี
 แต่ความรู้นี้อาจออกไม่ชัดเจน จนกระทั่งอาการทวีความ
-รุนแรง และความรู้สึกผิดนั้นออกมาในรูปของความหลงผิด 
+รุนแรง และความรู้สึกผิดนั้นออกมาในรูปของความหลงผิด
 หรือหูแว่วเป็นเสียงคนตำหนิว่าผู้ป่วยไม่ดี เป็นต้น
           </p>
           <p>
-แบบคัดกรองภาวะซึมเศร้า หรือ 
-Children’s Depression Inventory:CDI 
-ฉบับภาษาไทยเป็นแบบวัดที่ศาสตราจารย์แพทย์หญิงอุมาพร ตรังคสมบัติ 
-แปลจากฉบับภาษาอังกฤษที่สร้างโดย Maria Kovacs 
+แบบคัดกรองภาวะซึมเศร้า หรือ
+Children’s Depression Inventory:CDI
+ฉบับภาษาไทยเป็นแบบวัดที่ศาสตราจารย์แพทย์หญิงอุมาพร ตรังคสมบัติ
+แปลจากฉบับภาษาอังกฤษที่สร้างโดย Maria Kovacs
 โดยดัดแปลงจาก Beck Depression Inventory แบบวัดนี้
-ประกอบด้วยคำถาม 27 ข้อ เกี่ยวกับอาการซึมเศร้าในด้านต่างๆที่พบในเด็ก 
+ประกอบด้วยคำถาม 27 ข้อ เกี่ยวกับอาการซึมเศร้าในด้านต่างๆที่พบในเด็ก
 แต่ละคำถามจะประกอบด้วยตัวเลือก 3 ข้อ ซึ่งบอกความรุนแรง
-ของภาวะซึมเศร้าใน 2 สัปดาห์ที่ผ่านมา 
+ของภาวะซึมเศร้าใน 2 สัปดาห์ที่ผ่านมา
 แต่ละตัวเลือกจะมีระดับความรุนแรงของอาการ คะแนน 0 หมายถึง ไม่มีอาการเศร้าเลย หรือมีน้อย
-คะแนน 1 หมายถึง มีอาการบ่อยๆ และคะแนน 2 หมายถึง มีอาการตลอดเวลา 
+คะแนน 1 หมายถึง มีอาการบ่อยๆ และคะแนน 2 หมายถึง มีอาการตลอดเวลา
 คะแนนรวมของ CDI มีได้ตั้งแต่ 0-52 เนื่องจากความรู้สึก และ
-ความนึกคิดของผู้ป่วยเป็นสิ่งสำคัญในการประเมินภาวะซึมเศร้าจึงควรมีการประเมินศึกษาความรู้สึก 
-และความคิดผู้ป่วยด้วย นอกเหนือไปจากการสังเกตของแพทย์ 
-หรือผู้ตรวจ ดังนี้ เครื่องมือที่ประเมินความรู้สึก 
+ความนึกคิดของผู้ป่วยเป็นสิ่งสำคัญในการประเมินภาวะซึมเศร้าจึงควรมีการประเมินศึกษาความรู้สึก
+และความคิดผู้ป่วยด้วย นอกเหนือไปจากการสังเกตของแพทย์
+หรือผู้ตรวจ ดังนี้ เครื่องมือที่ประเมินความรู้สึก
 และความคิดของผู้ป่วยจึงมีความจำเป็นอย่างยิ่งที่จะช่วยให้การประเมินเป็นไปอย่างครบถ้วน
           </p>
           <h3>วัตถุประสงค์</h3>
           <p>
-การประเมินภาวะซึมเศร้านั้น 
-โดยทั่วไปกระทำโดยการสังเกตอาการแสดงของผู้ป่วย 
-และสอบถามข้อมูลเกี่ยวกับอาการ หรือความรู้สึกของผู้ป่วย 
-การสังเกตอาการแสดงอาจจะมีปัญหาดังกล่าวมาแล้ว 
+การประเมินภาวะซึมเศร้านั้น
+โดยทั่วไปกระทำโดยการสังเกตอาการแสดงของผู้ป่วย
+และสอบถามข้อมูลเกี่ยวกับอาการ หรือความรู้สึกของผู้ป่วย
+การสังเกตอาการแสดงอาจจะมีปัญหาดังกล่าวมาแล้ว
 ส่วนการสอบถามข้อมูลจากผู้ป่วยเอง ก็อาจจะได้ข้อมูลที่ไม่ครบถ้วน
-โดยเฉพาะข้อมูลที่เกี่ยวกับความรู้สึกระเอียดอ่อนของผู้ป่วย 
+โดยเฉพาะข้อมูลที่เกี่ยวกับความรู้สึกระเอียดอ่อนของผู้ป่วย
 เช่น ความรู้สึกเกี่ยวกับตนเอง เป็นต้น ผู้ป่วยบางรายอาจขาดทักษะในการสื่อสาร
-นอกจากนี้กรณีผู้ป่วยเป็นเด็ก ก็อาจเกิดปัญหาในการให้ข้อมูลแก่แพทย์ 
+นอกจากนี้กรณีผู้ป่วยเป็นเด็ก ก็อาจเกิดปัญหาในการให้ข้อมูลแก่แพทย์
 เนื่องจากเด็กอาจไม่กล้าแสดงความคิดเห็น โดยเฉพาะกับผู้ใหญ่ ด้วย
 เหตุนี้ใช่เครื่องมือประเภท self-report ที่ใช้แพร่หลายในเด็กปัจจุบัน
           </p>
           <h3>คุณสมบัติของเครื่องมือ</h3>
           <p>
-จากการวิจัยพบว่า CDI ฉบับภาษาไทย 
+จากการวิจัยพบว่า CDI ฉบับภาษาไทย
 มีค่าอำนาจจำแนกระหว่างเด็กที่มีภาวะซึมเศร้าอย่างมีนัยสำคัญทางสิถิตที่ P<10 กำลัง 6
-การศึกษาในเด็กไทยพบว่ามี reliability coefficient (Alpha) = 0.83 
+การศึกษาในเด็กไทยพบว่ามี reliability coefficient (Alpha) = 0.83
 และมีความตรงในการจำแนก(discriminant validity) สูงจาก
-receiver operating characteristic curve 
+receiver operating characteristic curve
 คะแนนที่เป็นจุดตัดแยกภาวะซึมเศร้าที่มีความสำคัญทางคลินิก คือ 15 คะแนนขึ้นไป ที่คะแนนนี้
-CDI ฉบับภาษาไทยมี Sensitivity = 78.7% specificity = 91.3% 
+CDI ฉบับภาษาไทยมี Sensitivity = 78.7% specificity = 91.3%
 และมี accuracy = 87% อย่างไรก็ตาม สำหรับการคัดกรองระบาดวิทยา
 สามารถใช้จุดตัดที่ 19 หรือ 21 คะแนนได้
           </p>
           <h3>วิธีการใช้</h3>
           <p>
-แบบคัดกรอง CDI ประกอบด้วยคำถาม 27 ข้อ 
+แบบคัดกรอง CDI ประกอบด้วยคำถาม 27 ข้อ
 แต่ละคำถามมี 3 ตัวเลือก เพื่อบอกความรุนแรงของภาวะซึมเศร้าในช่วง 2 สัปดาห์ที่
-ผ่านมา การให้คะแนนจะให้ตามความรุนแรงของอาการ 
+ผ่านมา การให้คะแนนจะให้ตามความรุนแรงของอาการ
           </p>
 <ul>
 <li>คะแนน 0 หมายถึง ไม่มีอาการเศร้าเลย</li>
@@ -150,7 +160,7 @@ CDI ฉบับภาษาไทยมี Sensitivity = 78.7% specificity = 91
           <h3>ข้อจำกัด</h3>
           <ol>
             <li>กลุ่มเป้าหมายต้องอ่านหนังสืออก และเล่าเรื่องราวเกี่ยวกับตนเองได้</li>
-            <li>ในกลุ่มเป้าหมายที่เป็นวัยรุ่น 
+            <li>ในกลุ่มเป้าหมายที่เป็นวัยรุ่น
                 อาจมีข้อคำถามบ้างข้อที่ไม่เหมาะกับอายุ
                 ดังนั้นอาจพิจารณาใช้งานแบบคัดกรอง CSE-D แทนได้
             </li>
@@ -169,7 +179,7 @@ CDI ฉบับภาษาไทยมี Sensitivity = 78.7% specificity = 91
           ฉันรู้สึกเศร้าตลอดเวลา
          </paper-radio-button>
        </cdi-choice>
-       <cdi-choice value="{{document.value.form_value.q2_2}}"> 
+       <cdi-choice value="{{document.value.form_value.q2_2}}">
         <paper-radio-button slot="slot-a" name="a">
            อะไรๆ ก็มีอุปสรรคไปเสียหมด
         </paper-radio-button>
@@ -180,7 +190,7 @@ CDI ฉบับภาษาไทยมี Sensitivity = 78.7% specificity = 91
            สิ่งต่างๆ จะเป็นไปด้วยดีสำหรับฉัน
         </paper-radio-button>
        </cdi-choice>
-       <cdi-choice value="{{document.value.form_value.q1_3}}"> 
+       <cdi-choice value="{{document.value.form_value.q1_3}}">
          <paper-radio-button slot="slot-a" name="a">
            ฉันทำอะไรๆ ได้ค่อนข้างดี
          </paper-radio-button>
@@ -191,7 +201,7 @@ CDI ฉบับภาษาไทยมี Sensitivity = 78.7% specificity = 91
            ฉันทำอะไรผิดพลาดไปหมด
          </paper-radio-button>
        </cdi-choice>
-       <cdi-choice value="{{document.value.form_value.q1_4}}"> 
+       <cdi-choice value="{{document.value.form_value.q1_4}}">
          <paper-radio-button slot="slot-a" name="a">
            ฉันรู้สึกสนุกกับหลายสิ่งหลายอย่าง
          </paper-radio-button>
@@ -202,7 +212,7 @@ CDI ฉบับภาษาไทยมี Sensitivity = 78.7% specificity = 91
            ไม่มีอะไรสนุกสสนานเลยสำหรับฉัน
          </paper-radio-button>
        </cdi-choice>
-       <cdi-choice value="{{document.value.form_value.q2_5}}"> 
+       <cdi-choice value="{{document.value.form_value.q2_5}}">
          <paper-radio-button slot="slot-a" name="a">
             ฉันทำตัวไม่ดีเสมอ
          </paper-radio-button>
@@ -213,7 +223,7 @@ CDI ฉบับภาษาไทยมี Sensitivity = 78.7% specificity = 91
             ฉันทำตัวไม่ดีนานๆ ที
          </paper-radio-button>
        </cdi-choice>
-       <cdi-choice value="{{document.value.form_value.q1_6}}"> 
+       <cdi-choice value="{{document.value.form_value.q1_6}}">
          <paper-radio-button slot="slot-a" name="a">
            นานๆ ครั้งฉันจะคิดถึงสิ่งไม่ดีที่อาจเกิดขึ้นกับฉัน
          </paper-radio-button>
@@ -224,7 +234,7 @@ CDI ฉบับภาษาไทยมี Sensitivity = 78.7% specificity = 91
            จะต้องมีสิ่งเลวร้ายเกิดขึ้นกับฉันแน่ๆ
          </paper-radio-button>
        </cdi-choice>
-       <cdi-choice value="{{document.value.form_value.q2_7}}"> 
+       <cdi-choice value="{{document.value.form_value.q2_7}}">
          <paper-radio-button slot="slot-a" name="a">
            ฉันเกลัยดตัวเอง
          </paper-radio-button>
@@ -235,7 +245,7 @@ CDI ฉบับภาษาไทยมี Sensitivity = 78.7% specificity = 91
            ฉันชอบตัวเอง
          </paper-radio-button>
        </cdi-choice>
-       <cdi-choice value="{{document.value.form_value.q2_8}}"> 
+       <cdi-choice value="{{document.value.form_value.q2_8}}">
          <paper-radio-button slot="slot-a" name="a">
            สิ่งเลวร้ายทั้งหมดที่เกิดขึ้นเป็นความผิดของฉัน
          </paper-radio-button>
@@ -246,7 +256,7 @@ CDI ฉบับภาษาไทยมี Sensitivity = 78.7% specificity = 91
            สิ่งเลวร้ายที่เกิดขึ้นมามักไม่ใช่ความผิดของฉัน
          </paper-radio-button>
        </cdi-choice>
-       <cdi-choice value="{{document.value.form_value.q1_9}}"> 
+       <cdi-choice value="{{document.value.form_value.q1_9}}">
          <paper-radio-button slot="slot-a" name="a">
            ฉันไม่คิดจะฆ่าตัวตาย
          </paper-radio-button>
@@ -257,7 +267,7 @@ CDI ฉบับภาษาไทยมี Sensitivity = 78.7% specificity = 91
            ฉันต้องฆ่าตัวตาย
          </paper-radio-button>
        </cdi-choice>
-       <cdi-choice value="{{document.value.form_value.q_10}}"> 
+       <cdi-choice value="{{document.value.form_value.q_10}}">
          <paper-radio-button slot="slot-a" name="a">
            ฉันรู้สึกอยากร้องไห้ทุกวัน
          </paper-radio-button>
@@ -268,7 +278,7 @@ CDI ฉบับภาษาไทยมี Sensitivity = 78.7% specificity = 91
            ฉันรู้สึกอยากร้องไห้นานๆ ครั้ง
          </paper-radio-button>
        </cdi-choice>
-       <cdi-choice value="{{document.value.form_value.q2_11}}"> 
+       <cdi-choice value="{{document.value.form_value.q2_11}}">
          <paper-radio-button slot="slot-a" name="a">
            ฉันรู้สึกหงุดหงิดใจตลอดเวลา
          </paper-radio-button>
@@ -279,7 +289,7 @@ CDI ฉบับภาษาไทยมี Sensitivity = 78.7% specificity = 91
            ฉันรู้สึกหงุดหงิดใจนานๆครั้ง
          </paper-radio-button>
        </cdi-choice>
-       <cdi-choice value="{{document.value.form_value.q1_12}}"> 
+       <cdi-choice value="{{document.value.form_value.q1_12}}">
          <paper-radio-button slot="slot-a" name="a">
            ฉันชอบอยู่กับคนอื่น
          </paper-radio-button>
@@ -290,7 +300,7 @@ CDI ฉบับภาษาไทยมี Sensitivity = 78.7% specificity = 91
            ฉันไม่ต้องการอยู่กับใครเลย
          </paper-radio-button>
        </cdi-choice>
-       <cdi-choice value="{{document.value.form_value.q2_13}}"> 
+       <cdi-choice value="{{document.value.form_value.q2_13}}">
          <paper-radio-button slot="slot-a" name="a">
          ฉันไม่สามารถตัดสินใจอะไรต่างๆ ด้วยตนเอง
          </paper-radio-button>
@@ -301,7 +311,7 @@ CDI ฉบับภาษาไทยมี Sensitivity = 78.7% specificity = 91
          ฉันตัดสินใจเรื่องต่างๆ ได้ง่าย
          </paper-radio-button>
        </cdi-choice>
-       <cdi-choice value="{{document.value.form_value.q1_14}}"> 
+       <cdi-choice value="{{document.value.form_value.q1_14}}">
          <paper-radio-button slot="slot-a" name="a">
          ฉันเป็นคนหน้าตาดี
          </paper-radio-button>
@@ -312,7 +322,7 @@ CDI ฉบับภาษาไทยมี Sensitivity = 78.7% specificity = 91
          ฉันเป็นคนหน้าตาหน้าเกลียด
          </paper-radio-button>
        </cdi-choice>
-       <cdi-choice value="{{document.value.form_value.q2_15}}"> 
+       <cdi-choice value="{{document.value.form_value.q2_15}}">
          <paper-radio-button slot="slot-a" name="a">
          ฉันต้องใช้ความพยายามอย่างหนักทุกครั้งที่ทำการบ้าน
          </paper-radio-button>
@@ -323,7 +333,7 @@ CDI ฉบับภาษาไทยมี Sensitivity = 78.7% specificity = 91
          การทำการบ้านไม่ใช่ปัญหาใหญ่สำหรับฉัน
          </paper-radio-button>
        </cdi-choice>
-       <cdi-choice value="{{document.value.form_value.q2_16}}"> 
+       <cdi-choice value="{{document.value.form_value.q2_16}}">
          <paper-radio-button slot="slot-a" name="a">
          ฉันนอนไม่หลับทุกคืน
          </paper-radio-button>
@@ -334,7 +344,7 @@ CDI ฉบับภาษาไทยมี Sensitivity = 78.7% specificity = 91
          ฉันนอนหลับสบาย
          </paper-radio-button>
        </cdi-choice>
-       <cdi-choice value="{{document.value.form_value.q1_17}}"> 
+       <cdi-choice value="{{document.value.form_value.q1_17}}">
          <paper-radio-button slot="slot-a" name="a">
          ฉันรู้สึกเหนื่อยหลายๆ ครั้ง
          </paper-radio-button>
@@ -345,7 +355,7 @@ CDI ฉบับภาษาไทยมี Sensitivity = 78.7% specificity = 91
          ฉันรู้สึกเหนื่อยตลอดเวลา
          </paper-radio-button>
        </cdi-choice>
-       <cdi-choice value="{{document.value.form_value.q2_18}}"> 
+       <cdi-choice value="{{document.value.form_value.q2_18}}">
          <paper-radio-button slot="slot-a" name="a">
          มีหลายวันที่ฉันรู้สึกไม่อยากกินอาหาร
          </paper-radio-button>
@@ -356,7 +366,7 @@ CDI ฉบับภาษาไทยมี Sensitivity = 78.7% specificity = 91
          ฉันกินอาหารได้ดี
          </paper-radio-button>
        </cdi-choice>
-       <cdi-choice value="{{document.value.form_value.q1_19}}"> 
+       <cdi-choice value="{{document.value.form_value.q1_19}}">
          <paper-radio-button slot="slot-a" name="a">
          ฉันไม่กังวลกับการเจ็บป่วย
          </paper-radio-button>
@@ -367,7 +377,7 @@ CDI ฉบับภาษาไทยมี Sensitivity = 78.7% specificity = 91
          ฉันกังวลกับการเจ็บป่วยตลอดเวลา
          </paper-radio-button>
        </cdi-choice>
-       <cdi-choice value="{{document.value.form_value.q1_20}}"> 
+       <cdi-choice value="{{document.value.form_value.q1_20}}">
          <paper-radio-button slot="slot-a" name="a">
          ฉันไม่รู้สึกเหงา
          </paper-radio-button>
@@ -378,7 +388,7 @@ CDI ฉบับภาษาไทยมี Sensitivity = 78.7% specificity = 91
          ฉันรู้สึกเหงาตลอดเวลา
          </paper-radio-button>
        </cdi-choice>
-       <cdi-choice value="{{document.value.form_value.q2_21}}"> 
+       <cdi-choice value="{{document.value.form_value.q2_21}}">
         <paper-radio-button slot="slot-a" name="a">
         ฉันไม่รู้สึกสสนุกเลยเวลาที่อยู่โรงเรียน
         </paper-radio-button>
@@ -389,7 +399,7 @@ CDI ฉบับภาษาไทยมี Sensitivity = 78.7% specificity = 91
         ฉันรู้สึกสนุกบ่อยครั้งเวลาที่อยู่โรงเรียน
         </paper-radio-button>
        </cdi-choice>
-       <cdi-choice value="{{document.value.form_value.q1_22}}"> 
+       <cdi-choice value="{{document.value.form_value.q1_22}}">
         <paper-radio-button slot="slot-a" name="a">
         ฉันมีเพื่อนมาก
         </paper-radio-button>
@@ -400,7 +410,7 @@ CDI ฉบับภาษาไทยมี Sensitivity = 78.7% specificity = 91
         ฉันไม่มีเพื่อนเลย
         </paper-radio-button>
        </cdi-choice>
-       <cdi-choice value="{{document.value.form_value.q1_23}}"> 
+       <cdi-choice value="{{document.value.form_value.q1_23}}">
         <paper-radio-button slot="slot-a" name="a">
         การเรียนของฉันอยู่ในขั้นใช้ได้ดี
         </paper-radio-button>
@@ -411,7 +421,7 @@ CDI ฉบับภาษาไทยมี Sensitivity = 78.7% specificity = 91
         การเรียนของฉันแย่ลงมาก
         </paper-radio-button>
        </cdi-choice>
-       <cdi-choice value="{{document.value.form_value.q2_24}}"> 
+       <cdi-choice value="{{document.value.form_value.q2_24}}">
         <paper-radio-button slot="slot-a" name="a">
         ฉันทำอะไรไม่ได้ดีเท่าคนอื่น
         </paper-radio-button>
@@ -422,7 +432,7 @@ CDI ฉบับภาษาไทยมี Sensitivity = 78.7% specificity = 91
         ฉันทำได้ดีพอๆ กับคนอื่นอยู่แล้ว ในขณะที่
         </paper-radio-button>
        </cdi-choice>
-       <cdi-choice value="{{document.value.form_value.q2_25}}"> 
+       <cdi-choice value="{{document.value.form_value.q2_25}}">
         <paper-radio-button slot="slot-a" name="a">
         ไม่มีใครรักฉันจริง
         </paper-radio-button>
@@ -433,7 +443,7 @@ CDI ฉบับภาษาไทยมี Sensitivity = 78.7% specificity = 91
         ฉันไม่เคยทำตามคำสั่ง
         </paper-radio-button>
        </cdi-choice>
-       <cdi-choice value="{{document.value.form_value.q1_26}}"> 
+       <cdi-choice value="{{document.value.form_value.q1_26}}">
         <paper-radio-button slot="slot-a" name="a">
         ฉันทำตามคำสั่งที่ได้รับเสมอ
         </paper-radio-button>
@@ -444,7 +454,7 @@ CDI ฉบับภาษาไทยมี Sensitivity = 78.7% specificity = 91
         ฉันไม่เคยทำตามคำสั่ง
         </paper-radio-button>
        </cdi-choice>
-       <cdi-choice value="{{document.value.form_value.q1_27}}"> 
+       <cdi-choice value="{{document.value.form_value.q1_27}}">
         <paper-radio-button slot="slot-a" name="a">
         ฉันเข้ากับคนอื่นได้ดี
         </paper-radio-button>
@@ -509,7 +519,7 @@ CDI ฉบับภาษาไทยมี Sensitivity = 78.7% specificity = 91
       },
       _evaluate:function() {
         var values = this.document.value.form_value;
-        var score_list = { 
+        var score_list = {
           'q1':['a','b','c'],
           'q2':['a','b','c']
         };
@@ -538,7 +548,7 @@ CDI ฉบับภาษาไทยมี Sensitivity = 78.7% specificity = 91
         return true;
       },
       _reset:function() {
-        this.set('document.value.form_value',{});        
+        this.set('document.value.form_value',{});
       },
       _result:function(score) {
         if(!score) return;

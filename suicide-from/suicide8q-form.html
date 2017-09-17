@@ -7,12 +7,15 @@
 <link rel="import" href="../form-control.html">
 <link rel="import" href="../studentcare-form-behavior.html">
 <link rel="import" href="./suicide8q-choice.html">
+
+<link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">
 <dom-module id="suicide8q-form">
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors">
       :host {
         @apply --paper-font-display;
         @apply --layout-vertical;
+        background-color: white;
         display: block;
       }
       .invalid {
@@ -29,10 +32,10 @@
       }
       .description ol {
         @apply --paper-font-body1;
-        .num {list-style-type: decimal;}
         margin:3px;
         padding:0px;
         background:#efefef;
+        .num {list-style-type: decimal;}
       }
       table, td, th {
         border: 1px solid black;
@@ -53,6 +56,11 @@
       .evaluation {
         padding:5px;
       }
+
+      suicide8q-choice{
+        margin-left: 10px;
+        font-family: 'Athiti', sans-serif;
+      }
     </style>
 
     <form-control id="control"
@@ -66,9 +74,9 @@
           <br>
           <table>
             <tr align="center">
-              <th>คะแนนรวม</th>
-              <th>แนวโน้มที่จะฆ่าตัวตายในปัจจุบัน</th>
-              <th>การจัดการ</th>
+              <th width="10%">คะแนนรวม</th>
+              <th width="30%">แนวโน้มที่จะฆ่าตัวตายในปัจจุบัน</th>
+              <th width="60%">การจัดการ</th>
             </tr>
             <tr>
               <td align="center">1-8</td>

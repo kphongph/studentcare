@@ -7,12 +7,15 @@
 <link rel="import" href="../form-control.html">
 <link rel="import" href="../studentcare-form-behavior.html">
 <link rel="import" href="snap-choice.html">
+
+<link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">
 <dom-module id="snap-form">
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors">
       :host {
         @apply --paper-font-display;
         @apply --layout-vertical;
+        background-color: white;
         display: block;
       }
 
@@ -23,7 +26,7 @@
       paper-radio-group {
         background:#efefef;
       }
-      
+
       .formEntry div {
         @apply --paper-font-display;
         margin:3px;
@@ -38,11 +41,11 @@
         padding:0px;
         background:#efefef;
       }
-     
+
       .evaluation {
         padding:5px;
       }
-      
+
       .sub-question {
         padding-left:20px;
       }
@@ -50,10 +53,15 @@
       .check-icon {
         width:30px;
       }
+
+      snap-choice{
+        margin-left: 10px;
+        font-family: 'Athiti', sans-serif;
+      }
     </style>
 
-    <form-control id="control" 
-      on-form-action="_tap" 
+    <form-control id="control"
+      on-form-action="_tap"
       doc-key="{{document.key}}"
       doc-value="{{document.value}}">
       <div slot="description">
@@ -62,83 +70,83 @@
         </ol>
       </div>
       <div slot="formEntry">
-       <snap-choice value="{{document.value.form_value.q_1}}"> 
-       1. มักไม่ละเอียดรอบคอบหรือสะเพร่าในการทำงานต่างๆ เช่น การบ้าน 
+       <snap-choice value="{{document.value.form_value.q_1}}"
+        label="1. มักไม่ละเอียดรอบคอบหรือสะเพร่าในการทำงานต่างๆ เช่น การบ้าน">
        </snap-choice>
-       <snap-choice value="{{document.value.form_value.q_2}}"> 
-       2. ทำอะไรนานๆ ไม่ได้
+       <snap-choice value="{{document.value.form_value.q_2}}"
+        label="2. ทำอะไรนานๆ ไม่ได้">
        </snap-choice>
-       <snap-choice value="{{document.value.form_value.q_3}}"> 
-       3. ดูเหมือนว่าไม่ค่อยฟังเวลามีคนมาพูดด้วย
+       <snap-choice value="{{document.value.form_value.q_3}}"
+        label="3. ดูเหมือนว่าไม่ค่อยฟังเวลามีคนมาพูดด้วย">
        </snap-choice>
-       <snap-choice value="{{document.value.form_value.q_4}}"> 
-       4. มักทำการบ้านไม่เสร็จ หรือทำงานที่ได้รับมอบหมายไม่เสร็จ
+       <snap-choice value="{{document.value.form_value.q_4}}"
+        label="4. มักทำการบ้านไม่เสร็จ หรือทำงานที่ได้รับมอบหมายไม่เสร็จ">
        </snap-choice>
-       <snap-choice value="{{document.value.form_value.q_5}}"> 
-       5. จัดระเบียบงานและกิจกรรมต่างๆไม่เป็น
+       <snap-choice value="{{document.value.form_value.q_5}}"
+        label="5. จัดระเบียบงานและกิจกรรมต่างๆไม่เป็น">
        </snap-choice>
-       <snap-choice value="{{document.value.form_value.q_6}}"> 
-       6. มักหลีกเลี่ยงกิจกรรมที่ต้องความอดทนในการทำให้สำเร็จ
+       <snap-choice value="{{document.value.form_value.q_6}}"
+        label="6. มักหลีกเลี่ยงกิจกรรมที่ต้องความอดทนในการทำให้สำเร็จ">
        </snap-choice>
-       <snap-choice value="{{document.value.form_value.q_7}}"> 
-       7. ทำของหายบ่อย ๆ (เช่นของเล่น, สมุดจดงาน, เครื่องเขียน ฯลฯ)
+       <snap-choice value="{{document.value.form_value.q_7}}"
+        label="7. ทำของหายบ่อย ๆ (เช่นของเล่น, สมุดจดงาน, เครื่องเขียน ฯลฯ)">
        </snap-choice>
-       <snap-choice value="{{document.value.form_value.q_8}}"> 
-       8. วอกแวกง่าย
+       <snap-choice value="{{document.value.form_value.q_8}}"
+        label="8. วอกแวกง่าย">
        </snap-choice>
-       <snap-choice value="{{document.value.form_value.q_9}}"> 
-       9. ขี้ลืม
+       <snap-choice value="{{document.value.form_value.q_9}}"
+        label="9. ขี้ลืม">
        </snap-choice>
-       <snap-choice value="{{document.value.form_value.q_10}}"> 
-       10. มือเท้ายุกยิก นั่งบิดไปบิดมา
+       <snap-choice value="{{document.value.form_value.q_10}}"
+        label="10. มือเท้ายุกยิก นั่งบิดไปบิดมา">
        </snap-choice>
-       <snap-choice value="{{document.value.form_value.q_11}}"> 
-       11. นั่งไม่ติดที่ชอบลุกจากที่นั่งในชั้นเรียนหรือจากที่ที่ควรจะนั่งเรียบร้อย
+       <snap-choice value="{{document.value.form_value.q_11}}"
+        label="11. นั่งไม่ติดที่ชอบลุกจากที่นั่งในชั้นเรียนหรือจากที่ที่ควรจะนั่งเรียบร้อย">
        </snap-choice>
-       <snap-choice value="{{document.value.form_value.q_12}}"> 
-       12. วิ่งหรือปีนป่ายมากเกินควรอย่างไม่รู้กาละเทศะ
+       <snap-choice value="{{document.value.form_value.q_12}}"
+        label="12. วิ่งหรือปีนป่ายมากเกินควรอย่างไม่รู้กาละเทศะ">
        </snap-choice>
-       <snap-choice value="{{document.value.form_value.q_13}}"> 
-       13. เล่นหรือทำกจกรรมเงียบๆไม่เป็น
+       <snap-choice value="{{document.value.form_value.q_13}}"
+        label="13. เล่นหรือทำกจกรรมเงียบๆไม่เป็น">
        </snap-choice>
-       <snap-choice value="{{document.value.form_value.q_14}}"> 
-       14. พร้อมจะเคลื่อนไหวอยู่เสมอ เหมือน "ติดเครื่อง" อยู่ตลอดเวลา
+       <snap-choice value="{{document.value.form_value.q_14}}"
+        label="14. พร้อมจะเคลื่อนไหวอยู่เสมอ เหมือน "ติดเครื่อง" อยู่ตลอดเวลา">
        </snap-choice>
-       <snap-choice value="{{document.value.form_value.q_15}}"> 
-       15. พูดมาก
+       <snap-choice value="{{document.value.form_value.q_15}}"
+        label="15. พูดมาก">
        </snap-choice>
-       <snap-choice value="{{document.value.form_value.q_16}}"> 
-       16. มักโพล่งคำตอบออกมาก่อนจะฟังคำถามจบ
+       <snap-choice value="{{document.value.form_value.q_16}}"
+        label="16. มักโพล่งคำตอบออกมาก่อนจะฟังคำถามจบ">
        </snap-choice>
-       <snap-choice value="{{document.value.form_value.q_17}}"> 
-       17. ไม่ชอบรอคิว
+       <snap-choice value="{{document.value.form_value.q_17}}"
+        label="17. ไม่ชอบรอคิว">
        </snap-choice>
-       <snap-choice value="{{document.value.form_value.q_18}}"> 
-       18. ชอบสอดแทรกผู้อื่น (เช่นพูดแทรกขณะผู้ใหญ่กำลังสนธนา)
+       <snap-choice value="{{document.value.form_value.q_18}}"
+        label="18. ชอบสอดแทรกผู้อื่น (เช่นพูดแทรกขณะผู้ใหญ่กำลังสนธนา)">
        </snap-choice>
-       <snap-choice value="{{document.value.form_value.q_19}}"> 
-       19. อารมณ์เสียง่าย
+       <snap-choice value="{{document.value.form_value.q_19}}"
+        label="19. อารมณ์เสียง่าย">
        </snap-choice>
-       <snap-choice value="{{document.value.form_value.q_20}}"> 
-       20. ชอบโต้เถียงกับผู้ใหญ่
+       <snap-choice value="{{document.value.form_value.q_20}}"
+        label="20. ชอบโต้เถียงกับผู้ใหญ่">
        </snap-choice>
-       <snap-choice value="{{document.value.form_value.q_21}}"> 
-       21. ไม่ยอมทำตามสิ่งที่ผู้ใหญ่สั่งหรือวางกฏเกณฑ์ไว้
+       <snap-choice value="{{document.value.form_value.q_21}}"
+        label="21. ไม่ยอมทำตามสิ่งที่ผู้ใหญ่สั่งหรือวางกฏเกณฑ์ไว้">
        </snap-choice>
-       <snap-choice value="{{document.value.form_value.q_22}}"> 
-       22. จงใจก่อกวนผู้อื่น
+       <snap-choice value="{{document.value.form_value.q_22}}"
+        label="22. จงใจก่อกวนผู้อื่น">
        </snap-choice>
-       <snap-choice value="{{document.value.form_value.q_23}}"> 
-       23. มักตำหนิผู้อื่นในสิ่งที่ตนเองทำผิด
+       <snap-choice value="{{document.value.form_value.q_23}}"
+        label="23. มักตำหนิผู้อื่นในสิ่งที่ตนเองทำผิด">
        </snap-choice>
-       <snap-choice value="{{document.value.form_value.q_24}}"> 
-       24. ขี้รำคาญ
+       <snap-choice value="{{document.value.form_value.q_24}}"
+        label="24. ขี้รำคาญ">
        </snap-choice>
-       <snap-choice value="{{document.value.form_value.q_25}}"> 
-       25. โกรธขึ้งบึ้งตึงเป็นประจำ
+       <snap-choice value="{{document.value.form_value.q_25}}"
+        label="25. โกรธขึ้งบึ้งตึงเป็นประจำ">
        </snap-choice>
-       <snap-choice value="{{document.value.form_value.q_26}}"> 
-       26. เจ้าคิดเจ้าแค้น
+       <snap-choice value="{{document.value.form_value.q_26}}"
+        label="26. เจ้าคิดเจ้าแค้น">
        </snap-choice>
      </div>
 
@@ -220,12 +228,12 @@
         return true;
       },
       _reset:function() {
-        this.set('document.value.form_value',{});        
+        this.set('document.value.form_value',{});
       },
       _result:function(score) {
         /*
         if(!score) return;
-        var foundSub = false; 
+        var foundSub = false;
         for(var key in score) {
           if(key.indexOf('s') == 0 && score[key].y>=2) {
             foundSub=true;
