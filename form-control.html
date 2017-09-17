@@ -141,7 +141,7 @@
         <slot name="description"></slot>
       </div>
       <div class="layout vertical">
-        <div class="layout horizontal formControl">
+        <div class="layout horizontal center formControl">
           <paper-button raised on-tap="_onSave">
             <iron-icon icon="save"></iron-icon>
             <div class="font-face">บันทึก</div>
@@ -210,7 +210,15 @@
       _onResponse: function (e) {
         var self = this;
         if(e.detail.response.ok) {
-          this.set('message', 'บันทึกเรียบร้อย');
+          if(this.docValue.status == "working") {
+            this.set('message', 'บันทึกเรียบร้อย - ยังไม่ประเมิน');
+          } else {
+            if(this.docValue.status == "done") {
+              this.set('message', 'บันทึกเรียบร้อย - ประเมินแบบแล้ว');
+            } else {
+              this.set('message', 'เริ่มต้นแบบประเมินใหม่');
+            }
+          }
           this.fire('update', { 'key': this.docKey, 'value': this.docValue });
           setTimeout(function () {
             self.set('message', '');
