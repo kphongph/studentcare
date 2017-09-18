@@ -4,107 +4,116 @@
 <link rel="import" href="../../paper-styles/typography.html">
 <link rel="import" href="sdq-radio.html">
 
+<link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">
 <dom-module id="sdqself-form-choice">
   <template>
   <style include="iron-flex iron-flex-alignment iron-flex-factors">
     .paper-font-headline {
-      @apply(--paper-font-body2);
+      /*@apply --paper-font-body2;*/
+      background-color: white;
     }
     .idx {
-        width:10px;
-      }
+      width:10px;
+    }
     sdq-radio {
-      margin-top:2px;
-      margin-bottom:2px;
+      /*margin-top:2px;
+      margin-bottom:2px;*/
+      margin-left:5px;
+      font-family: 'Athiti', sans-serif;
+      /*font-size: 100%;*/
     }
     @media (min-width:400px) {
       :host {
-        @apply(--paper-font-body1);
+        /*@apply --paper-font-body1;*/
         display: block;
         width: 100%;
         --paper-radio-group-item-padding: 5px 12px 5px 12px;
       }
       .paper-font-headline {
-        @apply(--paper-font-headline);
+        @apply --paper-font-headline;
       }
     }
 
+    .bg-white{
+      background-color: white;
+    }
+
   </style>
-  <div class="layout vertical">    
+  <div class="layout vertical bg-white">
     <sdq-radio required value="{{value.f_q1}}">
-    ฉันพยายามทำตัวดีกับคนอื่น ฉันใส่ใจความรู้สึกของคนอื่น
+      1. ฉันพยายามทำตัวดีกับคนอื่น ฉันใส่ใจความรู้สึกของคนอื่น
     </sdq-radio>
     <sdq-radio required value="{{value.f_q2}}">
-    ฉันอยู่ไม่นิ่ง ฉันนั่งนิ่ง ๆ ไม่ได้
+      2. ฉันอยู่ไม่นิ่ง ฉันนั่งนิ่ง ๆ ไม่ได้
     </sdq-radio>
     <sdq-radio required value="{{value.f_q3}}">
-    ฉันปวดศีรษะ ปวดท้อง หรือไม่สบายบ่อย ๆ
+      3. ฉันปวดศีรษะ ปวดท้อง หรือไม่สบายบ่อย ๆ
     </sdq-radio>
     <sdq-radio required value="{{value.f_q4}}">
-    ฉันเต็มใจแบ่งปันสิ่งของให้เพื่อน (ขนม, ของเล่น, ดินสอ เป็นต้น)
+      4. ฉันเต็มใจแบ่งปันสิ่งของให้เพื่อน (ขนม, ของเล่น, ดินสอ เป็นต้น)
     </sdq-radio>
     <sdq-radio required value="{{value.f_q5}}">
-    ฉันโกรธแรง และมักอารมณ์เสีย
+      5. ฉันโกรธแรง และมักอารมณ์เสีย
     </sdq-radio>
     <sdq-radio required value="{{value.f_q6}}">
-    ฉันชอบอยู่กับตัวเอง ฉันชอบเล่นคนเดียวหรืออยู่ตามลำพัง
+      6. ฉันชอบอยู่กับตัวเอง ฉันชอบเล่นคนเดียวหรืออยู่ตามลำพัง
     </sdq-radio>
     <sdq-radio required value="{{value.f_q7}}">
-    ฉันมักทำตามที่คนอื่นบอก
+      7. ฉันมักทำตามที่คนอื่นบอก
     </sdq-radio>
     <sdq-radio required value="{{value.f_q8}}">
-    ฉันขี้กังวล
+      8. ฉันขี้กังวล
     </sdq-radio>
     <sdq-radio required value="{{value.f_q9}}">
-    ใคร ๆ ก็พึ่งฉันได้ ถ้าเขาเสียใจ อารมณ์ไม่ดี หรือไม่สบายใจ
+      9. ใคร ๆ ก็พึ่งฉันได้ ถ้าเขาเสียใจ อารมณ์ไม่ดี หรือไม่สบายใจ
     </sdq-radio>
     <sdq-radio required value="{{value.f_q10}}">
-    ฉันอยู่ไม่สุข วุ่นวาย
+      10. ฉันอยู่ไม่สุข วุ่นวาย
     </sdq-radio>
     <sdq-radio required value="{{value.f_q11}}">
-    ฉันมีเพื่อนสนิท
+      11. ฉันมีเพื่อนสนิท
     </sdq-radio>
     <sdq-radio required value="{{value.f_q12}}">
-    ฉันมีเรื่องทะเลาะวิวาทบ่อย ฉันทำให้คนอื่นทำอย่างที่ฉันต้องการได้
+      12. ฉันมีเรื่องทะเลาะวิวาทบ่อย ฉันทำให้คนอื่นทำอย่างที่ฉันต้องการได้
     </sdq-radio>
     <sdq-radio required value="{{value.f_q13}}">
-    ฉันไม่มีความสุข ท้อแท้ ร้องไห้บ่อย ๆ
+      13. ฉันไม่มีความสุข ท้อแท้ ร้องไห้บ่อย ๆ
     </sdq-radio>
     <sdq-radio required value="{{value.f_q14}}">
-    เพื่อน ๆ ส่วนมากชอบฉัน
+      14. เพื่อน ๆ ส่วนมากชอบฉัน
     </sdq-radio>
     <sdq-radio required value="{{value.f_q15}}">
-    ฉันวอกแวกง่าย ฉันรู้สึกว่าไม่มีสมาธิ
+      15. ฉันวอกแวกง่าย ฉันรู้สึกว่าไม่มีสมาธิ
     </sdq-radio>
     <sdq-radio required value="{{value.f_q16}}">
-    ฉันกังวลเวลาอยู่ในสถานการณ์ที่ไม่คุ้น และเสียความมั่นใจในตนเองง่าย
+      16. ฉันกังวลเวลาอยู่ในสถานการณ์ที่ไม่คุ้น และเสียความมั่นใจในตนเองง่าย
     </sdq-radio>
     <sdq-radio required value="{{value.f_q17}}">
-    ฉันใจดีกับเด็กที่เล็กกว่า
+      17. ฉันใจดีกับเด็กที่เล็กกว่า
     </sdq-radio>
     <sdq-radio required value="{{value.f_q18}}">
-    มีคนว่าฉันโกหก หรือขี้โกงบ่อย ๆ
+      18. มีคนว่าฉันโกหก หรือขี้โกงบ่อย ๆ
     </sdq-radio>
     <sdq-radio required value="{{value.f_q19}}">
-    เด็กๆ คนอื่นล้อเลียน หรือรังแกฉัน
+      19. เด็กๆ คนอื่นล้อเลียน หรือรังแกฉัน
     </sdq-radio>
     <sdq-radio required value="{{value.f_q20}}">
-    ฉันมักจะอาสาช่วยเหลือผู้อื่น (พ่อแม่, ครู, เพื่อน, เด็กคนอื่น ๆ เป็นต้น)
+      20. ฉันมักจะอาสาช่วยเหลือผู้อื่น (พ่อแม่, ครู, เพื่อน, เด็กคนอื่น ๆ เป็นต้น)
     </sdq-radio>
     <sdq-radio required value="{{value.f_q21}}">
-    ฉันคิดก่อนทำ
+      21. ฉันคิดก่อนทำ
     </sdq-radio>
     <sdq-radio required value="{{value.f_q22}}">
-    ฉันเอาของคนอื่นในบ้าน ที่โรงเรียนหรือที่อื่น
+      22. ฉันเอาของคนอื่นในบ้าน ที่โรงเรียนหรือที่อื่น
     </sdq-radio>
     <sdq-radio required value="{{value.f_q23}}">
-    ฉันเข้ากับผู้ใหญ่ได้ดีกว่ากับเด็กในวัยเดียวกัน
+      23. ฉันเข้ากับผู้ใหญ่ได้ดีกว่ากับเด็กในวัยเดียวกัน
     </sdq-radio>
     <sdq-radio required value="{{value.f_q24}}">
-    ฉันขี้กลัว รู้สึกหวาดกลัวได้ง่าย
+      24. ฉันขี้กลัว รู้สึกหวาดกลัวได้ง่าย
     </sdq-radio>
     <sdq-radio required value="{{value.f_q25}}">
-    ฉันทำงานได้จนเสร็จ ความตั้งใจในการทำงานของฉันดี
+      25. ฉันทำงานได้จนเสร็จ ความตั้งใจในการทำงานของฉันดี
     </sdq-radio>
   </div>
 

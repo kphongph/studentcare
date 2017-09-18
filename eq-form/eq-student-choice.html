@@ -4,14 +4,17 @@
 <link rel="import" href="../../iron-validatable-behavior/iron-validatable-behavior.html">
 <link rel="import" href="../../paper-styles/typography.html">
 <link rel="import" href="../../paper-radio-group/paper-radio-group.html">
+
+<link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">
+
 <dom-module id="eq-student-choice">
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors">
       :host {
-        @apply(--paper-font-display);
-        @apply(--layout-vertical);
+        @apply --paper-font-display;
+        @apply --layout-vertical;
         display: block;
-        border-bottom:1px solid #bfbfbf;
+        /*border-bottom:1px solid #bfbfbf;*/
         padding:5px;
       }
 
@@ -24,18 +27,19 @@
       .invalid {
         border: 1px solid #ee0000;
       }
-      paper-radio-group {
-        background:#efefef;
+      paper-radio-button {
+        font-family: 'Athiti', sans-serif;
+        /*font-size: 100%;*/
+        /*background:#efefef;*/
       }
     </style>
 
-    <div id="main" class="layout horizontal center">
-			<span class="flex" id="no">{{no}}</span>
+    <div id="main" class="layout horizontal">
       <span class="flex" id="label">{{label}}</span>
       <span class="valueText"><b>{{_valueStr}}</b></span>
     </div>
     <div class="layout horizontal">
-      <paper-radio-group selected="{{value}}" 
+      <paper-radio-group selected="{{value}}"
         class="flex"
         aria-labelledby="label">
         <paper-radio-button name="n">ไม่จริง</paper-radio-button>
@@ -94,7 +98,7 @@
         this._setHovered(false);
       },
       _valueChanged:function() {
-        if(this.value == 'y' || this.value == 'm') { 
+        if(this.value == 'y' || this.value == 'm') {
           this.type='check';
         } else {
           if(this.value) {

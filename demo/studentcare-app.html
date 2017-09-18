@@ -7,6 +7,7 @@
     <title>studentcare-components demo</title>
 
     <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
 
     <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
     <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
@@ -20,23 +21,15 @@
   <body>
     <div class="vertical-section-container">
       <h3>studentcare-app</h3>
-      <demo-snippet>
-        <template is="dom-bind">
-          <!--
-          <paper-input label="level" value="{{level}}"></paper-input> 
-          <paper-input label="room" value="{{room}}"></paper-input> 
-					-->
           <div class="layout horizontal">
             <div class="flex">
-              <studentcare-app host="1014310028" 
-               level="ประถมศึกษาปีที่ 1"
-               year="2017"
-               room="3">
+              <studentcare-app 
+                host="1071020101"
+                level="ประถมศึกษาปีที่ 1"
+                year="2017"
+                room="1">
               </studentcare-app>
             </div>
-          </di>
-        </template>
-      </demo-snippet>
     </div>
   </body>
 </html>

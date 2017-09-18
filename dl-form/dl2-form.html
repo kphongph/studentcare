@@ -15,46 +15,48 @@
 <link rel="import" href="../form-control.html">
 <link rel="import" href="../studentcare-form-behavior.html">
 
-<link href="https://fonts.googleapis.com/css?family=Itim&amp;subset=thai" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">
 
 <dom-module id="dl2-form">
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors">
-      
+      :host{
+        background-color: white;
+      }
       paper-tabs {
-        background: var(--paper-green-300);
+        background: #20acbb;
         color: white;
         height: 40px;
       }
 
       .font-face {
-        font-family: 'Itim', cursive;
+        font-family: 'Athiti', sans-serif;
         font-size: 120%;
       }
 
-      #title {
-    --paper-input-container-input: {
-      /*font-size: 24px;*/
-      font-family: 'Itim', cursive;
-    };
-    --paper-input-container-label:{
-       font-family: 'Itim', cursive;
-    };
+    #title {
+      --paper-input-container-input: {
+        /*font-size: 24px;*/
+        font-family: 'Athiti', sans-serif;
+      };
+      --paper-input-container-label:{
+        font-family: 'Athiti', sans-serif;
+      };
 
         /*--paper-input-container-color:red;*/
 
-        --paper-input-container-focus-color:#F44336;
+        --paper-input-container-focus-color:#e94a60;
 
        /*--paper-input-container-input-color:var blue;*/
-  }
-      
+     }
+
     </style>
 
     <form-control id="control" doc-key="{{document.key}}" doc-value="{{document.value}}">
-      <div class="description">
+      <div slot="description">
         <p class="font-face">เลือกคำตอบเพียงข้อเดียวในแต่ละข้อคำถามที่ใกล้เคียงกับพฤติกรรมของนักเรียนที่เกิดขึ้นในช่วง 6 เดือนที่ผ่านมา</p>
       </div>
-      <div class="formEntry">
+      <div slot="formEntry">
         <paper-tabs selected="{{part}}" class="flex">
           <paper-tab>
             <div class="font-face">หน้าแรก</div>
@@ -71,7 +73,7 @@
           </sdq-form-teacher>
         </iron-pages>
       </div>
-      <div class="evaluation font-face">
+      <div class="font-face" slot="evaluation">
         ผลการประเมิน
         <div class="layout vertical">
           <template is="dom-repeat" items="{{_result}}" class="font-face">
@@ -94,6 +96,7 @@
         name: {
           type: String,
           reflectToAttribute: true,
+          readOnly:true,
           value: "แบบประเมินพฤติกรรมเด็ก (SDQ) ฉบับครูเป็นผู้ประเมินนักเรียน"
         },
         part: {
@@ -107,6 +110,9 @@
             return [];
           }
         }
+      },
+      _reset : function() {
+        this.set('document.value.form_value',{});
       },
       __computeResult: function (result) {
         var tmp = [];

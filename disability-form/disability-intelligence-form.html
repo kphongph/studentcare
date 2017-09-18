@@ -7,12 +7,16 @@
 <link rel="import" href="../form-control.html">
 <link rel="import" href="../studentcare-form-behavior.html">
 <link rel="import" href="disability-choice.html">
+
+<link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">
 <dom-module id="disability-intelligence-form">
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors">
       :host {
-        @apply(--paper-font-display);
-        @apply(--layout-vertical);
+        @apply --paper-font-display;
+        @apply --layout-vertical;
+        background-color: white;
+        font-family: 'Athiti', sans-serif;
         display: block;
       }
 
@@ -23,22 +27,22 @@
       paper-radio-group {
         background:#efefef;
       }
-      
+
       .formEntry div {
-        @apply(--paper-font-title);
+        @apply --paper-font-title;
         margin:3px;
         padding:0px;
         background:#efefef;
       }
 
       .description ol {
-        @apply(--paper-font-body1);
-        .num {list-style-type: decimal;}
+        @apply --paper-font-body1;
         margin:3px;
         padding:0px;
         background:#efefef;
+        .num {list-style-type: decimal;}
       }
-     
+
       .evaluation {
         padding:5px;
       }
@@ -46,13 +50,25 @@
       .check-icon {
         width:30px;
       }
+
+      .font-face-underline {
+        margin-left: 5px;
+        font-family: 'Athiti', sans-serif;
+        font-weight: bold;
+        text-decoration: underline;
+        font-size: 120%;
+      }
+
+      disability-choice{
+        font-family: 'Athiti', sans-serif;
+      }
     </style>
 
-    <form-control id="control" 
-      on-form-action="_tap" 
+    <form-control id="control"
+      on-form-action="_tap"
       doc-key="{{document.key}}"
       doc-value="{{document.value}}">
-      <div class="description">
+      <div slot="description">
         <ol class="num"><b> คำชี้แจง</b>
           <li>แบบคัดกรองฉบับนี้เป็นแบบคัดกรองเพื่อประโยชน์ในทางการจัดการศึกษาเท่านั้น</li>
           <li>วิเคราะห์ลักษณะ / พฤติกรรม ของเด็ก ซึ่งเป็นลักษณะหรือพฤติกรรม ที่เด็กแสดงออกบ่อย ๆ โดยให้เลือกติ๊กลงในช่อง  <b>“ใช่”</b> หรือ <b>“ไม่ใช่”</b> ที่ตรงกับลักษณะหรือพฤติกรรมนั้น ๆ ของเด็ก</li>
@@ -60,88 +76,88 @@
           <li>ผู้คัดกรองควรจะมีอย่างน้อย 2 คนขึ้นไป</li>
         </ol>
         <ol class="num"> <b>เกณฑ์การพิจารณา</b>
-          <li> 
-          แต่ละทักษะจะต้องมีผลการวิเคราะห์พฤติกรรมทักษะว่าใช่ทั้ง 2 ข้อ 
-          แสดงว่าไม่ผ่านทักษะนั้น และหากว่าพบทักษะการปรับตัวไม่ผ่าน 
-          ตั้งแต่ 2 ทักษะขึ้นไป แสดงว่ามีแนวโน้มที่จะเป็นบุคคลที่มีความบกพร่องทางสติปัญญา 
+          <li>
+          แต่ละทักษะจะต้องมีผลการวิเคราะห์พฤติกรรมทักษะว่าใช่ทั้ง 2 ข้อ
+          แสดงว่าไม่ผ่านทักษะนั้น และหากว่าพบทักษะการปรับตัวไม่ผ่าน
+          ตั้งแต่ 2 ทักษะขึ้นไป แสดงว่ามีแนวโน้มที่จะเป็นบุคคลที่มีความบกพร่องทางสติปัญญา
           ให้จัดบริการช่วยเหลือทางการศึกษาพิเศษ และส่งต่อให้ แพทย์ตรวจวินิจฉัยต่อไป
           </li>
         </ol>
       </div>
-      <div class="formEntry">
-       <div>ทักษะการสื่อสาร</div>
-       <disability-choice value="{{document.value.form_value.p1_1}}" 
-        label="ใช้ภาษาไม่สมวัย">
-       </disability-choice>     
-       <disability-choice value="{{document.value.form_value.p1_2}}" 
-          label="ไม่เข้าใจคำสั่ง ไม่สามารถทำตามคำสั่งได้">
-       </disability-choice>     
-       <div>ทักษะการดูแลตนเอง</div>
-       <disability-choice value="{{document.value.form_value.p2_3}}" 
-          label="ไม่สามารถ หรือสามารถดูแลตนเองในชีวิตประจำวันได้น้อย ในการรับประทาน อาหาร / การอาบน้ำ / แปรงฟัน / การแต่งกาย">
-       </disability-choice>     
-       <disability-choice value="{{document.value.form_value.p2_4}}" 
-          label="ไม่สามารถทำความสะอาดหลังการขับถ่าย">
-       </disability-choice>     
-       <div>ทักษะการดำรงชีวิตภายในบ้าน</div>
-       <disability-choice value="{{document.value.form_value.p3_5}}" 
-          label="ต้องกระตุ้นในการปฏิบัติกิจวัตรประจำวันอยู่เสมอ">
+      <div slot="formEntry">
+       <div class="font-face-underline">ทักษะการสื่อสาร</div>
+       <disability-choice value="{{document.value.form_value.p1_1}}">
+         1. ใช้ภาษาไม่สมวัย
        </disability-choice>
-       <disability-choice value="{{document.value.form_value.p3_6}}" 
-          label="ช่วยเหลือตนเองในชีวิตประจำวันได้ต่ำกว่าวัย">
-       </disability-choice>     
-       <div>ทักษะทางสังคม/การปฏิสัมพันธ์กับผู้อื่น</div>
-       <disability-choice value="{{document.value.form_value.p4_7}}" 
-          label="ชอบเล่นกับเด็กที่มีอายุน้อยกว่า หรือไม่สามารถเล่นกับเพื่อนตามวัย">
-       </disability-choice>     
-       <disability-choice value="{{document.value.form_value.p4_8}}" 
-          label="เล่นเลียนแบบผู้อื่นอย่างไม่เหมาะสมกับวัย">
-       </disability-choice>     
-       <div>ทักษะการรู้จักใช้ทรัพยากรในชุมชน</div>
-       <disability-choice value="{{document.value.form_value.p5_9}}" 
-          label="มีปัญหาด้านพฤติกรรมในการใช้สิ่งของสาธารณประโยชน์ เช่น ชอบทำลายหรือ ใช้อย่างไม่ระมัดระวัง">
-       </disability-choice>     
-       <disability-choice value="{{document.value.form_value.p5_10}}" 
-          label="ไม่รู้จักวิธีการใช้ การจัดเก็บ และการดูแลรักษา ของส่วนรวม">
-       </disability-choice>     
-       <div>ทักษะการรู้จักดูแลควบคุมตนเอง</div>
-       <disability-choice value="{{document.value.form_value.p6_11}}" 
-          label="เอาแต่ใจตนเอง มีอารมณ์โกรธ ฉุนเฉียวบ่อย ๆ">
-       </disability-choice>     
-       <disability-choice value="{{document.value.form_value.p6_12}}" 
-          label="ไม่สามารถควบคุมตนเองทำตามสิ่งที่ต้องทำ">
-       </disability-choice>     
-       <div>ทักษะการรู้จักดูแลควบคุมตนเอง</div>
-       <disability-choice value="{{document.value.form_value.p7_13}}" 
-          label="ลืมง่าย / จำในสิ่งที่เรียนมาแล้วไม่ได้">
-       </disability-choice>     
-       <disability-choice value="{{document.value.form_value.p7_14}}" 
-          label="ไม่สามารถนำทักษะที่เรียนรู้ไปแก้ไขปัญหาเฉพาะหน้าได้">
-       </disability-choice>     
-       <div>ทักษะการทำงาน</div>
-       <disability-choice value="{{document.value.form_value.p8_15}}" 
-          label="ช่วงความสนใจสั้น ไม่สามารถรับผิดชอบงานที่ต้องทำ">
-       </disability-choice>     
-       <disability-choice value="{{document.value.form_value.p8_16}}" 
-          label="ทำตามคำสั่งต่อเนื่อง 2 คำสั่งขึ้นไปได้ยาก สับสนง่าย">
-       </disability-choice>     
-       <div>ทักษะการใช้เวลาว่าง</div>
-       <disability-choice value="{{document.value.form_value.p9_17}}" 
-          label="สนใจสิ่งรอบตัวน้อย">
-       </disability-choice>     
-       <disability-choice value="{{document.value.form_value.p9_18}}" 
-          label="ใช้เวลาว่างแสดงพฤติกรรมที่ไม่เหมาะสม">
-       </disability-choice>     
-       <div>ทักษะการรักษาสุขภาพอนามัยและความปลอดภัย</div>
-       <disability-choice value="{{document.value.form_value.p10_19}}" 
-          label="ดูแลสุขภาพตนเองได้น้อย เช่น ล้างมือไม่เป็น หรือไม่รู้จักรับประทานอาหารที่ เป็นประโยชน์">
-       </disability-choice>     
-       <disability-choice value="{{document.value.form_value.p10_20}}" 
-          label="มีความระมัดระวังเรื่องความปลอดภัยตนเองน้อย">
-       </disability-choice>     
+       <disability-choice value="{{document.value.form_value.p1_2}}">
+         2. ไม่เข้าใจคำสั่ง ไม่สามารถทำตามคำสั่งได้
+       </disability-choice>
+       <div class="font-face-underline">ทักษะการดูแลตนเอง</div>
+       <disability-choice value="{{document.value.form_value.p2_3}}">
+         1. ไม่สามารถ หรือสามารถดูแลตนเองในชีวิตประจำวันได้น้อย ในการรับประทาน อาหาร / การอาบน้ำ / แปรงฟัน / การแต่งกาย"
+       </disability-choice>
+       <disability-choice value="{{document.value.form_value.p2_4}}">
+         2. ไม่สามารถทำความสะอาดหลังการขับถ่าย
+       </disability-choice>
+       <div class="font-face-underline">ทักษะการดำรงชีวิตภายในบ้าน</div>
+       <disability-choice value="{{document.value.form_value.p3_5}}">
+         1. ต้องกระตุ้นในการปฏิบัติกิจวัตรประจำวันอยู่เสมอ
+       </disability-choice>
+       <disability-choice value="{{document.value.form_value.p3_6}}">
+         2. ช่วยเหลือตนเองในชีวิตประจำวันได้ต่ำกว่าวัย
+       </disability-choice>
+       <div class="font-face-underline">ทักษะทางสังคม/การปฏิสัมพันธ์กับผู้อื่น</div>
+       <disability-choice value="{{document.value.form_value.p4_7}}">
+         1. ชอบเล่นกับเด็กที่มีอายุน้อยกว่า หรือไม่สามารถเล่นกับเพื่อนตามวัย
+       </disability-choice>
+       <disability-choice value="{{document.value.form_value.p4_8}}">
+         2. เล่นเลียนแบบผู้อื่นอย่างไม่เหมาะสมกับวัย
+       </disability-choice>
+       <div class="font-face-underline">ทักษะการรู้จักใช้ทรัพยากรในชุมชน</div>
+       <disability-choice value="{{document.value.form_value.p5_9}}">
+         1. มีปัญหาด้านพฤติกรรมในการใช้สิ่งของสาธารณประโยชน์ เช่น ชอบทำลายหรือ ใช้อย่างไม่ระมัดระวัง
+       </disability-choice>
+       <disability-choice value="{{document.value.form_value.p5_10}}">
+         2. ไม่รู้จักวิธีการใช้ การจัดเก็บ และการดูแลรักษา ของส่วนรวม
+       </disability-choice>
+       <div class="font-face-underline">ทักษะการรู้จักดูแลควบคุมตนเอง</div>
+       <disability-choice value="{{document.value.form_value.p6_11}}">
+         1. เอาแต่ใจตนเอง มีอารมณ์โกรธ ฉุนเฉียวบ่อย ๆ
+       </disability-choice>
+       <disability-choice value="{{document.value.form_value.p6_12}}">
+         2. ไม่สามารถควบคุมตนเองทำตามสิ่งที่ต้องทำ
+       </disability-choice>
+       <div class="font-face-underline">ทักษะการรู้จักดูแลควบคุมตนเอง</div>
+       <disability-choice value="{{document.value.form_value.p7_13}}">
+         1. ลืมง่าย / จำในสิ่งที่เรียนมาแล้วไม่ได้
+       </disability-choice>
+       <disability-choice value="{{document.value.form_value.p7_14}}">
+         2. ไม่สามารถนำทักษะที่เรียนรู้ไปแก้ไขปัญหาเฉพาะหน้าได้
+       </disability-choice>
+       <div class="font-face-underline">ทักษะการทำงาน</div>
+       <disability-choice value="{{document.value.form_value.p8_15}}">
+         1. ช่วงความสนใจสั้น ไม่สามารถรับผิดชอบงานที่ต้องทำ
+       </disability-choice>
+       <disability-choice value="{{document.value.form_value.p8_16}}">
+         2. ทำตามคำสั่งต่อเนื่อง 2 คำสั่งขึ้นไปได้ยาก สับสนง่าย
+       </disability-choice>
+       <div class="font-face-underline">ทักษะการใช้เวลาว่าง</div>
+       <disability-choice value="{{document.value.form_value.p9_17}}">
+         1. สนใจสิ่งรอบตัวน้อย
+       </disability-choice>
+       <disability-choice value="{{document.value.form_value.p9_18}}">
+         2. ใช้เวลาว่างแสดงพฤติกรรมที่ไม่เหมาะสม
+       </disability-choice>
+       <div class="font-face-underline">ทักษะการรักษาสุขภาพอนามัยและความปลอดภัย</div>
+       <disability-choice value="{{document.value.form_value.p10_19}}">
+         1. ดูแลสุขภาพตนเองได้น้อย เช่น ล้างมือไม่เป็น หรือไม่รู้จักรับประทานอาหารที่ เป็นประโยชน์
+       </disability-choice>
+       <disability-choice value="{{document.value.form_value.p10_20}}">
+         2. มีความระมัดระวังเรื่องความปลอดภัยตนเองน้อย
+       </disability-choice>
      </div>
 
-     <div class="evaluation">
+     <div slot="evaluation">
       <div class="layout vertical">
        <div class="layout horizontal">
         <div class="check-icon">
@@ -216,7 +232,7 @@
         return true;
       },
       _reset:function() {
-        this.set('document.value.form_value',{});        
+        this.set('document.value.form_value',{});
       },
       _result:function(score) {
         if(score && score.fail>=2) {

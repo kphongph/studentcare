@@ -9,18 +9,21 @@
 <link rel="import" href="../../paper-input/paper-input.html">
 <link rel="import" href="../form-control.html">
 <link rel="import" href="../studentcare-form-behavior.html">
+<!--
 <link rel="import" href="homevisit-query.html">
 <link rel="import" href="grade-query.html">
+-->
 
-<link href="https://fonts.googleapis.com/css?family=Itim&amp;subset=thai" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">
 
 <dom-module id="screening-elementary-form">
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors">
 
       :host {
-        @apply(--paper-font-display);
-        @apply(--layout-vertical);
+        @apply --paper-font-display;
+        @apply --layout-vertical;
+        background-color: white;
         display: block;
       }
 
@@ -29,7 +32,7 @@
       }
 
       .formEntry div {
-        @apply(--paper-font-display);
+        @apply --paper-font-display;
         margin:3px;
         padding:0px;
       }
@@ -37,7 +40,7 @@
       .evaluation {
         padding:5px;
       }
-      
+
       .sub-question {
         padding-left:20px;
       }
@@ -45,14 +48,14 @@
       .topic1 {
         padding:20px;
         margin-right:20px;
-        @apply(--layout-vertical);
+        @apply --layout-vertical;
       }
-      
+
       .topic1 paper-input {
         /*font-family: 'Itim', cursive;
          font-size: 120%;*/
         margin-left:50px;
-        
+
       }
 
       .topic1 paper-checkbox {
@@ -62,39 +65,35 @@
       .check-icon {
         width:30px;
       }
-     
+
       .font-face-normal {
-        font-family: 'Itim', cursive;
+        font-family: 'Athiti', sans-serif;
         font-size: 120%;
       }
-            .font-face-normal {
-        font-family: 'Itim', cursive;
-        font-size: 120%;
-      }
-            .font-face-bolder {
-        font-family: 'Itim', cursive;
+      .font-face-bolder {
+        font-family: 'Athiti', sans-serif;
         font-size: 120%;
         font-weight: bold;
       }
 
       .flex-1{
-        font-family: 'Itim', cursive;
+        font-family: 'Athiti', sans-serif;
         font-size: 120%;
       }
 
       .checkbox-font {
-        font-family: 'Itim', cursive;
+        font-family: 'Athiti', sans-serif;
         font-size: 120%;
       }
-      
+
 
       label{
- font-family: 'Itim', cursive;
+        font-family: 'Athiti', sans-serif;
         font-size: 120%;
       }
-            .headQ{
+      .headQ{
         font-weight: bold;
-          font-size: 120%;
+        font-size: 120%;
       }
       /*.label2{
  font-family: 'Itim', cursive;
@@ -102,53 +101,54 @@
       }*/
 
      #res {
-    --paper-input-container-input: {
-      /*font-size: 24px;*/
-      font-family: 'Itim', cursive;
-    };
-    --paper-input-container-label:{
-       font-family: 'Itim', cursive;
-    };
-    --paper-input-container-focus-color:#F44336; 
+      --paper-input-container-input: {
+        /*font-size: 24px;*/
+        font-family: 'Athiti', sans-serif;
+      };
+      --paper-input-container-label:{
+        font-family: 'Athiti', sans-serif;
+      };
+      --paper-input-container-focus-color:#F44336;
+      /* .. */
      }
 
     </style>
 
-    <homevisit-query host="{{document.value.dmc.host}}" 
-       cid="{{document.value.student.cid}}" 
+    <!--<homevisit-query host="{{document.value.dmc.host}}"
+       cid="{{document.value.student.cid}}"
        document="{{homevisit}}">
-    </homevisit-query>
+    </homevisit-query>-->
 
-	<grade-query host="{{document.value.dmc.host}}" 
-       cid="{{document.value.student.cid}}" 
+	<grade-query host="{{document.value.dmc.host}}"
+       cid="{{document.value.student.cid}}"
 	   is-gpax-lessthan-one="{{document.value.form_value.q2_1_p}}"
 	   is-gpax-between="{{document.value.form_value.q2_1_m}}"
        document="{{gradedoc}}">
     </grade-query>
 
-    <form-control id="control" 
-      on-form-action="_tap" 
+    <form-control id="control"
+      on-form-action="_tap"
       doc-key="{{document.key}}"
       doc-value="{{document.value}}">
-      <div class="description">
+      <div slot="description">
         <ol class="num"><b class="font-face-bolder"> คำชี้แจง</b>
          <li class="font-face-normal">ให้เลือกว่าอาการในแต่ละข้อนั้นตรงกับลักษณะของเด็กที่ท่านประเมินเพียงใด</li>
         </ol>
       </div>
-      <div class="formEntry">
+      <div slot="formEntry">
        <ol>
          <li>
            <label id="label1" class="headQ">ความสามารถพิเศษ (ความถนัดและความสนใจในวิชาที่เรียน)</label>
            <paper-radio-group aria-labelledby="label1" selected="{{document.value.form_value.q1}}">
-             <paper-radio-button name="y" class ="font-face-normal" >มี</paper-radio-button>
-             <paper-radio-button name="n"class ="font-face-normal">ไม่มี</paper-radio-button>
+             <paper-radio-button name="y" class="font-face-normal">มี</paper-radio-button>
+             <paper-radio-button name="n" class="font-face-normal">ไม่มี</paper-radio-button>
            </paper-radio-group>
-           <div class="topic1" hidden$="{{!_isEquals(document.value.form_value.q1,'y')}}">
-
+           <template is="dom-if" if="{{_isEquals(document.value.form_value.q1,'y')}}">
+           <div class="topic1">
              <paper-checkbox checked="{{document.value.form_value.q1_1}}">
               <div class="font-face-normal">กลุ่มสาระการเรียนรู้คณิตศาสตร์</div>
              </paper-checkbox>
-             <paper-input id ="res" value="{{document.value.form_value.q1_1_t1}}" 
+             <paper-input id ="res" value="{{document.value.form_value.q1_1_t1}}"
                label="ลำดับที่ 1"
                disabled="{{!document.value.form_value.q1_1}}">
              </paper-input>
@@ -160,7 +160,7 @@
              <paper-checkbox checked="{{document.value.form_value.q1_2}}">
              <div class="font-face-normal">กลุ่มสาระการเรียนรู้ภาษาไทย</div>
              </paper-checkbox>
-             <paper-input id ="res" value="{{document.value.form_value.q1_2_t1}}" 
+             <paper-input id ="res" value="{{document.value.form_value.q1_2_t1}}"
                label="ลำดับที่ 1"
                disabled="{{!document.value.form_value.q1_2}}">
              </paper-input>
@@ -172,7 +172,7 @@
              <paper-checkbox checked="{{document.value.form_value.q1_3}}">
              <div class="font-face-normal">กลุ่มสาระการเรียนรู้ภาษาต่างประเทศ</div>
              </paper-checkbox>
-             <paper-input id ="res" value="{{document.value.form_value.q1_3_t1}}" 
+             <paper-input id ="res" value="{{document.value.form_value.q1_3_t1}}"
                label="ลำดับที่ 1"
                disabled="{{!document.value.form_value.q1_3}}">
              </paper-input>
@@ -184,7 +184,7 @@
              <paper-checkbox checked="{{document.value.form_value.q1_4}}">
              <div class="font-face-normal">กลุ่มสาระการเรียนรู้วิทยาศาสตร์</div>
              </paper-checkbox>
-             <paper-input id ="res" value="{{document.value.form_value.q1_4_t1}}" 
+             <paper-input id ="res" value="{{document.value.form_value.q1_4_t1}}"
                label="ลำดับที่ 1"
                disabled="{{!document.value.form_value.q1_4}}">
              </paper-input>
@@ -196,7 +196,7 @@
              <paper-checkbox checked="{{document.value.form_value.q1_5}}">
              <div class="font-face-normal">กลุ่มสาระการเรียนรู้ศิลปะ</div>
              </paper-checkbox>
-             <paper-input id ="res" value="{{document.value.form_value.q1_5_t1}}" 
+             <paper-input id ="res" value="{{document.value.form_value.q1_5_t1}}"
                label="ลำดับที่ 1"
                disabled="{{!document.value.form_value.q1_5}}">
              </paper-input>
@@ -208,7 +208,7 @@
              <paper-checkbox checked="{{document.value.form_value.q1_6}}">
              <div class="font-face-normal">กลุ่มสาระการเรียนรู้การงานอาชีพและเทคโนโลยี</div>
              </paper-checkbox>
-             <paper-input id ="res" value="{{document.value.form_value.q1_6_t1}}" 
+             <paper-input id ="res" value="{{document.value.form_value.q1_6_t1}}"
                label="ลำดับที่ 1"
                disabled="{{!document.value.form_value.q1_6}}">
              </paper-input>
@@ -220,7 +220,7 @@
              <paper-checkbox checked="{{document.value.form_value.q1_7}}">
              <div class="font-face-normal">กลุ่มสาระการเรียนรู้สุขศึกษาและพลศึกษา</div>
              </paper-checkbox>
-             <paper-input id ="res" value="{{document.value.form_value.q1_7_t1}}" 
+             <paper-input id ="res" value="{{document.value.form_value.q1_7_t1}}"
                label="ลำดับที่ 1"
                disabled="{{!document.value.form_value.q1_7}}">
              </paper-input>
@@ -232,7 +232,7 @@
              <paper-checkbox checked="{{document.value.form_value.q1_8}}">
              <div class="font-face-normal">กลุ่มสาระการเรียนรู้สังคมศึกษา ศาสนา และวัฒนธรรม</div>
              </paper-checkbox>
-             <paper-input id ="res" value="{{document.value.form_value.q1_8_t1}}" 
+             <paper-input id ="res" value="{{document.value.form_value.q1_8_t1}}"
                label="ลำดับที่ 1"
                disabled="{{!document.value.form_value.q1_8}}">
              </paper-input>
@@ -242,9 +242,9 @@
              </paper-input>
 
              <paper-checkbox checked="{{document.value.form_value.q1_9}}">
-            <div class="font-face-normal"> อื่น ๆ</div>
+             <div class="font-face-normal"> อื่น ๆ</div>
              </paper-checkbox>
-             <paper-input id ="res" value="{{document.value.form_value.q1_9_t1}}" 
+             <paper-input id ="res" value="{{document.value.form_value.q1_9_t1}}"
                label="ลำดับที่ 1"
                disabled="{{!document.value.form_value.q1_9}}">
              </paper-input>
@@ -252,20 +252,20 @@
                label="ลำดับที่ 2"
                disabled="{{!document.value.form_value.q1_9}}">
              </paper-input>
-
            </div>
+           </template>
          </li>
          <li>
            <label id="label2"  class="headQ">ด้านการเรียน</label>
-           <paper-input id ="res"  label="ผลการประเมิน" readonly 
-             value="{{_q2Text(document.value.form_value.q2)}}"> 
+           <paper-input id ="res"  label="ผลการประเมิน" readonly
+             value="{{_q2Text(document.value.form_value.q2)}}">
            </paper-input>
            <div class="layout horizontal"><!-- หัวตาราง -->
              <paper-checkbox class="flex-1" checked="{{document.value.form_value.q2_1_m}}" disabled>
                ผลการเรียนเฉลี่ย 1.00 - 2.00
              </paper-checkbox>
              <paper-checkbox class="flex-1" checked="{{document.value.form_value.q2_1_p}}" disabled>
-               ผลการเรียนเฉลี่ยต่ำกว่า 1.00 
+               ผลการเรียนเฉลี่ยต่ำกว่า 1.00
              </paper-checkbox>
            </div>
            <div class="layout horizontal">
@@ -299,7 +299,7 @@
            </div>
            <div class="layout horizontal">
              <paper-checkbox class="flex-1" checked="{{document.value.form_value.q2_6_m}}">
-               ไม่มีอุปกรณ์การเรียนมาเรียนหรือนำอุปกรณ์การเรียนมาไม่ครบ 
+               ไม่มีอุปกรณ์การเรียนมาเรียนหรือนำอุปกรณ์การเรียนมาไม่ครบ
              </paper-checkbox>
              <paper-checkbox class="flex-1" checked="{{document.value.form_value.q2_6_p}}">
                สมาธิสั้น
@@ -368,11 +368,11 @@
              </li>
            </template>
          <li>
-           
+
            <label id="label2" class="headQ">ด้านสุขภาพ</label>
-           
-           <paper-input id ="res" label="ผลการประเมิน" readonly 
-             value=""> 
+
+           <paper-input id ="res" label="ผลการประเมิน" readonly
+             value="">
            </paper-input>
             <div class="layout horizontal">
              <paper-checkbox class="flex-1" checked="{{document.value.form_value.q3_1_m}}">
@@ -404,8 +404,8 @@
          </li>
          <li>
            <label id="label2"  class="headQ">ด้านพฤติกรรม</label>
-           <paper-input id ="res" label="ผลการประเมิน" readonly 
-             value=""> 
+           <paper-input id ="res" label="ผลการประเมิน" readonly
+             value="">
            </paper-input>
             <div class="layout horizontal">
              <paper-checkbox class="flex-1" checked="{{document.value.form_value.q4_1_m}}">
@@ -432,8 +432,8 @@
          </li>
                   <li>
            <label id="label2"  class="headQ">ด้านอื่นๆ</label>
-           <paper-input id ="res" label="ผลการประเมิน" readonly 
-             value=""> 
+           <paper-input id ="res" label="ผลการประเมิน" readonly
+             value="">
            </paper-input>
             <div class="layout horizontal">
              <paper-checkbox class="flex-1" checked="{{document.value.form_value.q5_1_m}}">
@@ -461,13 +461,13 @@
              <paper-checkbox class="flex-1" checked="{{document.value.form_value.q5_3_m}}">
                 มีพฤติกรรมเบี่ยงเบนทางเพศ  จนมีผลต่อการเรียน
              </paper-checkbox>
-    
+
            </div>
          </li>
                   <li>
            <label id="label2"  class="headQ">ด้านสังคม</label>
-           <paper-input id ="res" label="ผลการประเมิน" readonly 
-             value=""> 
+           <paper-input id ="res" label="ผลการประเมิน" readonly
+             value="">
            </paper-input>
             <div class="layout horizontal">
              <paper-checkbox class="flex-1" checked="{{document.value.form_value.q6_1_m}}">
@@ -481,7 +481,7 @@
        </ol>
      </div>
 
-     <div class="evaluation">
+     <div slot="evaluation">
       <!--
       <div class="layout vertical">
        <div class="layout horizontal">
@@ -554,10 +554,10 @@
         if(!this.document.value) return;
         var tmp = this.document.value.form_value;
         var current_max = '';
-        for(var q in tmp) { 
+        for(var q in tmp) {
           var qs = q.split('_');
           if(qs[0] =='q2' && tmp[q]) {
-            if(qs[2] == 'p') { 
+            if(qs[2] == 'p') {
               current_max = 'p';
             } else {
               if(current_max != 'p') {
@@ -568,16 +568,16 @@
         }
         this.set('document.value.form_value.q2',current_max);
       },
-      _evaluate:function() {
+      /*_evaluate:function() {
         var values = this.document.value.form_value;
         var score = {};
-        /*
-        for(var q in values) {
-          var p = q.split('_')[0];
-          if(!score[p]) score[p] = {'y':0,'n':0};
-          score[p][values[q]]++;
-        }
-        */
+
+        //for(var q in values) {
+          //var p = q.split('_')[0];
+          //if(!score[p]) score[p] = {'y':0,'n':0};
+          //score[p][values[q]]++;
+        //}
+
         var name_dict = {
           'q2':'ด้านการเรียน'
         };
@@ -590,18 +590,18 @@
           if(name_dict[q]) {
             var obj = {'name':name_dict[q],'result':result_dict[values[q]]};
             score[q] = obj;
-          }          
+          }
         }
-        /*console.log(this.homevisit);*/
-        
+        //console.log(this.homevisit);
+
         var result_homevisit = [];
         var result_type;
         var tmp_homevisit = this.homevisit;
         for(var i=0;i<tmp_homevisit.length;i++) {
-            /*console.log(tmp_homevisit[i]);
-           console.log(tmp_homevisit[i].values.length);*/
+            //console.log(tmp_homevisit[i]);
+           //console.log(tmp_homevisit[i].values.length);
             for(var j=0;j<tmp_homevisit[i].values.length;j++){
-              /*console.log(tmp_homevisit[i].values[j].type);*/
+              //console.log(tmp_homevisit[i].values[j].type);
               var chk_type = tmp_homevisit[i].values[j].type;
               if(chk_type == "มีปัญหา"){
                 result_type = "มีปัญหา";
@@ -612,13 +612,13 @@
             result_homevisit.push({
               "text":tmp_homevisit[i].text,
               "type":result_type
-            });   
+            });
 		    }
-        /*console.log(result_homevisit);*/
+        //console.log(result_homevisit);
         score["homevisit"] = result_homevisit;
         console.log(score);
         return score;
-      },
+      },*/
       _validate:function() {
         /*
         var eles =Polymer.dom(this.root)
@@ -639,12 +639,12 @@
         return a != null && a == b ;
       },
       _reset:function() {
-        this.set('document.value.form_value',{});        
+        this.set('document.value.form_value',{});
       },
       _result:function(score) {
         /*
         if(!score) return;
-        var foundSub = false; 
+        var foundSub = false;
         for(var key in score) {
           if(key.indexOf('s') == 0 && score[key].y>=2) {
             foundSub=true;

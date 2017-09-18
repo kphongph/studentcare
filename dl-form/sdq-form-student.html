@@ -5,11 +5,13 @@
 <link rel="import" href="../../iron-validatable-behavior/iron-validatable-behavior.html">
 <link rel="import" href="../../paper-radio-button/paper-radio-button.html">
 
+<link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">
 <dom-module id="sdq-form-student">
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors">
       :host {
-        @apply(--paper-font-body1);
+        /*@apply --paper-font-body1;*/
+        background-color: white;
         display: block;
         width:100%;
       }
@@ -17,8 +19,16 @@
         border:1px solid red;
       }
       .question {
-        padding:7px;
-        background-color:var(--paper-grey-100);
+        /*padding:7px;*/
+        margin-top:2px;
+        margin-left: 5px;
+        /*background-color:var(--paper-grey-100);*/
+        font-family: 'Athiti', sans-serif;
+        background-color: white;
+      }
+
+      paper-radio-button{
+        font-family: 'Athiti', sans-serif;
       }
     </style>
      <div class="layout vertical">
@@ -30,9 +40,11 @@
           <paper-radio-button name="n">ไม่</paper-radio-button>
           <paper-radio-button name="y">ใช่</paper-radio-button>
         </paper-radio-group>
-      </div>      
-      <div id="problemExist" class="layout vertical" hidden>
-        <div id="r_level">  
+      </div>
+      <template is="dom-if" if="{{_isEquals(value.exist,'y')}}">
+      <!--<div id="problemExist" class="layout vertical" hidden>-->
+      <div class="layout vertical">
+        <div id="r_level">
         <div class="question">2. คุณมีปัญหาดังกล่าวในระดับ</div>
           <paper-radio-group selected="{{value.level}}">
            <paper-radio-button name="0">เล็กน้อย</paper-radio-button>
@@ -40,7 +52,7 @@
            <paper-radio-button name="2">อย่างรุนแรง</paper-radio-button>
           </paper-radio-group>
         </div>
-       <div id="r_time">  
+       <div id="r_time">
         <div class="question">3. ปัญหานี้เกิดขึ้นมานามเท่าไหร่แล้ว</div>
           <paper-radio-group selected="{{value.time}}">
            <paper-radio-button name="1m">น้อยกว่า 1 เดือน</paper-radio-button>
@@ -49,7 +61,7 @@
            <paper-radio-button name="1y">มากกว่า 1 ปี</paper-radio-button>
           </paper-radio-group>
        </div>
-       <div id="r_unhappy">  
+       <div id="r_unhappy">
         <div class="question"> 4. คุณรู้สึกหงุดหงิดหรือไม่สบายใจกับปัญหาที่มีหรือไม่</div>
           <paper-radio-group selected="{{value.unhappy}}">
             <paper-radio-button name="0">ไม่เลย</paper-radio-button>
@@ -58,8 +70,8 @@
             <paper-radio-button name="3">มาก</paper-radio-button>
           </paper-radio-group>
        </div>
-        <div id="r_life">  
-        <div class="question">5. ปัญหานี้รบกวนชีวิตประจำวันของคุณในด้านความเป็นอยู่ที่บ้าน</div>        
+        <div id="r_life">
+        <div class="question">5. ปัญหานี้รบกวนชีวิตประจำวันของคุณในด้านความเป็นอยู่ที่บ้าน</div>
           <paper-radio-group selected="{{value.life}}">
             <paper-radio-button name="0">ไม่เลย</paper-radio-button>
             <paper-radio-button name="1">เล็กน้อย</paper-radio-button>
@@ -68,7 +80,7 @@
           </paper-radio-group>
        </div>
        <div id="r_friend">
-        <div class="question">6. ปัญหานี้รบกวนชีวิตประจำวันของคุณในด้านการคบเพื่อน</div>        
+        <div class="question">6. ปัญหานี้รบกวนชีวิตประจำวันของคุณในด้านการคบเพื่อน</div>
           <paper-radio-group selected="{{value.friend}}">
              <paper-radio-button name="0">ไม่เลย</paper-radio-button>
              <paper-radio-button name="1">เล็กน้อย</paper-radio-button>
@@ -76,7 +88,7 @@
              <paper-radio-button name="3">มาก</paper-radio-button>
           </paper-radio-group>
        </div>
-       <div id="r_study">  
+       <div id="r_study">
         <div class="question">7. ปัญหานี้รบกวนชีวิตประจำวันของคุณในด้านการเรียนในห้องเรียน</div>
           <paper-radio-group selected="{{value.study}}">
              <paper-radio-button name="0">ไม่เลย</paper-radio-button>
@@ -85,7 +97,7 @@
              <paper-radio-button name="3">มาก</paper-radio-button>
           </paper-radio-group>
        </div>
-       <div id="r_freetime">  
+       <div id="r_freetime">
         <div class="question">8. ปัญหานี้รบกวนชีวิตประจำวันของคุณในด้านกิจกรรมยามว่าง</div>
           <paper-radio-group selected="{{value.freetime}}">
              <paper-radio-button name="0">ไม่เลย</paper-radio-button>
@@ -94,7 +106,7 @@
              <paper-radio-button name="3">มาก</paper-radio-button>
           </paper-radio-group>
        </div>
-       <div id="r_social">  
+       <div id="r_social">
         <div class="question">9. ปัญหานี้ทำให้คยรอบข้างเกิดความยุ่งยากหรือไม่ (ครอบครัว เพื่อน ครู ฯลฯ)</div>
           <paper-radio-group selected="{{value.social}}">
              <paper-radio-button name="0">ไม่เลย</paper-radio-button>
@@ -103,7 +115,8 @@
              <paper-radio-button name="3">มาก</paper-radio-button>
           </paper-radio-group>
        </div>
-      </div>    
+      </div>
+    </template>
   </template>
 
   <script>
@@ -118,25 +131,31 @@
           }
         }
       },
-      behaviors:[ 
+      behaviors:[
         Polymer.IronValidatableBehavior
       ],
       observers: [
         '_existChanged(value.exist)',
       ],
       _existChanged: function(exist) {
+        //console.log(exist);
         if(exist){
           var dict = {
             'y': true,
             'n': false
-          };              
-          this.$.problemExist.hidden = !dict[exist];
+          };
+          //console.log(!dict[exist]);
+          //document.getElementById("problemExist").hidden = !dict[exist];
+          //this.$.problemExist.hidden = !dict[exist];
         }
+      },
+      _isEquals:function(a,b) {
+        return a != null && a == b ;
       },
       _getValidity: function() {
         var obj = this.value;
         var self = this;
-         
+
         var __check = function(attr) {
           if(!obj[attr]) {
              self.$['r_'+attr].classList.add('invalid');
@@ -146,7 +165,7 @@
           }
           return true;
         }
-        
+
         if(!obj.exist) {
           this.$.r_exist.classList.add('invalid');
           return false;
@@ -156,7 +175,7 @@
             var attrs = ['level','time',
               'unhappy','friend','study','social'];
             for(var i=0;i<attrs.length;i++) {
-              if(!__check(attrs[i])) { 
+              if(!__check(attrs[i])) {
                 return false;
               }
             }

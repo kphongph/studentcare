@@ -7,19 +7,19 @@
 <link rel="import" href="student-room.html">
 <link rel="import" href="student-form.html">
 
-<link href="https://fonts.googleapis.com/css?family=Itim&amp;subset=thai" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">
 <!--
 `studentcare-components`
 Polymer Component for StudentCare project
 
-@demo demo/index.html 
+@demo demo/index.html
 -->
 
 <dom-module id="studentcare-app">
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors">
        :host {
-        @apply(--layout-vertical);
+        @apply --layout-vertical;
         display: block;
       }
 
@@ -28,16 +28,17 @@ Polymer Component for StudentCare project
       }
 
       app-toolbar {
-        background-color: var(--paper-red-500);
+        /*background-color: var(--paper-red-500);*/
+        background-color: #cd333f;
         color: white;
       }
 
       .font-face {
-        font-family: 'Itim', cursive;
+        font-family: 'Athiti', sans-serif;
       }
     </style>
 
-    <paper-material elevation="1">
+    <paper-material elevation="0">
       <app-toolbar>
         <paper-icon-button icon="arrow-back" hidden$="{{_isEqual(page,0)}}" on-tap="_back">
         </paper-icon-button>
@@ -47,7 +48,7 @@ Polymer Component for StudentCare project
       <iron-pages selected="{{page}}">
         <student-room year="{{year}}" host="{{host}}" level="{{level}}" room="{{room}}">
         </student-room>
-        <student-form db="{{db}}" key="{{key}}" year="{{year}}">
+        <student-form key="{{key}}" year="{{year}}">
         </student-form>
         <div id="formEntry">
         </div>
@@ -60,12 +61,24 @@ Polymer Component for StudentCare project
     Polymer({
       is: 'studentcare-app',
       properties: {
-        host: String,
+        host: {
+          type:String,
+          reflectToAttribute:true,
+          notify:true
+        },
         level: {
-          type: String
+          type: String,
+          reflectToAttribute:true,
         },
         room: {
-          type: String
+          type: String,
+          reflectToAttribute:true,
+          notify:true
+        },
+        year: {
+          type: String,
+          reflectToAttribute:true,
+          notify:true
         },
         page: {
           type: Number,
@@ -77,9 +90,15 @@ Polymer Component for StudentCare project
           computed: '_computeTitle(page)'
         }
       },
+      observers:[
+        'onHostLevelRoomChanged(host,level,room)'
+      ],
       listeners: {
         'student-selected': '_selectStudent',
         'select-assignment': '_selectAssignment'
+      },
+      onHostLevelRoomChanged: function(host,level,room) {
+        this._setPage(0);
       },
       _computeTitle: function (page) {
         var title = 'แบบประเมิน';
@@ -92,8 +111,8 @@ Polymer Component for StudentCare project
         return title;
       },
       _selectStudent: function (e) {
-        this.set('db', e.detail.db);
         this.set('key', e.detail._id);
+        console.log(e.detail._id);
         this._setPage(1);
       },
       _selectAssignment: function (e) {

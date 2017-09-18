@@ -7,12 +7,16 @@
 <link rel="import" href="../form-control.html">
 <link rel="import" href="../studentcare-form-behavior.html">
 <link rel="import" href="disability-choice.html">
+
+<link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">
 <dom-module id="disability-hearing-form">
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors">
       :host {
-        @apply(--paper-font-display);
-        @apply(--layout-vertical);
+        @apply --paper-font-display;
+        @apply --layout-vertical;
+        background-color: white;
+        font-family: 'Athiti', sans-serif;
         display: block;
       }
 
@@ -23,22 +27,22 @@
       paper-radio-group {
         background:#efefef;
       }
-      
+
       .formEntry div {
-        @apply(--paper-font-title);
+        @apply --paper-font-title;
         margin:3px;
         padding:0px;
         background:#efefef;
       }
 
       .description ol {
-        @apply(--paper-font-body1);
-        .num {list-style-type: decimal;}
+        @apply --paper-font-body1;
         margin:3px;
         padding:0px;
         background:#efefef;
+        .num {list-style-type: decimal;}
       }
-     
+
       .evaluation {
         padding:5px;
       }
@@ -46,13 +50,17 @@
       .check-icon {
         width:30px;
       }
+
+      disability-choice{
+        font-family: 'Athiti', sans-serif;
+      }
     </style>
 
-    <form-control id="control" 
-      on-form-action="_tap" 
+    <form-control id="control"
+      on-form-action="_tap"
       doc-key="{{document.key}}"
       doc-value="{{document.value}}">
-      <div class="description">
+      <div slot="description">
         <ol class="num"><b> คำชี้แจง</b>
           <li>แบบคัดกรองฉบับนี้เป็นแบบคัดกรองเพื่อประโยชน์ในทางการจัดการศึกษาเท่านั้น</li>
           <li>วิเคราะห์ลักษณะ / พฤติกรรม ของเด็ก ซึ่งเป็นลักษณะหรือพฤติกรรม ที่เด็กแสดงออกบ่อย ๆ โดยให้เลือกติ๊กลงในช่อง  <b>“ใช่”</b> หรือ <b>“ไม่ใช่”</b> ที่ตรงกับลักษณะหรือพฤติกรรมนั้น ๆ ของเด็ก</li>
@@ -63,36 +71,36 @@
           <li>ถ้าตอบว่าใช่ 3 ข้อ ขึ้นไป แสดงว่ามีแนวโน้มที่จะเป็นบุคคลที่มีความบกพร่องทางการได้ยิน ให้จัดบริการช่วยเหลือทางการศึกษาพิเศษ และส่งต่อให้แพทย์ตรวจวินิจฉัยต่อไป</li>
         </ol>
       </div>
-      <div class="formEntry">
-       <disability-choice value="{{document.value.form_value.q1}}" 
-        label="ไม่หันศรีษะหาเสียงเมื่อเรียกชื่อจากข้างหลัง">
-       </disability-choice>     
-       <disability-choice value="{{document.value.form_value.q2}}" 
-          label="ไม่ตอบสนองหรือหันไปมองที่มาของเสียงซึ่งเกิดอยู่รอบ ๆ ห้อง">
-       </disability-choice>     
-       <disability-choice value="{{document.value.form_value.q3}}" 
-          label="มักใช้ท่าทางในการสื่อความหมายกับผู้อื่นไม่ใช้ภาษาพูด">
-       </disability-choice>     
-       <disability-choice value="{{document.value.form_value.q4}}" 
-          label="ออกเสียงในระดับเดียวกันแต่ไม่เป็นคำ">
-       </disability-choice>     
-       <disability-choice value="{{document.value.form_value.q5}}" 
-          label="ในการสนทนาจะมองปากหรือจ้องหน้าจ้องตาผู้พูดตลอดเวลา">
+      <div slot="formEntry">
+       <disability-choice value="{{document.value.form_value.q1}}">
+        1. ไม่หันศรีษะหาเสียงเมื่อเรียกชื่อจากข้างหลัง
        </disability-choice>
-       <disability-choice value="{{document.value.form_value.q6}}" 
-          label="ตอบไม่ตรงคำถามหรือไม่ตอบคำถาม">
-       </disability-choice>     
-       <disability-choice value="{{document.value.form_value.q7}}" 
-          label="พูดตามหรือเลียนเสียงพูดไม่ได้">
-       </disability-choice>     
-       <disability-choice value="{{document.value.form_value.q8}}" 
-          label="เป็นหรือเคยเป็นโรคหูน้ำหนวก">
-       </disability-choice>     
-       <disability-choice value="{{document.value.form_value.q9}}" 
-          label="การแสดงออกทางพฤติกรรมในชีวิตประจำวันที่ส่งเสียงดังมากกว่าปกติ เช่น การเดินลงส้นเท้า การรับประทานอาหารโดยช้อนกระทบจาน เป็นต้น">
-       </disability-choice>     
+       <disability-choice value="{{document.value.form_value.q2}}">
+        2. ไม่ตอบสนองหรือหันไปมองที่มาของเสียงซึ่งเกิดอยู่รอบ ๆ ห้อง
+       </disability-choice>
+       <disability-choice value="{{document.value.form_value.q3}}">
+        3. มักใช้ท่าทางในการสื่อความหมายกับผู้อื่นไม่ใช้ภาษาพูด
+       </disability-choice>
+       <disability-choice value="{{document.value.form_value.q4}}">
+        4. ออกเสียงในระดับเดียวกันแต่ไม่เป็นคำ
+       </disability-choice>
+       <disability-choice value="{{document.value.form_value.q5}}">
+        5. ในการสนทนาจะมองปากหรือจ้องหน้าจ้องตาผู้พูดตลอดเวลา
+       </disability-choice>
+       <disability-choice value="{{document.value.form_value.q6}}">
+        6. ตอบไม่ตรงคำถามหรือไม่ตอบคำถาม">
+       </disability-choice>
+       <disability-choice value="{{document.value.form_value.q7}}">
+        7. พูดตามหรือเลียนเสียงพูดไม่ได้
+       </disability-choice>
+       <disability-choice value="{{document.value.form_value.q8}}">
+        8. เป็นหรือเคยเป็นโรคหูน้ำหนวก
+       </disability-choice>
+       <disability-choice value="{{document.value.form_value.q9}}">
+        9. การแสดงออกทางพฤติกรรมในชีวิตประจำวันที่ส่งเสียงดังมากกว่าปกติ เช่น การเดินลงส้นเท้า การรับประทานอาหารโดยช้อนกระทบจาน เป็นต้น
+       </disability-choice>
      </div>
-     <div class="evaluation">
+     <div slot="evaluation">
       <div class="layout vertical">
        <div class="layout horizontal">
         <div class="check-icon">
@@ -164,7 +172,7 @@
         return true;
       },
       _reset:function() {
-        this.set('document.value.form_value',{});        
+        this.set('document.value.form_value',{});
       },
       _result:function(score) {
         if(score && score.y>=3) {

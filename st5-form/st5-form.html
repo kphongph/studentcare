@@ -7,12 +7,15 @@
 <link rel="import" href="../form-control.html">
 <link rel="import" href="../studentcare-form-behavior.html">
 <link rel="import" href="./st5-choice.html">
+
+<link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">
 <dom-module id="st5-form">
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors">
       :host {
-        @apply(--paper-font-display);
-        @apply(--layout-vertical);
+        @apply --paper-font-display;
+        @apply --layout-vertical;
+        background-color: white;
         display: block;
       }
       .invalid {
@@ -22,27 +25,32 @@
         background:#efefef;
       }
       .formEntry div {
-        @apply(--paper-font-title);
+        @apply --paper-font-title;
         margin:3px;
         padding:0px;
         background:#efefef;
       }
       .description ol {
-        @apply(--paper-font-body1);
-        .num {list-style-type: decimal;}
+        @apply --paper-font-body1;
         margin:3px;
         padding:0px;
         background:#efefef;
+        .num {list-style-type: decimal;}
       }
       .evaluation {
         padding:5px;
+      }
+
+      st5-choice{
+        margin-left: 10px;
+        font-family: 'Athiti', sans-serif;
       }
     </style>
 
     <form-control id="control"
       doc-key="{{document.key}}"
       doc-value="{{document.value}}">
-      <div class="description">
+      <div slot="description">
         <ul class="num"><b><u>การแปลผล</u></b>
           <li>0–4 คะแนน  เครียดน้อย </li>
           <li>5–7 คะแนน เครียดปานกลาง  </li>
@@ -66,7 +74,7 @@
           <li>ให้ผู้ถูกประเมินตอบให้ตรงตามความรู้สึก ในระยะ 2 – 4 สัปดาห์ </li>
         </ul>
       </div>
-      <div class="formEntry">
+      <div slot="formEntry">
         <st5-choice id="q1" value="{{document.value.form_value.q1}}"
           label="มีปัญหาการนอน นอนไม่หลับ หรือนอนมาก">
         </st5-choice>
@@ -83,7 +91,7 @@
           label="ไม่อยากพบปะผู้คน">
         </st5-choice>
       </div>
-      <div class="evaluation">
+      <div slot="evaluation">
        <div class="layout horizontal">
         <paper-input label="คะแนนรวม 5 ข้อ ได้ (คะแนน)" class="flex"
           readonly
@@ -121,18 +129,18 @@
         return {'score':score};
       },
       _reset:function() {
-        this.set('document.value.form_value',{});              
-        this.set('document.value.form_result',{});              
+        this.set('document.value.form_value',{});
+        this.set('document.value.form_result',{});
       },
       _validate:function() {
         var questions = this.document.value.form_value;
-        var required = ['q1','q2','q3','q4','q5']; 
+        var required = ['q1','q2','q3','q4','q5'];
         for(var i=0;i<required.length;i++) {
           if(!questions[required[i]]) {
-            this.$$('#'+required[i]).classList.add('invalid'); 
+            this.$$('#'+required[i]).classList.add('invalid');
             return false;
           } else {
-            this.$$('#'+required[i]).classList.remove('invalid'); 
+            this.$$('#'+required[i]).classList.remove('invalid');
           }
         }
         return true;
@@ -143,7 +151,7 @@
           if(score<8) return 'เครียดปานกลาง';
           if(score<10) return 'เครียดปานกลาง';
           return 'เครียดมากที่สุด';
-        } 
+        }
         return '';
       }
     });

@@ -11,20 +11,21 @@
 <link rel="import" href="../app-storage/app-localstorage/app-localstorage-document.html">
 <link rel="import" href="./local/assignment-card.html">
 <link rel="import" href="./form-generator.html">
+<link rel="import" href="./option-forms.html">
 
-<link href="https://fonts.googleapis.com/css?family=Itim&amp;subset=thai" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">
 
 <dom-module id="student-form">
   <template>
     <style is="custom-style" include="iron-flex iron-flex-alignment iron-flex-factors">
        :host {
-        @apply(--layout-vertical);
+        @apply --layout-vertical;
+        font-family: 'Athiti', sans-serif;
         --paper-progress-active-color: #d14836;
         /*สีตัวโหลด*/
         --paper-progress-indeterminate-cycle-duration: 0.8s;
         /*ระยะเวลาการโหลด*/
       }
-
 
       .iron-selected {
         background: #eee;
@@ -35,48 +36,68 @@
       }
 
       .form_group {
-        @apply(--paper-font-subhead);
+        @apply --paper-font-subhead;
         padding: 10px;
         background: var(--paper-grey-100);
       }
 
       .font-face {
-        font-family: 'Itim', cursive;
+        font-family: 'Athiti', sans-serif;
         font-weight: bold;
+      }
+
+      .option-style{
+       background-color: #fff;
+       height: 70px;
+      }
+
+      .note{
+        border:2px solid white;
+        font-family: 'Athiti', sans-serif;
+        background: white;
+        color: #ff6666;
       }
     </style>
 
     <app-localstorage-document key="jwtToken" data="{{jwtToken}}">
     </app-localstorage-document>
 
-    <iron-ajax id="getAjax" method="GET" url$="https://maas.nuqlis.com:9000/api/dbs/{{db}}/{{key}}" headers$='{"Authorization":"JWT {{jwtToken.token}}"}'
-      on-response="_getStudentResponsed" last-response="{{student}}">
+    <iron-ajax id="getAjax"
+      method="GET"
+      url$="https://maas.nuqlis.com:8000/v2/obec/student_data_db/data/{{key}}"
+      headers$='{"Authorization":"JWT {{jwtToken.token}}"}'
+      last-response="{{student}}">
     </iron-ajax>
 
-    <form-generator id="generator" student="{{student}}" loading="{{loading}}" on-form-generated="_formGenerated" on-required-form-checked="_formChecked"
-      forms="{{forms}}" year="{{year}}">
+    <form-generator id="generator" student="{{student}}" loading="{{loading}}"
+      on-form-generated="_formGenerated"
+      on-required-form-checked="_formChecked"
+      forms="{{forms}}"
+      year="{{year}}">
     </form-generator>
 
     <div class="horizontal layout">
       <paper-progress indeterminate hidden$="{{!loading}}" class="flex">
       </paper-progress>
     </div>
-    <div hidden$="{{loading}}">
-      <div class="horizontal layout control" hidden$="{{!_requiredReload}}">
-        <paper-button raised on-tap="_reload">
-          <iron-icon icon="cached"></iron-icon>
-          Reload
-        </paper-button>
-      </div>
 
-      <template is="dom-repeat" as="group" items="{{formList}}">
-        <div class="form_group font-face">{{group.name}}</div>
-        <template is="dom-repeat" items="{{group.forms}}" sort="_sortByStatus">
-          <assignment-card data="{{item}}"></assignment-card>
-        </template>
-      </template>
-
+    <div class="flex option-style">
+      <option-forms forms="{{forms}}" student="{{student}}"></option-forms>
     </div>
+
+    <div class="flex note">
+      *หมายเหตุ
+      สีเทา หมายถึง ฟอร์มใหม่
+      สีเหลือง หมายถึง กำลังดำเนินการ
+      สีเขียว หมายถึง ดำเนินการเสร็จสิ้น
+    </div>
+
+    <template is="dom-repeat" as="group" items="{{formList}}">
+      <div class="form_group font-face" hidden$="{{_isEmpty(group.forms)}}">{{group.name}}</div>
+      <template is="dom-repeat" items="{{group.forms}}" sort="_sortByStatus">
+        <assignment-card data="{{item}}"></assignment-card>
+      </template>
+    </template>
 
   </template>
 
@@ -85,18 +106,29 @@
       is: 'student-form',
       properties: {
         db: String,
-        year: String,
-        key: String,
+        year: {
+          type:String,
+          reflectToAttribute:true
+        },
+        key: {
+          type:String,
+          reflectToAttribute:true
+        },
         formList: {
           type: Array,
           notify: true,
           computed: '__generateFormList(forms)'
         }
       },
+      listeners: {
+        'delete-assignment':'_onAssignmentDelete',
+        'form-generated':'_formGenerated'
+      },
       observers: [
-        '__execute(jwtToken,db,key)',
+        '__execute(jwtToken,key)',
       ],
-      __execute: function (jwtToken, db, key) {
+      __execute: function (jwtToken, key) {
+        if(!jwtToken.token || key == null) return;
         this.$.getAjax.generateRequest();
       },
       _sortByTime: function (a, b) {
@@ -104,13 +136,25 @@
       },
       _sortByStatus: function (a, b) {
         var _sort = ['new', 'working', 'done'];
-        return _sort.indexOf(a.key[4][0]) - _sort.indexOf(b.key[4][0]);
+        return _sort.indexOf(a.status) - _sort.indexOf(b.status);
       },
-      _getStudentResponsed: function (e) {
-        this.set('_requiredReload', false);
+      _isEmpty:function(list) {
+        return !list || list.length == 0;
+      },
+      _onAssignmentDelete:function(e) {
+        var d_form = e.detail.form;
+        console.log(d_form);
+        var forms = this.forms;
+        var tmp = [];
+        forms.forEach(function(form) {
+          if(form._id != d_form._id) {
+            tmp.push(form);
+          }
+        });
+        this.set('forms',tmp);
       },
       _formGenerated: function (e) {
-        this.set('_requiredReload', true);
+        this.$.generator.reload();
       },
       _formChecked: function (e) {
         console.log(e.detail);
@@ -119,7 +163,8 @@
         this.$.generator.reload();
         this.set('_requiredReload', false);
       },
-      __generateFormList: function (forms) {
+      __generateFormList: function(forms) {
+        console.log('__generateFormList');
         var data = [];
         var group = [
           {
@@ -146,33 +191,33 @@
             ],
             forms: []
           },
-          // {
-          //   'group': 'แบบคัดกรองความบกพร่อง 9 ด้านของ สพฐ.',
-          //   'names': [
-          //     'disability-autistic-form',
-          //     'disability-behavior-form',
-          //     'disability-communication-form',
-          //     'disability-health-form',
-          //     'disability-hearing-form',
-          //     'disability-intelligence-form',
-          //     'disability-learning-elementary-form',
-          //     'disability-learning-secondary-form',
-          //     'disability-visual-form'
-          //   ],
-          //   'forms': []
-          // },
-          // {
-          //   'group': 'แบบคัดกรองอื่น ๆ ',
-          //   'names': [
-          //     'st5-form', 'snap-form', 'suicide8q-form', 'cdi-form', 'game-form'
-          //   ],
-          //   forms: []
-          // },
+          {
+             'group': 'แบบคัดกรองความบกพร่อง 9 ด้านของ สพฐ.',
+             'names': [
+               'disability-autistic-form',
+               'disability-behavior-form',
+               'disability-communication-form',
+               'disability-health-form',
+               'disability-hearing-form',
+               'disability-intelligence-form',
+               'disability-learning-elementary-form',
+               'disability-learning-secondary-form',
+               'disability-visual-form'
+             ],
+             'forms': []
+           },
+           {
+             'group': 'แบบคัดกรองอื่น ๆ ',
+             'names': [
+               'st5-form', 'snap-form', 'suicide8q-form', 'cdi-form', 'game-form'
+             ],
+             forms: []
+           },
         ];
 
         for (var i = 0; i < forms.length; i++) {
           for (var j = 0; j < group.length; j++) {
-            if (group[j].names.indexOf(forms[i].key[3]) != -1) {
+            if (group[j].names.indexOf(forms[i].form_type) != -1) {
               group[j].forms.push(forms[i]);
               break;
             }
@@ -184,6 +229,7 @@
             data.push({ 'name': group[i].group, 'forms': group[i].forms });
           }
         }
+        //console.log(data);
         return data;
       }
     });

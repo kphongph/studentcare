@@ -4,15 +4,18 @@
 <link rel="import" href="../../iron-validatable-behavior/iron-validatable-behavior.html">
 <link rel="import" href="../../paper-styles/typography.html">
 <link rel="import" href="../../paper-radio-group/paper-radio-group.html">
+
+<link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">
 <dom-module id="game-choice">
   <template>
   <style include="iron-flex iron-flex-alignment iron-flex-factors">
   :host {
-    @apply(--paper-font-display);
-    @apply(--layout-vertical);
+    @apply --paper-font-display;
+    @apply --layout-vertical;
+    background-color: white;
     display: block;
-    border-bottom:1px solid #bfbfbf;
-    padding:5px;
+    /*border-bottom:1px solid #bfbfbf;
+    padding:5px;*/
   }
 
   iron-icon {
@@ -24,8 +27,8 @@
   .invalid {
     border: 1px solid #ee0000;
   }
-  paper-radio-group {
-    background:#efefef;
+  paper-radio-button {
+    font-family: 'Athiti', sans-serif;
   }
   </style>
   <div id="main" class="layout horizontal center">

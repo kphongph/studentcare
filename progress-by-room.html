@@ -8,20 +8,22 @@
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
 <link rel="import" href="forms.html">
 
+<link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">
 <dom-module id="progress-by-room">
   <template>
    <style include="iron-flex iron-flex-alignment iron-flex-factors">
       :host {
         display: block;
-        @apply(--paper-font-body1);
+        @apply --paper-font-body1;
+        font-family: 'Athiti', sans-serif;
       }
       .name-cell {
         border:1px solid var(--paper-grey-500);
         height:30px;
         margin:1px;
         padding-left:15px;
-        @apply(--layout-horizontal);
-        @apply(--layout-center);
+        @apply --layout-horizontal;
+        @apply --layout-center;
       }
 
       .mark-cell {
@@ -29,9 +31,9 @@
         width:30px;
         height:30px;
         margin:1px;
-        @apply(--layout-horizontal);
-        @apply(--layout-center);
-        @apply(--layout-center-justified);
+        @apply --layout-horizontal;
+        @apply --layout-center;
+        @apply --layout-center-justified;
       }
       .done {
         background-color:var(--paper-pink-500);

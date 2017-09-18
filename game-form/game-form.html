@@ -7,12 +7,15 @@
 <link rel="import" href="../form-control.html">
 <link rel="import" href="../studentcare-form-behavior.html">
 <link rel="import" href="./game-choice.html">
+
+<link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">
 <dom-module id="game-form">
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors">
       :host {
-        @apply(--paper-font-display);
-        @apply(--layout-vertical);
+        @apply --paper-font-display;
+        @apply --layout-vertical;
+        background-color: white;
         display: block;
       }
       .invalid {
@@ -22,17 +25,17 @@
         background:#efefef;
       }
       .formEntry div {
-        @apply(--paper-font-title);
+        @apply --paper-font-title;
         margin:3px;
         padding:0px;
         background:#efefef;
       }
       .description ol {
-        @apply(--paper-font-body1);
-        .num {list-style-type: decimal;}
+        @apply --paper-font-body1;
         margin:3px;
         padding:0px;
         background:#efefef;
+        .num {list-style-type: decimal;}
       }
       .mark {
         font-weight:bold;
@@ -55,22 +58,34 @@
       td {
         vertical-align: middle;
       }
+
+      game-choice{
+        margin-left: 10px;
+        font-family: 'Athiti', sans-serif;
+      }
+
+      .font-face-bold{
+        margin-left: 5px;
+        font-family: 'Athiti', sans-serif;
+        font-weight: bold;
+        text-decoration: underline;;
+      }
     </style>
 
     <form-control id="control"
       doc-key="{{document.key}}"
       doc-value="{{document.value}}">
-      <div class="description">
+      <div slot="description">
         <ul class="num"><b><u>คำอธิบาย</u></b>
           <p>
-                                แบบทดสอบการติดเกม (Game Addiction Screening Test – GAST) เป็นแบบทดสอบที่พัฒนาขึ้นโดยสถาบันสุขภาพจิตเด็กและวัยรุ่นราชนครินทร์ กรมสุขภาพจิต 
-                             กระทรวงสาธารณสุขร่วมกับ รศ.นพ.ชาญวิทย์ พรนภดล สาขาวิชาจิตเวชเด็กและวัยรุ่น ภาควิชาจิตเวชศาสตร์ คณะแพทยศาสตร์ศิริราชพยาบาล 
+                                แบบทดสอบการติดเกม (Game Addiction Screening Test – GAST) เป็นแบบทดสอบที่พัฒนาขึ้นโดยสถาบันสุขภาพจิตเด็กและวัยรุ่นราชนครินทร์ กรมสุขภาพจิต
+                             กระทรวงสาธารณสุขร่วมกับ รศ.นพ.ชาญวิทย์ พรนภดล สาขาวิชาจิตเวชเด็กและวัยรุ่น ภาควิชาจิตเวชศาสตร์ คณะแพทยศาสตร์ศิริราชพยาบาล
             เพื่อใช้สำหรับค้นหาเด็กและวัยรุ่นที่อาจมีปัญหาติดเกมคอมพิวเตอร์หรือหมกมุ่นกับการเล่นเกมคอมพิวเตอร์มากจนก่อให้เกิดปัญหาต่างๆ
           </p>
         </ul>
         <ul class="num"><b><u>ความหมายของคำว่า “เกม”</u></b>
           <p>
-                                คำว่า “เกม” ในแบบทดสอบการติดเกม (GAST) หมายถึง วิดีโอเกม เกมเพลสเตชั่น เกมบอย เกมคอมพิวเตอร์ เกมในโทรศัพท์มือถือ และเกมออนไลน์ทุกชนิด 
+                                คำว่า “เกม” ในแบบทดสอบการติดเกม (GAST) หมายถึง วิดีโอเกม เกมเพลสเตชั่น เกมบอย เกมคอมพิวเตอร์ เกมในโทรศัพท์มือถือ และเกมออนไลน์ทุกชนิด
           </p>
         </ul>
         <ol class="num"><b><u>โครงสร้างของแบบทดสอบการติดเกม (GAST)</u></b>
@@ -81,7 +96,7 @@
         </ol>
         <ul class="num"><b><u>ผู้ตอบแบบทดสอบ</u></b>
           <p>
-                            ผู้ตอบแบบทดสอบการติดเกม (GAST)-ฉบับเด็กและวัยรุ่น (Child and Adolescent Version) ได้แก่ เด็กและวัยรุ่นที่มีอายุตั้งแต่ 8 ปีขึ้นไปที่เล่นเกมเป็นประจำในช่วงเวลาอย่างน้อย 3 เดือนที่ผ่านมา 
+                            ผู้ตอบแบบทดสอบการติดเกม (GAST)-ฉบับเด็กและวัยรุ่น (Child and Adolescent Version) ได้แก่ เด็กและวัยรุ่นที่มีอายุตั้งแต่ 8 ปีขึ้นไปที่เล่นเกมเป็นประจำในช่วงเวลาอย่างน้อย 3 เดือนที่ผ่านมา
           </p>
         </ul>
         <ul class="num"><b><u>การตอบแบบทดสอบ</u></b>
@@ -107,7 +122,7 @@
           <li>ใช่เลย	ให้ 3 คะแนน</li>
         </ul>
         <ol class="num"><b><u>การแปลผล</u></b>  แบ่งเป็น 2 กลุ่ม
-          <li>กลุ่มที่ 1<b><u>ผู้ชาย</u></b> 
+          <li>กลุ่มที่ 1<b><u>ผู้ชาย</u></b>
             <ul class="num">
               <br>
               <table>
@@ -135,7 +150,7 @@
               <br>
             </ul>
           </li>
-          <li> กลุ่มที่ 2 <b><u>ผู้หญิง</u></b> 
+          <li> กลุ่มที่ 2 <b><u>ผู้หญิง</u></b>
             <ul class="num">
               <br>
               <table>
@@ -194,28 +209,28 @@
         </ol>
         <ol class="num"><b><u>ข้อควรปฏิบัติสำหรับผู้ปกครอง</u></b>
           <li>
-          หากระดับการเล่นเกมของลูกท่านยังอยู่ในเกณฑ์ปกติ ท่านควรมีมาตรการป้องกันไม่ให้ลูกของท่านติดเกม 
-          โดยการสร้างสัมพันธภาพที่ดีและให้เวลาที่มีคุณภาพกับลูก ฝึกวินัย สอนให้เด็กรู้จักแบ่งเวลาและใช้เวลาว่างให้เป็นประโยชน์ 
+          หากระดับการเล่นเกมของลูกท่านยังอยู่ในเกณฑ์ปกติ ท่านควรมีมาตรการป้องกันไม่ให้ลูกของท่านติดเกม
+          โดยการสร้างสัมพันธภาพที่ดีและให้เวลาที่มีคุณภาพกับลูก ฝึกวินัย สอนให้เด็กรู้จักแบ่งเวลาและใช้เวลาว่างให้เป็นประโยชน์
           กำหนดกติกาและจำกัดเวลาในการเล่นเกม ส่งเสริมให้เด็กมีงานอดิเรกที่เด็กชอบทำนอกเหนือจากการเล่นเกม
           </li>
           <li>
-            หากระดับการเล่นเกมของลูกท่านอยู่ในระดับคลั่งไคล้หรือเริ่มมีปัญหา 
-            ท่านควรพูดคุยกับลูกถึงพฤติกรรมที่เป็นปัญหาในการเล่นเกมของลูกอย่างจริงจัง 
-            มีการกำหนดกติกาและจำกัดเวลาในการเล่นเกมอย่างเข้มงวด ใส่ใจและให้เวลาที่มีคุณภาพกับลูก 
+            หากระดับการเล่นเกมของลูกท่านอยู่ในระดับคลั่งไคล้หรือเริ่มมีปัญหา
+            ท่านควรพูดคุยกับลูกถึงพฤติกรรมที่เป็นปัญหาในการเล่นเกมของลูกอย่างจริงจัง
+            มีการกำหนดกติกาและจำกัดเวลาในการเล่นเกมอย่างเข้มงวด ใส่ใจและให้เวลาที่มีคุณภาพกับลูก
             ส่งเสริมให้เด็กมีงานอดิเรก หรือทำกิจกรรมที่ผ่อนคลายอื่นๆนอกเหนือจากการเล่นเกม
           </li>
           <li>
-            หากระดับการเล่นเกมของลูกท่านอยู่ในระดับน่าจะติดเกมหรือมีปัญหามาก 
+            หากระดับการเล่นเกมของลูกท่านอยู่ในระดับน่าจะติดเกมหรือมีปัญหามาก
             และท่านได้พยายามปรับลดเวลาการเล่นเกมของลูกท่านแล้วตามคำแนะนำในข้อ 2
             แต่ยังไม่ได้ผล ท่านควรรีบปรึกษาจิตแพทย์เด็กและวัยรุ่นเพื่อรับการช่วยเหลือโดยรีบด่วน
           </li>
         </ol>
         <ul class="num"><b><u>ข้อควรทราบสำหรับผู้ใช้แบบทดสอบการติดเกม GAST</u></b>
           <p>
-                               แบบทดสอบการติดเกม (GAST) เป็นเพียงเครื่องมือที่ใช้ในการ “คัดกรอง (screening)” 
-                          เพื่อค้นหาเด็กและวัยรุ่นที่อาจมีปัญหาในการเล่นเกม มิใช่เป็นเครื่องมือในการใช้ “วินิจฉัย (diagnosis)” 
-                               เด็กที่ติดเกม ดังนั้นก่อนที่ผู้ใดจะนำแบบทดสอบการติดเกม (GAST) ไปใช้จำเป็นต้องทราบวัตถุประสงค์ในการใช้แบบทดสอบการติดเกม (GAST) 
-                               นี้เป็นอย่างดีเสียก่อน การจะวินิจฉัยว่าเด็กรายใดมีภาวะติดเกมจำเป็นต้องผ่านกระบวนการตรวจประเมินอย่างละเอียดจากจิตแพทย์หรือนักจิตวิทยา 
+                               แบบทดสอบการติดเกม (GAST) เป็นเพียงเครื่องมือที่ใช้ในการ “คัดกรอง (screening)”
+                          เพื่อค้นหาเด็กและวัยรุ่นที่อาจมีปัญหาในการเล่นเกม มิใช่เป็นเครื่องมือในการใช้ “วินิจฉัย (diagnosis)”
+                               เด็กที่ติดเกม ดังนั้นก่อนที่ผู้ใดจะนำแบบทดสอบการติดเกม (GAST) ไปใช้จำเป็นต้องทราบวัตถุประสงค์ในการใช้แบบทดสอบการติดเกม (GAST)
+                               นี้เป็นอย่างดีเสียก่อน การจะวินิจฉัยว่าเด็กรายใดมีภาวะติดเกมจำเป็นต้องผ่านกระบวนการตรวจประเมินอย่างละเอียดจากจิตแพทย์หรือนักจิตวิทยา
             ผู้ซึ่งจะลงความเห็นว่าเด็กรายใดติดเกมหลังจากได้ข้อมูลอย่างละเอียดและพบกับเด็กและครอบครัวแล้วเท่านั้น
           </p>
         </ul>
@@ -229,8 +244,8 @@
           </p>
         </ul>
       </div>
-      <div class="formEntry">
-                      ตั้งแต่ฉันชอบเล่นเกม...
+      <div slot="formEntry">
+        <div class="font-face-bold">ตั้งแต่ฉันชอบเล่นเกม...</div>
         <game-choice id="q1" value="{{document.value.form_value.q1}}"
           label=".....ฉันสนใจหรือทำกิจกรรมอย่างอื่นน้อยลงมาก">
         </game-choice>
@@ -258,7 +273,7 @@
         <game-choice id="q9" value="{{document.value.form_value.q9}}"
           label=".....ฉันใช้เวลาว่างส่วนใหญ่ไปกับการเล่นเกม">
         </game-choice>
-         <game-choice id="q10" value="{{document.value.form_value.q10}}"
+         <!--<game-choice id="q10" value="{{document.value.form_value.q10}}"
           label=".....ฉันใช้เวลาว่างส่วนใหญ่ไปกับการเล่นเกม">
         </game-choice>
          <game-choice id="q11" value="{{document.value.form_value.q11}}"
@@ -278,9 +293,9 @@
         </game-choice>
          <game-choice id="q16" value="{{document.value.form_value.q16}}"
           label=".....ฉันใช้เวลาว่างส่วนใหญ่ไปกับการเล่นเกม">
-        </game-choice>
+        </game-choice>-->
       </div>
-      <div class="evaluation">
+      <div slot="evaluation">
        <div class="layout horizontal">
         <paper-input label="คะแนนรวมได้ (คะแนน)" class="flex"
           readonly
@@ -318,18 +333,21 @@
         return {'score':score};
       },
       _reset:function() {
-        this.set('document.value.form_value',{});              
-        this.set('document.value.form_result',{});              
+        this.set('document.value.form_value',{});
+        this.set('document.value.form_result',{});
       },
       _validate:function() {
         var questions = this.document.value.form_value;
-        var required = ['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10','q11','q12','q13','q14','q15','q16']; 
+        //console.log('questions',questions);
+        /*var required = ['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10','q11','q12','q13','q14','q15','q16'];*/
+        var required = ['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10'];
+        //console.log('required',required);
         for(var i=0;i<required.length;i++) {
           if(!questions[required[i]]) {
-            this.$$('#'+required[i]).classList.add('invalid'); 
+            //this.$$('#'+required[i]).classList.add('invalid');
             return false;
           } else {
-            this.$$('#'+required[i]).classList.remove('invalid'); 
+            //this.$$('#'+required[i]).classList.remove('invalid');
           }
         }
         return true;
@@ -339,7 +357,7 @@
           if(score<24) return 'ยังไม่มีปัญหาในการเล่นเกม';
           if(score<32) return 'เริ่มมีปัญหาในการเล่นเกม';
           return 'มีปัญหาในการเล่นเกมมาก';
-        } 
+        }
         return '';
       }
     });

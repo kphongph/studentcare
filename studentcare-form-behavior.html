@@ -6,6 +6,7 @@
       },
       document: {
         type:Object,
+        reflectToAttribute: true,
         notify:true
       }
     },
@@ -23,19 +24,26 @@
     _onFormAction : function(e) {
       if(e.detail.type == "save") {
         this.document.value.status = "working";
-        e.target.save();
+        if(this._validate()) {
+          var _result = this._evaluate();
+          this.set('document.value.status',"done");
+          this.set('document.value.form_result',_result);
+        }
+        e.target.$.control.save();
       }
+
       if(e.detail.type == "undo") {
         this.document.value.status = "new";
         this._reset();
-        e.target.save();
+        e.target.$.control.save();
       }
+
       if(e.detail.type == "process") {
         if(this._validate()) {
           var _result = this._evaluate();
           this.set('document.value.status',"done");
           this.set('document.value.form_result',_result);
-          e.target.save();
+          e.target.$.control.save();
         }
       }
     }

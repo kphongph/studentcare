@@ -11,10 +11,10 @@
       var _required=false;
       var exists=false;
       console.log(this.formType,this.atLevel);
-      if(this.atLevel.indexOf(this.student.LEVEL) != -1) {
+      if(this.atLevel.indexOf(this.student['class']) != -1) {
         _required=true;
         for(var i=0;i<this.forms.length;i++) {
-          if(this.forms[i].key[3]==this.formType) {
+          if(this.forms[i].form_type==this.formType) {
             exists=true;
             break;
           }

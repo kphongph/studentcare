@@ -9,14 +9,14 @@
 <link rel="import" href="../studentcare-form-behavior.html">
 <link rel="import" href="eq-teacher-choice.html">
 
-<link href="https://fonts.googleapis.com/css?family=Itim&amp;subset=thai" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">
 
 <dom-module id="eq-teacher-form">
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors">
        :host {
-        @apply(--paper-font-display);
-        @apply(--layout-vertical);
+        @apply --paper-font-display;
+        @apply --layout-vertical;
         display: block;
       }
 
@@ -25,21 +25,20 @@
       }
 
       .formEntry div {
-        @apply(--paper-font-title);
+        @apply --paper-font-title;
         margin: 3px;
         padding: 0px;
         background: #efefef;
       }
 
       .description ol {
-        @apply(--paper-font-body1);
-        .num {
-          list-style-type: decimal;
-          
-        }
+        @apply --paper-font-body1;
         margin:3px;
         padding:0px;
         background:#efefef;
+        .num {
+          list-style-type: decimal;
+        }
       }
 
       .check-icon {
@@ -50,19 +49,32 @@
         font-weight: bold;
       }
 
-      .font-face-bold {
-        font-family: 'Itim', cursive;
+      .font-face-underline {
+        margin-left: 5px;
+        font-family: 'Athiti', sans-serif;
         font-weight: bold;
+        text-decoration: underline;
         font-size: 120%;
       }
-            .font-face {
-        font-family: 'Itim', cursive;
-        font-size: 120%;
+
+      .font-face-bold {
+        font-family: 'Athiti', sans-serif;
+        font-weight: bold;
+        /*font-size: 120%;*/
+      }
+
+      .font-face {
+        font-family: 'Athiti', sans-serif;
+        /*font-size: 120%;*/
+      }
+
+      .bg-color{
+        background-color: white;
       }
     </style>
 
     <form-control id="control" on-form-action="_tap" doc-key="{{document.key}}" doc-value="{{document.value}}">
-      <div class="description">
+      <div slot="description">
         <ol class="num"><b class="font-face-bold"><u>ความหมาย</u></b>
           <li class="font-face">ความฉลาดทางอารมณ์ของเด็กเป็นความพร้อมทางอารมณ์ที่จะอยู่ร่วมกับผู้อื่นด้อย่างราบรื่น โดยรู้จักอารมณ์ตนเองและผู้อื่น
             แสดงความเห็นใจหรือปลอบใจผู้อื่น อดทนและรอคอยได้ มีน้ำใจ รู้จักให้ รู้จักแบ่งปัน รู้ว่าทำผิด หรือยอมรับผิด พร้อมที่จะพัฒนาตนไปสู่ความสำเร็จ
@@ -109,43 +121,58 @@
           <li class="font-face">ก่อนและหลังประเมินครูควรจัดกิจกรรมส่งเสริมความฉลาดทางอารมณ์ เพื่อพัฒนาความฉลาดทางอารมณ์แก่เด็กอย่างต่อเนื่อง</li>
         </ul>
       </div>
-      <div class="formEntry">
-        <div>ดี</div>
-        <eq-teacher-choice no="1" value="{{document.value.form_value.q1}}" label="รู้จักให้กำลังใจผู้อื่น">
+      <div slot="formEntry" class="bg-color">
+        <div class="font-face-underline">ดี</div>
+        <eq-teacher-choice value="{{document.value.form_value.q1}}"
+          label="1. รู้จักให้กำลังใจผู้อื่น">
         </eq-teacher-choice>
-        <eq-teacher-choice no="2" value="{{document.value.form_value.q2}}" label="รู้จักรับฟังความคิดเห็นของผู้อื่น">
+        <eq-teacher-choice value="{{document.value.form_value.q2}}"
+          label="2. รู้จักรับฟังความคิดเห็นของผู้อื่น">
         </eq-teacher-choice>
-        <eq-teacher-choice no="3" value="{{document.value.form_value.q3}}" label="ชอบแกล้งเพื่อน">
+        <eq-teacher-choice value="{{document.value.form_value.q3}}"
+          label="3. ชอบแกล้งเพื่อน">
         </eq-teacher-choice>
-        <eq-teacher-choice no="4" value="{{document.value.form_value.q4}}" label="ยอมรับเมื่อทำผิด เช่น ขอโทษหรือยกมือไหว้">
+        <eq-teacher-choice value="{{document.value.form_value.q4}}"
+          label="4. ยอมรับเมื่อทำผิด เช่น ขอโทษหรือยกมือไหว้">
         </eq-teacher-choice>
-        <eq-teacher-choice no="5" value="{{document.value.form_value.q5}}" label="ทักทายหรือทำความรู้จักกับเพื่อนใหม่ ">
+        <eq-teacher-choice value="{{document.value.form_value.q5}}"
+          label="5. ทักทายหรือทำความรู้จักกับเพื่อนใหม่ ">
         </eq-teacher-choice>
-        <div>เก่ง</div>
-        <eq-teacher-choice no="1" value="{{document.value.form_value.q6}}" label="มีความตั้งใจเมื่อทำสิ่งต่างๆ ที่สนใจ">
+        <div class="font-face-underline">เก่ง</div>
+        <eq-teacher-choice value="{{document.value.form_value.q6}}"
+          label="1. มีความตั้งใจเมื่อทำสิ่งต่างๆ ที่สนใจ">
         </eq-teacher-choice>
-        <eq-teacher-choice no="2" value="{{document.value.form_value.q7}}" label="พยายามทำงานที่ยากให้สำเร็จได้ด้วยตนเอง เช่น การบ้าน งานฝีมือ">
+        <eq-teacher-choice value="{{document.value.form_value.q7}}"
+          label="2. พยายามทำงานที่ยากให้สำเร็จได้ด้วยตนเอง เช่น การบ้าน งานฝีมือ">
         </eq-teacher-choice>
-        <eq-teacher-choice no="3" value="{{document.value.form_value.q8}}" label="ท้อใจหรือล้มเลิกความตั้งใจเมื่อทำงานไม่สำเร็จ หรือเมื่อมีปัญหา">
+        <eq-teacher-choice value="{{document.value.form_value.q8}}"
+          label="3. ท้อใจหรือล้มเลิกความตั้งใจเมื่อทำงานไม่สำเร็จ หรือเมื่อมีปัญหา">
         </eq-teacher-choice>
-        <eq-teacher-choice no="4" value="{{document.value.form_value.q9}}" label="รู้จักรอคอยเวลาที่เหมาะสมในการแก้ปัญหา เช่นเมื่อไม่ได้ในสิ่งที่ต้องการ">
+        <eq-teacher-choice value="{{document.value.form_value.q9}}"
+          label="4. รู้จักรอคอยเวลาที่เหมาะสมในการแก้ปัญหา เช่นเมื่อไม่ได้ในสิ่งที่ต้องการ">
         </eq-teacher-choice>
-        <eq-teacher-choice no="5" value="{{document.value.form_value.q10}}" label="เมื่อมีปัญหา ชอบคิดหาวิธีแก้ปัญหาหลายๆทาง">
+        <eq-teacher-choice value="{{document.value.form_value.q10}}"
+          label="5. เมื่อมีปัญหา ชอบคิดหาวิธีแก้ปัญหาหลายๆทาง">
         </eq-teacher-choice>
-        <div>สุข</div>
-        <eq-teacher-choice no="1" value="{{document.value.form_value.q11}}" label="ภูมิใจในจุดดีของตนเอง">
+        <div class="font-face-underline">สุข</div>
+        <eq-teacher-choice value="{{document.value.form_value.q11}}"
+          label="1. ภูมิใจในจุดดีของตนเอง">
         </eq-teacher-choice>
-        <eq-teacher-choice no="2" value="{{document.value.form_value.q12}}" label="มีอารมณ์ขัน">
+        <eq-teacher-choice value="{{document.value.form_value.q12}}"
+          label="2. มีอารมณ์ขัน">
         </eq-teacher-choice>
-        <eq-teacher-choice no="3" value="{{document.value.form_value.q13}}" label="ทำกิจกรรมสร้างสุขให้ตนเองได้อย่างเหมาะสม">
+        <eq-teacher-choice value="{{document.value.form_value.q13}}"
+          label="3. ทำกิจกรรมสร้างสุขให้ตนเองได้อย่างเหมาะสม">
         </eq-teacher-choice>
-        <eq-teacher-choice no="4" value="{{document.value.form_value.q14}}" label="มีวิธีผ่อนคลายความเครียดด้วยตนเอง เช่นอ่านหนังสือ ดูหนัง ฟังเพลง เล่นสนุก วาดรูป พูดคุยกับเพื่อน">
+        <eq-teacher-choice value="{{document.value.form_value.q14}}"
+          label="4. มีวิธีผ่อนคลายความเครียดด้วยตนเอง เช่นอ่านหนังสือ ดูหนัง ฟังเพลง เล่นสนุก วาดรูป พูดคุยกับเพื่อน">
         </eq-teacher-choice>
-        <eq-teacher-choice no="5" value="{{document.value.form_value.q15}}" label="เป็นเด็กอารมณ์ดี">
+        <eq-teacher-choice value="{{document.value.form_value.q15}}"
+          label="5. เป็นเด็กอารมณ์ดี">
         </eq-teacher-choice>
       </div>
 
-      <div class="evaluation">
+      <div slot="evaluation">
         <div class="layout vertical">
           <div class="layout horizontal">
             <div class="check-icon">
