@@ -37,24 +37,27 @@
         height:60px;
       }
       :host {
-        @apply --layout-vertical;
+        @apply (--layout-vertical);
       }  
       .line-style {
         border-bottom: 1px solid #ddd;
         height: 30px;
         padding: 10px;
+      }
+      .content{
+        background:white;
       }  
       .form_group {
-        @apply --paper-font-subhead;
+        @apply (--paper-font-subhead);
         padding: 10px;
         background: var(--paper-grey-100);
       }
       .container {
-        @apply --layout-horizontal;
-        @apply --layout-center-justified;
+        @apply (--layout-horizontal);
+        @apply (--layout-center-justified);
       }
       .form_group {
-        @apply --paper-font-subhead;
+        @apply (--paper-font-subhead);
         padding: 10px;
         background: var(--paper-grey-100);
       }
@@ -63,7 +66,7 @@
         font-size: 25px;
       }
       .font-face {
-         @apply --paper-font-subhead;
+         @apply (--paper-font-subhead);
         font-family: 'Athiti', sans-serif;
         font-size: 120%;
       }
@@ -75,7 +78,7 @@
 
       app-toolbar {
         /*background-color: var(--paper-red-500);*/
-        background-color: #cd333f;
+        background-color: #e65540;
         color: white; 
       }    
     </style>
@@ -118,7 +121,7 @@
     </div>
 
     <template is="dom-repeat" items="[[list]]">
-      <div class="layout horizontal">
+      <div class="layout horizontal content">
           <div class="flex-6 font-face-body line-style">{{_formName(item.cid)}}</div>
           <div class="flex-2 font-face-body line-style">{{_formName(item.content)}}</div>
           <div class="flex-2 font-face-body line-style">{{item.result}}</div>
