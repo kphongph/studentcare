@@ -7,12 +7,15 @@
     <title>studentcare-components demo</title>
 
     <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
     <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
     <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
     <!-- <link rel="import" href="../test-report.html"> -->
     <!-- <link rel="import" href="../report-class.html"> -->
     <link rel="import" href="../report-host.html">
+    <link rel="import" href="../report-class.html">
     <link rel="import" href="../report-student.html">
+    <link rel="import" href="../test-report.html">
 
     <!-- main document  include the module you need in a custom-style element -->
   <style is="custom-style" include="iron-flex"></style>
@@ -23,16 +26,10 @@
     </style>
   </head>
   <body>
-    <script src="../../webcomponentsjs/webcomponents-lite.min.js"></script>
-  
-     <demo-snippet>
-      <template is="dom-bind">
-          <!-- <report-student cid="1709800564651" year="2016"></report-student> -->
-        <!-- <report-class hostid="1071020101" level="ประถมศึกษาปีที่ 1" ></report-class> -->
-        <report-host hostid="1071020101"></report-host>
-        <!-- <test-report hostid="1071020101" level="ประถมศึกษาปีที่ 1" room="1"></test-report> -->
-        
-      </template>
-    </demo-snippet>
+    <!-- <script src="../../webcomponentsjs/webcomponents-lite.min.js"></script> -->
+    <report-student cid="1709800564651" year="2016"></report-student>
+    <!-- <report-class hostid="1071020101" level="ประถมศึกษาปีที่ 1" ></report-class> -->
+    <!-- <report-host hostid="1071020101"></report-host> -->
+    <!-- <test-report hostid="1071020101" level="ประถมศึกษาปีที่ 1" room="1"></test-report> -->
   </body>
 </html>

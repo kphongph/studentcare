@@ -8,6 +8,8 @@
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
 <link rel="import" href="forms.html">
 
+<link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">
+
 <dom-module id="report-host">
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors">
@@ -18,6 +20,30 @@
       .container {
         @apply --layout-horizontal;
         @apply --layout-center-justified;
+      }
+      .form_group {
+        @apply --paper-font-subhead;
+        padding: 10px;
+        background: var(--paper-grey-100);
+      }
+      .header {
+        font-family: 'Athiti', sans-serif;
+        font-size: 25px;
+      }
+      .font-face {
+         @apply --paper-font-subhead;
+        font-family: 'Athiti', sans-serif;
+        font-size: 18px;
+      }
+      .line-style {
+        border-bottom: 1px solid #ddd;
+        height: 30px;
+        padding: 10px;
+      }
+      app-toolbar {
+        /*background-color: var(--paper-red-500);*/
+        background-color: #cd333f;
+        color: white; 
       }
     </style>
 
@@ -33,24 +59,24 @@
       on-response="handleResponse">
     </iron-ajax>
 
-    <div class="container"> 
-      <h3>รายงานโรงเรียน {{hostid}}</h3>
-    </div>
-    <div class="container">
-      <div>จำนวน {{total}} คน   ข้อมูล ณ วันที่ {{ts}}</div>
-    </div>
+    <app-toolbar>
+        <div class="header">รายงานโรงเรียน {{hostid}} &nbsp; &nbsp;</div>
+        <span class="header">จำนวน {{total}} คน ข้อมูล ณ วันที่ {{ts}}</span>
+    </app-toolbar>
+
     <div class="layout horizontal">
-      <div class="flex-6">แบบประเมิน</div>
-      <div class="flex-2">กำลังดำเนินการ</div>
-      <div class="flex-2">เรียบร้อย</div>
-      <div class="flex-2">รวม</div>
-    </div>
+        <div class="flex-6 font-face form_group">แบบประเมิน</div>
+        <div class="flex-2 font-face form_group">กำลังดำเนินการ</div>
+        <div class="flex-2 font-face form_group">เรียบร้อย</div>
+        <div class="flex-2 font-face form_group">รวม</div>
+      </div>
+
     <template is="dom-repeat" items="[[list]]">
       <div class="layout horizontal">
-          <div class="flex-6">{{_formName(item.type)}}</div>
-          <div class="flex-2">{{item.content.working}}</div>
-          <div class="flex-2">{{item.content.done}}</div>
-          <div class="flex-2">{{item.content.total}}</div>
+          <div class="flex-6 font-face line-style">{{_formName(item.type)}}</div>
+          <div class="flex-2 font-face line-style">{{item.content.working}}</div>
+          <div class="flex-2 font-face line-style">{{item.content.done}}</div>
+          <div class="flex-2 font-face line-style">{{item.content.total}}</div>
       </div>
     </template>
   </template>
@@ -123,7 +149,7 @@
         var ts;
         for(var key in doc.value) {
           if(key == 'ts') {
-            ts = new Date(doc.value[key]).toUTCString();
+            ts = new Date(doc.value[key]).toLocaleString('th');
             continue;
           }
           var cid = doc.value[key];
