@@ -1,0 +1,215 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../iron-pages/iron-pages.html">
+<link rel="import" href="../app-layout/app-layout.html">
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../paper-material/paper-material.html">
+<link rel="import" href="student-room.html">
+<link rel="import" href="student-form.html">
+
+<link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">
+
+<dom-module id="report-student">
+  <template>
+    <style include="iron-flex iron-flex-alignment iron-flex-factors">
+      /* ---font---- */
+      .font-face-big {
+        font-family: 'Athiti', sans-serif;
+        font-size: 120%;
+        text-decoration: underline;
+      }
+      .font-header {
+        font-family: 'Athiti', sans-serif;
+        font-size: 120%;
+        font-weight: bold;
+      }
+      .font-face-big-bold {
+        font-family: 'Athiti', sans-serif;
+        font-size: 120%;
+        font-weight: bold;
+      }
+      .font-face-body {
+        font-family: 'Athiti', sans-serif;
+        font-size: 120%;
+      }
+      .student-info {
+        padding: 10px;
+        height:60px;
+      }
+      :host {
+        @apply --layout-vertical;
+      }  
+      .line-style {
+        border-bottom: 1px solid #ddd;
+        height: 30px;
+        padding: 10px;
+      }  
+      .form_group {
+        @apply --paper-font-subhead;
+        padding: 10px;
+        background: var(--paper-grey-100);
+      }
+      .container {
+        @apply --layout-horizontal;
+        @apply --layout-center-justified;
+      }
+      .form_group {
+        @apply --paper-font-subhead;
+        padding: 10px;
+        background: var(--paper-grey-100);
+      }
+      .header {
+        font-family: 'Athiti', sans-serif;
+        font-size: 25px;
+      }
+      .font-face {
+         @apply --paper-font-subhead;
+        font-family: 'Athiti', sans-serif;
+        font-size: 120%;
+      }
+      .line-style {
+        border-bottom: 1px solid #ddd;
+        height: 30px;
+        padding: 10px;
+      }
+
+      app-toolbar {
+        /*background-color: var(--paper-red-500);*/
+        background-color: #cd333f;
+        color: white; 
+      }    
+    </style>
+    
+    <app-localstorage-document key="jwtToken" data="{{jwtToken}}">
+    </app-localstorage-document>
+      
+    <iron-ajax 
+      id="listAjax" 
+      method="POST" 
+      url="https://maas.nuqlis.com:8000/v2/obec/students_care/query" 
+      content-type="application/json"
+      handle-as ="json"
+      body = '{"query":{"student.cid":"{{cid}}","dmc.year":"{{year}}"}}' 
+      on-response="handleResponse">
+    </iron-ajax>
+    <app-toolbar>
+      <div class="font-header">รายงานนักเรียน</div>
+    </app-toolbar>
+    
+    <div class="student-info">
+      <span class="font-face-big-bold"> เลขประจำตัวประชาชน  &nbsp;&nbsp;</span>
+      <span class="font-face-big">{{cid}}</span>
+      <span class="font-face-big-bold">&nbsp;&nbsp;&nbsp;ชื่อ - นามสกุล &nbsp;&nbsp;</span>
+      <span class="font-face-big">{{sname}}</span></br>
+      <span class="font-face-big-bold">โรงเรียน &nbsp;&nbsp;</span>
+      <span class="font-face-big">{{shost}}</span>
+      <span class="font-face-big-bold">&nbsp;&nbsp;&nbsp;ชั้น &nbsp;&nbsp;</span>
+      <span class="font-face-big">{{sclass}}</span>
+      <span class="font-face-big-bold">&nbsp;&nbsp;&nbsp;ห้อง &nbsp;&nbsp;</span>
+      <span class="font-face-big">{{sroom}}</span>
+      <span class="font-face-big-bold">&nbsp;&nbsp;&nbsp;ปีการศึกษา &nbsp;&nbsp;</span>
+      <span class="font-face-big">{{year}}</span>
+    </div>
+
+    <div class="layout horizontal">
+        <div class="flex-6 font-face form_group">แบบประเมิน</div>
+        <div class="flex-2 font-face form_group">สถานะ</div>
+        <div class="flex-2 font-face form_group">ผลการประเมิน</div>
+    </div>
+
+    <template is="dom-repeat" items="[[list]]">
+      <div class="layout horizontal">
+          <div class="flex-6 font-face-body line-style">{{_formName(item.cid)}}</div>
+          <div class="flex-2 font-face-body line-style">{{_formName(item.content)}}</div>
+          <div class="flex-2 font-face-body line-style">{{item.result}}</div>
+      </div>
+    </template>
+  </template>
+  
+  <script>
+    Polymer({
+      is: "report-student",
+      properties:{
+        cid: {
+          type:String,
+          reflectToAttribute:true
+        },
+        year:{
+          type:String,
+          notify:true
+        },
+        list: {
+          type:Array,
+          notify:true,
+          value:function() {
+              return [];
+          }
+        },
+        info: {
+          type:Array,
+          notify:true,
+          value:function() {
+              return [];
+          }
+        }   
+      },
+      observers:[
+        '_execute(jwtToken)'
+      ],
+      _formName:function(form) {
+        var obj = {   
+          'dl2-form': 'แบบประเมินพฤติกรรมนักเรียน ฉบับครูประเมินนักเรียน',
+          'dl3-form': 'แบบประเมินพฤติกรรมนักเรียน ฉบับนักเรียนประเมินตนเอง',
+          'disability-visual-form': 'แบบคัดกรองบุคคลที่มีความบกพร่องทางการเห็น',
+          'eq-teacher-form': 'แบบประเมินความฉลาดทางอารมณ์เด็กอายุ 6-11 ปี (ฉบับครูประเมินนักเรียน)', 
+          'eq-student-form': 'แบบประเมิน ความฉลาดทางอารมณ์สำหรับวัยรุ่น (อายุ 12-17 ปี) (ฉบับนักเรียนประเมินตนเอง)',    
+          'disability-hearing-form':  'แบบคัดกรองบุคคลที่มีความบกพร่องทางการได้ยิน' ,
+          'disability-intelligence-form':  'แบบคัดกรองบุคคลที่มีความบกพร่องทางสติปัญญา' ,
+          'disability-health-form':  'แบบคัดกรองบุคคลที่มีความบกพร่องทางร่างกาย หรือการเคลื่อนไหว หรือสุขภาพ' , 
+          'disability-learning-elementary-form':  'แบบคัดกรองบุคคลที่มีความบกพร่องทางการเรียนรู้ (ประถมศึกษา)' , 
+          'disability-learning-secondary-form':  'แบบคัดกรองบุคคลที่มีความบกพร่องทางการเรียนรู้ (มัธยมศึกษา)' ,
+          'disability-communication-form':  'แบบคัดกรองบุคคลที่มีความบกพร่องทางการพูดและภาษา', 
+          'disability-behavior-form':  'แบบคัดกรองบุคคลที่มีความบกพร่องทางพฤติกรรม หรืออารมณ์', 
+          'disability-autistic-form':  'แบบคัดกรองบุคคลออทิสติก' ,
+          'snap-form': 'แบบประเมินพฤติกรรม SNAP-IV (Shot Form)' , 
+          'st5-form':  'แบบประเมินความเครียดกรมสุขภาพจิต ( ST – 5 ) รายบุคคล' , 
+          'cdi-form':  'แบบคัดกรองภาวะซึมเศร้าในเด็ก Children’s Depression Inventory (CDI) ฉบับภาษาไทย' , 
+          'suicide8q-form':  'แบบประเมินการฆ่าตัวตาย 8 คำถาม (8Q) ใช้ประเมินร่วมกับแบบประเมินโรคซึมเศร้า 9 คำถาม' , 
+          'game-form': 'แบบทดสอบการติดเกม ฉบับเด็กและวัยรุ่น (Game Addiction Screening Test – GAST Child and Adolescent Version)', 
+          'screening-elementary-form':'แบบคัดกรองนักเรียนรายบุคคล ระดับประถม',
+          'new' : 'ยังไม่ได้ทำ', 'working':'กำลังทำอยู่', 'done': 'ทำเสร็จแล้ว'
+        }     
+        var result = obj[form]?obj[form]:form;
+        return result;
+      },
+      _execute(token) {
+        if(token == null || !token.token) return;  
+        this.$.listAjax.headers = {
+          'Authorization':'JWT '+token.token
+        }
+        this.$.listAjax.generateRequest();
+      },
+      handleResponse(e) {
+        var doc = e.detail.response;
+        var forms = [];
+        var sname = doc[0].student.name;
+        var shost = doc[0].dmc.host;
+        var sclass = doc[0].dmc.level;
+        var sroom = doc[0].dmc.room;
+        for(var key in doc) {
+          forms.push({
+            cid : doc[key].form_type,
+            content : doc[key].status,
+            result : "????"
+          });
+        }
+        this.set('list',forms); 
+        this.set('sname',sname);
+        this.set('shost',shost); 
+        this.set('sclass',sclass); 
+        this.set('sroom',sroom);          
+      }
+    });
+    
+  </script>
+</dom-module>
