@@ -4,21 +4,19 @@
 
 <dom-module id="studentcare-sdq-query">
  <template>
-
    <app-localstorage-document key="jwtToken" data="{{jwtToken}}">
    </app-localstorage-document>
 
    <iron-ajax 
      method="POST"
      id="query"
-     url="https://maas.nuqlis.com:9000/api/query/students_care/cid_year_type"
+     url="https://maas.nuqlis.com:8000/v2/obec/students_care/query"
      content-type="application/json"
      handle-as="json"
      headers$='{"Authorization":"JWT {{jwtToken.token}}"}'
-     body='{"match":["{{cid}}","{{year}}","{{Lavel}}"],"include_doc":true}'
+     body$='{"query":{"student.cid":"{{cid}}","dmc.year":"{{year}}"}'
      on-response="handleResponse">
    </iron-ajax>
-
  </template>
  <script>
    Polymer({
@@ -43,16 +41,21 @@
        }
      },
      observers:[
-       'executeQuery(host,cid,jwtToken.token)'
+       '_executeQuery(jwtToken)'
      ],
-     executeQuery:function(host,cid,token) {
-       this.$.query.generateRequest();
-     },
+     _executeQuery(token) {
+      if(token == null || !token.token) return;  
+      this.$.query.headers = {
+        'Authorization':'JWT '+token.token
+      }
+      this.$.query.generateRequest();
+    },
      handleResponse:function(e) {
-       var res = e.detail.response;
-       if(res.length == 0) return;
-       var form = res[0].value.doc;
-	   this.set('document',form);
+      var res = e.detail.response;
+      if(res.length == 0) return;
+      var form = res[0].value.doc;
+	    this.set('document',form);
+      console.log("d");
      },
      __computedIsReport(document) {
 	    console.log(document);

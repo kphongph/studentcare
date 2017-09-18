@@ -1,17 +1,22 @@
 <link rel="import" href="../../polymer/polymer.html">
 <link rel="import" href="../../paper-material/paper-material.html">
 <link rel="import" href="../../iron-ajax/iron-ajax.html">
-<link rel="import" href="../../iron-image/iron-image.html">
 <link rel="import" href="../screening-form/homevisit-query.html">
 <link rel="import" href="studentcare-sdq-query.html">
 <link rel="import" href="studentcare-eq-query.html">
 <link rel="import" href="studentcare-screening-query.html">
+<link rel="import" href="../../iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../app-layout/app-layout.html">
+<link rel="import" href="../../google-chart/google-chart.html">
+<link rel="import" href="../../paper-styles/color.html">
+<link rel="import" href="../../paper-styles/typography.html">
+<link rel="import" href="../../paper-icon-button/paper-icon-button.html"
 
 <link href="https://fonts.googleapis.com/css?family=Itim&amp;subset=thai" rel="stylesheet">
 
 <dom-module id="studentcare-report">
   <template>
-    <style>
+    <style include="iron-flex iron-flex-alignment iron-flex-factors">
       /* ---font---- */
       .font-face-big {
         font-family: 'Itim', cursive;
@@ -52,16 +57,16 @@
       }
 
       .center-layout{
-        @apply(--layout-center);
-        @apply(--layout);
+         @apply --layout-center;
+         @apply --layout;
       }
 
       .horizontal {
-        @apply(--layout-horizontal);
+         @apply --layout-horizontal;
       }
       
       .vertical {
-        @apply(--layout-vertical);
+         @apply --layout-vertical;
       }
         
       .header {
@@ -101,16 +106,16 @@
       }
 
       .flex-2 {
-        @apply(--layout-flex-2); 
+         @apply --layout-flex-2; 
       }
       .flex-5 {
-        @apply(--layout-flex-5); 
+         @apply --layout-flex-5; 
       }
       .flex-8 {
-        @apply(--layout-flex-8); 
+         @apply --layout-flex-8; 
       }
       .flex-10 {
-        @apply(--layout-flex-10); 
+         @apply --layout-flex-10; 
       }    
     </style>
 
@@ -139,7 +144,7 @@
        cid="{{cid}}" 
        document="{{homevisit}}">
     </homevisit-query>
-    
+   
     <template is="dom-if" if="{{hasPlan}}">
       <!-- แสดงรายละเอียด -->    
       <div class="student-info">
@@ -336,7 +341,7 @@
       },
       ___eqResult(eq){
         var chkEQ = this.eq.form_result.score;
-        //console.log(chkEQ);
+        console.log(chkEQ);
         var eq_score=[];
         if(chkEQ > 56){
           eq_score.push({"emo":'../images/green.png',"text":'ความฉลาดทางอารมณ์สูงกว่าปกติ'});
@@ -345,13 +350,13 @@
         }else{
           eq_score.push({"emo":'../images/red.png',"text":'ความฉลาดทางอารมณ์ต่ำกว่าปกติ'});
         }
-        //console.log(eq_score);
+        console.log(eq_score);
         this.set('hasPlan',true);
         this.set('hasEQ',true);
         return eq_score;
       },
       ___result(screening){
-        //console.log(this.screening);
+        console.log(this.screening);
         var chk_result = screening.form_result.q2.result;
         var screen_result = [];
         if(chk_result == "มีปัญหา"){
@@ -361,11 +366,11 @@
           screen_result.push({"name":screening.form_result.q2.name,"img":'../images/yellow.png'});
           this.set('hasStudy',true);
         }else{
-          //screen_result.push({"name":screening.form_result.q2.name,"img":'../images/green.png'});
+          screen_result.push({"name":screening.form_result.q2.name,"img":'../images/green.png'});
           this.set('hasStudy',false);
         }
-        //console.log(screen_result);
-        //this.set('hasStudy',true);
+        console.log(screen_result);
+        this.set('hasStudy',true);
         return screen_result;
       },
       ___sdqResult(report) {
@@ -441,11 +446,11 @@
         }
         data.push({"label":tmp[i].label,"result":img,"chk":chk});
 		  }
-      //console.log(data);
+      console.log(data);
       value["head"]=head;
       value["data"]=data;
       value["summary"]=summary;
-      //console.log(value);
+      console.log(value);
       this.set('hasPlan',true);
       this.set('hasSDQ',true);
 		  return value;
@@ -485,7 +490,7 @@
             });   
 		    }
         score["homevisit"] = result_homevisit;
-        //console.log(score);
+        console.log(score);
         this.set('hasPersonal',true);
         return score;
       }

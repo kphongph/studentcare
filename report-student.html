@@ -1,0 +1,380 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../iron-ajax/iron-ajax.html">
+<link rel="import" href="../app-layout/app-layout.html">
+<link rel="import" href="../google-chart/google-chart.html">
+<link rel="import" href="../paper-styles/color.html">
+<link rel="import" href="../paper-styles/typography.html">
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="forms.html">
+
+<link href="https://fonts.googleapis.com/css?family=Itim&amp;subset=thai" rel="stylesheet">
+
+<dom-module id="report-student">
+  <template>
+    <style include="iron-flex iron-flex-alignment iron-flex-factors">
+      /* ---font---- */
+      .font-face-big {
+        font-family: 'Itim', cursive;
+        font-size: 120%;
+        text-decoration: underline;
+      }
+
+      .font-face-big-bold {
+        font-family: 'Itim', cursive;
+        font-size: 120%;
+        font-weight: bold;
+      }
+
+      .font-face {
+        font-family: 'Itim', cursive;
+        font-size: 120%;
+      }
+
+      .student-info {
+        padding: 10px;
+        height:40px;
+      }
+
+      /* ---image---- */
+      #example-full-width-container {
+        width: 40px;
+      }
+
+      #example-full-width {
+        width: 100%;
+        --iron-image-width: 100%;
+      }
+
+      /* ---table---- */
+      :host {
+        display: block;
+        box-sizing: border-box;
+      }
+
+      .center-layout{
+         @apply --layout-center;
+         @apply --layout;
+      }
+
+      .horizontal {
+         @apply --layout-horizontal;
+      }
+      
+      .vertical {
+         @apply --layout-vertical;
+      }
+        
+      .header {
+        background-color: #1FCEE6;
+        text-align:left;
+        color: #fff;
+        font-family: 'Itim', cursive;
+        font-size: 16px;
+        height:60px;
+      }
+
+      .caption {
+        text-align:left;
+        color: #000;
+        opacity: 0.87;
+        height:48px;
+        border-bottom-width:1px;
+        border-bottom-style:solid;
+        border-bottom-color: var(--divider-color);
+      }
+
+      .content {
+        text-align:left;
+        color: #000;
+        font-family: 'Itim', cursive;
+        font-size: 14px;
+        height:50px;
+        opacity: 0.70;
+      }
+
+      .margin-left-style{
+        margin-left:24px;
+      }
+
+      .margin-right-style{
+        margin-right:24px;
+      }
+
+      .flex-2 {
+         @apply --layout-flex-2; 
+      }
+      .flex-5 {
+         @apply --layout-flex-5; 
+      }
+      .flex-8 {
+         @apply --layout-flex-8; 
+      }
+      .flex-10 {
+         @apply --layout-flex-10; 
+      }    
+    </style>
+    
+    <app-localstorage-document key="jwtToken" data="{{jwtToken}}">
+    </app-localstorage-document>
+      
+    <iron-ajax 
+      id="listAjax" 
+      method="POST" 
+      url="https://maas.nuqlis.com:8000/v2/obec/students_care/query" 
+      content-type="application/json"
+      handle-as ="json"
+      body = '{"query":{"student.cid":"{{cid}}","dmc.year":"{{year}}"}}' 
+      on-response="handleResponse">
+    </iron-ajax>
+
+    <div class="container"> 
+      <h3>รายงานนักเรียน</h3>
+    </div>
+    
+    <div class="student-info">
+      <span class="font-face-big-bold"> เลขประจำตัวประชาชน  &nbsp;&nbsp;</span>
+      <span class="font-face-big">{{cid}}</span>
+      <span class="font-face-big-bold">&nbsp;&nbsp;&nbsp;ชื่อ - นามสกุล &nbsp;&nbsp;</span>
+      <span class="font-face-big">{{name}}</span>
+    </div>
+
+    <paper-material>
+      <div class="vertical">
+        <div class="horizontal header center-layout">
+          <div class="margin-left-style font-face">แบบคัดกรอง SDQ</div>
+        </div>
+        <!-- ถ้ามีผลการประเมิน SDQ --> 
+        <template is="dom-if" if="{{hasSDQ}}"> 
+          <!-- <div class="horizontal caption center-layout">
+            <div class="flex-10 center-layout margin-left-style font-face-big-bold">ด้าน</div>
+            <div class="flex-5 center-layout margin-left-style font-face-big-bold">ผลการประเมิน</div>
+          </div> -->
+          <!-- head -->
+          <div class="horizontal content center-layout">
+            <div class="flex-10 center-layout margin-left-style font-face">{{sdq.head.0.label}}</div>
+            <div class="center-layout margin-right-style font-face">&nbsp;</div>
+            <div class="flex-5 center-layout margin-left-style font-face">
+              <template is="dom-if" if="{{!sdq.head.0.chk}}">
+                {{sdq.head.0.result}}
+              </template>
+              <div id="example-full-width-container">
+                <template is="dom-if" if="{{sdq.head.0.chk}}">
+                  <iron-image id="example-full-width" src="{{sdq.head.0.result}}"></iron-image>
+                </template>
+              </div>
+            </div>
+          </div>
+          <!-- data -->
+          <template is="dom-repeat" items="{{sdq.data}}" as="data">
+              <div class="horizontal content center-layout">
+                <div class="center-layout margin-right-style font-face">&nbsp;</div>
+                <div class="flex-10 center-layout margin-left-style font-face">- {{data.label}}</div>
+                <div class="flex-5 center-layout margin-left-style font-face">
+                  <template is="dom-if" if="{{!data.chk}}">
+                    {{data.result}}
+                  </template>
+                  <div id="example-full-width-container">
+                    <template is="dom-if" if="{{data.chk}}">
+                      <iron-image id="example-full-width" src="{{data.result}}"></iron-image>
+                    </template>
+                  </div>
+                </div>
+              </div>
+          </template>
+          <!-- summary -->
+              <div class="horizontal content center-layout">
+                <div class="flex-10 center-layout margin-left-style font-face">{{sdq.summary.0.label}}</div>
+                <div class="center-layout margin-right-style font-face">&nbsp;</div>
+                <div class="flex-5 center-layout margin-left-style font-face">
+                  <template is="dom-if" if="{{!sdq.summary.0.chk}}">
+                    {{sdq.summary.0.result}}
+                  </template>
+                  <div id="example-full-width-container">
+                    <template is="dom-if" if="{{sdq.summary.0.chk}}">
+                      <iron-image id="example-full-width" src="{{sdq.summary.0.result}}"></iron-image>
+                    </template>
+                  </div>
+                </div>
+              </div>
+        </template>
+         <!-- ถ้าไม่มีผลการประเมิน SDQ --> 
+        <template is="dom-if" if="{{!hasSDQ}}">
+           <div class="content center-layout margin-left-style font-face">ยังไม่มีการประเมิน</div>
+        </template>
+      </div>
+
+      <div class="vertical">
+        <div class="horizontal header center-layout">
+            <div class="margin-left-style font-face">แบบคัดกรองนักเรียนรายบุคคล</div>
+        </div>
+        <template is="dom-if" if="{{hasPersonal}}">
+          <!--<div class="horizontal caption center-layout">
+            <div class="flex-10 center-layout margin-left-style font-face-big-bold">ด้าน</div>
+            <div class="flex-5 center-layout margin-left-style font-face-big-bold">ผลการประเมิน</div>
+          </div>-->
+        <div class="horizontal content center-layout">
+            <!--<div class="flex-10 center-layout margin-left-style font-face">{{result.0.name}}</div>-->
+            <div class="flex-10 center-layout margin-left-style font-face">ด้านการเรียน</div>
+            <!-- ถ้ามีผลการประเมินด้านการเรียน -->
+              <template is="dom-if" if="{{hasStudy}}">
+                <div class="center-layout margin-right-style font-face">&nbsp;</div>
+                <div class="flex-5 center-layout margin-left-style font-face">
+                <div id="example-full-width-container">
+                  <iron-image id="example-full-width" src="{{result.0.img}}"></iron-image>
+                </div>
+                </div>
+              </template>
+            <!-- ถ้าไม่มีผลการประเมินด้านการเรียน -->
+              <template is="dom-if" if="{{!hasStudy}}">
+                <div class="flex-5 center-layout margin-left-style font-face">ยังไม่มีการประเมิน</div>
+              </template>
+          </div>
+          <!-- ถ้ามีผลการประเมินแบบคัดกรองรายบุคคล -->
+          <template is="dom-repeat" items="{{homevisitResult.homevisit}}" as="home">
+            <div class="horizontal content center-layout">
+              <div  class="flex-10 center-layout margin-left-style font-face">ด้าน{{home.text}}</div>
+              <div class="center-layout margin-right-style font-face">&nbsp;</div>
+              <div class="flex-5 center-layout margin-left-style font-face">
+                  <div id="example-full-width-container">
+                    <iron-image id="example-full-width" src="{{home.type}}"></iron-image>
+                  </div>
+              </div>
+            </div>
+          </template>
+        </template>
+        <!-- ถ้าไม่มีผลการประเมินแบบคัดกรองรายบุคคล --> 
+        <template is="dom-if" if="{{!hasPersonal}}">
+          <div class="content center-layout margin-left-style font-face">ยังไม่มีการประเมิน</div>
+        </template>
+      </div>
+
+      <div class="vertical">
+        <div class="horizontal header center-layout">
+            <div class="margin-left-style font-face">แบบคัดกรอง EQ</div>
+        </div>
+        <!-- ถ้ามีผลการประเมิน EQ --> 
+        <template is="dom-if" if="{{hasEQ}}">
+            <div class="horizontal content center-layout">
+              <div class="flex-10 center-layout margin-left-style font-face">ความฉลาดทางอารมณ์</div>
+              <div class="center-layout margin-right-style font-face">&nbsp;</div>
+              <div class="flex-5 center-layout margin-left-style font-face">
+                <div id="example-full-width-container">
+                  <iron-image id="example-full-width" src="{{eqResult.0.emo}}"></iron-image>
+                </div>
+              </div>
+            </div>
+        </template>
+        <!-- ถ้าไม่มีผลการประเมิน EQ --> 
+        <template is="dom-if" if="{{!hasEQ}}">
+           <div class="content center-layout margin-left-style font-face">ยังไม่มีการประเมิน</div>
+        </template>
+      </div>
+    </paper-material>
+    
+    <!-- <div class="layout horizontal">
+      <div class="flex-6">แบบประเมิน</div>
+      <div class="flex-2">กำลังดำเนินการ</div>
+      <div class="flex-2">เรียบร้อย</div>
+      <div class="flex-2">รวม</div>
+    </div>
+    <template is="dom-repeat" items="[[list]]">
+      <div class="layout horizontal">
+          <div class="flex-6">{{_formName(item.type)}}</div>
+          <div class="flex-2">{{item.content.working}}</div>
+          <div class="flex-2">{{item.content.done}}</div>
+          <div class="flex-2">{{item.content.total}}</div>
+      </div>
+    </template> -->
+  </template>
+  
+  <script>
+    Polymer({
+      is: "report-student",
+      properties:{
+        hostid:{
+          type:String,
+          notify:true
+        },
+        level:{
+          type:String,
+          notify:true
+        },
+        list: {
+          type:Array,
+          notify:true,
+          value:function() {
+              return [];
+          }
+        }   
+      },
+      observers:[
+        '_execute(jwtToken)'
+      ],
+      _formName:function(form) {
+        var obj = {   
+          'dl2-form': 'แบบประเมินพฤติกรรมนักเรียน ฉบับครูประเมินนักเรียน',
+          'dl3-form': 'แบบประเมินพฤติกรรมนักเรียน ฉบับนักเรียนประเมินตนเอง',
+          'disability-visual-form': 'แบบคัดกรองบุคคลที่มีความบกพร่องทางการเห็น',
+          'eq-teacher-form': 'แบบประเมินความฉลาดทางอารมณ์เด็กอายุ 6-11 ปี (ฉบับครูประเมินนักเรียน)', 
+          'eq-student-form': 'แบบประเมิน ความฉลาดทางอารมณ์สำหรับวัยรุ่น (อายุ 12-17 ปี) (ฉบับนักเรียนประเมินตนเอง)',    
+          'disability-hearing-form':  'แบบคัดกรองบุคคลที่มีความบกพร่องทางการได้ยิน' ,
+          'disability-intelligence-form':  'แบบคัดกรองบุคคลที่มีความบกพร่องทางสติปัญญา' ,
+          'disability-health-form':  'แบบคัดกรองบุคคลที่มีความบกพร่องทางร่างกาย หรือการเคลื่อนไหว หรือสุขภาพ' , 
+          'disability-learning-elementary-form':  'แบบคัดกรองบุคคลที่มีความบกพร่องทางการเรียนรู้ (ประถมศึกษา)' , 
+          'disability-learning-secondary-form':  'แบบคัดกรองบุคคลที่มีความบกพร่องทางการเรียนรู้ (มัธยมศึกษา)' ,
+          'disability-communication-form':  'แบบคัดกรองบุคคลที่มีความบกพร่องทางการพูดและภาษา', 
+          'disability-behavior-form':  'แบบคัดกรองบุคคลที่มีความบกพร่องทางพฤติกรรม หรืออารมณ์', 
+          'disability-autistic-form':  'แบบคัดกรองบุคคลออทิสติก' ,
+          'snap-form': 'แบบประเมินพฤติกรรม SNAP-IV (Shot Form)' , 
+          'st5-form':  'แบบประเมินความเครียดกรมสุขภาพจิต ( ST – 5 ) รายบุคคล' , 
+          'cdi-form':  'แบบคัดกรองภาวะซึมเศร้าในเด็ก Children’s Depression Inventory (CDI) ฉบับภาษาไทย' , 
+          'suicide8q-form':  'แบบประเมินการฆ่าตัวตาย 8 คำถาม (8Q) ใช้ประเมินร่วมกับแบบประเมินโรคซึมเศร้า 9 คำถาม' , 
+          'game-form': 'แบบทดสอบการติดเกม ฉบับเด็กและวัยรุ่น (Game Addiction Screening Test – GAST Child and Adolescent Version)', 
+          'screening-elementary-form':'แบบคัดกรองนักเรียนรายบุคคล ระดับประถม'
+        }     
+        var result = obj[form]?obj[form]:form;
+        return result;
+      },
+      _execute(token) {
+        if(token == null || !token.token) return;  
+        this.$.listAjax.headers = {
+          'Authorization':'JWT '+token.token
+        }
+        this.$.listAjax.generateRequest();
+      },
+      handleResponse(e) {
+        var doc = e.detail.response;
+        var forms = [];
+        var total = 0;
+        var _forms_dict = {};
+        var name = doc[0].student.name;
+
+        for(var key in doc) {
+          // console.log(doc[key]);
+          // if(key == 'ts') continue;
+          // var cid = doc.value[key];
+          total++;
+          // for(var form in cid) {
+          //   if(!_forms_dict[form]) {
+          //     _forms_dict[form] = {'new':0,'done':0,'working':0,'total':0};
+          //   }
+          //   _forms_dict[form][cid[form]]++;
+          //   _forms_dict[form]['total']++;
+          // }
+        }
+        // for(var key in _forms_dict) {
+        //   forms.push({'type':key,'content':{
+        //     'working':_forms_dict[key]['new'] + _forms_dict[key]['working'],
+        //     'done':_forms_dict[key]['done'],
+        //     'total':_forms_dict[key]['total']
+        //   }});
+        // }
+        // this.set('total',total);
+        // this.set('list',forms); 
+        this.set('name',name);                
+      }
+    });
+    
+  </script>
+</dom-module>

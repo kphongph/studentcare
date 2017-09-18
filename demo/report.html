@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>studentcare-components demo</title>
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <!-- <link rel="import" href="../test-report.html"> -->
+    <!-- <link rel="import" href="../report-class.html"> -->
+    <link rel="import" href="../report-host.html">
+    <link rel="import" href="../report-student.html">
+
+    <!-- main document  include the module you need in a custom-style element -->
+  <style is="custom-style" include="iron-flex"></style>
+  
+
+    <style is="custom-style" include="demo-pages-shared-styles">
+      
+    </style>
+  </head>
+  <body>
+    <script src="../../webcomponentsjs/webcomponents-lite.min.js"></script>
+  
+     <demo-snippet>
+      <template is="dom-bind">
+          <!-- <report-student cid="1709800564651" year="2016"></report-student> -->
+        <!-- <report-class hostid="1071020101" level="ประถมศึกษาปีที่ 1" ></report-class> -->
+        <report-host hostid="1071020101"></report-host>
+        <!-- <test-report hostid="1071020101" level="ประถมศึกษาปีที่ 1" room="1"></test-report> -->
+        
+      </template>
+    </demo-snippet>
+  </body>
+</html>
