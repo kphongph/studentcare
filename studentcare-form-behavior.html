@@ -23,7 +23,7 @@
     },
     _onFormAction : function(e) {
       if(e.detail.type == "save") {
-        this.document.value.status = "working";
+        this.set('document.value.status',"working");
         if(this._validate()) {
           var _result = this._evaluate();
           this.set('document.value.status',"done");
@@ -33,11 +33,11 @@
       }
 
       if(e.detail.type == "undo") {
-        this.document.value.status = "new";
+        this.set('document.value.status',"new");
         this._reset();
         e.target.$.control.save();
       }
-
+      /*
       if(e.detail.type == "process") {
         if(this._validate()) {
           var _result = this._evaluate();
@@ -46,6 +46,7 @@
           e.target.$.control.save();
         }
       }
+      */
     }
   }
 </script>
