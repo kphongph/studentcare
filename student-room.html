@@ -23,6 +23,11 @@
         /*สีเส้นระหว่างกล่องสีเส้นด้ารล่าง*/
       }
 
+      paper-item:hover{
+        cursor:hand;
+        cursor:pointer;
+      }
+
       paper-item-body {
         --paper-item-body-two-line-min-height: 48px;
         /*ความกว้างของกล่องชื่อเด็กแต่ละคน*/
@@ -57,8 +62,8 @@
        last-response="{{students}}"
        body$='{"query":{"class":"{{level}}","room":"{{room}}","year":{{year}},"hostid":"{{host}}"}}'>
     </iron-ajax>
-    <paper-listbox id="listbox" 
-      selected="{{student}}" 
+    <paper-listbox id="listbox"
+      selected="{{student}}"
       on-iron-select="_selected" attr-for-selected="name">
       <template is="dom-repeat" items="{{students}}">
         <paper-item name="{{item._id}}">
