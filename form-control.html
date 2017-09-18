@@ -3,6 +3,8 @@
 <link rel="import" href="../paper-tabs/paper-tabs.html">
 <link rel="import" href="../paper-tabs/paper-tab.html">
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../app-layout/app-layout.html">
 <link rel="import" href="../app-storage/app-localstorage/app-localstorage-document.html">
@@ -57,6 +59,11 @@
       .font-alert{
         font-family: 'Athiti', sans-serif;
         color: green;
+      }
+
+      .font-invalidate-alert{
+        font-family: 'Athiti', sans-serif;
+        color: red;
       }
 
       .font-face-big {
@@ -156,12 +163,14 @@
             <div class="font-face">ประเมิน</div>
           </paper-button>
           -->
-          <div class="font-alert"> {{message}}</div>
+          <div class="font-alert">{{message}}</div>
+          <div class="font-invalidate-alert">{{invalidateMessage.text}}</div>
+
         </div>
         <slot name="formEntry"></slot>
       </div>
       <div>
-        <slot select="evaluation"></slot>
+        <slot name="evaluation"></slot>
       </div>
     </iron-pages>
 
@@ -191,6 +200,9 @@
       observers:[
         '_getDocument(docKey,jwtToken.token)'
       ],
+      setInvalidateMessage:function(message){
+        this.set('invalidateMessage',message);
+      },
       _getDocument:function(key,token) {
         if(key == null || token == null) return;
         this.$.getAjax.generateRequest();
@@ -219,6 +231,7 @@
               this.set('message', 'เริ่มต้นแบบประเมินใหม่');
             }
           }
+          
           this.fire('update', { 'key': this.docKey, 'value': this.docValue });
           setTimeout(function () {
             self.set('message', '');
@@ -241,7 +254,7 @@
           var pClaim = KJUR.jws.JWS.readSafeJSONString(uClaim);
           self.notifyPath('docValue.status');
           self.docValue.user_id = pClaim.UserID;
-          self.docValue.ts = ts;
+          self.set('docValue.ts',ts);
           self.$.saveAjax.generateRequest();
         });
       }

@@ -102,9 +102,9 @@
   <script>
     Polymer({
       is: 'assignment-card',
-      listeners: {
-        'update':'_update',
-      },
+      //listeners: {
+      //  'update':'_update',
+      //},
       behaviors: [
         Polymer.AppLocalizeBehavior,
       ],
@@ -138,9 +138,12 @@
         this.$.dialog.open();
       },
       _update:function(e) {
+        // force update
+        this.set('data',{});
         this.set('data',e.detail.value);
       },
       _tap: function(e) {
+        console.log('tap');
         var ele = this._info.form.element;
         var doc = {'key':this.data._id,'value':this.data};
         ele.setAttribute('document',JSON.stringify(doc));
@@ -153,6 +156,7 @@
         this.loadResources(this.resolveUrl('../locales.json'));
       },
       __computeInfo:function(data) {
+        if(!data._id) return;
         var tmp = {};
         this._setHide(false);
         var status_dict = {
