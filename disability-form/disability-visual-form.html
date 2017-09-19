@@ -169,15 +169,16 @@
       _validate:function() {
         var eles =Polymer.dom(this.root)
          .querySelectorAll('disability-choice');
-         var checkLength = this.showNextSection?eles.length:10;
+         //var checkLength = this.showNextSection?eles.length:10;
          //console.log(checkLength);
-        /*for(var i=0;i<eles.length;i++) {
-          if(!eles[i].value)  {*/
-        for(var i=0;i<checkLength;i++) {
+        for(var i=0;i<eles.length;i++) {
+          if(!eles[i].value)  {
+        /*for(var i=0;i<checkLength;i++) {
           if(!eles[i].value)  {
             var str = eles[i].innerHTML;
             str = str.replace(/<{1}[^<>]{1,}>{1}/g," ");
-            this.$.control.setInvalidateMessage({'text':str});
+            this.$.control.setInvalidateMessage({'text':str});*/
+            this.$.control.setInvalidateMessage({'text':'ยังทำแบบประเมินไม่ครบถ้วน'});
             eles[i].classList.add('invalid');
             return false;
           } else {

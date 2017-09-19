@@ -59,7 +59,7 @@
       <div slot="formEntry">
         <paper-tabs selected="{{part}}" class="flex">
           <paper-tab>
-            <div class="font-face">หน้าแรก</div>
+            <div class="font-face">หน้าแรก{{invalidMessage}}</div>
           </paper-tab>
           <paper-tab>
             <div class="font-face">หน้าหลัง</div>
@@ -76,7 +76,7 @@
         <iron-pages selected="{{part}}">
           <sdq-form-choice id="formStudent" value="{{document.value.form_value}}">
           </sdq-form-choice>
-          <sdq-form-teacher id="formTeacher" value="{{document.value.form_value}}">
+          <sdq-form-teacher id="formTeacher" value="{{document.value.form_value}}" invalid-message="{{invalidMessage}}">
           </sdq-form-teacher>
         </iron-pages>
       </div>
@@ -116,6 +116,11 @@
           value: function () {
             return [];
           }
+        },
+        invalidMessage:{
+          type:String,
+          notify:true,
+          value:''
         }
       },
       _reset : function() {
@@ -266,12 +271,14 @@
         return score;
       },
       _validate: function () {
+        console.log('test',this.invalidMessage);
         if (!this.$.formStudent.validate()) {
-          //this.$.control.setInvalidateMessage({'text':this.xxx});
+          this.$.control.setInvalidateMessage({'text':'ยังทำแบบประเมินไม่ครบถ้วน'});
           this.set('part', 0);
           return false;
         } else {
           if (!this.$.formTeacher.validate()) {
+            this.$.control.setInvalidateMessage({'text':''});
             this.set('part', 1);
             return false;
           }
