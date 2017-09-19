@@ -66,6 +66,13 @@
           </paper-tab>
         </paper-tabs>
 
+        <!--<iron-pages selected="{{part}}">
+          <sdq-form-choice id="formStudent" value="{{document.value.form_value}}" invalid-message="{{xxx}}">
+          </sdq-form-choice>
+          <sdq-form-teacher id="formTeacher" value="{{document.value.form_value}}" invalid-message="{{xxx}}">
+          </sdq-form-teacher>
+        </iron-pages>-->
+
         <iron-pages selected="{{part}}">
           <sdq-form-choice id="formStudent" value="{{document.value.form_value}}">
           </sdq-form-choice>
@@ -260,6 +267,7 @@
       },
       _validate: function () {
         if (!this.$.formStudent.validate()) {
+          //this.$.control.setInvalidateMessage({'text':this.xxx});
           this.set('part', 0);
           return false;
         } else {

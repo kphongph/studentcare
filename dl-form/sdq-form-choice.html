@@ -122,7 +122,8 @@
       properties: {
         value:{
           type:Object
-        }
+        },
+        invalid
       },
       ready:function() {
         if(!this.value) {
@@ -133,6 +134,7 @@
         var els = Polymer.dom(this.root).querySelectorAll('sdq-radio');
         for(var i=0;i<els.length;i++) {
           if(!els[i].validate()) {
+            //this.set('inval')
             els[i].classList.add('invalid');
             return false;
           } else {

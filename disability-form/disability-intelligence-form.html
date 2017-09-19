@@ -233,6 +233,7 @@
             eles[i].classList.add('invalid');
             return false;
           } else {
+            this.$.control.setInvalidateMessage({'text':''});
             eles[i].classList.remove('invalid');
           }
         }
