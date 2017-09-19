@@ -14,21 +14,25 @@
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors">
       :host {
-        @apply --layout-vertical;
+        @apply (--layout-vertical);
       }
       
       .container {
-        @apply --layout-horizontal;
-        @apply --layout-center-justified;
+        @apply (--layout-horizontal);
+        @apply (--layout-center-justified);
       }
       .form_group {
-        @apply --paper-font-subhead;
+        @apply (--paper-font-subhead);
         padding: 10px;
         background: var(--paper-grey-100);
+      }
+      .content{
+        background :white;
       }
       .header {
         font-family: 'Athiti', sans-serif;
         font-size: 25px;
+        font-weight: bold;
       }
       .font-face {
          @apply --paper-font-subhead;
@@ -37,12 +41,12 @@
       }
       .line-style {
         border-bottom: 1px solid #ddd;
-        height: 30px;
+        height: 35px;
         padding: 10px;
       }
       app-toolbar {
         /*background-color: var(--paper-red-500);*/
-        background-color: #cd333f;
+        background-color: #e65540;
         color: white; 
       }
     </style>
@@ -65,20 +69,22 @@
     </app-toolbar>
 
     <div class="layout horizontal">
-        <div class="flex-6 font-face form_group">แบบประเมิน</div>
-        <div class="flex-2 font-face form_group">กำลังดำเนินการ</div>
-        <div class="flex-2 font-face form_group">เรียบร้อย</div>
-        <div class="flex-2 font-face form_group">รวม</div>
-      </div>
+      <div class="flex-6 font-face form_group">แบบประเมิน</div>
+      <div class="flex-1 font-face form_group">กำลังดำเนินการ</div>
+      <div class="flex-1 font-face form_group">เรียบร้อย</div>
+      <div class="flex-1 font-face form_group">รวม</div>
+      <div class="flex-1 font-face form_group">เสี่ยง</div>
+  </div>
 
-    <template is="dom-repeat" items="[[list]]">
-      <div class="layout horizontal">
-          <div class="flex-6 font-face line-style">{{_formName(item.type)}}</div>
-          <div class="flex-2 font-face line-style">{{item.content.working}}</div>
-          <div class="flex-2 font-face line-style">{{item.content.done}}</div>
-          <div class="flex-2 font-face line-style">{{item.content.total}}</div>
-      </div>
-    </template>
+  <template is="dom-repeat" items="[[list]]" >
+  <div class="layout horizontal content">
+      <div class="flex-6 font-face line-style">{{_formName(item.type)}}</div>
+      <div class="flex-1 font-face line-style">{{item.content.working}}</div>
+      <div class="flex-1 font-face line-style">{{item.content.done}}</div>
+      <div class="flex-1 font-face line-style">{{item.content.total}}</div>
+      <div class="flex-1 font-face line-style">0</div>
+  </div>
+</template>
   </template>
   
   <script>
