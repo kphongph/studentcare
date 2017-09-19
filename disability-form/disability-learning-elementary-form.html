@@ -335,8 +335,12 @@
 
         for(var i=0;i<checkLength;i++) {
           if(!eles[i].value)  {
-            console.log(eles[i]);
-            this.$.control.setInvalidateMessage({'text':eles[i].innerHTML});
+            //console.log('text',eles[i].innerHTML);
+            var str = eles[i].innerHTML;
+            str = str.replace(/<{1}[^<>]{1,}>{1}/g," ");
+            //console.log('text2',str);
+            //this.$.control.setInvalidateMessage({'text':eles[i].innerHTML});
+            this.$.control.setInvalidateMessage({'text':str});
             eles[i].classList.add('invalid');
             return false;
           } else {

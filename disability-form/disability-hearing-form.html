@@ -161,8 +161,15 @@
       _validate:function() {
         var eles =Polymer.dom(this.root)
          .querySelectorAll('disability-choice');
-        for(var i=0;i<eles.length;i++) {
+         var checkLength = this.showNextSection?eles.length:9;
+         //console.log(checkLength);
+        /*for(var i=0;i<eles.length;i++) {
+          if(!eles[i].value)  {*/
+        for(var i=0;i<checkLength;i++) {
           if(!eles[i].value)  {
+            var str = eles[i].innerHTML;
+            str = str.replace(/<{1}[^<>]{1,}>{1}/g," ");
+            this.$.control.setInvalidateMessage({'text':str});
             eles[i].classList.add('invalid');
             return false;
           } else {

@@ -62,6 +62,7 @@
       }
 
       .font-invalidate-alert{
+        margin-left: 10px;
         font-family: 'Athiti', sans-serif;
         color: red;
       }
@@ -77,6 +78,11 @@
         font-size: 120%;
         font-weight: bold;
          /*text-decoration: underline;*/
+      }
+
+      .invalidate-alert{
+        height: 70px;
+        /*border: 2px solid red;*/
       }
     </style>
 
@@ -164,8 +170,13 @@
           </paper-button>
           -->
           <div class="font-alert">{{message}}</div>
-          <div class="font-invalidate-alert">{{invalidateMessage.text}}</div>
 
+
+        </div>
+        <div class="layout horizontal center invalidate-alert">
+          <!--<div class="font-invalidate-alert font-face-big">
+            <iron-icon src="{{imgNote}}"></iron-icon>ข้อที่ยังไม่ได้ทำ</div>-->
+          <div class="font-invalidate-alert">{{invalidateMessage.text}}</div>
         </div>
         <slot name="formEntry"></slot>
       </div>
@@ -195,6 +206,11 @@
         page: {
           type: Number,
           value: 0
+        },
+        imgNote:{
+          type:String,
+          notify:true,
+          computed:'_imgNote()'
         }
       },
       observers:[
@@ -202,6 +218,9 @@
       ],
       setInvalidateMessage:function(message){
         this.set('invalidateMessage',message);
+      },
+      _imgNote:function(){
+        return this.resolveUrl("./images/note.png");
       },
       _getDocument:function(key,token) {
         if(key == null || token == null) return;
@@ -231,7 +250,7 @@
               this.set('message', 'เริ่มต้นแบบประเมินใหม่');
             }
           }
-          
+
           this.fire('update', { 'key': this.docKey, 'value': this.docValue });
           setTimeout(function () {
             self.set('message', '');

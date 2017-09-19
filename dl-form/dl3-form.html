@@ -131,6 +131,9 @@
         }
         return tmp;
       },
+      _reset : function() {
+        this.set('document.value.form_value',{});
+      },
       _evaluate:function() {
         var values = this.document.value.form_value;
         console.log(values);
