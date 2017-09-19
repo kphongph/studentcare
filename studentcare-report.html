@@ -58,6 +58,7 @@
     <app-localstorage-document key="jwtToken" data="{{jwtToken}}">
     </app-localstorage-document>
 
+    <!--
     <iron-ajax 
       id="listLevel" 
       method="POST" 
@@ -68,6 +69,7 @@
       last-response="{{levels}}"
       body$='{"query":{"hostid":"{{hostId}}"},"distinct":"class"}'>
     </iron-ajax>
+    -->
       
     <iron-ajax 
       id="listAjax" 
@@ -86,17 +88,23 @@
      <paper-tab>
        <div class="font-face-big-bold">ความก้าวหน้า</div>
      </paper-tab>
+     <paper-tab>
+       <div class="font-face-big-bold">ภาพรวม</div>
+     </paper-tab>
     </paper-tabs>
 
     <iron-pages selected="{{page}}">
       <report-host hostid="{{hostId}}"></report-host>
+      <div>ภาพรวม</div>
     </iron-pages>
 
+    <!--
     <paper-listbox attr-for-selected="name" selected="{{level}}">
      <template is="dom-repeat" items="{{levels}}">
       <paper-item name="{{item}}">{{item}}</paper-item>
      </template>
     </paper-listbox>
+    -->
 
   </template>
   
@@ -129,7 +137,7 @@
       ],
       _execute(token) {
         if(token == null) return;  
-        this.$.listLevel.generateRequest();
+       //  this.$.listLevel.generateRequest();
       },
       handleResponse(e) {
         var doc = e.detail.response;
