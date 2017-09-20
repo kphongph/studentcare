@@ -59,6 +59,7 @@
     <app-localstorage-document key="jwtToken" data="{{jwtToken}}">
     </app-localstorage-document>
 
+    <!--
     <iron-ajax 
       id="listLevel" 
       method="POST" 
@@ -69,6 +70,7 @@
       last-response="{{levels}}"
       body$='{"query":{"hostid":"{{hostId}}"},"distinct":"class"}'>
     </iron-ajax>
+    -->
       
     <iron-ajax 
       id="listAjax" 
@@ -107,6 +109,7 @@
      </template>
     </paper-listbox> -->
    
+
   </template>
   
   <script>
@@ -138,7 +141,7 @@
       ],
       _execute(token) {
         if(token == null) return;  
-        this.$.listLevel.generateRequest();
+       //  this.$.listLevel.generateRequest();
       },
       handleResponse(e) {
         var doc = e.detail.response;

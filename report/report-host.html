@@ -19,7 +19,7 @@
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors">
       :host {
-        @apply --layout-vertical;
+        @apply (--layout-vertical);
       }
       
       .font-face {
@@ -46,6 +46,9 @@
         font-family: 'Athiti', sans-serif;
         font-size: 18px;
         margin:5px;
+      }
+      paper-item.iron-selected {
+        background-color:#efefef;
       }
       .line-style {
         border-bottom: 1px solid #ddd;
