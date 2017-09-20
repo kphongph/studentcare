@@ -1,19 +1,20 @@
-<link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
-<link rel="import" href="../iron-ajax/iron-ajax.html">
-<link rel="import" href="../iron-pages/iron-pages.html">
-<link rel="import" href="../app-layout/app-layout.html">
-<link rel="import" href="../paper-listbox/paper-listbox.html">
-<link rel="import" href="../paper-item/paper-item.html">
-<link rel="import" href="../google-chart/google-chart.html">
-<link rel="import" href="../paper-styles/color.html">
-<link rel="import" href="../paper-styles/typography.html">
-<link rel="import" href="../paper-icon-button/paper-icon-button.html">
-<link rel="import" href="forms.html">
+<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../iron-ajax/iron-ajax.html">
+<link rel="import" href="../../iron-pages/iron-pages.html">
+<link rel="import" href="../../app-layout/app-layout.html">
+<link rel="import" href="../../paper-listbox/paper-listbox.html">
+<link rel="import" href="../../paper-item/paper-item.html">
+<link rel="import" href="../../google-chart/google-chart.html">
+<link rel="import" href="../../paper-styles/color.html">
+<link rel="import" href="../../paper-styles/typography.html">
+<link rel="import" href="../../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="report-sumaryclassform.html">
+<link rel="import" href="../forms.html">
 
 <link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">
 
-<dom-module id="report-host">
+<dom-module id="report-sumaryhost">
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors">
       :host {
@@ -50,7 +51,7 @@
       }
       app-toolbar {
         /*background-color: var(--paper-red-500);*/
-        background-color: #cd333f;
+        background-color: #e65540;
         color: white; 
       }
     </style>
@@ -61,58 +62,59 @@
     <iron-ajax 
       id="listAjax" 
       method="GET" 
-      url$="https://maas.nuqlis.com:8000/v2/obec/_report_host/data/{{hostid}}" 
+      url$="https://maas.nuqlis.com:8000/v2/obec/_studentcare_report/data/risk_{{year}}_{{hostid}}" 
       content-type="application/json"
       handle-as ="json"
       on-response="handleResponse">
     </iron-ajax>
-
     <app-toolbar>
-      <paper-icon-button icon="arrow-back" on-tap="_back" hidden$="{{isFirstPage(page)}}">
-      </paper-icon-button>
-      <div class="font-face">แบบรายงานความก้าวหน้า</div>
-      <span class="font-face">จำนวน {{total}} คน ข้อมูล ณ วันที่ {{ts}}</span>
-    </app-toolbar>
-    
+        <div class="layout horizontal center flex">
+          <paper-icon-button icon="arrow-back" on-tap="_back" hidden$="{{isFirstPage(page)}}">
+          </paper-icon-button>
+          <div class="font-face flex">รายงานความเสี่ยง {{_formName(form)}}</div>
+          <div class="font-face end-justified">ณ {{ts}}</div>
+        </div>
+      </app-toolbar>
+      
     <iron-pages selected="{{page}}" fallback-selection="0">
       <div> 
        <div class="layout horizontal header">
-        <div class="flex-6 font-face">แบบประเมิน {{form}} {{hostid}}</div>
-        <div class="flex-2 font-face">กำลังดำเนินการ</div>
-        <div class="flex-2 font-face">เรียบร้อย</div>
-        <div class="flex-2 font-face">รวม</div>
+        <div class="flex-6 font-face">แบบประเมิน</div>
+        <div class="flex-2 font-face">มีความเสี่ยง (คน)</div>
+        <div class="flex-2 font-face">ปกติ (คน)</div>
+        <div class="flex-2 font-face">รวม (คน)</div>
        </div>
    
        <paper-listbox class="flex" attr-for-selected="name" selected="{{form}}">
-        <template is="dom-repeat" items="[[list]]">
-         <paper-item class="flex line-style" name="{{item.type}}">
+        <template is="dom-repeat" items="[[class]]">
+         <paper-item class="flex line-style" name="{{item.listform}}">
           <div class="layout horizontal flex">
-           <div class="flex-6 font-face">{{_formName(item.type)}}</div>
-           <div class="flex-2 font-face">{{item.content.working}}</div>
-           <div class="flex-2 font-face">{{item.content.done}}</div>
+           <div class="flex-6 font-face">{{_formName(item.listform)}}</div>
+           <div class="flex-2 font-face">{{item.content.risk}}</div>
+           <div class="flex-2 font-face">{{item.content.no_risk}}</div>
            <div class="flex-2 font-face">{{item.content.total}}</div>
           </div>
          </paper-item>
         </template>
        </paper-listbox>
       </div>
-      <div>Progressive information for each level</div>
+
+      <div>
+        <report-sumaryclassform year="2017" hostid="{{hostid}}" form ="dl2-form"></report-sumaryclassform>
+      </div>
+      
     </iron-pages>  
   </template>
   
   <script>
     Polymer({
-      is: "report-host",
+      is: "report-sumaryhost",
       properties:{
         hostid:{
           type:String,
           notify:true
         },
-        level:{
-          type:String,
-          notify:true
-        },
-        room:{
+        year:{
           type:String,
           notify:true
         },
@@ -171,38 +173,42 @@
         this.set('page',1);
       },
       handleResponse(e) {
-        var doc = e.detail.response;
-        var forms = [];
-        var total = 0;
-        var _forms_dict = {};
         var ts;
-        for(var key in doc.value) {
-          if(key == 'ts') {
-            ts = new Date(doc.value[key]).toLocaleString('th');
+        var doc = e.detail.response;
+        // console.log(doc.value);
+        var classroom = [];
+        var total = 0;
+        var status;
+        var risk,no_risk;
+        for(var val in doc.value){
+          if(val == 'ts') {
+            ts = new Date(doc.value[val]).toLocaleString('th');
             continue;
           }
-          var cid = doc.value[key];
-          total++;
-          for(var form in cid) {
-            if(!_forms_dict[form]) {
-              _forms_dict[form] = {'new':0,'done':0,'working':0,'total':0};
-            }
-            _forms_dict[form][cid[form]]++;
-            _forms_dict[form]['total']++;
+          status = doc.value[val];
+          risk = status.risk;
+          no_risk = status.no_risk;
+          if(!risk){
+            risk = 0;
           }
+          if(!no_risk){
+            no_risk = 0; 
+          }
+          // console.log(no_risk);
+          classroom.push({
+            listform:val,
+            content:{
+              risk: risk,
+              no_risk: no_risk,
+              total: risk + no_risk
+            }
+          });          
         }
-        for(var key in _forms_dict) {
-          forms.push({'type':key,'content':{
-            'working':_forms_dict[key]['new'] + _forms_dict[key]['working'],
-            'done':_forms_dict[key]['done'],
-            'total':_forms_dict[key]['total']
-          }});
-        }
-        this.set('total',total);
-        this.set('list',forms);
-        this.set('ts',ts);          
+        this.set('class',classroom); 
+        this.set('ts',ts);   
       }
     });
+    
     
   </script>
 </dom-module>

@@ -10,7 +10,8 @@
 <link rel="import" href="../paper-listbox/paper-listbox.html">
 <link rel="import" href="../paper-item/paper-item.html">
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
-<link rel="import" href="report-host.html">
+<link rel="import" href="report/report-host.html">
+<link rel="import" href="report/report-sumaryhost.html">
 <link rel="import" href="forms.html">
 
 <link rel="import" href="studentcare-styles.html">
@@ -50,7 +51,7 @@
       }
       app-toolbar {
         /*background-color: var(--paper-red-500);*/
-        background-color: #cd333f;
+        background-color: #e65540;
         color: white; 
       }
     </style>
@@ -86,18 +87,26 @@
      <paper-tab>
        <div class="font-face-big-bold">ความก้าวหน้า</div>
      </paper-tab>
+     <paper-tab  >
+      <div class="font-face-big-bold">ภาพรวมผลการประเมิน</div>
+    </paper-tab>
     </paper-tabs>
 
     <iron-pages selected="{{page}}">
-      <report-host hostid="{{hostId}}"></report-host>
+      <report-host year="2017" hostid="{{hostId}}"></report-host>
+      <div>
+        <report-sumaryhost year="2017" hostid="{{hostId}}"></report-sumaryhost>
+      </div>
     </iron-pages>
 
-    <paper-listbox attr-for-selected="name" selected="{{level}}">
+     
+    
+    <!-- <paper-listbox attr-for-selected="name" selected="{{level}}">
      <template is="dom-repeat" items="{{levels}}">
       <paper-item name="{{item}}">{{item}}</paper-item>
      </template>
-    </paper-listbox>
-
+    </paper-listbox> -->
+   
   </template>
   
   <script>

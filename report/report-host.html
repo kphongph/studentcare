@@ -1,47 +1,64 @@
-<link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
-<link rel="import" href="../iron-ajax/iron-ajax.html">
-<link rel="import" href="../app-layout/app-layout.html">
-<link rel="import" href="../google-chart/google-chart.html">
-<link rel="import" href="../paper-styles/color.html">
-<link rel="import" href="../paper-styles/typography.html">
-<link rel="import" href="../paper-icon-button/paper-icon-button.html">
-<link rel="import" href="forms.html">
+<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../iron-ajax/iron-ajax.html">
+<link rel="import" href="../../iron-pages/iron-pages.html">
+<link rel="import" href="../../app-layout/app-layout.html">
+<link rel="import" href="../../paper-listbox/paper-listbox.html">
+<link rel="import" href="../../paper-item/paper-item.html">
+<link rel="import" href="../../google-chart/google-chart.html">
+<link rel="import" href="../../paper-styles/color.html">
+<link rel="import" href="../../paper-styles/typography.html">
+<link rel="import" href="../../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../forms.html">
+<link rel="import" href="report-progresshost.html">
+
+
 <link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">
 
-<dom-module id="report-class">
+<dom-module id="report-host">
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors">
       :host {
         @apply --layout-vertical;
       }
       
-      .container {
-        @apply --layout-horizontal;
-        @apply --layout-center-justified;
-      }
-      .form_group {
+      .font-face {
         @apply --paper-font-subhead;
-        padding: 10px;
-        background: var(--paper-grey-100);
+        font-family: 'Athiti', sans-serif;
       }
+      
+      .header div {
+        @apply --paper-font-subhead;
+        font-family: 'Athiti', sans-serif;
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
+
       .header {
         font-family: 'Athiti', sans-serif;
         font-size: 25px;
+        padding-left:16px;
+        padding-right:16px;
+        background: var(--paper-grey-100);
       }
       .font-face {
-         @apply --paper-font-subhead;
+        @apply --paper-font-subhead;
         font-family: 'Athiti', sans-serif;
         font-size: 18px;
+        margin:5px;
       }
       .line-style {
         border-bottom: 1px solid #ddd;
-        height: 30px;
-        padding: 10px;
+      }
+      paper-item {
+        cursor: pointer; cursor: hand; 
+      }
+      paper-item.iron-selected {
+        background-color:#efefef;
       }
       app-toolbar {
         /*background-color: var(--paper-red-500);*/
-        background-color: #cd333f;
+        background-color: #e65540;
         color: white; 
       }
     </style>
@@ -52,43 +69,68 @@
     <iron-ajax 
       id="listAjax" 
       method="GET" 
-      url$="https://maas.nuqlis.com:8000/v2/obec/_report_hostclass/data/{{hostid}}_{{level}}" 
+      url$="https://maas.nuqlis.com:8000/v2/obec/_studentcare_report/data/{{year}}_{{hostid}}" 
       content-type="application/json"
       handle-as ="json"
       on-response="handleResponse">
     </iron-ajax>
-    
+
     <app-toolbar>
-        <div class="header">รายงานนักเรียนชั้น{{hostid}} &nbsp; &nbsp;</div>
-        <span class="header">จำนวน {{total}} คน ข้อมูล ณ วันที่ {{ts}}</span>
-    </app-toolbar>
-
-    <div class="layout horizontal">
-        <div class="flex-6 font-face form_group">แบบประเมิน</div>
-        <div class="flex-2 font-face form_group">กำลังดำเนินการ</div>
-        <div class="flex-2 font-face form_group">เรียบร้อย</div>
-        <div class="flex-2 font-face form_group">รวม</div>
-    </div>
-
-    <template is="dom-repeat" items="[[list]]">
-      <div class="layout horizontal">
-          <div class="flex-6 font-face line-style">{{_formName(item.type)}}</div>
-          <div class="flex-2 font-face line-style">{{item.content.working}}</div>
-          <div class="flex-2 font-face line-style">{{item.content.done}}</div>
-          <div class="flex-2 font-face line-style">{{item.content.total}}</div>
+      <div class="layout horizontal center flex">
+        <paper-icon-button icon="arrow-back" on-tap="_back" hidden$="{{isFirstPage(page)}}">
+        </paper-icon-button>
+        <div class="font-face flex">แบบรายงานความก้าวหน้า {{_formName(form)}}</div>
+        <div class="font-face end-justified">ณ {{ts}}</div>
       </div>
-    </template>
+    </app-toolbar>
+      
+    <iron-pages selected="{{page}}" fallback-selection="0">
+      <div> 
+       <div class="layout horizontal header">
+        <div class="flex-6 font-face">แบบประเมิน</div>
+        <div class="flex-2 font-face">กำลังดำเนินการ</div>
+        <div class="flex-2 font-face">เรียบร้อย</div>
+        <div class="flex-2 font-face">รวม</div>
+       </div>
+   
+       <paper-listbox class="flex" attr-for-selected="name" selected="{{form}}">
+        <template is="dom-repeat" items="[[list]]">
+         <paper-item class="flex line-style" name="{{item.type}}">
+          <div class="layout horizontal flex">
+           <div class="flex-6 font-face">{{_formName(item.type)}}</div>
+           <div class="flex-2 font-face">{{item.content.working}}</div>
+           <div class="flex-2 font-face">{{item.content.done}}</div>
+           <div class="flex-2 font-face">{{item.content.total}}</div>
+          </div>
+         </paper-item>
+        </template>
+       </paper-listbox>
+      </div>
+
+      <div>
+        <report-progresshost year="2017" hostid="{{hostid}}" form="{{form}}"></report-progresshost>
+      </div>
+      
+    </iron-pages>  
   </template>
   
   <script>
     Polymer({
-      is: "report-class",
+      is: "report-host",
       properties:{
+        year:{
+          type:String,
+          notify:true
+        },
         hostid:{
           type:String,
           notify:true
         },
         level:{
+          type:String,
+          notify:true
+        },
+        room:{
           type:String,
           notify:true
         },
@@ -101,8 +143,15 @@
         }   
       },
       observers:[
-        '_execute(jwtToken)'
+        '_execute(jwtToken)',
+        '_selectForm(form)'
       ],
+      isFirstPage:function(page) {
+        return page == 0;
+      },
+      _back:function() {
+        this.set('page',this.page - 1);
+      },
       _formName:function(form) {
         var obj = {   
           'dl2-form': 'แบบประเมินพฤติกรรมนักเรียน ฉบับครูประเมินนักเรียน',
@@ -136,9 +185,11 @@
         }
         this.$.listAjax.generateRequest();
       },
+      _selectForm:function(form) {
+        this.set('page',1);
+      },
       handleResponse(e) {
         var doc = e.detail.response;
-        console.log(doc);
         var forms = [];
         var total = 0;
         var _forms_dict = {};
@@ -166,8 +217,8 @@
           }});
         }
         this.set('total',total);
-        this.set('list',forms);    
-        this.set('ts',ts);              
+        this.set('list',forms);
+        this.set('ts',ts);          
       }
     });
     
