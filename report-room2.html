@@ -7,6 +7,16 @@
 <link rel="import" href="../paper-styles/typography.html">
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
 <link rel="import" href="forms.html">
+<link rel="import" href="../paper-item/paper-item.html">
+<link rel="import" href="../paper-listbox/paper-listbox.html">
+<link rel="import" href="../paper-progress/paper-progress.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../app-storage/app-localstorage/app-localstorage-document.html">
+<link rel="import" href="./local/assignment-card.html">
+<link rel="import" href="./form-generator.html">
+<link rel="import" href="./option-forms.html">
+
 <!-- <link rel="import" href="../moment/moment.html"> -->
 <link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">
 <dom-module id="report-room2">
@@ -40,16 +50,43 @@
         /* font-weight: bold; */
         
       }
+      .note{
+        border:2px solid #44ada8;
+        font-family: 'Athiti', sans-serif;
+        background: #fff;
+        color: #000;
+      }
+
+      iron-icon {
+        width: 40px;
+        height: 40px;
+      }
+      .marker-new {
+        width: 5px;
+        height: 30px;
+        background:#000000;
+      }
+
+      .marker-working {
+        width: 5px;
+        height: 30px;
+        background:#FF0000;
+      }
+
+      .layout-note {
+        @apply --layout-horizontal;
+        margin-bottom: 5px;
+      }
       .font-face {
          @apply --paper-font-subhead;
         font-family: 'Athiti', sans-serif;
         font-size: 18px;
       }
-      .line-style {
+      /* .line-style {
         border-bottom: 1px solid #ddd;
         height: 30px;
         padding: 10px;
-      }
+      } */
       app-toolbar {
         /*background-color: var(--paper-red-500);*/
         background-color: #e65540;
@@ -77,8 +114,22 @@
       <div class="header2 layout">จำนวน {{total}} คน ข้อมูล ณ วันที่ {{ts}}</div>
     </app-toolbar>
 
+    <div class="flex note">
+      <dl>
+        <dt><iron-icon src="{{imgNote}}"></iron-icon>หมายเหตุ</dt>
+        <dd>
+          <div class="layout-note">
+            <div class="marker-new"></div>
+            <div>&nbsp;&nbsp;ตัวหนังสือสีขาว หมายถึง ปกติ&nbsp;&nbsp;&nbsp;&nbsp;</div>
+            <div class="marker-working"></div>
+            <div>&nbsp;&nbsp;ตัวหนังสือสีแดง หมายถึง ปีปัญหา</div>
+          </div>
+        </dd>
+      </dl>
+    </div>
+
     <div class="layout horizontal">
-      <div class="flex-4 font-face form_group">ชื่อ-นามสกุล</div>
+      <div class="flex-1 font-face form_group">ชื่อ-นามสกุล</div>
       <div class="flex-2 font-face form_group">SDQ</div>
       <div class="flex-2 font-face form_group">EQ</div>
       <div class="flex-2 font-face form_group">เด็กพิการ 9 ด้าน</div>
@@ -86,16 +137,37 @@
       <div class="flex-2 font-face form_group">อื่นๆ</div>
     </div>
 
-    <template is="dom-repeat" items="[[list]]" >
+    <!-- <template is="dom-repeat" items="[[list]]" > -->
       <div class="layout horizontal content">
-          <div class="flex-4 font-face line-style">{{_formName(item.type)}}</div>
-          <div class="flex-2 font-face line-style">{{item.content.working}}</div>
-          <div class="flex-2 font-face line-style">{{item.content.done}}</div>
-          <div class="flex-2 font-face line-style">{{item.content.total}}</div>
-          <div class="flex-2 font-face line-style">0</div>
-          <div class="flex-2 font-face line-style">0</div>
+          <div class="flex-1 font-face line-style">ปริญา มาบุญ</div>
+          <div class="flex-2 font-face line-style">
+            - แบบประเมินพฤติกรรมเด็ก (SDQ) ฉบับครูเป็นผู้ประเมินนักเรียน</br></br>
+            - แบบประเมินพฤติกรรมนักเรียน (SDQ) ฉบับนักเรียนประเมินตนเอง</div>
+          <div class="flex-2 font-face line-style">
+            - แบบประเมินความฉลาดทางอารมณ์ (EQ) ฉบับนักเรียนประเมินตนเอง (12-17 ปี)</div>
+          <div class="flex-2 font-face line-style">
+            - แบบคัดกรองบุคคลที่มีความบกพร่องทางการเห็น</br></br>
+            - แบบคัดกรองบุคคลที่มีความบกพร่องทางการได้ยิน</br></br>
+            - แบบคัดกรองบุคคลที่มีความบกพร่องทางสติปัญญา</br></br>
+            - แบบคัดกรองบุคคลที่มีความบกพร่องทางร่างกาย หรือการเคลื่อนไหว หรือสุขภาพ</br></br>
+            - แบบคัดกรองบุคคลที่มีความบกพร่องทางการเรียนรู้ (ประถมศึกษา)</br></br>
+            - แบบคัดกรองบุคคลที่มีความบกพร่องทางการเรียนรู้ (มัธยมศึกษา)</br></br>
+            - แบบคัดกรองบุคคลออทิสติก</br></br>
+            - แบบคัดกรองบุคคลที่มีความบกพร่องทางการพูดและภาษา</br></br>
+            - แบบคัดกรองบุคคลที่มีความบกพร่องทางพฤติกรรม หรืออารมณ์</div>
+          <div class="flex-2 font-face line-style">
+            - แบบคัดกรองนักเรียนรายบุคคล ระดับประถม</br></br>
+            - แบบคัดกรองนักเรียนรายบุคคล ระดับมัธยม
+          </div>
+          <div class="flex-2 font-face line-style">
+            - แบบประเมินความเครียดกรมสุขภาพจิต (ST–5)</br></br>
+            - แบบประเมินพฤติกรรม SNAP-IV (Shot Form)</br></br>
+            - แบบประเมินการฆ่าตัวตาย 8 คำถาม (8Q)</br></br>
+            - แบบคัดกรองภาวะซึมเศร้าในเด็ก (CDI)</br></br>
+            - แบบทดสอบการติดเกม ฉบับเด็กและวัยรุ่น (GAST)
+          </div>
       </div>
-    </template>
+    <!-- </template> -->
   </template>
   
   <script>
@@ -105,6 +177,11 @@
         hostid:{
           type:String,
           notify:true
+        },
+        imgNote:{
+          type:String,
+          notify:true,
+          computed:'_imgNote()'
         },
         level:{
           type:String,
@@ -125,6 +202,9 @@
               return [];
           }
         }   
+      },
+      _imgNote:function(){
+        return this.resolveUrl("./images/note.png");
       },
       observers:[
         '_execute(jwtToken)'
