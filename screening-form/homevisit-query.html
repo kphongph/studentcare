@@ -7,24 +7,32 @@
    <app-localstorage-document key="jwtToken" data="{{jwtToken}}">
    </app-localstorage-document>
 
-   <iron-ajax 
+   <iron-ajax
      method="POST"
      id="query"
-     url="https://maas.nuqlis.com:9000/api/query/form_record_homevisit/hostid_cid"
+     url="https://maas.nuqlis.com:8000/v2/obec/form_record_homevisit/query"
      content-type="application/json"
      handle-as="json"
      headers$='{"Authorization":"JWT {{jwtToken.token}}"}'
-     body='{"match":["1094300126","1959800256181"],"include_doc":true}'
+     body='{"query":{"hostid":"1035430078","cid":"1139700059691"}}'
      on-response="handleResponse">
    </iron-ajax>
-   
+
  </template>
  <script>
    Polymer({
      is:'homevisit-query',
      properties:{
-       cid:String,
-       host:String,
+       cid:{
+         type:String,
+         reflectToAttribute:true,
+         notify:true
+       },
+       host:{
+         type:String,
+         reflectToAttribute:true,
+         notify:true
+       },
        document: {
          type:Object,
          notify:true
@@ -34,16 +42,17 @@
        'executeQuery(host,cid,jwtToken.token)'
      ],
      executeQuery:function(host,cid,token) {
+       if(token == null) return;
        this.$.query.generateRequest();
      },
      handleResponse:function(e) {
        var res = e.detail.response;
        if(res.length == 0) return;
-       var form = res[0].value.doc;
+       var form = res[0];
        var _document = [];
        var handle = function(group,question) {
-         if(group.id == "0002" && 
-            (question.id == "0001" || 
+         if(group.id == "0002" &&
+            (question.id == "0001" ||
              question.id == "0002" ||
              question.id == "0009" ||
              question.id == "0011" ||
@@ -59,9 +68,9 @@
        };
        form.group.forEach(function(group) {
          group.questions.forEach(function(question) {
-           handle(group,question);  
+           handle(group,question);
          });
-       });  
+       });
        this.set('document',_document);
        console.log(_document);
      }
