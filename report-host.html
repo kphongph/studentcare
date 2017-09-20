@@ -1,7 +1,10 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../iron-ajax/iron-ajax.html">
+<link rel="import" href="../iron-pages/iron-pages.html">
 <link rel="import" href="../app-layout/app-layout.html">
+<link rel="import" href="../paper-listbox/paper-listbox.html">
+<link rel="import" href="../paper-item/paper-item.html">
 <link rel="import" href="../google-chart/google-chart.html">
 <link rel="import" href="../paper-styles/color.html">
 <link rel="import" href="../paper-styles/typography.html">
@@ -17,32 +20,36 @@
         @apply (--layout-vertical);
       }
       
-      .container {
-        @apply (--layout-horizontal);
-        @apply (--layout-center-justified);
+      .font-face {
+        @apply --paper-font-subhead;
+        font-family: 'Athiti', sans-serif;
       }
-      .form_group {
-        @apply (--paper-font-subhead);
-        padding: 10px;
-        background: var(--paper-grey-100);
+      
+      .header div {
+        @apply --paper-font-subhead;
+        font-family: 'Athiti', sans-serif;
+        padding-top: 10px;
+        padding-bottom: 10px;
       }
-      .content{
-        background :white;
-      }
+
       .header {
         font-family: 'Athiti', sans-serif;
         font-size: 25px;
-        font-weight: bold;
+        padding-left:16px;
+        padding-right:16px;
+        background: var(--paper-grey-100);
       }
       .font-face {
-         @apply --paper-font-subhead;
+        @apply --paper-font-subhead;
         font-family: 'Athiti', sans-serif;
         font-size: 18px;
+        margin:5px;
+      }
+      paper-item.iron-selected {
+        background-color:#efefef;
       }
       .line-style {
         border-bottom: 1px solid #ddd;
-        height: 35px;
-        padding: 10px;
       }
       app-toolbar {
         /*background-color: var(--paper-red-500);*/
@@ -64,27 +71,36 @@
     </iron-ajax>
 
     <app-toolbar>
-        <div class="header">รายงานโรงเรียน {{hostid}} &nbsp; &nbsp;</div>
-        <span class="header">จำนวน {{total}} คน ข้อมูล ณ วันที่ {{ts}}</span>
+      <paper-icon-button icon="arrow-back" on-tap="_back" hidden$="{{isFirstPage(page)}}">
+      </paper-icon-button>
+      <div class="font-face">แบบรายงานความก้าวหน้า</div>
+      <span class="font-face">จำนวน {{total}} คน ข้อมูล ณ วันที่ {{ts}}</span>
     </app-toolbar>
-
-    <div class="layout horizontal">
-      <div class="flex-6 font-face form_group">แบบประเมิน</div>
-      <div class="flex-1 font-face form_group">กำลังดำเนินการ</div>
-      <div class="flex-1 font-face form_group">เรียบร้อย</div>
-      <div class="flex-1 font-face form_group">รวม</div>
-      <div class="flex-1 font-face form_group">เสี่ยง</div>
-  </div>
-
-  <template is="dom-repeat" items="[[list]]" >
-  <div class="layout horizontal content">
-      <div class="flex-6 font-face line-style">{{_formName(item.type)}}</div>
-      <div class="flex-1 font-face line-style">{{item.content.working}}</div>
-      <div class="flex-1 font-face line-style">{{item.content.done}}</div>
-      <div class="flex-1 font-face line-style">{{item.content.total}}</div>
-      <div class="flex-1 font-face line-style">0</div>
-  </div>
-</template>
+    
+    <iron-pages selected="{{page}}" fallback-selection="0">
+      <div> 
+       <div class="layout horizontal header">
+        <div class="flex-6 font-face">แบบประเมิน {{form}} {{hostid}}</div>
+        <div class="flex-2 font-face">กำลังดำเนินการ</div>
+        <div class="flex-2 font-face">เรียบร้อย</div>
+        <div class="flex-2 font-face">รวม</div>
+       </div>
+   
+       <paper-listbox class="flex" attr-for-selected="name" selected="{{form}}">
+        <template is="dom-repeat" items="[[list]]">
+         <paper-item class="flex line-style" name="{{item.type}}">
+          <div class="layout horizontal flex">
+           <div class="flex-6 font-face">{{_formName(item.type)}}</div>
+           <div class="flex-2 font-face">{{item.content.working}}</div>
+           <div class="flex-2 font-face">{{item.content.done}}</div>
+           <div class="flex-2 font-face">{{item.content.total}}</div>
+          </div>
+         </paper-item>
+        </template>
+       </paper-listbox>
+      </div>
+      <div>Progressive information for each level</div>
+    </iron-pages>  
   </template>
   
   <script>
@@ -112,8 +128,15 @@
         }   
       },
       observers:[
-        '_execute(jwtToken)'
+        '_execute(jwtToken)',
+        '_selectForm(form)'
       ],
+      isFirstPage:function(page) {
+        return page == 0;
+      },
+      _back:function() {
+        this.set('page',this.page - 1);
+      },
       _formName:function(form) {
         var obj = {   
           'dl2-form': 'แบบประเมินพฤติกรรมนักเรียน ฉบับครูประเมินนักเรียน',
@@ -146,6 +169,9 @@
           'Authorization':'JWT '+token.token
         }
         this.$.listAjax.generateRequest();
+      },
+      _selectForm:function(form) {
+        this.set('page',1);
       },
       handleResponse(e) {
         var doc = e.detail.response;
