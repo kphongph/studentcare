@@ -65,25 +65,31 @@
 
       .marker-done {
         width: 5px;
-        height: 30px;
+        height: 40px;
         background:var(--paper-green-500);
       }
 
       .marker-new {
         width: 5px;
-        height: 30px;
+        height: 40px;
         background:#e3e3e3;
       }
 
       .marker-working {
         width: 5px;
-        height: 30px;
+        height: 40px;
         background:#ffe680;
       }
 
       .layout-note {
         @apply --layout-horizontal;
         margin-bottom: 5px;
+        margin-top: 5px;
+      }
+
+      .font-layout{
+        @apply --layout-horizontal;
+        @apply(--layout-center);
       }
     </style>
 
@@ -109,33 +115,17 @@
       </paper-progress>
     </div>
 
-    <div class="flex option-style">
-      <option-forms forms="{{forms}}" student="{{student}}"></option-forms>
-    </div>
-
-    <div class="flex note">
-      <dl>
-        <dt><iron-icon src="{{imgNote}}"></iron-icon>หมายเหตุ</dt>
-        <dd>
-          <div class="layout-note">
-            <div class="marker-new"></div>
-            <div>&nbsp;&nbsp;สีเทา หมายถึง ฟอร์มใหม่</div>
-          </div>
-        </dd>
-        <dd>
-          <div class="layout-note">
-            <div class="marker-working"></div>
-            <div>&nbsp;&nbsp;สีเหลือง หมายถึง กำลังดำเนินการ</div>
-          </div>
-        </dd>
-        <dd>
-          <div class="layout-note">
-            <div class="marker-done"></div>
-            <div>&nbsp;&nbsp;สีเขียว หมายถึง ดำเนินการเสร็จสิ้น</div>
-          </div>
-        </dd>
-      </dl>
-    </div>
+      <div class="flex note">
+        <div class="layout-note font-layout">
+          <div><iron-icon src="{{imgNote}}"></iron-icon>หมายเหตุ&nbsp;&nbsp;</div>
+          <div class="marker-new"></div>
+          <div>&nbsp;&nbsp;สีเทา หมายถึง ฟอร์มใหม่&nbsp;&nbsp;</div>
+          <div class="marker-working"></div>
+          <div>&nbsp;&nbsp;สีเหลือง หมายถึง กำลังดำเนินการ&nbsp;&nbsp;</div>
+          <div class="marker-done"></div>
+          <div>&nbsp;&nbsp;สีเขียว หมายถึง ดำเนินการเสร็จสิ้น</div>
+        </div>
+      </div>
 
     <template is="dom-repeat" as="group" items="{{formList}}" filter="isNotOption">
       <div class="form_group font-face" hidden$="{{_isEmpty(group.forms)}}">{{group.name}}</div>
@@ -145,6 +135,9 @@
     </template>
 
     <div class="form_group font-face" hidden$="{{_isEmpty(group.forms)}}">แบบประเมินทางเลือก</div>
+    <div class="flex option-style">
+      <option-forms forms="{{forms}}" student="{{student}}"></option-forms>
+    </div>
     <template is="dom-repeat" as="group" items="{{formList}}" filter="isOption">
       <template is="dom-repeat" items="{{group.forms}}" sort="_sortByStatus">
         <assignment-card data="{{item}}"></assignment-card>
