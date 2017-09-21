@@ -4,6 +4,7 @@
 <link rel="import" href="../../paper-styles/typography.html">
 
 <link rel="import" href="summary/summary-reports.html">
+<link rel="import" href="summary/dl2-host.html">
 
 <link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">
 
@@ -53,11 +54,11 @@
     </app-localstorage-document>
 
     <template is="dom-if" if="{{_isEquals(formType,'dl2-form'}}">
-      <dl2-host-level jwt-token="{{jwtToken.token}}" 
+      <dl2-host jwt-token="{{jwtToken.token}}" 
          host="{{host}}" 
          level="{{level}}" 
          year="{{year}}">
-      </dl2-host-level>
+      </dl2-host>
     </template>
     
   </template>
