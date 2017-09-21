@@ -105,6 +105,10 @@ Polymer Component for StudentCare project
         _title: {
           type: String,
           computed: '_computeTitle(page)'
+        },
+        titlename:{
+          type: String,
+          notify:true
         }
       },
       observers:[
@@ -121,7 +125,7 @@ Polymer Component for StudentCare project
         this._setPage(0);
       },
       _computeTitle: function(page) {
-        var title = 'แบบประเมิน';
+        var title = 'แบบประเมิน'+this.titlename;
         if (page == 0) {
           title = "รายชื่อนักเรียน";
         }
@@ -140,6 +144,8 @@ Polymer Component for StudentCare project
           node.removeChild(node.firstChild);
         }
         var formElement = e.detail.formElement;
+        console.log('check form',formElement.name);
+        this.set('titlename',formElement.name);
         this.$.formEntry.appendChild(formElement);
         this._setPage(2);
       },
