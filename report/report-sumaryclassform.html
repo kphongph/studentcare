@@ -53,6 +53,7 @@
       id="listAjax" 
       method="GET" 
       url$="https://maas.nuqlis.com:8000/v2/obec/_studentcare_report/data/risk_{{year}}_{{hostid}}_{{form}}" 
+      headers$='{"Authorization":"JWT {{jwtToken.token}}"}'
       content-type="application/json"
       handle-as ="json"
       on-response="handleResponse">
@@ -130,13 +131,10 @@
         return result;
       },
       observers:[
-        '_execute(jwtToken)'
+      '_execute(jwtToken.token,year,hostid,form)'
       ],
-      _execute(token) {
-        if(token == null || !token.token) return;  
-        this.$.listAjax.headers = {
-          'Authorization':'JWT '+token.token
-        }
+      _execute(token,year,hostid,form) {        
+        if(token == null || year == null || hostid == null || form == null) return;                  
         this.$.listAjax.generateRequest();
       },
       handleResponse(e) {
