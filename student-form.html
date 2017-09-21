@@ -65,25 +65,31 @@
 
       .marker-done {
         width: 5px;
-        height: 30px;
+        height: 40px;
         background:var(--paper-green-500);
       }
 
       .marker-new {
         width: 5px;
-        height: 30px;
+        height: 40px;
         background:#e3e3e3;
       }
 
       .marker-working {
         width: 5px;
-        height: 30px;
+        height: 40px;
         background:#ffe680;
       }
 
       .layout-note {
         @apply --layout-horizontal;
         margin-bottom: 5px;
+        margin-top: 5px;
+      }
+
+      .font-layout{
+        @apply --layout-horizontal;
+        @apply(--layout-center);
       }
     </style>
 
@@ -94,6 +100,7 @@
       method="GET"
       url$="https://maas.nuqlis.com:8000/v2/obec/student_data_db/data/{{key}}"
       headers$='{"Authorization":"JWT {{jwtToken.token}}"}'
+      on-response="_handleStudentResponse"
       last-response="{{student}}">
     </iron-ajax>
 
@@ -109,36 +116,30 @@
       </paper-progress>
     </div>
 
+      <div class="flex note">
+        <div class="layout-note font-layout">
+          <div><iron-icon src="{{imgNote}}"></iron-icon>หมายเหตุ&nbsp;&nbsp;</div>
+          <div class="marker-new"></div>
+          <div>&nbsp;&nbsp;สีเทา หมายถึง ฟอร์มใหม่&nbsp;&nbsp;</div>
+          <div class="marker-working"></div>
+          <div>&nbsp;&nbsp;สีเหลือง หมายถึง กำลังดำเนินการ&nbsp;&nbsp;</div>
+          <div class="marker-done"></div>
+          <div>&nbsp;&nbsp;สีเขียว หมายถึง ดำเนินการเสร็จสิ้น</div>
+        </div>
+      </div>
+
+    <template is="dom-repeat" as="group" items="{{formList}}" filter="isNotOption">
+      <div class="form_group font-face" hidden$="{{_isEmpty(group.forms)}}">{{group.name}}</div>
+      <template is="dom-repeat" items="{{group.forms}}" sort="_sortByStatus">
+        <assignment-card data="{{item}}"></assignment-card>
+      </template>
+    </template>
+
+    <div class="form_group font-face" hidden$="{{_isEmpty(group.forms)}}">แบบประเมินทางเลือก</div>
     <div class="flex option-style">
       <option-forms forms="{{forms}}" student="{{student}}"></option-forms>
     </div>
-
-    <div class="flex note">
-      <dl>
-        <dt><iron-icon src="{{imgNote}}"></iron-icon>หมายเหตุ</dt>
-        <dd>
-          <div class="layout-note">
-            <div class="marker-new"></div>
-            <div>&nbsp;&nbsp;สีเทา หมายถึง ฟอร์มใหม่</div>
-          </div>
-        </dd>
-        <dd>
-          <div class="layout-note">
-            <div class="marker-working"></div>
-            <div>&nbsp;&nbsp;สีเหลือง หมายถึง กำลังดำเนินการ</div>
-          </div>
-        </dd>
-        <dd>
-          <div class="layout-note">
-            <div class="marker-done"></div>
-            <div>&nbsp;&nbsp;สีเขียว หมายถึง ดำเนินการเสร็จสิ้น</div>
-          </div>
-        </dd>
-      </dl>
-    </div>
-
-    <template is="dom-repeat" as="group" items="{{formList}}">
-      <div class="form_group font-face" hidden$="{{_isEmpty(group.forms)}}">{{group.name}}</div>
+    <template is="dom-repeat" as="group" items="{{formList}}" filter="isOption">
       <template is="dom-repeat" items="{{group.forms}}" sort="_sortByStatus">
         <assignment-card data="{{item}}"></assignment-card>
       </template>
@@ -177,6 +178,15 @@
       observers: [
         '__execute(jwtToken,key)',
       ],
+      isOption:function(item) {
+        return item.option;
+      },
+      _handleStudentResponse:function(e) {
+        this.fire('student-response',{'value':e.detail.response});
+      },
+      isNotOption:function(item) {
+        return !item.option;
+      },
       __execute: function (jwtToken, key) {
         if(!jwtToken.token || key == null) return;
         this.$.getAjax.generateRequest();
@@ -217,7 +227,6 @@
         this.set('_requiredReload', false);
       },
       __generateFormList: function(forms) {
-        console.log('__generateFormList');
         var data = [];
         var group = [
           {
@@ -268,18 +277,35 @@
            },
         ];
 
+        var option_group = JSON.parse(JSON.stringify(group));
+
         for (var i = 0; i < forms.length; i++) {
-          for (var j = 0; j < group.length; j++) {
-            if (group[j].names.indexOf(forms[i].form_type) != -1) {
-              group[j].forms.push(forms[i]);
-              break;
+          if(forms[i].mandatory) {
+            for (var j = 0; j < group.length; j++) {
+              if (group[j].names.indexOf(forms[i].form_type) != -1) {
+                group[j].forms.push(forms[i]);
+                break;
+              }
+            }
+          } else {
+            for (var j = 0; j < option_group.length; j++) {
+              if (option_group[j].names.indexOf(forms[i].form_type) != -1) {
+                option_group[j].forms.push(forms[i]);
+                break;
+              }
             }
           }
         }
 
         for (var i = 0; i < group.length; i++) {
           if (group[i].forms.length > 0) {
-            data.push({ 'name': group[i].group, 'forms': group[i].forms });
+            data.push({ 'name': group[i].group, 'forms': group[i].forms, 'option':false });
+          }
+        }
+
+        for (var i = 0; i < option_group.length; i++) {
+          if (option_group[i].forms.length > 0) {
+            data.push({ 'name': option_group[i].group, 'forms': option_group[i].forms, 'option':true });
           }
         }
         //console.log(data);

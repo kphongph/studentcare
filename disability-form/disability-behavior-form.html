@@ -29,7 +29,7 @@
       }
 
       .formEntry div {
-        @apply --paper-font-display);
+        @apply --paper-font-display;
         margin:3px;
         padding:0px;
         background:#efefef;
@@ -245,13 +245,21 @@
          .querySelectorAll('disability-choice');
         for(var i=0;i<eles.length;i++) {
           if(!eles[i].value)  {
-            console.log(eles[i]);
-            eles[i].classList.add('invalid');
-            return false;
-          } else {
-            eles[i].classList.remove('invalid');
+            //console.log(eles[i]);
+          /*var checkLength = this.showNextSection?eles.length:24;
+          for(var i=0;i<checkLength;i++) {
+            if(!eles[i].value)  {
+              var str = eles[i].innerHTML;
+              str = str.replace(/<{1}[^<>]{1,}>{1}/g," ");
+              this.$.control.setInvalidateMessage({'text':str});*/
+              this.$.control.setInvalidateMessage({'text':'ยังทำแบบประเมินไม่ครบถ้วน'});
+              eles[i].classList.add('invalid');
+              return false;
+            } else {
+              this.$.control.setInvalidateMessage({'text':''});
+              eles[i].classList.remove('invalid');
+            }
           }
-        }
         return true;
       },
       _reset:function() {

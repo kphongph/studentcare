@@ -340,14 +340,16 @@
         var questions = this.document.value.form_value;
         //console.log('questions',questions);
         /*var required = ['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10','q11','q12','q13','q14','q15','q16'];*/
-        var required = ['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10'];
+        var required = ['q1','q2','q3','q4','q5','q6','q7','q8','q9'];
         //console.log('required',required);
         for(var i=0;i<required.length;i++) {
           if(!questions[required[i]]) {
-            //this.$$('#'+required[i]).classList.add('invalid');
+            this.$.control.setInvalidateMessage({'text':'ยังทำแบบประเมินไม่ครบถ้วน'});
+            this.$$('#'+required[i]).classList.add('invalid');
             return false;
           } else {
-            //this.$$('#'+required[i]).classList.remove('invalid');
+            this.$.control.setInvalidateMessage({'text':''});
+            this.$$('#'+required[i]).classList.remove('invalid');
           }
         }
         return true;

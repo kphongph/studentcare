@@ -1,37 +1,33 @@
-<link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
-<link rel="import" href="../iron-ajax/iron-ajax.html">
-<link rel="import" href="../app-layout/app-layout.html">
-<link rel="import" href="../google-chart/google-chart.html">
-<link rel="import" href="../paper-styles/color.html">
-<link rel="import" href="../paper-styles/typography.html">
-<link rel="import" href="../paper-icon-button/paper-icon-button.html">
-<link rel="import" href="forms.html">
+<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../iron-ajax/iron-ajax.html">
+<link rel="import" href="../../app-layout/app-layout.html">
+<link rel="import" href="../../google-chart/google-chart.html">
+<link rel="import" href="../../paper-styles/color.html">
+<link rel="import" href="../../paper-styles/typography.html">
+<link rel="import" href="../../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../forms.html">
 <link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">
 
-<dom-module id="report-class">
+<dom-module id="report-sumaryclassform">
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors">
       :host {
-        @apply (--layout-vertical);
+        @apply --layout-vertical;
       }
       
       .container {
-        @apply (--layout-horizontal);
-        @apply (--layout-center-justified);
+        @apply --layout-horizontal;
+        @apply --layout-center-justified;
       }
       .form_group {
-        @apply (--paper-font-subhead);
+        @apply --paper-font-subhead;
         padding: 10px;
         background: var(--paper-grey-100);
-      }
-      .content{
-        background :white;
       }
       .header {
         font-family: 'Athiti', sans-serif;
         font-size: 25px;
-        font-weight: bold;
       }
       .font-face {
          @apply --paper-font-subhead;
@@ -52,50 +48,50 @@
 
     <app-localstorage-document key="jwtToken" data="{{jwtToken}}">
     </app-localstorage-document>
-      
+    
     <iron-ajax 
       id="listAjax" 
       method="GET" 
-      url$="https://maas.nuqlis.com:8000/v2/obec/_report_hostclass/data/{{hostid}}_{{level}}" 
+      url$="https://maas.nuqlis.com:8000/v2/obec/_studentcare_report/data/risk_{{year}}_{{hostid}}_{{form}}" 
       content-type="application/json"
       handle-as ="json"
       on-response="handleResponse">
     </iron-ajax>
-    
+<!--     
     <app-toolbar>
-        <div class="header">รายงานนักเรียนชั้น{{hostid}} &nbsp; &nbsp;</div>
-
-        <span class="header">จำนวน {{total}} คน ข้อมูล ณ วันที่ {{ts}}</span>
-    </app-toolbar>
+        <div class="font-face">แบบรายงานความเสี่ยงรายชั้น {{_formName(form)}}</div>
+    </app-toolbar> -->
 
     <div class="layout horizontal">
-        <div class="flex-6 font-face form_group">แบบประเมิน</div>
-        <div class="flex-1 font-face form_group">กำลังดำเนินการ</div>
-        <div class="flex-1 font-face form_group">เรียบร้อย</div>
-        <div class="flex-1 font-face form_group">รวม</div>
-        <div class="flex-1 font-face form_group">เสี่ยง</div>
+        <div class="flex-6 font-face form_group">ชั้นเรียน</div>
+        <div class="flex-2 font-face form_group">มีความเสี่ยง (คน)</div>
+        <div class="flex-2 font-face form_group">ปกติ (คน)</div>
+        <div class="flex-2 font-face form_group">รวม (คน)</div>
     </div>
 
-    <template is="dom-repeat" items="[[list]]" >
-      <div class="layout horizontal content">
-          <div class="flex-6 font-face line-style">{{_formName(item.type)}}</div>
-          <div class="flex-1 font-face line-style">{{item.content.working}}</div>
-          <div class="flex-1 font-face line-style">{{item.content.done}}</div>
-          <div class="flex-1 font-face line-style">{{item.content.total}}</div>
-          <div class="flex-1 font-face line-style">0</div>
+    <template is="dom-repeat" items="[[class]]">
+      <div class="layout horizontal">
+          <div class="flex-6 font-face line-style">{{item.listclass}}</div>
+          <div class="flex-2 font-face line-style">{{item.content.risk}}</div>
+          <div class="flex-2 font-face line-style">{{item.content.no_risk}}</div>
+          <div class="flex-2 font-face line-style">{{item.content.total}}</div>
       </div>
     </template>
   </template>
   
   <script>
     Polymer({
-      is: "report-class",
+      is: "report-sumaryclassform",
       properties:{
         hostid:{
           type:String,
           notify:true
         },
-        level:{
+        year:{
+          type:String,
+          notify:true
+        },
+        form:{
           type:String,
           notify:true
         },
@@ -107,9 +103,6 @@
           }
         }   
       },
-      observers:[
-        '_execute(jwtToken)'
-      ],
       _formName:function(form) {
         var obj = {   
           'dl2-form': 'แบบประเมินพฤติกรรมนักเรียน ฉบับครูประเมินนักเรียน',
@@ -136,6 +129,9 @@
         var result = obj[form]?obj[form]:form;
         return result;
       },
+      observers:[
+        '_execute(jwtToken)'
+      ],
       _execute(token) {
         if(token == null || !token.token) return;  
         this.$.listAjax.headers = {
@@ -145,36 +141,32 @@
       },
       handleResponse(e) {
         var doc = e.detail.response;
-        console.log(doc);
-        var forms = [];
+        // console.log(doc.value);
+        var classroom = [];
         var total = 0;
-        var _forms_dict = {};
-        var ts;
-        for(var key in doc.value) {
-          if(key == 'ts') {
-            ts = new Date(doc.value[key]).toLocaleString('th');
-            continue;
+        var status;
+        var risk,no_risk;
+        for(var val in doc.value){
+          status = doc.value[val];
+          risk = status.risk;
+          no_risk = status.no_risk;
+          if(!risk){
+            risk = 0;
           }
-          var cid = doc.value[key];
-          total++;
-          for(var form in cid) {
-            if(!_forms_dict[form]) {
-              _forms_dict[form] = {'new':0,'done':0,'working':0,'total':0};
+          if(!no_risk){
+            no_risk = 0; 
+          }
+          // console.log(no_risk);
+          classroom.push({
+            listclass:val,
+            content:{
+              risk: risk,
+              no_risk: no_risk,
+              total: risk + no_risk
             }
-            _forms_dict[form][cid[form]]++;
-            _forms_dict[form]['total']++;
-          }
+          });          
         }
-        for(var key in _forms_dict) {
-          forms.push({'type':key,'content':{
-            'working':_forms_dict[key]['new'] + _forms_dict[key]['working'],
-            'done':_forms_dict[key]['done'],
-            'total':_forms_dict[key]['total']
-          }});
-        }
-        this.set('total',total);
-        this.set('list',forms);    
-        this.set('ts',ts);              
+        this.set('class',classroom); 
       }
     });
     

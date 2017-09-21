@@ -78,10 +78,11 @@
         <div class="flex" on-tap="_tap">
           <div id="formName" class="font-face-big">{{_info.form.label}}</div>
           <div id="studentInfo" class="font-face-normal">
-            {{_info.dateTime}} ({{_info.status.label}})
+            {{_info.dateTime}} ({{_info.status.label}}) {{_info.mandatory}}
           </div>
         </div>
-        <paper-icon-button icon="delete" on-tap="_toggleDialog"></paper-icon-button>
+        <paper-icon-button icon="delete" on-tap="_toggleDialog" hidden="{{_info.mandatory}}">
+        </paper-icon-button>
       </div>
     </div>
 
@@ -184,6 +185,7 @@
            'label':ele.name,
            'element':ele
         };
+        tmp['mandatory']=data.mandatory
         return tmp;
       },
       _formName:function(name) {

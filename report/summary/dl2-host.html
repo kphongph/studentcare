@@ -1,0 +1,179 @@
+<link rel="import" href="../../../polymer/polymer.html">
+<link rel="import" href="../summary-report-behavior.html">
+
+<link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">
+
+<dom-module id="dl2-host">
+  <template>
+    <style include="iron-flex iron-flex-alignment iron-flex-factors">
+       :host {
+        background-color: white;
+      }
+
+      paper-tabs {
+        background: #20acbb;
+        color: white;
+        height: 40px;
+      }
+
+      .font-face {
+        font-family: 'Athiti', sans-serif;
+        font-size: 120%;
+      }
+
+      #title {
+        --paper-input-container-input: {
+          /*font-size: 24px;*/
+          font-family: 'Athiti', sans-serif;
+        }
+        ;
+        --paper-input-container-label: {
+          font-family: 'Athiti', sans-serif;
+        }
+        ;
+
+        /*--paper-input-container-color:red;*/
+        --paper-input-container-focus-color:#e94a60;
+
+        /*--paper-input-container-input-color:var blue;*/
+      }
+
+      .row-content {
+        border-bottom: 1px solid #000000;
+        padding-bottom: 5px;
+        padding-top: 5px;
+      }
+    </style>
+    <div class="layout vertical">
+      <div class="layout horizontal ">
+        <div class="flex-2 layout horizontal center-justified ">
+          พฤติกรรมด้าน
+        </div>
+        <div class="flex-2 layout horizontal center-justified">
+          มีจุดแข็ง
+        </div>
+        <div class="flex-2 layout horizontal center-justified">
+          ไม่มีจุดแข็ง
+        </div>
+        <div class="flex-2 layout horizontal center-justified">
+          กลุ่มปกติ
+        </div>
+        <div class="flex-2 layout horizontal center-justified">
+          กลุ่มเสี่ยง
+        </div>
+        <div class="flex-2 layout horizontal center-justified">
+          กลุ่มมีปัญหา
+        </div>
+      </div>
+      <div class="layout horizontal">
+        <div class="flex-2 layout horizontal row-content"></div>
+        <div class="flex-2 layout horizontal row-content">
+          <div class="flex-1">ชาย</div>
+          <div class="flex-1">หญิง</div>
+          <div class="flex-1">รวม</div>
+          <div class="flex-1">ร้อยละ</div>
+        </div>
+        <div class="flex-2 layout horizontal row-content">
+          <div class="flex-1">ชาย</div>
+          <div class="flex-1">หญิง</div>
+          <div class="flex-1">รวม</div>
+          <div class="flex-1">ร้อยละ</div>
+        </div>
+        <div class="flex-2 layout horizontal row-content">
+          <div class="flex-1">ชาย</div>
+          <div class="flex-1">หญิง</div>
+          <div class="flex-1">รวม</div>
+          <div class="flex-1">ร้อยละ</div>
+        </div>
+        <div class="flex-2 layout horizontal row-content">
+          <div class="flex-1">ชาย</div>
+          <div class="flex-1">หญิง</div>
+          <div class="flex-1">รวม</div>
+          <div class="flex-1">ร้อยละ</div>
+        </div>
+        <div class="flex-2 layout horizontal row-content">
+          <div class="flex-1">ชาย</div>
+          <div class="flex-1">หญิง</div>
+          <div class="flex-1">รวม</div>
+          <div class="flex-1">ร้อยละ</div>
+        </div>
+      </div>
+      <!-- data -->
+      <div class="layout horizontal " items='[
+      {"cid":"ความสามารถทางสังคม"},
+      {"cid":"อารมณ์"},
+      {"cid":"เกเร"},
+      {"cid":"อยู่ไม่นิ่ง / สมาธิสั้น"},
+      {"cid":"ความสัมพันธ์กับเพื่อน"}
+      ]'>
+        <div class="flex-2 layout horizontal row-content">
+          [[item.cid]]
+        </div>
+        <div class="flex-2 layout horizontal row-content">
+          <div class="flex-1">0</div>
+          <div class="flex-1">0</div>
+          <div class="flex-1">0</div>
+          <div class="flex-1">0</div>
+        </div>
+        <div class="flex-2 layout horizontal row-content">
+          <div class="flex-1">0</div>
+          <div class="flex-1">0</div>
+          <div class="flex-1">0</div>
+          <div class="flex-1">0</div>
+        </div>
+        <div class="flex-2 layout horizontal row-content">
+          <div class="flex-1">0</div>
+          <div class="flex-1">0</div>
+          <div class="flex-1">0</div>
+          <div class="flex-1">0</div>
+        </div>
+        <div class="flex-2 layout horizontal row-content">
+          <div class="flex-1">0</div>
+          <div class="flex-1">0</div>
+          <div class="flex-1">0</div>
+          <div class="flex-1">0</div>
+        </div>
+        <div class="flex-2 layout horizontal row-content">
+          <div class="flex-1">0</div>
+          <div class="flex-1">0</div>
+          <div class="flex-1">0</div>
+          <div class="flex-1">0</div>
+        </div>
+      </div>
+    </div>
+
+  </template>
+  <script>
+    Polymer({
+      is: 'dl2-host',
+      behaviors: [
+        Polymer.AppLocalizeBehavior,
+        SummaryReportBehavior
+      ],
+      properties: {
+        name: {
+          type: String,
+          reflectToAttribute: true,
+          readOnly: true,
+          value: "แบบประเมินพฤติกรรมเด็ก (SDQ) ฉบับครูเป็นผู้ประเมินนักเรียน"
+        },
+        part: {
+          type: Number,
+          value: 0
+        },
+        _result: {
+          type: Array,
+          computed: '__computeResult(document.value.form_result)',
+          value: function () {
+            return [];
+          }
+        },
+        invalidMessage: {
+          type: String,
+          notify: true,
+          value: ''
+        }
+      }
+    });
+  </script>
+</dom-module>

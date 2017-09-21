@@ -9,10 +9,11 @@
 <link rel="import" href="../../paper-input/paper-input.html">
 <link rel="import" href="../form-control.html">
 <link rel="import" href="../studentcare-form-behavior.html">
-<!--
+
 <link rel="import" href="homevisit-query.html">
-<link rel="import" href="grade-query.html">
--->
+
+<!--<link rel="import" href="grade-query.html">-->
+
 
 <link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">
 
@@ -114,17 +115,17 @@
 
     </style>
 
-    <!--<homevisit-query host="{{document.value.dmc.host}}"
+    <homevisit-query host="{{document.value.dmc.host}}"
        cid="{{document.value.student.cid}}"
        document="{{homevisit}}">
-    </homevisit-query>-->
+    </homevisit-query>
 
-	<grade-query host="{{document.value.dmc.host}}"
+	<!--<grade-query host="{{document.value.dmc.host}}"
        cid="{{document.value.student.cid}}"
 	   is-gpax-lessthan-one="{{document.value.form_value.q2_1_p}}"
 	   is-gpax-between="{{document.value.form_value.q2_1_m}}"
        document="{{gradedoc}}">
-    </grade-query>
+    </grade-query>-->
 
     <form-control id="control"
       on-form-action="_tap"
