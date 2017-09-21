@@ -10,14 +10,9 @@
 <link rel="import" href="../form-control.html">
 <link rel="import" href="../studentcare-form-behavior.html">
 
-<link rel="import" href="homevisit-query.html">
-
-<!--<link rel="import" href="grade-query.html">-->
-
-
 <link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">
 
-<dom-module id="screening-elementary-form">
+<dom-module id="screening-secondary-form">
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors">
 
@@ -26,6 +21,8 @@
         @apply --layout-vertical;
         background-color: white;
         display: block;
+        --paper-checkbox-vertical-align: top;
+        --paper-checkbox-margin: 8px 16px 8px 0;
       }
 
       .invalid {
@@ -81,13 +78,6 @@
         font-family: 'Athiti', sans-serif;
         font-size: 120%;
       }
-
-      .checkbox-font {
-        font-family: 'Athiti', sans-serif;
-        font-size: 120%;
-      }
-
-
       label{
         font-family: 'Athiti', sans-serif;
         font-size: 120%;
@@ -109,23 +99,11 @@
       --paper-input-container-label:{
         font-family: 'Athiti', sans-serif;
       };
+      /* .. */
       --paper-input-container-focus-color:#F44336;
       /* .. */
      }
-
     </style>
-
-    <homevisit-query host="{{document.value.dmc.host}}"
-       cid="{{document.value.student.cid}}"
-       document="{{homevisit}}">
-    </homevisit-query>
-
-	<!--<grade-query host="{{document.value.dmc.host}}"
-       cid="{{document.value.student.cid}}"
-	   is-gpax-lessthan-one="{{document.value.form_value.q2_1_p}}"
-	   is-gpax-between="{{document.value.form_value.q2_1_m}}"
-       document="{{gradedoc}}">
-    </grade-query>-->
 
     <form-control id="control"
       on-form-action="_tap"
@@ -141,8 +119,8 @@
          <li>
            <label id="label1" class="headQ">ความสามารถพิเศษ (ความถนัดและความสนใจในวิชาที่เรียน)</label>
            <paper-radio-group aria-labelledby="label1" selected="{{document.value.form_value.q1}}">
-             <paper-radio-button name="y" class="font-face-normal">มี</paper-radio-button>
-             <paper-radio-button name="n" class="font-face-normal">ไม่มี</paper-radio-button>
+             <paper-radio-button name="y" class ="font-face-normal" >มี</paper-radio-button>
+             <paper-radio-button name="n"class ="font-face-normal">ไม่มี</paper-radio-button>
            </paper-radio-group>
            <template is="dom-if" if="{{_isEquals(document.value.form_value.q1,'y')}}">
            <div class="topic1">
@@ -243,7 +221,7 @@
              </paper-input>
 
              <paper-checkbox checked="{{document.value.form_value.q1_9}}">
-             <div class="font-face-normal"> อื่น ๆ</div>
+            <div class="font-face-normal"> อื่น ๆ</div>
              </paper-checkbox>
              <paper-input id ="res" value="{{document.value.form_value.q1_9_t1}}"
                label="ลำดับที่ 1"
@@ -262,10 +240,10 @@
              value="{{_q2Text(document.value.form_value.q2)}}">
            </paper-input>
            <div class="layout horizontal"><!-- หัวตาราง -->
-             <paper-checkbox class="flex-1" checked="{{document.value.form_value.q2_1_m}}" disabled>
+             <paper-checkbox class="flex-1" checked="{{document.value.form_value.q2_1_m}}">
                ผลการเรียนเฉลี่ย 1.00 - 2.00
              </paper-checkbox>
-             <paper-checkbox class="flex-1" checked="{{document.value.form_value.q2_1_p}}" disabled>
+             <paper-checkbox class="flex-1" checked="{{document.value.form_value.q2_1_p}}">
                ผลการเรียนเฉลี่ยต่ำกว่า 1.00
              </paper-checkbox>
            </div>
@@ -354,24 +332,8 @@
              </paper-checkbox>
            </div>
          </li>
-           <template is="dom-repeat" items="{{homevisit}}" as="subject">
-             <li>
-               <div>
-                <label id="label2" class="headQ">{{subject.text}} (แบบเยี่ยมบ้าน)</label>
-               </div>
-               <div class="layout vertical">
-               <template is="dom-repeat" items="{{subject.values}}">
-                 <paper-checkbox checked="{{item.checked}}" disabled class="checkbox-font">
-                 {{item.text}}
-                 </paper-checkbox>
-               </template>
-               </div>
-             </li>
-           </template>
          <li>
-
-           <label id="label2" class="headQ">ด้านสุขภาพ</label>
-
+           <label id="label2"  class="headQ">ด้านสุขภาพ</label>
            <paper-input id ="res" label="ผลการประเมิน" readonly
              value="">
            </paper-input>
@@ -505,13 +467,7 @@
        </div>
       </div>
       -->
-      <div>ด้านการเรียน : {{document.value.form_result.q2.result}}</div>
-      <div>ด้านสุขภาพ : {{document.value.form_result.homevisit.0.type}}</div>
-      <div>ด้านสวัสดิการหรือความปลอดภัย : {{document.value.form_result.homevisit.1.type}}</div>
-      <div>ด้านพฤติกรรมการใช้สารเสพติด : {{document.value.form_result.homevisit.2.type}}</div>
-      <div>ด้านพฤติกรรมการใช้ความรุนแรง : {{document.value.form_result.homevisit.3.type}}</div>
-      <div>ด้านพฤติกรรมทางเพศ : {{document.value.form_result.homevisit.4.type}}</div>
-      <div>ด้านการติดเกม : {{document.value.form_result.homevisit.5.type}}</div>
+      <div class="font-face-normal">ไม่มีหลักเกณฑ์</div>
      </div>
     </form-control>
 
@@ -519,14 +475,14 @@
 
   <script>
     Polymer({
-      is: 'screening-elementary-form',
+      is: 'screening-secondary-form',
       listeners : {
       },
       properties: {
         name: {
           type:String,
           reflectToAttribute:true,
-          value:"แบบคัดกรองนักเรียนรายบุคคล ระดับประถม"
+          value:"แบบคัดกรองนักเรียนรายบุคคล ระดับมัธยม"
         }
       },
       behaviors:[
@@ -569,60 +525,18 @@
         }
         this.set('document.value.form_value.q2',current_max);
       },
-      /*_evaluate:function() {
+      _evaluate:function() {
         var values = this.document.value.form_value;
         var score = {};
-
-        //for(var q in values) {
-          //var p = q.split('_')[0];
-          //if(!score[p]) score[p] = {'y':0,'n':0};
-          //score[p][values[q]]++;
-        //}
-
-        var name_dict = {
-          'q2':'ด้านการเรียน'
-        };
-        var result_dict = {
-          'm':'เสี่ยง',
-          'p':'มีปัญหา'
-        };
-
         for(var q in values) {
-          if(name_dict[q]) {
-            var obj = {'name':name_dict[q],'result':result_dict[values[q]]};
-            score[q] = obj;
-          }
+          var p = q.split('_')[0];
+          if(!score[p]) score[p] = {'y':0,'n':0};
+          score[p][values[q]]++;
         }
-        //console.log(this.homevisit);
-
-        var result_homevisit = [];
-        var result_type;
-        var tmp_homevisit = this.homevisit;
-        for(var i=0;i<tmp_homevisit.length;i++) {
-            //console.log(tmp_homevisit[i]);
-           //console.log(tmp_homevisit[i].values.length);
-            for(var j=0;j<tmp_homevisit[i].values.length;j++){
-              //console.log(tmp_homevisit[i].values[j].type);
-              var chk_type = tmp_homevisit[i].values[j].type;
-              if(chk_type == "มีปัญหา"){
-                result_type = "มีปัญหา";
-              }else{
-                result_type = "เสี่ยง";
-              }
-            }
-            result_homevisit.push({
-              "text":tmp_homevisit[i].text,
-              "type":result_type
-            });
-		    }
-        //console.log(result_homevisit);
-        score["homevisit"] = result_homevisit;
-        console.log(score);
         return score;
-      },*/
+      },
       _validate:function() {
-        /*
-        var eles =Polymer.dom(this.root)
+        /*var eles =Polymer.dom(this.root)
          .querySelectorAll('snap-choice');
         for(var i=0;i<eles.length;i++) {
           if(!eles[i].value)  {
@@ -632,8 +546,7 @@
           } else {
             eles[i].classList.remove('invalid');
           }
-        }
-        */
+        }*/
         return true;
       },
       _isEquals:function(a,b) {

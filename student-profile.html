@@ -48,34 +48,23 @@
       id="getSchool"
       url="https://maas.nuqlis.com:8000/v2/obec/school/query"
       method="POST"
-      on-response="_onSchoolResponse"
+      headers$='{"Authorization":"JWT {{token.token}}"}'
       content-type="application/json"
+      on-response="_onSchoolResponse"
       body$='{"query":{"hostid":"{{hostid}}"}}'>
     </iron-ajax>
 
-    <!--<app-localstorage-document key="jwtToken" data="{{jwtToken}}">
-    </app-localstorage-document>
-
-    <iron-ajax id="getSchool"
-       method="POST"
-       url="https://maas.nuqlis.com:8000/v2/obec/school/query"
-       content-type="application/json"
-       headers$='{"Authorization":"JWT {{jwtToken.token}}"}'
-       last-response="{{school}}"
-       body$='{"query":{"hostid":"{{hostid}}"}}'>
-    </iron-ajax>-->
-
-      <div class="flex user-style">
-        <div class="flex layout horizontal">
-          <div class="flex-3"><iron-icon src="{{imgStudent}}" slot="item-icon"></iron-icon></div>
-          <div class="flex-9 layout vertical">
-            <div class="font-face">ข้อมูลนักเรียน</div>
-            <div>ชื่อ-นามสกุล: {{students.title}}{{students.name}} {{students.lastname}}</div>
-            <div>ชั้น: {{students.class}}/{{students.room}}</div>
-            <!--<div>โรงเรียน: {{school.host}} {{hostid}}</div>-->
-          </div>
+    <div class="flex user-style">
+      <div class="flex layout horizontal">
+        <div class="flex-3"><iron-icon src="{{imgStudent}}" slot="item-icon"></iron-icon></div>
+        <div class="flex-9 layout vertical">
+          <div class="font-face">ข้อมูลนักเรียน</div>
+          <div>ชื่อ-นามสกุล: {{students.title}}{{students.name}} {{students.lastname}}</div>
+          <div>ชั้น: {{students.class}}/{{students.room}}</div>
+          <div>โรงเรียน: {{school.host}}</div>
         </div>
       </div>
+    </div>
   </template>
 
   <script>
@@ -93,6 +82,7 @@
         },
         hostid: {
           type:String,
+          notify:true,
           reflectToAttribute:true
         },
         school:{
@@ -116,15 +106,10 @@
         }
       },
       observers: [
-        '__execute(token.token)',
+        '__execute(token.token,hostid)',
       ],
-      __execute: function (token) {
-        //console.log(token);
-        /*if(!jwtToken || !jwtToken.token) return;
-        this.$.getSchool.generateRequest();*/
-        this.$.getSchool.headers = {
-          'Authorization':'JWT '+token
-        };
+      __execute: function (token,hostid) {
+        if(!token || !hostid) return;
         this.$.getSchool.generateRequest();
       }
     });

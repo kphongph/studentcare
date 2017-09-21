@@ -52,25 +52,31 @@
       data="{{token}}">
     </app-localstorage-document>
 
+    <app-localstorage-document
+      key="role"
+      data="{{role}}">
+    </app-localstorage-document>
+
     <iron-ajax
       id="getTeacher"
       url="https://maas.nuqlis.com:8000/v2/obec/teacher_db/query"
       method="POST"
+      headers$='{"Authorization":"JWT {{token.token}}"}'
       on-response="_onTeacherResponse"
       content-type="application/json"
-      body='{"query":{"_id":"8ef813cbdd9f11e6bc01774977b2f887"}}'>
+      body$='{"query":{"_id":"{{role.profile._teacher}}"}}'>
     </iron-ajax>
 
-      <div class="flex user-style">
-        <div class="flex layout horizontal">
-          <div class="flex-3"><iron-icon src="{{imgUser}}" slot="item-icon"></iron-icon></div>
-          <div class="flex-9 layout vertical">
-            <div class="font-face">ยินดีต้อนรับเข้าสู่ระบบ</div>
-            <div>ชื่อ-นามสกุล: {{teacher.title}}{{teacher.firstname}} {{teacher.lastname}}</div>
-            <div>โรงเรียน: {{teacher.hostname}}</div>
-          </div>
+    <div class="flex user-style">
+      <div class="flex layout horizontal">
+        <div class="flex-3"><iron-icon src="{{imgUser}}" slot="item-icon"></iron-icon></div>
+        <div class="flex-9 layout vertical">
+          <div class="font-face">ยินดีต้อนรับเข้าสู่ระบบ</div>
+          <div>ชื่อ-นามสกุล: {{teacher.title}}{{teacher.firstname}} {{teacher.lastname}}</div>
+          <div>โรงเรียน: {{teacher.hostname}}</div>
         </div>
       </div>
+    </div>
   </template>
 
   <script>
@@ -107,14 +113,10 @@
         }
       },
       observers: [
-        '__execute(token.token)',
+        '__execute(token.token,role.profile._teacher)',
       ],
-      __execute: function (token) {
-        //console.log(token);
-        if(token == null) return;
-        this.$.getTeacher.headers = {
-          'Authorization':'JWT '+token
-        };
+      __execute: function (token,teacherId) {
+        if(!token || !teacherId) return;
         this.$.getTeacher.generateRequest();
       }
     });
