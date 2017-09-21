@@ -4,6 +4,8 @@
 <link rel="import" href="../app-layout/app-layout.html">
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../paper-material/paper-material.html">
+<link rel="import" href="student-profile.html">
+<link rel="import" href="user-profile.html">
 <link rel="import" href="student-room.html">
 <link rel="import" href="student-form.html">
 
@@ -39,9 +41,19 @@ Polymer Component for StudentCare project
     </style>
 
     <paper-material elevation="0">
-      <template is="dom-if" if="{{_isEqual(page,1)}}">
-        {{student.name}} {{student.lastname}}
-      </template>
+      <div class="layout horizontal">
+        <template is="dom-if" if="{{!_isEqual(page,0)}}">
+          <div class="flex-6">
+            <student-profile students="{{student}}" hostid="{{student.hostid}}"></student-profile>
+          </div>
+        </template>
+        <template is="dom-if" if="{{_isEqual(page,0)}}">
+          <div class="flex-6">&nbsp;</div>
+        </template>
+        <div class="flex-6">
+          <user-profile></user-profile>
+        </div>
+      </div>
       <app-toolbar>
         <paper-icon-button icon="arrow-back" hidden$="{{_isEqual(page,0)}}" on-tap="_back">
         </paper-icon-button>
