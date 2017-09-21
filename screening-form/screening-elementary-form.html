@@ -12,7 +12,7 @@
 
 <link rel="import" href="homevisit-query.html">
 
-<link rel="import" href="grade-query.html">
+<!--<link rel="import" href="grade-query.html">-->
 
 
 <link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">
@@ -26,6 +26,8 @@
         @apply --layout-vertical;
         background-color: white;
         display: block;
+        --paper-checkbox-vertical-align: top;
+        --paper-checkbox-margin: 8px 16px 8px 0;
       }
 
       .invalid {
@@ -120,12 +122,12 @@
        document="{{homevisit}}">
     </homevisit-query>
 
-	<grade-query host="{{document.value.dmc.host}}"
+	<!--<grade-query host="{{document.value.dmc.host}}"
        cid="{{document.value.student.cid}}"
 	   is-gpax-lessthan-one="{{document.value.form_value.q2_1_p}}"
 	   is-gpax-between="{{document.value.form_value.q2_1_m}}"
        document="{{gradedoc}}">
-    </grade-query>
+    </grade-query>-->
 
     <form-control id="control"
       on-form-action="_tap"
@@ -385,7 +387,7 @@
            </div>
            <div class="layout horizontal">
              <paper-checkbox class="flex-1" checked="{{document.value.form_value.q3_2_m}}">
-                มีโรงประจำตัวหรือเจ็บป่วยบ่อยๆ
+                มีโรคประจำตัวหรือเจ็บป่วยบ่อยๆ
              </paper-checkbox>
            </div>
             <div class="layout horizontal">
