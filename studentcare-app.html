@@ -42,12 +42,12 @@ Polymer Component for StudentCare project
 
     <paper-material elevation="0">
       <div class="layout horizontal">
-        <template is="dom-if" if="{{_isEqual(page,1)}}">
+        <template is="dom-if" if="{{!_isEqual(page,0)}}">
           <div class="flex-6">
             <student-profile students="{{student}}" hostid="{{student.hostid}}"></student-profile>
           </div>
         </template>
-        <template is="dom-if" if="{{!_isEqual(page,1)}}">
+        <template is="dom-if" if="{{_isEqual(page,0)}}">
           <div class="flex-6">&nbsp;</div>
         </template>
         <div class="flex-6">
