@@ -137,9 +137,11 @@
         var required = ['q1','q2','q3','q4','q5'];
         for(var i=0;i<required.length;i++) {
           if(!questions[required[i]]) {
+            this.$.control.setInvalidateMessage({'text':'ยังทำแบบประเมินไม่ครบถ้วน'});
             this.$$('#'+required[i]).classList.add('invalid');
             return false;
           } else {
+            this.$.control.setInvalidateMessage({'text':''});
             this.$$('#'+required[i]).classList.remove('invalid');
           }
         }

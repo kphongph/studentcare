@@ -539,9 +539,11 @@ CDI ฉบับภาษาไทยมี Sensitivity = 78.7% specificity = 91
         for(var i=0;i<eles.length;i++) {
           console.log(eles[i]);
           if(!eles[i].value)  {
+            this.$.control.setInvalidateMessage({'text':'ยังทำแบบประเมินไม่ครบถ้วน'});
             eles[i].classList.add('invalid');
             return false;
           } else {
+            this.$.control.setInvalidateMessage({'text':''});
             eles[i].classList.remove('invalid');
           }
         }

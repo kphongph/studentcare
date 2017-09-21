@@ -131,6 +131,9 @@
         }
         return tmp;
       },
+      _reset : function() {
+        this.set('document.value.form_value',{});
+      },
       _evaluate:function() {
         var values = this.document.value.form_value;
         console.log(values);
@@ -269,10 +272,12 @@
       },
       _validate:function() {
         if(!this.$.formChoice.validate()) {
+          this.$.control.setInvalidateMessage({'text':"ยังทำแบบประเมินไม่ครบถ้วน"});
           this.set('part',0);
           return false;
         } else {
           if(!this.$.formStudent.validate()) {
+            this.$.control.setInvalidateMessage({'text':''});
             this.set('part',1);
             return false;
           }
