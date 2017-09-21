@@ -1,0 +1,89 @@
+<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../app-layout/app-layout.html">
+<link rel="import" href="../../paper-styles/color.html">
+<link rel="import" href="../../paper-styles/typography.html">
+
+<link rel="import" href="summary/summary-reports.html">
+<link rel="import" href="summary/dl2-host.html">
+
+<link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">
+
+<dom-module id="summary-report">
+  <template>
+    <style include="iron-flex iron-flex-alignment iron-flex-factors">
+      :host {
+        @apply --layout-vertical;
+      }
+      
+      .font-face {
+        @apply --paper-font-subhead;
+        font-family: 'Athiti', sans-serif;
+      }
+      
+      .header div {
+        @apply --paper-font-subhead;
+        font-family: 'Athiti', sans-serif;
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
+
+      .header {
+        font-family: 'Athiti', sans-serif;
+        font-size: 25px;
+        padding-left:16px;
+        padding-right:16px;
+        background: var(--paper-grey-100);
+      }
+      .font-face {
+        @apply --paper-font-subhead;
+        font-family: 'Athiti', sans-serif;
+        font-size: 18px;
+        margin:5px;
+      }
+      .line-style {
+        border-bottom: 1px solid #ddd;
+      }
+      app-toolbar {
+        /*background-color: var(--paper-red-500);*/
+        background-color: #e65540;
+        color: white; 
+      }
+    </style>
+
+    <app-localstorage-document key="jwtToken" data="{{jwtToken}}">
+    </app-localstorage-document>
+
+    <template is="dom-if" if="{{_isEquals(formType,'dl2-form'}}">
+      <dl2-host jwt-token="{{jwtToken.token}}" 
+         host="{{host}}" 
+         level="{{level}}" 
+         year="{{year}}">
+      </dl2-host>
+    </template>
+    
+  </template>
+  
+  <script>
+    Polymer({
+      is: "summary-report",
+      properties:{
+        host:{
+          type:String,
+          notify:true
+        },
+        formType:{
+          type:String,
+          notify:true
+        },
+        year:{
+          type:String,
+          notify:true
+        }
+      },
+      _isEquals:function(a,b) {
+        return a == b;
+      }
+    });
+    
+  </script>
+</dom-module>

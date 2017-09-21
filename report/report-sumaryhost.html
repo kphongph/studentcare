@@ -11,6 +11,7 @@
 <link rel="import" href="../../paper-icon-button/paper-icon-button.html">
 <link rel="import" href="report-sumaryclassform.html">
 <link rel="import" href="../forms.html">
+<link rel="import" href="summary-report.html">
 
 <link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">
 
@@ -68,13 +69,13 @@
       on-response="handleResponse">
     </iron-ajax>
     <app-toolbar>
-        <div class="layout horizontal center flex">
-          <paper-icon-button icon="arrow-back" on-tap="_back" hidden$="{{isFirstPage(page)}}">
-          </paper-icon-button>
-          <div class="font-face flex">รายงานความเสี่ยง {{_formName(form)}}</div>
-          <div class="font-face end-justified">ณ {{ts}}</div>
-        </div>
-      </app-toolbar>
+      <div class="layout horizontal center flex">
+        <paper-icon-button icon="arrow-back" on-tap="_back" hidden$="{{isFirstPage(page)}}">
+        </paper-icon-button>
+        <div class="font-face flex">รายงานความเสี่ยง {{_formName(form)}}</div>
+        <div class="font-face end-justified">ณ {{ts}}</div>
+      </div>
+    </app-toolbar>
       
     <iron-pages selected="{{page}}" fallback-selection="0">
       <div> 
@@ -100,7 +101,9 @@
       </div>
 
       <div>
-        <report-sumaryclassform year="2017" hostid="{{hostid}}" form ="dl2-form"></report-sumaryclassform>
+        <summary-report year="2017" host="{{hostid}}" form-type="{{form}}">
+        </summary-report>
+        <!-- <report-sumaryclassform year="2017" hostid="{{hostid}}" form="{{form}}"></report-sumaryclassform> -->
       </div>
       
     </iron-pages>  
