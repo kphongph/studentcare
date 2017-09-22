@@ -1,0 +1,64 @@
+<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../iron-ajax/iron-ajax.html">
+<link rel="import" href="../../app-storage/app-localstorage/app-localstorage-document.html">
+
+<dom-module id="weight-height-query">
+ <template>
+
+   <app-localstorage-document
+     key="jwtToken"
+     data="{{token}}">
+   </app-localstorage-document>
+
+   <iron-ajax
+     id="getWeightHeight"
+     url="https://maas.nuqlis.com:8000/v2/obec/weightheight/query"
+     method="POST"
+     headers$='{"Authorization":"JWT {{token.token}}"}'
+     content-type="application/json"
+     on-response="_onResponse"
+     body='{"query":{"cid":"1249900953289"}}'>
+   </iron-ajax>
+
+ </template>
+ <script>
+   Polymer({
+     is:'weight-height-query',
+     properties:{
+       cid:{
+         type:String,
+         notify:true,
+         reflectToAttribute:true
+       },
+       host:{
+         type:String,
+         reflectToAttribute:true,
+         notify:true
+       },
+       weightheight: {
+         type:Object,
+         notify:true,
+         value:function() {
+           return {};
+         }
+       }
+     },
+     observers: [
+       '__execute(token.token,cid)',
+     ],
+     __execute: function (token,cid) {
+       console.log('token',token);
+       if(!token || !cid) return;
+       this.$.getWeightHeight.generateRequest();
+     },
+     _onResponse:function(e) {
+       var response = e.detail.response;
+       if(response.length == 1) {
+         var doc = response[0];
+         this.set('weightheight',doc);
+         console.log('wh',doc);
+       }
+     }
+   });
+ </script>
+</dom-module>
