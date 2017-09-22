@@ -144,7 +144,7 @@ Polymer Component for StudentCare project
           node.removeChild(node.firstChild);
         }
         var formElement = e.detail.formElement;
-        console.log('check form',formElement.name);
+        //console.log('check form',formElement.name);
         this.set('titlename',formElement.name);
         this.$.formEntry.appendChild(formElement);
         this._setPage(2);
