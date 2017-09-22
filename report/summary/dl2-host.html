@@ -1,7 +1,6 @@
 <link rel="import" href="../../../polymer/polymer.html">
-
 <link rel="import" href="../summary-report-behavior.html">
-
+<link rel="import" href="../../../iron-ajax/iron-ajax.html">
 <link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">
 
 <dom-module id="dl2-host">
@@ -18,28 +17,203 @@
 
       .font-face {
         font-family: 'Athiti', sans-serif;
-        font-size: 120%;
+        font-size: 100%;
       }
-
-    #title {
-      --paper-input-container-input: {
-        /*font-size: 24px;*/
-        font-family: 'Athiti', sans-serif;
-      };
-      --paper-input-container-label:{
-        font-family: 'Athiti', sans-serif;
-      };
+      #title {
+        --paper-input-container-input: {
+          /*font-size: 24px;*/
+          font-family: 'Athiti', sans-serif;
+        }
+        ;
+        --paper-input-container-label: {
+          font-family: 'Athiti', sans-serif;
+        }
+        ;
 
         /*--paper-input-container-color:red;*/
-
         --paper-input-container-focus-color:#e94a60;
 
-       /*--paper-input-container-input-color:var blue;*/
-     }
+        /*--paper-input-container-input-color:var blue;*/
+      }
 
+      .row-content {
+        border-bottom: 1px solid #443F3F;
+        /* border-left:1px solid #443F3F; */
+        padding-bottom: 5px;
+        padding-top: 5px;
+      }
     </style>
-    ทดสอบ Bobo
+
+    <app-localstorage-document key="jwtToken" data="{{jwtToken}}">
+    </app-localstorage-document>
+
+    <!-- <iron-ajax 
+      id="resulthost" 
+      method="GET" 
+      url="https://maas.nuqlis.com:8000/v2/obec/_studentcare_report/data/dl_{{form}}_{{year}}_{{hostid}}" 
+      content-type="application/json"
+      handle-as ="json"
+      on-response="handleResponse">
+    </iron-ajax> -->
+       
+    <iron-ajax 
+    id="resulthost" 
+    method="GET" 
+     url="https://maas.nuqlis.com:8000/v2/obec/_studentcare_report/data/dl_{{form}}_{{year}}_{{hostid}}" 
+    content-type="application/json"
+    handle-as ="json"
+    on-response="handleResponse">
+  </iron-ajax>
+
+    <!-- <iron-ajax 
+      id="resultclass" 
+      method="GET" 
+      url$="https://maas.nuqlis.com:8000/v2/obec/_studentcare_report/data/dl_{{form}_{{year}}_{{hostid}}_{{class}}" 
+      headers$='{"Authorization":"JWT {{jwtToken.token}}"}'
+      content-type="application/json"
+      handle-as ="json"
+      on-response="handleResponse">
+    </iron-ajax> -->
+    
+    <!-- <iron-ajax 
+      id="resultroom" 
+      method="GET" 
+      url$="https://maas.nuqlis.com:8000/v2/obec/_studentcare_report/data/dl_{{form}_{{year}}_{{hostid}}_{{class}}_{{room}}" 
+      headers$='{"Authorization":"JWT {{jwtToken.token}}"}'
+      content-type="application/json"
+      handle-as ="json"
+      on-response="handleResponse">
+  </iron-ajax> -->
+
+
+    <div class="layout vertical ">
+      <div class="layout horizontal font-face ">
+        <div class="flex-2 layout horizontal center-justified ">
+          พฤติกรรมด้าน
+        </div>
+        <div class="flex-2 layout horizontal center-justified">
+          มีจุดแข็ง
+        </div>
+        <div class="flex-2 layout horizontal center-justified">
+          ไม่มีจุดแข็ง
+        </div>
+        <div class="flex-2 layout horizontal center-justified">
+          กลุ่มปกติ
+        </div>
+        <div class="flex-2 layout horizontal center-justified">
+          กลุ่มเสี่ยง
+        </div>
+        <div class="flex-2 layout horizontal center-justified">
+          กลุ่มมีปัญหา
+        </div>
+      </div>
+      <div class="layout horizontal">
+        <div class="flex-2 layout horizontal row-content"></div>
+        <div class="flex-2 layout horizontal row-content font-face">
+          <div class="flex-1">ชาย</div>
+          <div class="flex-1">หญิง</div>
+          <div class="flex-1">รวม</div>
+          <div class="flex-1">ร้อยละ</div>
+        </div>
+        <div class="flex-2 layout horizontal row-content font-face">
+          <div class="flex-1">ชาย</div>
+          <div class="flex-1">หญิง</div>
+          <div class="flex-1">รวม</div>
+          <div class="flex-1">ร้อยละ</div>
+        </div>
+        <div class="flex-2 layout horizontal row-content font-face">
+          <div class="flex-1">ชาย</div>
+          <div class="flex-1">หญิง</div>
+          <div class="flex-1">รวม</div>
+          <div class="flex-1">ร้อยละ</div>
+        </div>
+        <div class="flex-2 layout horizontal row-content font-face">
+          <div class="flex-1">ชาย</div>
+          <div class="flex-1">หญิง</div>
+          <div class="flex-1">รวม</div>
+          <div class="flex-1">ร้อยละ</div>
+        </div>
+        <div class="flex-2 layout horizontal row-content font-face">
+          <div class="flex-1">ชาย</div>
+          <div class="flex-1">หญิง</div>
+          <div class="flex-1">รวม</div>
+          <div class="flex-1">ร้อยละ</div>
+        </div>
+      </div>
+      <!-- data -->
+      <div class="layout horizontal " items='[
+      {"cid":"ความสามารถทางสังคม"},
+      {"cid":"อารมณ์"},
+      {"cid":"เกเร"},
+      {"cid":"อยู่ไม่นิ่ง / สมาธิสั้น"},
+      {"cid":"ความสัมพันธ์กับเพื่อน"}
+      ]'>
+      
+      <paper-listbox class="flex" attr-for-selected="name" selected="{{form}}">
+          <template is="dom-repeat" items="[[list]]">
+           <paper-item class="flex line-style" name="{{item.type}}">
+            <div class="layout horizontal flex font-face  row-content">
+              <div class="flex-4">{{_formName(item.type)}}</div>
+              <div class="flex-1">0</div>
+              <div class="flex-1">{{item.content.st}}</div>
+              <div class="flex-1">0</div>
+              <div class="flex-1">%</div>
+              <div class="flex-1">0</div>
+              <div class="flex-1">{{item.content.weak}}</div>
+              <div class="flex-1">0</div>
+              <div class="flex-1">%</div>
+              <div class="flex-1">0</div>
+              <div class="flex-1">{{item.content.normal}}</div>
+              <div class="flex-1">{{item.content.normal}}</div>
+              <div class="flex-1">%</div>
+              <div class="flex-1">0</div>
+              <div class="flex-1">{{item.content.risk}}</div>
+              <div class="flex-1">{{item.content.risk}}</div>
+              <div class="flex-1">%</div>
+              <div class="flex-1">0</div>
+              <div class="flex-1">{{item.content.problem}}</div>
+              <div class="flex-1">{{item.content.problem}}</div>
+              <div class="flex-1">{{item.content.p_normal}}%</div>
+            </div>
+          </paper-item>
+        </template>
+       </paper-listbox>
+      </div>
+
+        <!-- <div class="flex-1 layout horizontal row-content">
+          <div class="flex-1">0</div>
+          <div class="flex-1">0</div>
+          <div class="flex-1">0</div>
+          <div class="flex-1">0</div>
+        </div>
+        <div class="flex-2 layout horizontal row-content">
+          <div class="flex-1">0</div>
+          <div class="flex-1">0</div>
+          <div class="flex-1">0</div>
+          <div class="flex-1">0</div>
+        </div>
+        <div class="flex-2 layout horizontal row-content">
+          <div class="flex-1">0</div>
+          <div class="flex-1">0</div>
+          <div class="flex-1">0</div>
+          <div class="flex-1">0</div>
+        </div>
+        <div class="flex-2 layout horizontal row-content">
+          <div class="flex-1">0</div>
+          <div class="flex-1">0</div>
+          <div class="flex-1">0</div>
+          <div class="flex-1">0</div>
+        </div>
+        <div class="flex-2 layout horizontal row-content">
+          <div class="flex-1">0</div>
+          <div class="flex-1">0</div>
+          <div class="flex-1">0</div>
+          <div class="flex-1">0</div>
+        </div> -->
+
+    
   </template>
+
   <script>
     Polymer({
       is: 'dl2-host',
@@ -58,6 +232,18 @@
           type: Number,
           value: 0
         },
+        year:{
+          type:String,
+          notify:true
+        },
+        hostid:{
+          type:String,
+          notify:true
+        },
+        form:{
+          type:String,
+          notify:true
+        },
         _result: {
           type: Array,
           computed: '__computeResult(document.value.form_result)',
@@ -70,7 +256,100 @@
           notify:true,
           value:''
         }
+      },
+      observers:[
+      '_execute(jwtToken)',
+      ],
+      _formName:function(form) {
+        var zz;
+        var obj = {   
+          'emotion': 'ด้านอารมณ์',
+          'behavior': 'ด้านความประพฤติ / เกเร',
+          'behavior_active': 'ด้านพฤติกรรมไม่อยู่นิ่ง',
+          'friend': 'ด้านความสัมพันธ์กับเพื่อน', 
+          'social': 'ด้านสัมพันธภาพทางสังคม', 
+        }    
+        var result = obj[form]?obj[form]:form;
+        return result;
+      },
+      // observers:[
+      // '_execute(jwtToken.token,year,hostid,form)'
+      // ],
+      // _execute(token,year,hostid,form) {        
+      //   if(token == null || year == null || hostid == null || form == null ) return;                  
+      //   this.$.resulthost.generateRequest();
+      //     // this.$.resultclass.generateRequest();
+      //     // this.$.resultroom.generateRequest();
+      // },
+      _execute(token) {
+        if(token == null || !token.token) return;  
+        this.$.resulthost.headers = {
+          'Authorization':'JWT '+token.token
+        }
+        this.$.resulthost.generateRequest();
+      },
+
+      // _execute(token) {
+      //   if(token == null || !token.token) return;  
+      //   this.$.resulthost.headers = {
+      //     'Authorization':'JWT '+token.token
+      //   }
+      //   this.$.resultlevel.generateRequest();
+      // },
+      // _execute(token) {
+      //   if(token == null || !token.token) return;  
+      //   this.$.resulthost.headers = {
+      //     'Authorization':'JWT '+token.token
+      //   }
+      //   this.$.resultclass.generateRequest();
+      // }
+
+      handleResponse(e) {
+        var doc = e.detail.response;
+        var forms = [];
+        var forms2 = [];
+        var gender;
+        var male = 0, female = 0;
+        var result;
+        var _forms_dict = {};
+        var emution = {};
+
+        for (var val in doc.value) {
+          gender = val;
+          if (gender == "เด็กหญิง" || gender == "นางสาว") {
+            var cid = doc.value[val];
+            for (var form in cid) {
+              if (!_forms_dict[form]) {
+                _forms_dict[form] = { 'ปกติ': 0, 'เสี่ยง': 0, 'มีปัญหา': 0 };
+              }
+              for (var i in cid[form]) {
+                _forms_dict[form][i]++;
+              }
+              // console.log(_forms_dict);
+            }
+              for (var key in _forms_dict) {
+                  if (key == 'back' || key == 'weakness') {
+                    continue;
+                  }else{
+                    console.log(key);
+                    forms.push({
+                      'type': key,
+                      'content': {
+                        'normal': _forms_dict[key]['ปกติ'],
+                        'risk': _forms_dict[key]['เสี่ยง'],
+                        'problem': _forms_dict[key]['มีปัญหา'],
+                        'st': _forms_dict['social']['ปกติ'],
+                        'weak': _forms_dict['social']['เสี่ยง']+_forms_dict['social']['มีปัญหา']
+                      }
+                    });
+                  }
+                }
+              }
+            }
+        this.set('list',forms);
+        console.log(forms);
       }
+
     });
   </script>
 </dom-module>
