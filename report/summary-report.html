@@ -53,14 +53,7 @@
     <app-localstorage-document key="jwtToken" data="{{jwtToken}}">
     </app-localstorage-document>
 
-    <!-- <template is="dom-if" if="{{_isEquals(formType,'dl2-form'}}">
-      <dl2-host jwt-token="{{jwtToken.token}}" 
-         host="{{host}}" 
-         level="{{level}}" 
-         year="{{year}}">
-      </dl2-host>
-    </template> -->
-    <template is="dom-if" if="{{_isEquals(formType,'dl2-form'}}">
+    <template is="dom-if" if="{{_isEquals(formType,'dl2-form')}}">
       <dl2-host jwt-token="{{jwtToken.token}}" 
          hostid="1071020101" 
          year="2017"

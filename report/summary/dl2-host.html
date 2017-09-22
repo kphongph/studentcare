@@ -49,17 +49,21 @@
     <app-localstorage-document key="jwtToken" data="{{jwtToken}}">
     </app-localstorage-document>
 
-    <!-- <iron-ajax 
+    <iron-ajax 
       id="resulthost" 
       method="GET" 
+      headers$='{"Authorization":"JWT {{jwtToken.token}}"}'
       url="https://maas.nuqlis.com:8000/v2/obec/_studentcare_report/data/dl_{{form}}_{{year}}_{{hostid}}" 
       content-type="application/json"
       handle-as ="json"
       on-response="handleResponse">
+<<<<<<< HEAD
     </iron-ajax> -->
 
     <iron-ajax id="resulthost" method="GET" url="https://maas.nuqlis.com:8000/v2/obec/_studentcare_report/data/dl_{{form}}_{{year}}_{{hostid}}"
       content-type="application/json" handle-as="json" on-response="handleResponse">
+=======
+>>>>>>> pk
     </iron-ajax>
 
     <!-- <iron-ajax 
@@ -71,6 +75,7 @@
       handle-as ="json"
       on-response="handleResponse">
     </iron-ajax> -->
+<<<<<<< HEAD
 
     <!-- <iron-ajax 
       id="resultroom" 
@@ -83,6 +88,9 @@
   </iron-ajax> -->
 
 
+=======
+    
+>>>>>>> pk
     <div class="layout vertical ">
       <div class="layout horizontal font-face ">
         <div class="flex-2 layout horizontal center-justified ">
@@ -166,6 +174,7 @@
             </div>
           </paper-item>
         </template>
+<<<<<<< HEAD
       </paper-listbox>
     </div>
 
@@ -201,6 +210,10 @@
         </div> -->
 
 
+=======
+       </paper-listbox>
+      </div>
+>>>>>>> pk
   </template>
 
   <script>
@@ -211,12 +224,15 @@
         SummaryReportBehavior
       ],
       properties: {
+<<<<<<< HEAD
         name: {
           type: String,
           reflectToAttribute: true,
           readOnly: true,
           value: "แบบประเมินพฤติกรรมเด็ก (SDQ) ฉบับครูเป็นผู้ประเมินนักเรียน"
         },
+=======
+>>>>>>> pk
         part: {
           type: Number,
           value: 0

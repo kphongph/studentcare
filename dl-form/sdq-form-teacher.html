@@ -112,11 +112,6 @@
           value:function() {
             return {};
           }
-        },
-        invalidMessage:{
-          type:String,
-          notify:true,
-          value:''
         }
       },
       behaviors:[
@@ -145,22 +140,18 @@
         var self = this;
         var __check = function(attr) {
           if(!obj[attr]) {
-            this.set('invalidMessage','ยังทำแบบประเมินไม่ครบถ้วน');
             self.$['r_'+attr].classList.add('invalid');
             return false;
           } else {
-            this.set('invalidMessage','');
             self.$['r_'+attr].classList.remove('invalid');
           }
           return true;
         }
 
         if(!obj.exist) {
-          this.set('invalidMessage','ยังทำแบบประเมินไม่ครบถ้วน');
           this.$.r_exist.classList.add('invalid');
           return false;
         } else {
-          this.set('invalidMessage','');
           this.$.r_exist.classList.remove('invalid');
           if(obj.exist == 'Y') {
             var attrs = ['level','time',
