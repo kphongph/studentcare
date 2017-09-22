@@ -10,6 +10,7 @@
 <link rel="import" href="../form-control.html">
 <link rel="import" href="../studentcare-form-behavior.html">
 
+<link rel="import" href="weight-height-query.html">
 <link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">
 
 <dom-module id="screening-secondary-form">
@@ -122,6 +123,13 @@
      }
 
     </style>
+
+    <weight-height-query
+      cid="{{document.value.student.cid}}"
+      semester="{{document.value.student.semester}}"
+      year="{{document.value.student.year}}"
+      is-weight-height="{{document.value.form_value.q3_1_m}}">
+    </weight-height-query>
 
     <form-control id="control"
       on-form-action="_tap"
@@ -436,7 +444,7 @@
              value="">
            </paper-input>
             <div class="layout horizontal">
-             <paper-checkbox class="flex-1" checked="{{document.value.form_value.q3_1_m}}">
+             <paper-checkbox class="flex-1" checked="{{document.value.form_value.q3_1_m}}" disabled>
                 น้ำหนักผิดปกติ  และไม่สัมพันธ์กับส่วนสูง  หรืออายุ
              </paper-checkbox>
              <paper-checkbox class="flex-1" checked="{{document.value.form_value.q3_1_p}}">

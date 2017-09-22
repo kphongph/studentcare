@@ -17,7 +17,7 @@
      headers$='{"Authorization":"JWT {{token.token}}"}'
      content-type="application/json"
      on-response="_onResponse"
-     body='{"query":{"cid":"1249900953289"}}'>
+     body$='{"query":{"cid":"{{cid}}","year":{{year}},"semester":{{semester}}}}'>
    </iron-ajax>
 
  </template>
@@ -30,10 +30,15 @@
          notify:true,
          reflectToAttribute:true
        },
-       host:{
+       semester:{
          type:String,
-         reflectToAttribute:true,
-         notify:true
+         notify:true,
+         reflectToAttribute:true
+       },
+       year:{
+         type:String,
+         notify:true,
+         reflectToAttribute:true
        },
        weight:{
          type:String,
@@ -59,24 +64,49 @@
      observers: [
        '__execute(token.token,cid)',
      ],
-     __execute: function (token,cid) {
-       console.log('token',token);
-       if(!token || !cid) return;
+     __execute: function (token,cid,year,semester) {
+       //console.log('token',token);
+       if(!token || !cid || !year || !semester) return;
        this.$.getWeightHeight.generateRequest();
      },
      _onResponse:function(e) {
        var response = e.detail.response;
        if(response.length == 1) {
         var doc = response[0];
-        this.set('weight',doc.weight1);
-        this.set('height',doc.height1);
+        if(doc.weight4 == null && doc.height4 == null){
+          if(doc.weight3 == null && doc.height3 == null){
+            if(doc.weight2 == null && doc.height2 == null){
+              this.set('weight',doc.weight1);
+              this.set('height',doc.height1);
+            }else{
+              this.set('weight',doc.weight2);
+              this.set('height',doc.height2);
+            }
+          }else{
+            this.set('weight',doc.weight3);
+            this.set('height',doc.height3);
+          }
+        }else{
+          this.set('weight',doc.weight4);
+          this.set('height',doc.height4);
+        }
         //this.set('weightheight',doc);
-        //console.log('wh',doc);
+        //console.log('weight/height',doc);
        }
      },
      __computedIsWeightHeight(weight,height) {
-      console.log(weight,height);
-      return true;
+      //console.log(weight,height);
+      if(weight == null || height == null) return;
+      var _height = height/100;
+      var bmi = weight/(_height*_height);
+      //console.log('BMI',bmi);
+      if(bmi >= 18.50 && bmi <= 22.90){
+        //console.log(false);
+        return false;
+      }else{
+        //console.log(true);
+        return true;
+      }
     },
    });
  </script>
