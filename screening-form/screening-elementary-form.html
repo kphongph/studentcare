@@ -11,7 +11,7 @@
 <link rel="import" href="../studentcare-form-behavior.html">
 
 <link rel="import" href="homevisit-query.html">
-
+<link rel="import" href="weight-height-query.html">
 <!--<link rel="import" href="grade-query.html">-->
 
 
@@ -139,6 +139,12 @@
        document="{{homevisit}}">
     </homevisit-query>
 
+    <weight-height-query
+      cid="{{document.value.student.cid}}"
+      is-weight-height="{{document.value.form_value.q3_1_m}}">
+    </weight-height-query>
+    <!--{{weightheight.height1}}-->
+    
 	<!--<grade-query host="{{document.value.dmc.host}}"
        cid="{{document.value.student.cid}}"
 	   is-gpax-lessthan-one="{{document.value.form_value.q2_1_p}}"

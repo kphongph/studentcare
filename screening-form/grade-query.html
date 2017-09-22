@@ -21,54 +21,54 @@
  </template>
  <script>
    Polymer({
-     is:'grade-query',
-     properties:{
-       cid:String,
-       host:String,
-	   isGpaxLessthanOne:{
-		type:Boolean,
-		notify:true,
-		computed:'__computedIsGpaxLessThanOne(document)'
-	   },
-	   isGpaxBetween:{
-		type:Boolean,
-		notify:true,
-		computed:'__computedIsGpaxBetween(document)'
-	   },
-       document: {
-         type:Object,
-         notify:true
-       }
-     },
-     observers:[
-       'executeQuery(host,cid,jwtToken.token)'
-     ],
-     executeQuery:function(host,cid,token) {
-       this.$.query.generateRequest();
-     },
-     handleResponse:function(e) {
-       var res = e.detail.response;
-       if(res.length == 0) return;
-       var form = res[0].value.doc;
-	   this.set('document',form);
-     },
-     __computedIsGpaxLessThanOne(document) {
-	   console.log(document);
-	   var gpaxN = Number(document.GPAX);
-	   console.log(gpaxN);
-	   return (gpaxN / 100.0) < 1.0;
-	 },
-     __computedIsGpaxBetween(document) {
-	   console.log(document);
-	   var gpaxN = Number(document.GPAX);
-	   console.log(gpaxN);
-	   var gpaxC = gpaxN / 100.0;
-	   if(gpaxC >= 1.0 && gpaxC <= 2.0){
-		   return true;
-	   }else{
-		   return false;
-	   }
-	 }
+    is:'grade-query',
+    properties:{
+      cid:String,
+      host:String,
+      isGpaxLessthanOne:{
+        type:Boolean,
+        notify:true,
+        computed:'__computedIsGpaxLessThanOne(document)'
+      },
+      isGpaxBetween:{
+        type:Boolean,
+        notify:true,
+        computed:'__computedIsGpaxBetween(document)'
+      },
+      document: {
+        type:Object,
+        notify:true
+      }
+    },
+    observers:[
+      'executeQuery(host,cid,jwtToken.token)'
+    ],
+    executeQuery:function(host,cid,token) {
+      this.$.query.generateRequest();
+    },
+    handleResponse:function(e) {
+      var res = e.detail.response;
+      if(res.length == 0) return;
+      var form = res[0].value.doc;
+      this.set('document',form);
+    },
+    __computedIsGpaxLessThanOne(document) {
+      console.log(document);
+      var gpaxN = Number(document.GPAX);
+      console.log(gpaxN);
+      return (gpaxN / 100.0) < 1.0;
+    },
+    __computedIsGpaxBetween(document) {
+      console.log(document);
+      var gpaxN = Number(document.GPAX);
+      console.log(gpaxN);
+      var gpaxC = gpaxN / 100.0;
+      if(gpaxC >= 1.0 && gpaxC <= 2.0){
+        return true;
+      }else{
+        return false;
+      }
+    }
    });
  </script>
 </dom-module>
