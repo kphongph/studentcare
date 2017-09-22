@@ -6,9 +6,10 @@
 <dom-module id="dl2-host">
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors">
-      :host{
+       :host {
         background-color: white;
       }
+
       paper-tabs {
         background: #20acbb;
         color: white;
@@ -19,6 +20,7 @@
         font-family: 'Athiti', sans-serif;
         font-size: 100%;
       }
+
       #title {
         --paper-input-container-input: {
           /*font-size: 24px;*/
@@ -55,15 +57,10 @@
       handle-as ="json"
       on-response="handleResponse">
     </iron-ajax> -->
-       
-    <iron-ajax 
-    id="resulthost" 
-    method="GET" 
-     url="https://maas.nuqlis.com:8000/v2/obec/_studentcare_report/data/dl_{{form}}_{{year}}_{{hostid}}" 
-    content-type="application/json"
-    handle-as ="json"
-    on-response="handleResponse">
-  </iron-ajax>
+
+    <iron-ajax id="resulthost" method="GET" url="https://maas.nuqlis.com:8000/v2/obec/_studentcare_report/data/dl_{{form}}_{{year}}_{{hostid}}"
+      content-type="application/json" handle-as="json" on-response="handleResponse">
+    </iron-ajax>
 
     <!-- <iron-ajax 
       id="resultclass" 
@@ -74,7 +71,7 @@
       handle-as ="json"
       on-response="handleResponse">
     </iron-ajax> -->
-    
+
     <!-- <iron-ajax 
       id="resultroom" 
       method="GET" 
@@ -140,18 +137,10 @@
           <div class="flex-1">ร้อยละ</div>
         </div>
       </div>
-      <!-- data -->
-      <div class="layout horizontal " items='[
-      {"cid":"ความสามารถทางสังคม"},
-      {"cid":"อารมณ์"},
-      {"cid":"เกเร"},
-      {"cid":"อยู่ไม่นิ่ง / สมาธิสั้น"},
-      {"cid":"ความสัมพันธ์กับเพื่อน"}
-      ]'>
-      
+
       <paper-listbox class="flex" attr-for-selected="name" selected="{{form}}">
-          <template is="dom-repeat" items="[[list]]">
-           <paper-item class="flex line-style" name="{{item.type}}">
+        <template is="dom-repeat" items="[[list]]">
+          <paper-item class="flex line-style" name="{{item.type}}">
             <div class="layout horizontal flex font-face  row-content">
               <div class="flex-4">{{_formName(item.type)}}</div>
               <div class="flex-1">0</div>
@@ -177,10 +166,10 @@
             </div>
           </paper-item>
         </template>
-       </paper-listbox>
-      </div>
+      </paper-listbox>
+    </div>
 
-        <!-- <div class="flex-1 layout horizontal row-content">
+    <!-- <div class="flex-1 layout horizontal row-content">
           <div class="flex-1">0</div>
           <div class="flex-1">0</div>
           <div class="flex-1">0</div>
@@ -211,7 +200,7 @@
           <div class="flex-1">0</div>
         </div> -->
 
-    
+
   </template>
 
   <script>
@@ -225,24 +214,24 @@
         name: {
           type: String,
           reflectToAttribute: true,
-          readOnly:true,
+          readOnly: true,
           value: "แบบประเมินพฤติกรรมเด็ก (SDQ) ฉบับครูเป็นผู้ประเมินนักเรียน"
         },
         part: {
           type: Number,
           value: 0
         },
-        year:{
-          type:String,
-          notify:true
+        year: {
+          type: String,
+          notify: true
         },
-        hostid:{
-          type:String,
-          notify:true
+        hostid: {
+          type: String,
+          notify: true
         },
-        form:{
-          type:String,
-          notify:true
+        form: {
+          type: String,
+          notify: true
         },
         _result: {
           type: Array,
@@ -251,25 +240,25 @@
             return [];
           }
         },
-        invalidMessage:{
-          type:String,
-          notify:true,
-          value:''
+        invalidMessage: {
+          type: String,
+          notify: true,
+          value: ''
         }
       },
-      observers:[
-      '_execute(jwtToken)',
+      observers: [
+        '_execute(jwtToken)',
       ],
-      _formName:function(form) {
+      _formName: function (form) {
         var zz;
-        var obj = {   
+        var obj = {
           'emotion': 'ด้านอารมณ์',
           'behavior': 'ด้านความประพฤติ / เกเร',
           'behavior_active': 'ด้านพฤติกรรมไม่อยู่นิ่ง',
-          'friend': 'ด้านความสัมพันธ์กับเพื่อน', 
-          'social': 'ด้านสัมพันธภาพทางสังคม', 
-        }    
-        var result = obj[form]?obj[form]:form;
+          'friend': 'ด้านความสัมพันธ์กับเพื่อน',
+          'social': 'ด้านสัมพันธภาพทางสังคม',
+        }
+        var result = obj[form] ? obj[form] : form;
         return result;
       },
       // observers:[
@@ -282,9 +271,9 @@
       //     // this.$.resultroom.generateRequest();
       // },
       _execute(token) {
-        if(token == null || !token.token) return;  
+        if (token == null || !token.token) return;
         this.$.resulthost.headers = {
-          'Authorization':'JWT '+token.token
+          'Authorization': 'JWT ' + token.token
         }
         this.$.resulthost.generateRequest();
       },
@@ -306,47 +295,54 @@
 
       handleResponse(e) {
         var doc = e.detail.response;
-        var forms = [];
+        var forms = [
+          { type: "social",content:{
+            box1:{ boys: 0,girls:0,sum:0,percen:0},
+            box2:{boys: 0,girls:0,sum:0,percen:0},
+            box3:{boys: "",girls:"",sum:"",percen:""},
+            box4:{boys: "",girls:"",sum:"",percen:""},
+            box5:{boys: "",girls:"",sum:"",percen:""}}
+          }
+        ];
         var forms2 = [];
-        var gender;
         var male = 0, female = 0;
         var result;
         var _forms_dict = {};
         var emution = {};
-
+        console.log(forms);
         for (var val in doc.value) {
-          gender = val;
-          if (gender == "เด็กหญิง" || gender == "นางสาว") {
+          if (val == "เด็กหญิง" || val == "นางสาว") {
             var cid = doc.value[val];
-            for (var form in cid) {
-              if (!_forms_dict[form]) {
-                _forms_dict[form] = { 'ปกติ': 0, 'เสี่ยง': 0, 'มีปัญหา': 0 };
-              }
-              for (var i in cid[form]) {
-                _forms_dict[form][i]++;
-              }
-              // console.log(_forms_dict);
-            }
-              for (var key in _forms_dict) {
-                  if (key == 'back' || key == 'weakness') {
-                    continue;
-                  }else{
-                    console.log(key);
-                    forms.push({
-                      'type': key,
-                      'content': {
-                        'normal': _forms_dict[key]['ปกติ'],
-                        'risk': _forms_dict[key]['เสี่ยง'],
-                        'problem': _forms_dict[key]['มีปัญหา'],
-                        'st': _forms_dict['social']['ปกติ'],
-                        'weak': _forms_dict['social']['เสี่ยง']+_forms_dict['social']['มีปัญหา']
-                      }
-                    });
-                  }
-                }
-              }
-            }
-        this.set('list',forms);
+          }}
+        //     for (var form in cid) {
+        //       // console.log(form);
+        //       if (!_forms_dict[form]) {
+        //         _forms_dict[form] = { 'ปกติ': 0, 'เสี่ยง': 0, 'มีปัญหา': 0 };
+        //       }
+        //       for (var i in cid[form]) {
+        //         _forms_dict[form][i]++;
+        //       }
+        //       // console.log(_forms_dict);
+        //     }
+        //     for (var key in _forms_dict) {
+        //       if (key == 'back' || key == 'weakness') {
+        //         continue;
+        //       } else {
+        //         forms.push({
+        //           'type': key,
+        //           'content': {
+        //             'normal': _forms_dict[key]['ปกติ'],
+        //             'risk': _forms_dict[key]['เสี่ยง'],
+        //             'problem': _forms_dict[key]['มีปัญหา'],
+        //             'st': _forms_dict['social']['ปกติ'],
+        //             'weak': _forms_dict['social']['เสี่ยง'] + _forms_dict['social']['มีปัญหา']
+        //           }
+        //         });
+        //       }
+        //     }
+        //   }
+        // }
+        this.set('list', forms);
         console.log(forms);
       }
 
