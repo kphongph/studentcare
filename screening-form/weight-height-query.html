@@ -35,13 +35,26 @@
          reflectToAttribute:true,
          notify:true
        },
-       weightheight: {
+       weight:{
+         type:String,
+         notify:true
+       },
+       height:{
+         type:String,
+         notify:true
+       },
+       /*weightheight: {
          type:Object,
          notify:true,
          value:function() {
            return {};
          }
-       }
+       },*/
+       isWeightHeight:{
+        type:Boolean,
+        notify:true,
+        computed:'__computedIsWeightHeight(weight,height)'
+      },
      },
      observers: [
        '__execute(token.token,cid)',
@@ -54,11 +67,17 @@
      _onResponse:function(e) {
        var response = e.detail.response;
        if(response.length == 1) {
-         var doc = response[0];
-         this.set('weightheight',doc);
-         console.log('wh',doc);
+        var doc = response[0];
+        this.set('weight',doc.weight1);
+        this.set('height',doc.height1);
+        //this.set('weightheight',doc);
+        //console.log('wh',doc);
        }
-     }
+     },
+     __computedIsWeightHeight(weight,height) {
+      console.log(weight,height);
+      return true;
+    },
    });
  </script>
 </dom-module>
