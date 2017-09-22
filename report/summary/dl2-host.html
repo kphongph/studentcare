@@ -49,21 +49,8 @@
     <app-localstorage-document key="jwtToken" data="{{jwtToken}}">
     </app-localstorage-document>
 
-    <iron-ajax 
-      id="resulthost" 
-      method="GET" 
-      headers$='{"Authorization":"JWT {{jwtToken.token}}"}'
-      url="https://maas.nuqlis.com:8000/v2/obec/_studentcare_report/data/dl_{{form}}_{{year}}_{{hostid}}" 
-      content-type="application/json"
-      handle-as ="json"
-      on-response="handleResponse">
-<<<<<<< HEAD
-    </iron-ajax> -->
-
-    <iron-ajax id="resulthost" method="GET" url="https://maas.nuqlis.com:8000/v2/obec/_studentcare_report/data/dl_{{form}}_{{year}}_{{hostid}}"
+    <iron-ajax id="resulthost" method="GET" headers$='{"Authorization":"JWT {{jwtToken.token}}"}' url="https://maas.nuqlis.com:8000/v2/obec/_studentcare_report/data/dl_{{form}}_{{year}}_{{hostid}}"
       content-type="application/json" handle-as="json" on-response="handleResponse">
-=======
->>>>>>> pk
     </iron-ajax>
 
     <!-- <iron-ajax 
@@ -75,22 +62,7 @@
       handle-as ="json"
       on-response="handleResponse">
     </iron-ajax> -->
-<<<<<<< HEAD
 
-    <!-- <iron-ajax 
-      id="resultroom" 
-      method="GET" 
-      url$="https://maas.nuqlis.com:8000/v2/obec/_studentcare_report/data/dl_{{form}_{{year}}_{{hostid}}_{{class}}_{{room}}" 
-      headers$='{"Authorization":"JWT {{jwtToken.token}}"}'
-      content-type="application/json"
-      handle-as ="json"
-      on-response="handleResponse">
-  </iron-ajax> -->
-
-
-=======
-    
->>>>>>> pk
     <div class="layout vertical ">
       <div class="layout horizontal font-face ">
         <div class="flex-2 layout horizontal center-justified ">
@@ -151,69 +123,31 @@
           <paper-item class="flex line-style" name="{{item.type}}">
             <div class="layout horizontal flex font-face  row-content">
               <div class="flex-4">{{_formName(item.type)}}</div>
-              <div class="flex-1">0</div>
-              <div class="flex-1">{{item.content.st}}</div>
-              <div class="flex-1">0</div>
-              <div class="flex-1">%</div>
-              <div class="flex-1">0</div>
-              <div class="flex-1">{{item.content.weak}}</div>
-              <div class="flex-1">0</div>
-              <div class="flex-1">%</div>
-              <div class="flex-1">0</div>
-              <div class="flex-1">{{item.content.normal}}</div>
-              <div class="flex-1">{{item.content.normal}}</div>
-              <div class="flex-1">%</div>
-              <div class="flex-1">0</div>
-              <div class="flex-1">{{item.content.risk}}</div>
-              <div class="flex-1">{{item.content.risk}}</div>
-              <div class="flex-1">%</div>
-              <div class="flex-1">0</div>
-              <div class="flex-1">{{item.content.problem}}</div>
-              <div class="flex-1">{{item.content.problem}}</div>
-              <div class="flex-1">{{item.content.p_normal}}%</div>
+              <div class="flex-1">{{item.content.box1.boys}}</div>
+              <div class="flex-1">{{item.content.box1.girls}}</div>
+              <div class="flex-1">{{item.content.box1.sum}}</div>
+              <div class="flex-1">{{item.content.box1.percent}}</div>
+              <div class="flex-1">{{item.content.box2.boys}}</div>
+              <div class="flex-1">{{item.content.box2.girls}}</div>
+              <div class="flex-1">{{item.content.box2.sum}}</div>
+              <div class="flex-1">{{item.content.box2.percent}}</div>
+              <div class="flex-1">{{item.content.box3.boys}}</div>
+              <div class="flex-1">{{item.content.box3.girls}}</div>
+              <div class="flex-1">{{item.content.box3.sum}}</div>
+              <div class="flex-1">{{item.content.box3.percent}}</div>
+              <div class="flex-1">{{item.content.box4.boys}}</div>
+              <div class="flex-1">{{item.content.box4.girls}}</div>
+              <div class="flex-1">{{item.content.box4.sum}}</div>
+              <div class="flex-1">{{item.content.box4.percent}}</div>
+              <div class="flex-1">{{item.content.box5.boys}}</div>
+              <div class="flex-1">{{item.content.box5.girls}}</div>
+              <div class="flex-1">{{item.content.box5.sum}}</div>
+              <div class="flex-1">{{item.content.box5.percent}}</div>
             </div>
           </paper-item>
         </template>
-<<<<<<< HEAD
       </paper-listbox>
     </div>
-
-    <!-- <div class="flex-1 layout horizontal row-content">
-          <div class="flex-1">0</div>
-          <div class="flex-1">0</div>
-          <div class="flex-1">0</div>
-          <div class="flex-1">0</div>
-        </div>
-        <div class="flex-2 layout horizontal row-content">
-          <div class="flex-1">0</div>
-          <div class="flex-1">0</div>
-          <div class="flex-1">0</div>
-          <div class="flex-1">0</div>
-        </div>
-        <div class="flex-2 layout horizontal row-content">
-          <div class="flex-1">0</div>
-          <div class="flex-1">0</div>
-          <div class="flex-1">0</div>
-          <div class="flex-1">0</div>
-        </div>
-        <div class="flex-2 layout horizontal row-content">
-          <div class="flex-1">0</div>
-          <div class="flex-1">0</div>
-          <div class="flex-1">0</div>
-          <div class="flex-1">0</div>
-        </div>
-        <div class="flex-2 layout horizontal row-content">
-          <div class="flex-1">0</div>
-          <div class="flex-1">0</div>
-          <div class="flex-1">0</div>
-          <div class="flex-1">0</div>
-        </div> -->
-
-
-=======
-       </paper-listbox>
-      </div>
->>>>>>> pk
   </template>
 
   <script>
@@ -224,15 +158,6 @@
         SummaryReportBehavior
       ],
       properties: {
-<<<<<<< HEAD
-        name: {
-          type: String,
-          reflectToAttribute: true,
-          readOnly: true,
-          value: "แบบประเมินพฤติกรรมเด็ก (SDQ) ฉบับครูเป็นผู้ประเมินนักเรียน"
-        },
-=======
->>>>>>> pk
         part: {
           type: Number,
           value: 0
@@ -312,56 +237,124 @@
       handleResponse(e) {
         var doc = e.detail.response;
         var forms = [
-          { type: "social",content:{
-            box1:{ boys: 0,girls:0,sum:0,percen:0},
-            box2:{boys: 0,girls:0,sum:0,percen:0},
-            box3:{boys: "",girls:"",sum:"",percen:""},
-            box4:{boys: "",girls:"",sum:"",percen:""},
-            box5:{boys: "",girls:"",sum:"",percen:""}}
+          {
+            type: "social", content: {
+              box1: { boys: 0, girls: 0, sum: 0, percent: 0 },
+              box2: { boys: 0, girls: 0, sum: 0, percent: 0 },
+              box3: { boys: " ", girls: " ", sum: " ", percent: " " },
+              box4: { boys: " ", girls: " ", sum: " ", percent: " " },
+              box5: { boys: " ", girls: " ", sum: " ", percent: " " }
+            }
+          },
+          {
+            type: "emotion", content: {
+              box1: { boys: " ", girls: " ", sum: " ", percent: " " },
+              box2: { boys: " ", girls: " ", sum: " ", percent: " " },
+              box3: { boys: 0, girls: 0, sum: 0, percent: 0 },
+              box4: { boys: 0, girls: 0, sum: 0, percent: 0 },
+              box5: { boys: 0, girls: 0, sum: 0, percent: 0 }
+            }
+          },
+          {
+            type: "behavior", content: {
+              box1: { boys: " ", girls: " ", sum: " ", percent: " " },
+              box2: { boys: " ", girls: " ", sum: " ", percent: " " },
+              box3: { boys: 0, girls: 0, sum: 0, percent: 0 },
+              box4: { boys: 0, girls: 0, sum: 0, percent: 0 },
+              box5: { boys: 0, girls: 0, sum: 0, percent: 0 }
+            }
+          },
+          {
+            type: "behavior_active", content: {
+              box1: { boys: " ", girls: " ", sum: " ", percent: " " },
+              box2: { boys: " ", girls: " ", sum: " ", percent: " " },
+              box3: { boys: 0, girls: 0, sum: 0, percent: 0 },
+              box4: { boys: 0, girls: 0, sum: 0, percent: 0 },
+              box5: { boys: 0, girls: 0, sum: 0, percent: 0 }
+            }
+          },
+          {
+            type: "friend", content: {
+              box1: { boys: " ", girls: " ", sum: " ", percent: " " },
+              box2: { boys: " ", girls: " ", sum: " ", percent: " " },
+              box3: { boys: 0, girls: 0, sum: 0, percent: 0 },
+              box4: { boys: 0, girls: 0, sum: 0, percent: 0 },
+              box5: { boys: 0, girls: 0, sum: 0, percent: 0 }
+            }
           }
         ];
-        var forms2 = [];
-        var male = 0, female = 0;
-        var result;
-        var _forms_dict = {};
-        var emution = {};
-        console.log(forms);
+        var total ;
         for (var val in doc.value) {
-          if (val == "เด็กหญิง" || val == "นางสาว") {
-            var cid = doc.value[val];
-          }}
-        //     for (var form in cid) {
-        //       // console.log(form);
-        //       if (!_forms_dict[form]) {
-        //         _forms_dict[form] = { 'ปกติ': 0, 'เสี่ยง': 0, 'มีปัญหา': 0 };
-        //       }
-        //       for (var i in cid[form]) {
-        //         _forms_dict[form][i]++;
-        //       }
-        //       // console.log(_forms_dict);
-        //     }
-        //     for (var key in _forms_dict) {
-        //       if (key == 'back' || key == 'weakness') {
-        //         continue;
-        //       } else {
-        //         forms.push({
-        //           'type': key,
-        //           'content': {
-        //             'normal': _forms_dict[key]['ปกติ'],
-        //             'risk': _forms_dict[key]['เสี่ยง'],
-        //             'problem': _forms_dict[key]['มีปัญหา'],
-        //             'st': _forms_dict['social']['ปกติ'],
-        //             'weak': _forms_dict['social']['เสี่ยง'] + _forms_dict['social']['มีปัญหา']
-        //           }
-        //         });
-        //       }
-        //     }
-        //   }
-        // }
+          var cid = doc.value[val];
+          for (var key in cid) {
+            for (var form in forms) {
+              if (key == "social") {
+                if (val == "เด็กหญิง" || val == "นางสาว") {
+                  if (Object.keys(cid[key]) == "ปกติ") {
+                    forms[form].content.box1.girls++;
+                    forms[form].content.box1.sum++;
+                  } else {
+                    forms[form].content.box2.girls++;
+                    forms[form].content.box2.sum++;
+                  }
+                  total = forms[form].content.box1.sum+forms[form].content.box2.sum;
+                  forms[form].content.box1.percent=Math.round((forms[form].content.box1.sum/total)*100);
+                  forms[form].content.box2.percent=Math.round((forms[form].content.box2.sum/total)*100);
+                  break;
+                } else {
+                  if (Object.keys(cid[key]) == "ปกติ") {
+                    forms[form].content.box1.boys++;
+                    forms[form].content.box1.sum++;
+                  } else {
+                    forms[form].content.box2.boys++;
+                    forms[form].content.box2.sum++;
+                  }
+                  total = forms[form].content.box1.sum+forms[form].content.box2.sum;
+                  forms[form].content.box1.percent=Math.round((forms[form].content.box1.sum/total)*100);
+                  forms[form].content.box2.percent=Math.round((forms[form].content.box2.sum/total)*100);
+                  break;
+                }
+              } else if (key == forms[form].type) {
+                if (val == "เด็กหญิง" || val == "นางสาว") {
+                  if (Object.keys(cid[key]) == "ปกติ") {
+                    forms[form].content.box3.girls++;
+                    forms[form].content.box3.sum++;
+                  }else if(Object.keys(cid[key]) == "เสี่ยง"){
+                    forms[form].content.box4.girls++;
+                    forms[form].content.box4.sum++;
+                  }else {
+                    forms[form].content.box5.girls++;
+                    forms[form].content.box5.sum++;
+                  }
+                  total = forms[form].content.box3.sum+forms[form].content.box4.sum+forms[form].content.box5.sum;
+                  forms[form].content.box3.percent=Math.round((forms[form].content.box3.sum/total)*100);
+                  forms[form].content.box4.percent=Math.round((forms[form].content.box4.sum/total)*100);
+                  forms[form].content.box5.percent=Math.round((forms[form].content.box5.sum/total)*100);
+                  break;
+                } else {
+                  if (Object.keys(cid[key]) == "ปกติ") {
+                    forms[form].content.box3.boys++;
+                    forms[form].content.box3.sum++;
+                  } else if(Object.keys(cid[key]) == "เสี่ยง"){
+                    forms[form].content.box4.boys++;
+                    forms[form].content.box4.sum++;
+                  }else {
+                    forms[form].content.box5.boys++;
+                    forms[form].content.box5.sum++;
+                  }
+                  total = forms[form].content.box3.sum+forms[form].content.box4.sum+forms[form].content.box5.sum;
+                  forms[form].content.box3.percent=Math.round((forms[form].content.box3.sum/total)*100);
+                  forms[form].content.box4.percent=Math.round((forms[form].content.box4.sum/total)*100);
+                  forms[form].content.box5.percent=Math.round((forms[form].content.box5.sum/total)*100);
+                  break;
+                }
+              }
+            }
+          }
+        }
         this.set('list', forms);
-        console.log(forms);
       }
-
     });
+
   </script>
 </dom-module>
