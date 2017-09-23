@@ -11,6 +11,7 @@
 <link rel="import" href="../studentcare-form-behavior.html">
 
 <link rel="import" href="weight-height-query.html">
+<link rel="import" href="grade-query.html">
 <link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">
 
 <dom-module id="screening-secondary-form">
@@ -130,6 +131,15 @@
       year="{{document.value.student.year}}"
       is-weight-height="{{document.value.form_value.q3_1_m}}">
     </weight-height-query>
+
+    <grade-query
+      cid="1417100037098"
+      year="2558"
+      semester="6"
+      is-gpax-lessthan-one="{{document.value.form_value.q2_1_p}}"
+      is-gpax-between="{{document.value.form_value.q2_1_m}}"
+      document="{{gradedoc}}">
+    </grade-query>
 
     <form-control id="control"
       on-form-action="_tap"
