@@ -1,6 +1,11 @@
 <link rel="import" href="../../../polymer/polymer.html">
-<link rel="import" href="../summary-report-behavior.html">
+<link rel="import" href="../../../paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../../../paper-listbox/paper-listbox.html">
+<link rel="import" href="../../../paper-item/paper-item.html">
 <link rel="import" href="../../../iron-ajax/iron-ajax.html">
+<link rel="import" href="../../../neon-animation/web-animations.html">
+
+<link rel="import" href="../summary-report-behavior.html">
 <link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">
 
 <dom-module id="dl2-host">
@@ -68,13 +73,55 @@
       }
     </style>
 
+    
+
     <app-localstorage-document key="jwtToken" data="{{jwtToken}}">
     </app-localstorage-document>
 
-    <iron-ajax id="resulthost" 
+    <paper-dropdown-menu label="ระดับชั้น">
+     <paper-listbox slot="dropdown-content" 
+      attr-for-selected="name"
+      selected="{{level}}">
+      <template is="dom-repeat" items="{{levelList}}">
+       <paper-item name="{{item}}">{{item}}</paper-item>
+      </template>
+     </paper-listbox>
+    </paper-dropdown-menu>
+
+    <paper-dropdown-menu label="ห้อง">
+     <paper-listbox slot="dropdown-content" 
+      attr-for-selected="name"
+      selected="{{room}}">
+      <template is="dom-repeat" items="{{roomList}}">
+       <paper-item name="{{item}}">{{item}}</paper-item>
+      </template>
+     </paper-listbox>
+    </paper-dropdown-menu>
+
+    <iron-ajax id="listLevel" 
+      method="POST" 
+      headers$='{"Authorization":"JWT {{jwtToken.token}}"}' 
+      url="https://maas.nuqlis.com:8000/v2/obec/student_data_db/query"
+      content-type="application/json" 
+      handle-as="json" 
+      body='{"query":{"hostid":"{{hostid}}"},"distinct":"class"}'
+      last-response="{{levelList}}">
+    </iron-ajax>
+
+    <iron-ajax id="listRoom" 
+      method="POST" 
+      headers$='{"Authorization":"JWT {{jwtToken.token}}"}' 
+      url="https://maas.nuqlis.com:8000/v2/obec/student_data_db/query"
+      content-type="application/json" 
+      handle-as="json" 
+      body='{"query":{"hostid":"{{hostid}}","class":"{{level}}"},"distinct":"room"}'
+      last-response="{{roomList}}">
+    </iron-ajax>
+
+    <iron-ajax 
+      id="resulthost" 
       method="GET" 
       headers$='{"Authorization":"JWT {{jwtToken.token}}"}' 
-      url="https://maas.nuqlis.com:8000/v2/obec/_studentcare_report/data/dl_{{form}}_{{year}}_{{hostid}}"
       content-type="application/json" 
       handle-as="json" 
       on-response="handleResponse">
@@ -187,14 +234,36 @@
         }
       },
       observers: [
-        '_execute(jwtToken)',
+        '_execute(jwtToken.token)',
+        '_queryLevelRoom(year,hostid,level,room)'
       ],
       _execute(token) {
-        if (token == null || !token.token) return;
-        this.$.resulthost.headers = {
-          'Authorization': 'JWT ' + token.token
+        if (token == null) return;
+        this.$.listLevel.generateRequest();
+      },
+      _queryLevelRoom:function(year,host,level,room) {
+        var baseUrl="https://maas.nuqlis.com:8000/v2/obec/_studentcare_report/data/dl_dl2-form_";
+        var execute = false;
+        if(year!=null) {
+          this.$.resulthost.url=baseUrl+year;
+          if(host!=null) {
+            execute=true;
+            this.$.resulthost.url+='_'+host;
+            if(level!=null) {
+              this.$.resulthost.url+='_'+level;
+              this.$.listRoom.generateRequest();
+              if(room!=null) {
+                this.$.resulthost.url+='_'+room;
+              }
+            }
+          }
         }
-        this.$.resulthost.generateRequest();
+        if(execute) {
+          this.$.resulthost.generateRequest();
+        }
+      },
+      _handleLevelQuery:function(e) {
+        console.log(e.detail.response);
       },
       handleResponse(e) {
         var doc = e.detail.response;
