@@ -82,6 +82,7 @@
      <paper-listbox slot="dropdown-content" 
       attr-for-selected="name"
       selected="{{level}}">
+      <paper-item>ทั้งหมด</paper-item>
       <template is="dom-repeat" items="{{levelList}}">
        <paper-item name="{{item}}">{{item}}</paper-item>
       </template>
@@ -92,6 +93,7 @@
      <paper-listbox slot="dropdown-content" 
       attr-for-selected="name"
       selected="{{room}}">
+      <paper-item>ทั้งหมด</paper-item>
       <template is="dom-repeat" items="{{roomList}}">
        <paper-item name="{{item}}">{{item}}</paper-item>
       </template>
@@ -235,13 +237,15 @@
       },
       observers: [
         '_execute(jwtToken.token)',
-        '_queryLevelRoom(year,hostid,level,room)'
+        '_queryLevelRoom(jwtToken.token,year,hostid,level,room)'
       ],
       _execute(token) {
         if (token == null) return;
         this.$.listLevel.generateRequest();
       },
-      _queryLevelRoom:function(year,host,level,room) {
+      _queryLevelRoom:function(token,year,host,level,room) {
+        if(token == null) return;
+        console.log(year,host,level,room);
         var baseUrl="https://maas.nuqlis.com:8000/v2/obec/_studentcare_report/data/dl_dl2-form_";
         var execute = false;
         if(year!=null) {
@@ -255,9 +259,12 @@
               if(room!=null) {
                 this.$.resulthost.url+='_'+room;
               }
+            } else {
+              this.set('roomList',[]);
             }
           }
         }
+        console.log(execute);
         if(execute) {
           this.$.resulthost.generateRequest();
         }
