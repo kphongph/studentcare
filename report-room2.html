@@ -100,7 +100,7 @@
     <iron-ajax 
       id="listAjax" 
       method="GET" 
-      url$="https://maas.nuqlis.com:8000/v2/obec/_test_report/data/{{hostid}}_{{level}}_{{room}}" 
+      url$="https://maas.nuqlis.com:8000/v2/obec/_studentcare_report/data/students_{{year}}_{{hostid}}_{{level}}_{{room}}" 
       content-type="application/json"
       handle-as ="json"
       on-response="handleResponse">
@@ -114,20 +114,6 @@
       <div class="header2 layout">จำนวน {{total}} คน ข้อมูล ณ วันที่ {{ts}}</div>
     </app-toolbar>
 
-    <div class="flex note">
-      <dl>
-        <dt><iron-icon src="{{imgNote}}"></iron-icon>หมายเหตุ</dt>
-        <dd>
-          <div class="layout-note">
-            <div class="marker-new"></div>
-            <div>&nbsp;&nbsp;ตัวหนังสือสีขาว หมายถึง ปกติ&nbsp;&nbsp;&nbsp;&nbsp;</div>
-            <div class="marker-working"></div>
-            <div>&nbsp;&nbsp;ตัวหนังสือสีแดง หมายถึง ปีปัญหา</div>
-          </div>
-        </dd>
-      </dl>
-    </div>
-
     <div class="layout horizontal">
       <div class="flex-1 font-face form_group">ชื่อ-นามสกุล</div>
       <div class="flex-2 font-face form_group">SDQ</div>
@@ -136,25 +122,25 @@
       <div class="flex-2 font-face form_group">นักเรียนรายบุคคล</div>
       <div class="flex-2 font-face form_group">อื่นๆ</div>
     </div>
-
-    <!-- <template is="dom-repeat" items="[[list]]" > -->
+    
+    <template is="dom-repeat" items="[[list]]" >
       <div class="layout horizontal content">
-          <div class="flex-1 font-face line-style">ปริญา มาบุญ</div>
+          <div class="flex-1 font-face line-style">{{item.name}}</div>
           <div class="flex-2 font-face line-style">
             - แบบประเมินพฤติกรรมเด็ก (SDQ) ฉบับครูเป็นผู้ประเมินนักเรียน</br></br>
             - แบบประเมินพฤติกรรมนักเรียน (SDQ) ฉบับนักเรียนประเมินตนเอง</div>
           <div class="flex-2 font-face line-style">
             - แบบประเมินความฉลาดทางอารมณ์ (EQ) ฉบับนักเรียนประเมินตนเอง (12-17 ปี)</div>
           <div class="flex-2 font-face line-style">
-            - แบบคัดกรองบุคคลที่มีความบกพร่องทางการเห็น</br></br>
-            - แบบคัดกรองบุคคลที่มีความบกพร่องทางการได้ยิน</br></br>
-            - แบบคัดกรองบุคคลที่มีความบกพร่องทางสติปัญญา</br></br>
-            - แบบคัดกรองบุคคลที่มีความบกพร่องทางร่างกาย หรือการเคลื่อนไหว หรือสุขภาพ</br></br>
-            - แบบคัดกรองบุคคลที่มีความบกพร่องทางการเรียนรู้ (ประถมศึกษา)</br></br>
-            - แบบคัดกรองบุคคลที่มีความบกพร่องทางการเรียนรู้ (มัธยมศึกษา)</br></br>
-            - แบบคัดกรองบุคคลออทิสติก</br></br>
-            - แบบคัดกรองบุคคลที่มีความบกพร่องทางการพูดและภาษา</br></br>
-            - แบบคัดกรองบุคคลที่มีความบกพร่องทางพฤติกรรม หรืออารมณ์</div>
+            - ความบกพร่องทางการเห็น</br></br>
+            - ความบกพร่องทางการได้ยิน</br></br>
+            - ความบกพร่องทางสติปัญญา</br></br>
+            - ความบกพร่องทางร่างกาย หรือการเคลื่อนไหว หรือสุขภาพ</br></br>
+            - ความบกพร่องทางการเรียนรู้ (ประถมศึกษา)</br></br>
+            - ความบกพร่องทางการเรียนรู้ (มัธยมศึกษา)</br></br>
+            - ออทิสติก</br></br>
+            - ความบกพร่องทางการพูดและภาษา</br></br>
+            - ความบกพร่องทางพฤติกรรม หรืออารมณ์</div>
           <div class="flex-2 font-face line-style">
             - แบบคัดกรองนักเรียนรายบุคคล ระดับประถม</br></br>
             - แบบคัดกรองนักเรียนรายบุคคล ระดับมัธยม
@@ -167,7 +153,7 @@
             - แบบทดสอบการติดเกม ฉบับเด็กและวัยรุ่น (GAST)
           </div>
       </div>
-    <!-- </template> -->
+    </template>
   </template>
   
   <script>
@@ -177,11 +163,6 @@
         hostid:{
           type:String,
           notify:true
-        },
-        imgNote:{
-          type:String,
-          notify:true,
-          computed:'_imgNote()'
         },
         level:{
           type:String,
@@ -202,9 +183,6 @@
               return [];
           }
         }   
-      },
-      _imgNote:function(){
-        return this.resolveUrl("./images/note.png");
       },
       observers:[
         '_execute(jwtToken)'
@@ -244,36 +222,28 @@
       },
       handleResponse(e) {
         var doc = e.detail.response;
-        var forms = [];
-        var total = 0;
-        var _forms_dict = {};
-        var ts;
-        for(var key in doc.value) {
-          if(key == 'ts') {
-            ts = new Date(doc.value[key]).toLocaleString('th');
-            continue;
-          }
-          var cid = doc.value[key];
-          total++;
-          for(var form in cid) {
-            if(!_forms_dict[form]) {
-              _forms_dict[form] = {'new':0,'done':0,'working':0,'total':0};
-            }
-            _forms_dict[form][cid[form]]++;
-            _forms_dict[form]['total']++;
-          }
+        var data = doc.value;
+        // console.log(data);
+        var newjson = {};
+        for(let row in data)
+        {			
+            var tmp = {name:'',content:[]}
+            // console.log(data[row]);
+            for(let form in data[row])
+              {	
+                if(form!=='name')
+                {
+                  data[row][form]['formname'] = form;
+                  tmp.content.push(data[row][form]);
+                }
+                else{
+                  tmp.name = data[row][form];
+                }
+              }	
+            newjson[data[row].name] =tmp;
         }
-        for(var key in _forms_dict) {
-          forms.push({'type':key,'content':{
-            'working':_forms_dict[key]['new'] + _forms_dict[key]['working'],
-            'done':_forms_dict[key]['done'],
-            'total':_forms_dict[key]['total']
-          }});
-        }
-        this.set('total',total);
-        this.set('list',forms);
-        this.set('ts',ts);                
-      }
+          console.log(newjson);
+        }         
     });
     
   </script>
