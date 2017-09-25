@@ -123,15 +123,19 @@
       <div class="flex-2 font-face form_group">อื่นๆ</div>
     </div>
 
-    <template is="dom-repeat" items="[[list]]" >
+    <template is="dom-repeat"  as="type" items="[[list]]" >
       <div class="layout horizontal content">
-          <div class="flex-1 font-face line-style">{{item.name}}</div>
-          <div class="flex-2 font-face line-style" items="[[group]]">
-            {{item.form}}</br></br></div>
+        <div class="flex-3 font-face line-style">{{type.name}}</br></br></div>
+        <template is="dom-repeat" as="group" items="[[name.doc]]">
+        <div class="flex-2 font-face line-style"items="[[group]]" >
+            {{item.type}}</br></br>
             <!-- - แบบประเมินพฤติกรรมเด็ก (SDQ) ฉบับครูเป็นผู้ประเมินนักเรียน</br></br>
-            - แบบประเมินพฤติกรรมนักเรียน (SDQ) ฉบับนักเรียนประเมินตนเอง</div> -->
+            - แบบประเมินพฤติกรรมนักเรียน (SDQ) ฉบับนักเรียนประเมินตนเอง -->
+          </div>
+        </template>
           <div class="flex-2 font-face line-style">
-            - แบบประเมินความฉลาดทางอารมณ์ (EQ) ฉบับนักเรียนประเมินตนเอง (12-17 ปี)</div>
+            <!-- - แบบประเมินความฉลาดทางอารมณ์ (EQ) ฉบับนักเรียนประเมินตนเอง (12-17 ปี) -->
+          </div>
           <div class="flex-2 font-face line-style">
             <!-- - ความบกพร่องทางการเห็น</br></br>
             - ความบกพร่องทางการได้ยิน</br></br>
@@ -144,8 +148,8 @@
             - ความบกพร่องทางพฤติกรรม หรืออารมณ์ -->
           </div>
           <div class="flex-2 font-face line-style">
-            - แบบคัดกรองนักเรียนรายบุคคล ระดับประถม</br></br>
-            - แบบคัดกรองนักเรียนรายบุคคล ระดับมัธยม
+            <!-- - แบบคัดกรองนักเรียนรายบุคคล ระดับประถม</br></br>
+            - แบบคัดกรองนักเรียนรายบุคคล ระดับมัธยม -->
           </div>
           <div class="flex-2 font-face line-style">
             <!-- - แบบประเมินความเครียดกรมสุขภาพจิต (ST–5)</br></br>
@@ -250,11 +254,10 @@
         { 
           list.push({
             name:tmp,
-            form:student[tmp].name,
             doc:student[tmp].content
           });
         }
-        console.log(student);   
+        console.log(list);   
         this.set('list',list);
       }
     });
