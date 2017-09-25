@@ -58,10 +58,6 @@
       handle-as ="json"
       on-response="handleResponse">
     </iron-ajax>
-<!--     
-    <app-toolbar>
-        <div class="font-face">แบบรายงานความเสี่ยงรายชั้น {{_formName(form)}}</div>
-    </app-toolbar> -->
 
     <div class="layout horizontal">
         <div class="flex-6 font-face form_group">ชั้นเรียน</div>
@@ -72,10 +68,10 @@
 
     <template is="dom-repeat" items="[[class]]">
       <div class="layout horizontal">
-          <div class="flex-6 font-face line-style">{{item.listclass}}</div>
-          <div class="flex-2 font-face line-style">{{item.content.risk}}</div>
-          <div class="flex-2 font-face line-style">{{item.content.no_risk}}</div>
-          <div class="flex-2 font-face line-style">{{item.content.total}}</div>
+        <div class="flex-6 font-face line-style">{{item.listclass}}</div>
+        <div class="flex-2 font-face line-style">{{item.content.risk}}</div>
+        <div class="flex-2 font-face line-style">{{item.content.no_risk}}</div>
+        <div class="flex-2 font-face line-style">{{item.content.total}}</div>
       </div>
     </template>
   </template>

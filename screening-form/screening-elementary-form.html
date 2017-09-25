@@ -112,9 +112,10 @@
       .border-topic{
         border-bottom: 1px solid var(--paper-grey-300);
       }
-      paper-checkbox{
+      paper-checkbox {
         font-family: 'Athiti', sans-serif;
         font-size: 120%;
+        margin-right:20px;
       }
 
       .margin-content{
@@ -290,28 +291,29 @@
            <paper-input id ="res"  label="ผลการประเมิน" readonly
              value="{{_q2Text(document.value.form_value.q2)}}">
            </paper-input>
+
            <div class="flex layout horizontal font-face-underline"><!-- หัวตาราง -->
              2.1 ผลการเรียน
            </div>
            <div class="flex layout horizontal"><!-- หัวตาราง -->
-             <div class="flex-6">
+             <div class="flex-6 margin-content">
                <paper-checkbox checked="{{document.value.form_value.q2_1_m}}" disabled>
                  ผลการเรียนเฉลี่ย 1.00 - 2.00
                </paper-checkbox>
              </div>
-             <div class="flex-6">
+             <div class="flex-6 margin-content">
                <paper-checkbox checked="{{document.value.form_value.q2_1_p}}" disabled>
                  ผลการเรียนเฉลี่ยต่ำกว่า 1.00
                </paper-checkbox>
              </div>
            </div>
            <div class="flex layout horizontal border-topic">
-             <div class="flex-6">
+             <div class="flex-6  margin-content">
                <paper-checkbox checked="{{document.value.form_value.q2_2_m}}"><!-- M ซ้าย -->
                  ติด 0, ร, มส, มผ 1-2 วิชา ต่อ 1 ภาคเรียน
                </paper-checkbox>
              </div>
-             <div class="flex-6">
+             <div class="flex-6 margin-content">
                <paper-checkbox checked="{{document.value.form_value.q2_2_p}}"><!-- P ขวา -->
                  ติด 0, ร, มส, มผ มากกว่า 2 วิชา ต่อ 1 ภาคเรียน
                </paper-checkbox>
@@ -321,32 +323,32 @@
              2.2 เข้าเรียน
            </div>
            <div class="flex layout horizontal">
-             <div class="flex-6">
+             <div class="flex-6 margin-content">
                <paper-checkbox checked="{{document.value.form_value.q2_3_m}}">
                  ไม่เขัาเรียน 1-2 ครั้ง ต่อ รายวิชา
                </paper-checkbox>
              </div>
-             <div class="flex-6">
+             <div class="flex-6 margin-content">
                <paper-checkbox checked="{{document.value.form_value.q2_5_p}}">
                  ไม่เข้าเรียนหลายครั้งโดยไม่มีเหตุจำเป็น
                </paper-checkbox>
              </div>
            </div>
            <div class="flex layout horizontal">
-             <div class="flex-6">
+             <div class="flex-6 margin-content">
                <paper-checkbox checked="{{document.value.form_value.q2_4_m}}">
                  มาเรียนสาย 3 ครั้งต่อสัปดาห์
                </paper-checkbox>
              </div>
-             <div class="flex-6">
+             <div class="flex-6 margin-content">
                <paper-checkbox checked="{{document.value.form_value.q2_4_p}}">
                  มาเรียนสายมากกว่า 3 ครั้งต่อสัปดาห์
                </paper-checkbox>
              </div>
            </div>
            <div class="flex layout horizontal border-topic">
-             <div class="flex-6">&nbsp;</div>
-             <div class="flex-6">
+             <div class="flex-6 margin-content">&nbsp;</div>
+             <div class="flex-6 margin-content">
               <paper-checkbox checked="{{document.value.form_value.q2_7_p}}">
                ขาดเรียนบ่อยมากกว่า 1 วันต่อสัปดาห์
               </paper-checkbox>
@@ -356,12 +358,12 @@
              2.3 ความตั้งใจ/สมาธิในการเรียน
            </div>
            <div class="flex layout horizontal">
-             <div class="flex-6">
+             <div class="flex-6 margin-content">
                <paper-checkbox checked="{{document.value.form_value.q2_5_m}}">
                  ไม่ตั้งใจเรียนขณะครูสอน
                </paper-checkbox>
              </div>
-             <div class="flex-6">
+             <div class="flex-6 margin-content">
                <paper-checkbox checked="{{document.value.form_value.q2_6_p}}">
                  สมาธิสั้น
                </paper-checkbox>
@@ -371,12 +373,12 @@
              </paper-checkbox>-->
            </div>
            <div class="flex layout horizontal border-topic">
-             <div class="flex-6">
+             <div class="flex-6 margin-content">
                <paper-checkbox checked="{{document.value.form_value.q2_6_m}}">
                  ไม่มีอุปกรณ์การเรียนมาเรียนหรือนำอุปกรณ์การเรียนมาไม่ครบ
                </paper-checkbox>
              </div>
-             <div class="flex-6">&nbsp;
+             <div class="flex-6 margin-content">&nbsp;
                <!--<paper-checkbox class="flex-1" checked="{{document.value.form_value.q2_6_p}}">
                  สมาธิสั้น
                </paper-checkbox>-->
@@ -386,50 +388,50 @@
              2.4 การอ่าน/การเขียน
            </div>
            <div class="flex layout horizontal">
-             <div class="flex-6">
+             <div class="flex-6 margin-content">
                <paper-checkbox checked="{{document.value.form_value.q2_7_m}}">
                   อ่านสะกดคำไม่ได้
                </paper-checkbox>
              </div>
-             <div class="flex-6">&nbsp;</div>
+             <div class="flex-6 margin-content">&nbsp;</div>
              <!--<paper-checkbox class="flex-1" checked="{{document.value.form_value.q2_7_p}}">
                 ขาดเรียนบ่อยมากกว่า 1 วันต่อสัปดาห์
              </paper-checkbox>-->
            </div>
            <div class="flex layout horizontal">
-             <div class="flex-6">
+             <div class="flex-6 margin-content">
                <paper-checkbox checked="{{document.value.form_value.q2_10_m}}">
                   อ่านไม่ได้ใจความ
                </paper-checkbox>
              </div>
-             <div class="flex-6">&nbsp;</div>
+             <div class="flex-6 margin-content">&nbsp;</div>
            </div>
            <div class="flex layout horizontal">
-             <div class="flex-6">
+             <div class="flex-6 margin-content">
                <paper-checkbox cchecked="{{document.value.form_value.q2_8_m}}">
                  จับใจความสำคัญไม่ได้
                </paper-checkbox>
              </div>
-             <div class="flex-6">&nbsp;</div>
+             <div class="flex-6 margin-content">&nbsp;</div>
            </div>
            <div class="flex layout horizontal border-topic">
-             <div class="flex-6">
+             <div class="flex-6 margin-content">
                <paper-checkbox checked="{{document.value.form_value.q2_9_m}}">
                   เขียนตัวอักษรไม่ได้
                </paper-checkbox>
              </div>
-             <div class="flex-6">&nbsp;</div>
+             <div class="flex-6 margin-content ">&nbsp;</div>
            </div>
            <div class="flex layout horizontal font-face-underline"><!-- หัวตาราง -->
              2.5 ความรับผิดชอบ
            </div>
            <div class="flex layout horizontal border-topic">
-             <div class="flex-6">
+             <div class="flex-6 margin-content">
                <paper-checkbox checked="{{document.value.form_value.q2_11_m}}">
                   ไม่ส่งงาน 1-2 วิชา
                </paper-checkbox>
              </div>
-             <div class="flex-6">
+             <div class="flex-6 margin-content">
                <paper-checkbox checked="{{document.value.form_value.q2_11_p}}">
                  ไม่ส่งงานมากกว่า 2 วิชา
                </paper-checkbox>
@@ -439,24 +441,24 @@
              2.6 อื่นๆ
            </div>
            <div class="flex layout horizontal">
-             <div class="flex-6">
+             <div class="flex-6 margin-content">
                <paper-checkbox checked="{{document.value.form_value.q2_12_m}}">
                   ไม่ผ่านคุณลักษณะอันพึงประสงค์ 1 ข้อ
                </paper-checkbox>
              </div>
-             <div class="flex-6">
+             <div class="flex-6 margin-content">
                <paper-checkbox checked="{{document.value.form_value.q2_12_p}}">
                  ไม่ผ่านคุณลักษณะอันพึงประสงค์ตั้งแต่ 2 ข้อขึ้นไป
                </paper-checkbox>
              </div>
            </div>
            <div class="flex layout horizontal">
-             <div class="flex-6">
+             <div class="flex-6 margin-content">
                <paper-checkbox checked="{{document.value.form_value.q2_13_m}}">
                   ผลการประเมินการอ่านคิดวิเคราะห์และเขียนสื่อความอยู่ในระดับ 1
                </paper-checkbox>
              </div>
-             <div class="flex-6">
+             <div class="flex-6 margin-content">
                <paper-checkbox checked="{{document.value.form_value.q2_13_p}}">
                   ผลการประเมินการอ่านคิดวิเคราะห์และเขียนสื่อความไม่ผ่าน
                </paper-checkbox>
@@ -485,30 +487,44 @@
              value="">
            </paper-input>
             <div class="layout horizontal">
-             <paper-checkbox class="flex-1" checked="{{document.value.form_value.q3_1_m}}" disabled>
-                น้ำหนักผิดปกติ  และไม่สัมพันธ์กับส่วนสูง  หรืออายุ
-             </paper-checkbox>
-             <paper-checkbox class="flex-1" checked="{{document.value.form_value.q3_1_p}}">
-                ป่วยเป็นโรคหรือมีความพิการทางร่างกายมีความบกพร่องทางการได้ยินการมองเห็น  และความเจ็บป่วย  หรือบกพร่องดังกล่าวมีผลกระทบต่อความสามารถด้านการเรียนในระดับมีปัญหา
-             </paper-checkbox>
+              <div class="flex-6 margin-content">
+               <paper-checkbox checked="{{document.value.form_value.q3_1_m}}" disabled>
+                  น้ำหนักผิดปกติ  และไม่สัมพันธ์กับส่วนสูง  หรืออายุ
+               </paper-checkbox>
+             </div>
+             <div class="flex-6 margin-content">
+               <paper-checkbox checked="{{document.value.form_value.q3_1_p}}">
+                  ป่วยเป็นโรคหรือมีความพิการทางร่างกายมีความบกพร่องทางการได้ยินการมองเห็น  และความเจ็บป่วย  หรือบกพร่องดังกล่าวมีผลกระทบต่อความสามารถด้านการเรียนในระดับมีปัญหา
+               </paper-checkbox>
+             </div>
            </div>
            <div class="layout horizontal">
-             <paper-checkbox class="flex-1" checked="{{document.value.form_value.q3_2_m}}">
-                มีโรคประจำตัวหรือเจ็บป่วยบ่อยๆ
-             </paper-checkbox>
+             <div class="flex-6 margin-content">
+               <paper-checkbox checked="{{document.value.form_value.q3_2_m}}">
+                  มีโรคประจำตัวหรือเจ็บป่วยบ่อยๆ
+               </paper-checkbox>
+             </div>
+             <div class="flex-6 margin-content">&nbsp;</div>
            </div>
             <div class="layout horizontal">
-             <paper-checkbox class="flex-1" checked="{{document.value.form_value.q3_3_m}}">
-                มีความพิการทางร่างกายหรือบกพร่องด้านการยิน การฟัง การมองเห็น  หรืออื่นๆ
-             </paper-checkbox>
+              <div class="flex-6 margin-content">
+               <paper-checkbox checked="{{document.value.form_value.q3_3_m}}">
+                  มีความพิการทางร่างกายหรือบกพร่องด้านการยิน การฟัง การมองเห็น  หรืออื่นๆ
+               </paper-checkbox>
+             </div>
+             <div class="flex-6 margin-content">&nbsp;</div>
            </div>
            <div class="layout horizontal">
-             <paper-checkbox class="flex-1" checked="{{document.value.form_value.q3_4_m}}">
-                ให้นักเรียนพิจารณาใช้แบบประเมินพฤติกรรมหรือเครื่องมืออื่นๆ ตามความเหมาะสมกับสภาพโรงเรียน
-             </paper-checkbox>
-             <paper-checkbox class="flex-1" checked="{{document.value.form_value.q3_4_p}}">
-                ให้นักเรียนพิจารณาใช้แบบประเมินพฤติกรรมหรือเครื่องมืออื่นๆ ตามความเหมาะสมกับสภาพโรงเรียน
-             </paper-checkbox>
+             <div class="flex-6 margin-content">
+               <paper-checkbox checked="{{document.value.form_value.q3_4_m}}">
+                  ให้นักเรียนพิจารณาใช้แบบประเมินพฤติกรรมหรือเครื่องมืออื่นๆ ตามความเหมาะสมกับสภาพโรงเรียน
+               </paper-checkbox>
+             </div>
+             <div class="flex-6 margin-content">
+               <paper-checkbox checked="{{document.value.form_value.q3_4_p}}">
+                  ให้นักเรียนพิจารณาใช้แบบประเมินพฤติกรรมหรือเครื่องมืออื่นๆ ตามความเหมาะสมกับสภาพโรงเรียน
+               </paper-checkbox>
+             </div>
            </div>
 
          </li>
@@ -546,32 +562,44 @@
              value="">
            </paper-input>
             <div class="layout horizontal">
-             <paper-checkbox class="flex-1" checked="{{document.value.form_value.q5_1_m}}">
-                มีการทดลองดื่มเบียร์ สุรา หรือสูบบุหรี่โดยตนเองหรือเพื่อนชักชวน
-             </paper-checkbox>
-             <paper-checkbox class="flex-1" checked="{{document.value.form_value.q5_1_p}}">
-                ใช้ยาเสพติด  สารเสพติด ดื่มเบียร์  สุรา  หรือสูบบุหรี่เป็นครั้งคราวและมีแนวโน้นว่าจะเพิ่มขึ้นและเป็นผู้ชวนให้ผู้อื่นปฏิบัติตาม
-             </paper-checkbox>
+              <div class="flex-6 margin-content">
+               <paper-checkbox checked="{{document.value.form_value.q5_1_m}}">
+                  มีการทดลองดื่มเบียร์ สุรา หรือสูบบุหรี่โดยตนเองหรือเพื่อนชักชวน
+               </paper-checkbox>
+             </div>
+             <div class="flex-6 margin-content">
+               <paper-checkbox checked="{{document.value.form_value.q5_1_p}}">
+                  ใช้ยาเสพติด  สารเสพติด ดื่มเบียร์  สุรา  หรือสูบบุหรี่เป็นครั้งคราวและมีแนวโน้นว่าจะเพิ่มขึ้นและเป็นผู้ชวนให้ผู้อื่นปฏิบัติตาม
+               </paper-checkbox>
+             </div>
            </div>
             <div class="layout horizontal">
-             <paper-checkbox class="flex-1" checked="{{document.value.form_value.q5_2_m}}">
-                ติดเพื่อนต่างเพศแนวชู้สาว
-             </paper-checkbox>
-             <paper-checkbox class="flex-1" checked="{{document.value.form_value.q5_2_p}}">
-                ติดต่อเพื่อนต่างเพศในแนวชู้สาว  หรือถึงขั้นมีความสัมพันธ์ทางเพศ
-             </paper-checkbox>
+              <div class="flex-6 margin-content">
+                 <paper-checkbox checked="{{document.value.form_value.q5_2_m}}">
+                    ติดเพื่อนต่างเพศแนวชู้สาว
+                 </paper-checkbox>
+               </div>
+               <div class="flex-6 margin-content">
+                 <paper-checkbox checked="{{document.value.form_value.q5_2_p}}">
+                    ติดต่อเพื่อนต่างเพศในแนวชู้สาว  หรือถึงขั้นมีความสัมพันธ์ทางเพศ
+                 </paper-checkbox>
+               </div>
            </div>
            <div class="layout horizontal">
-             <paper-checkbox class="flex-1" checked="{{document.value.form_value.q5_3_m}}">
-                จับคู่ชัดเจนและแยกอยู่กันสองต่อสองบ่อยๆ
-             </paper-checkbox>
-
+             <div class="flex-6 margin-content">
+               <paper-checkbox checked="{{document.value.form_value.q5_3_m}}">
+                  จับคู่ชัดเจนและแยกอยู่กันสองต่อสองบ่อยๆ
+               </paper-checkbox>
+             </div>
+             <div class="flex-6 margin-content">&nbsp;</div>
            </div>
            <div class="layout horizontal">
-             <paper-checkbox class="flex-1" checked="{{document.value.form_value.q5_3_m}}">
-                มีพฤติกรรมเบี่ยงเบนทางเพศ  จนมีผลต่อการเรียน
-             </paper-checkbox>
-
+             <div class="flex-6 margin-content">
+               <paper-checkbox checked="{{document.value.form_value.q5_3_m}}">
+                  มีพฤติกรรมเบี่ยงเบนทางเพศ  จนมีผลต่อการเรียน
+               </paper-checkbox>
+             </div>
+             <div class="flex-6 margin-content">&nbsp;</div>
            </div>
          </li>
                   <li>
@@ -580,12 +608,16 @@
              value="">
            </paper-input>
             <div class="layout horizontal">
-             <paper-checkbox class="flex-1" checked="{{document.value.form_value.q6_1_m}}">
-                สามารถปรับตัวได้ในบางเรื่องบางกรณี  และมักปฏิบัติตนขัดแย้งกับกฎเกณฑ์ต่างๆของโรงเรียน  ห้องเรียนเมื่อได้รับการตักเตือนก็เลิกพฤติกรรมนั้นได้
-             </paper-checkbox>
-             <paper-checkbox class="flex-1" checked="{{document.value.form_value.q6_1_p}}">
-                สามารถปรับตัวได้ในบางกรณี  แต่มีข้อขัดแย้งสม่ำเสมอ ก่อปัญหาให้แก้ไข  อยู่เสมอ  เมื่อได้รับการตักเตือนก็ไม่หยุดพฤติกรรมต่อด้าน
-             </paper-checkbox>
+              <div class="flex-6 margin-content">
+                 <paper-checkbox checked="{{document.value.form_value.q6_1_m}}">
+                    สามารถปรับตัวได้ในบางเรื่องบางกรณี  และมักปฏิบัติตนขัดแย้งกับกฎเกณฑ์ต่างๆของโรงเรียน  ห้องเรียนเมื่อได้รับการตักเตือนก็เลิกพฤติกรรมนั้นได้
+                 </paper-checkbox>
+               </div>
+               <div class="flex-6 margin-content">
+                 <paper-checkbox checked="{{document.value.form_value.q6_1_p}}">
+                    สามารถปรับตัวได้ในบางกรณี  แต่มีข้อขัดแย้งสม่ำเสมอ ก่อปัญหาให้แก้ไข  อยู่เสมอ  เมื่อได้รับการตักเตือนก็ไม่หยุดพฤติกรรมต่อด้าน
+                 </paper-checkbox>
+               </div>
            </div>
          </li>
        </ol>
