@@ -277,9 +277,11 @@
           return false;
         } else {
           if(!this.$.formStudent.validate()) {
-            this.$.control.setInvalidateMessage({'text':''});
+            this.$.control.setInvalidateMessage({'text':"ยังทำแบบประเมินไม่ครบถ้วน"});
             this.set('part',1);
             return false;
+          }else{
+            this.$.control.setInvalidateMessage({'text':''});
           }
         }
         return true;
