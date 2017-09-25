@@ -222,6 +222,7 @@
       },
       handleResponse(e) {
         var doc = e.detail.response;
+<<<<<<< HEAD
         var data = doc.value;
         // console.log(data);
         var newjson = {};
@@ -244,6 +245,33 @@
         }
           console.log(newjson);
         }         
+=======
+        var student ={};
+        for(var key in doc.value) {
+          var cid = doc.value[key];
+          if(!student[cid.name]){
+            student[cid.name] = {};
+          }
+        }
+        // this.set('list',student);
+        // console.log(student);
+        var tmp = {name:'',content:[]}
+        for(var key in doc.value) {
+          var cid = doc.value[key];
+          for(var form in cid){
+
+            if(form!=='name')
+            {
+              cid[form]['formname'] = form;
+              tmp.content.push(cid[form]);
+            }
+            else{
+              tmp.name = cid[form];
+            }
+          }
+        }               
+      }
+>>>>>>> peck
     });
     
   </script>
