@@ -4,18 +4,20 @@
 
 <dom-module id="grade-query">
  <template>
-   <app-localstorage-document key="jwtToken" data="{{jwtToken}}">
+
+   <app-localstorage-document
+     key="jwtToken"
+     data="{{token}}">
    </app-localstorage-document>
 
    <iron-ajax
-     method="POST"
      id="query"
-     url="https://maas.nuqlis.com:9000/api/query/obec_grade/cid"
+     url="https://maas.nuqlis.com:8000/v2/obec/obec_grade/query"
+     method="POST"
+     headers$='{"Authorization":"JWT {{token.token}}"}'
      content-type="application/json"
-     handle-as="json"
-     headers$='{"Authorization":"JWT {{jwtToken.token}}"}'
-     body='{"match":["{{cid}}"],"include_doc":true}'
-     on-response="handleResponse">
+     on-response="handleResponse"
+     body$='{"query":{"PP_ID":"{{cid}}","YY_END":"{{year}}","TERM_END":"{{semester}}"}}'>
    </iron-ajax>
 
  </template>
@@ -23,8 +25,21 @@
    Polymer({
     is:'grade-query',
     properties:{
-      cid:String,
-      host:String,
+      cid:{
+        type:String,
+        notify:true,
+        reflectToAttribute:true
+      },
+      year:{
+        type:String,
+        notify:true,
+        reflectToAttribute:true
+      },
+      semester:{
+        type:String,
+        notify:true,
+        reflectToAttribute:true
+      },
       isGpaxLessthanOne:{
         type:Boolean,
         notify:true,
@@ -41,27 +56,29 @@
       }
     },
     observers:[
-      'executeQuery(host,cid,jwtToken.token)'
+      'executeQuery(token.token,cid,year,semester)'
     ],
-    executeQuery:function(host,cid,token) {
+    executeQuery:function(token,cid,year,semester) {
+      if(!token || !cid || !year || !semester) return;
       this.$.query.generateRequest();
     },
     handleResponse:function(e) {
       var res = e.detail.response;
       if(res.length == 0) return;
-      var form = res[0].value.doc;
+      var form = res[0];
+      //console.log(form);
       this.set('document',form);
     },
     __computedIsGpaxLessThanOne(document) {
-      console.log(document);
+      //console.log(document);
       var gpaxN = Number(document.GPAX);
-      console.log(gpaxN);
+      //console.log(gpaxN);
       return (gpaxN / 100.0) < 1.0;
     },
     __computedIsGpaxBetween(document) {
-      console.log(document);
+      //console.log(document);
       var gpaxN = Number(document.GPAX);
-      console.log(gpaxN);
+      //console.log(gpaxN);
       var gpaxC = gpaxN / 100.0;
       if(gpaxC >= 1.0 && gpaxC <= 2.0){
         return true;

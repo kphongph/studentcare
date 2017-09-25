@@ -12,6 +12,8 @@
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
 <link rel="import" href="report/report-host.html">
 <link rel="import" href="report/report-sumaryhost.html">
+<link rel="import" href="report/report-room.html">
+
 <link rel="import" href="forms.html">
 
 <link rel="import" href="studentcare-styles.html">
@@ -91,7 +93,10 @@
      </paper-tab>
      <paper-tab>
       <div class="font-face-big-bold">ภาพรวมผลการประเมิน</div>
-    </paper-tab>
+     </paper-tab>
+     <paper-tab>
+      <div class="font-face-big-bold">ผลการประเมินรายห้อง</div>
+     </paper-tab>
     </paper-tabs>
 
     <iron-pages selected="{{page}}">
@@ -99,16 +104,8 @@
       <div>
         <report-sumaryhost year="2017" hostid="{{hostId}}"></report-sumaryhost>
       </div>
+      <report-room year="2017" hostid="{{hostId}}"></report-room>
     </iron-pages>
-
-     
-    
-    <!-- <paper-listbox attr-for-selected="name" selected="{{level}}">
-     <template is="dom-repeat" items="{{levels}}">
-      <paper-item name="{{item}}">{{item}}</paper-item>
-     </template>
-    </paper-listbox> -->
-   
 
   </template>
   
