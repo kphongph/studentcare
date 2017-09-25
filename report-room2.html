@@ -228,36 +228,24 @@
           if(!student[cid.name]){
             student[cid.name] = {};
           }
-          for(var form in cid){
-            // if(student[cid[form]])
-            console.log(form);
-          }
-
-      //     if(key == 'ts') {
-      //       ts = new Date(doc.value[key]).toLocaleString('th');
-      //       continue;
-      //     }
-      //     var cid = doc.value[key];
-      //     total++;
-      //     for(var form in cid) {
-      //       if(!_forms_dict[form]) {
-      //         _forms_dict[form] = {'new':0,'done':0,'working':0,'total':0};
-      //       }
-      //       _forms_dict[form][cid[form]]++;
-      //       _forms_dict[form]['total']++;
-      //     }
-      //   }
-      //   for(var key in _forms_dict) {
-      //     forms.push({'type':key,'content':{
-      //       'working':_forms_dict[key]['new'] + _forms_dict[key]['working'],
-      //       'done':_forms_dict[key]['done'],
-      //       'total':_forms_dict[key]['total']
-      //     }});
         }
-        console.log(student);
-      //   this.set('total',total);
-      //   this.set('list',forms);
-      //   this.set('ts',ts);                
+        // this.set('list',student);
+        // console.log(student);
+        var tmp = {name:'',content:[]}
+        for(var key in doc.value) {
+          var cid = doc.value[key];
+          for(var form in cid){
+
+            if(form!=='name')
+            {
+              cid[form]['formname'] = form;
+              tmp.content.push(cid[form]);
+            }
+            else{
+              tmp.name = cid[form];
+            }
+          }
+        }               
       }
     });
     
