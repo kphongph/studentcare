@@ -1,25 +1,22 @@
-<link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
-<link rel="import" href="../iron-ajax/iron-ajax.html">
-<link rel="import" href="../app-layout/app-layout.html">
-<link rel="import" href="../google-chart/google-chart.html">
-<link rel="import" href="../paper-styles/color.html">
-<link rel="import" href="../paper-styles/typography.html">
-<link rel="import" href="../paper-icon-button/paper-icon-button.html">
-<link rel="import" href="forms.html">
-<link rel="import" href="../paper-item/paper-item.html">
-<link rel="import" href="../paper-listbox/paper-listbox.html">
-<link rel="import" href="../paper-progress/paper-progress.html">
-<link rel="import" href="../paper-button/paper-button.html">
-<link rel="import" href="../iron-icons/iron-icons.html">
-<link rel="import" href="../app-storage/app-localstorage/app-localstorage-document.html">
-<link rel="import" href="./local/assignment-card.html">
-<link rel="import" href="./form-generator.html">
-<link rel="import" href="./option-forms.html">
+<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../iron-ajax/iron-ajax.html">
+<link rel="import" href="../../app-layout/app-layout.html">
+<link rel="import" href="../../paper-styles/color.html">
+<link rel="import" href="../../paper-styles/typography.html">
+<link rel="import" href="../../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../paper-item/paper-item.html">
+<link rel="import" href="../../paper-listbox/paper-listbox.html">
+<link rel="import" href="../../paper-progress/paper-progress.html">
+<link rel="import" href="../../paper-button/paper-button.html">
+<link rel="import" href="../../paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../../neon-animation/web-animations.html">
+<link rel="import" href="../../iron-icons/iron-icons.html">
+<link rel="import" href="../../app-storage/app-localstorage/app-localstorage-document.html">
 
-<!-- <link rel="import" href="../moment/moment.html"> -->
 <link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">
-<dom-module id="report-room2">
+
+<dom-module id="report-room">
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors">
        :host {
@@ -82,13 +79,7 @@
         font-family: 'Athiti', sans-serif;
         font-size: 18px;
       }
-      /* .line-style {
-        border-bottom: 1px solid #ddd;
-        height: 30px;
-        padding: 10px;
-      } */
       app-toolbar {
-        /*background-color: var(--paper-red-500);*/
         background-color: #e65540;
         color: white; 
       }
@@ -96,10 +87,11 @@
 
     <app-localstorage-document key="jwtToken" data="{{jwtToken}}">
     </app-localstorage-document>
+
       
-    <iron-ajax 
-      id="listAjax" 
+    <iron-ajax id="getAjax" 
       method="GET" 
+      headers$='{"Authorization":"JWT {{jwtToken.token}}"}' 
       url$="https://maas.nuqlis.com:8000/v2/obec/_studentcare_report/data/students_{{year}}_{{hostid}}_{{level}}_{{room}}" 
       content-type="application/json"
       handle-as ="json"
@@ -107,15 +99,55 @@
     </iron-ajax>
 
     <app-toolbar>
-      <div class="header">รายงานนักเรียนโรงเรียน {{hostid}}&nbsp;ชั้น{{level}} ห้อง {{room}} &nbsp; &nbsp;ปีการศึกษา {{year}}</div>
+      <div class="font-face">รายงานนักเรียนโรงเรียน {{hostid}}</div>
+      <div class="font-face">ข้อมูล ณ วันที่ {{ts}}</div>
     </app-toolbar>
-   
-    <app-toolbar>     
-      <div class="header2 layout">จำนวน {{total}} คน ข้อมูล ณ วันที่ {{ts}}</div>
-    </app-toolbar>
+    
+    <iron-ajax id="listLevel" 
+      method="POST" 
+      headers$='{"Authorization":"JWT {{jwtToken.token}}"}' 
+      url="https://maas.nuqlis.com:8000/v2/obec/student_data_db/query"
+      content-type="application/json" 
+      handle-as="json" 
+      body='{"query":{"hostid":"{{hostid}}"},"distinct":"class"}'
+      last-response="{{levelList}}">
+    </iron-ajax>
 
+    <iron-ajax id="listRoom" 
+      method="POST" 
+      headers$='{"Authorization":"JWT {{jwtToken.token}}"}' 
+      url="https://maas.nuqlis.com:8000/v2/obec/student_data_db/query"
+      content-type="application/json" 
+      handle-as="json" 
+      body='{"query":{"hostid":"{{hostid}}","class":"{{level}}"},"distinct":"room"}'
+      last-response="{{roomList}}">
+    </iron-ajax>
+   
     <div class="layout horizontal">
-      <div class="flex-1 font-face form_group">ชื่อ-นามสกุล</div>
+    <paper-dropdown-menu label="ระดับชั้น">
+     <paper-listbox slot="dropdown-content" 
+      attr-for-selected="name"
+      selected="{{level}}">
+      <template is="dom-repeat" items="{{levelList}}">
+       <paper-item name="{{item}}">{{item}}</paper-item>
+      </template>
+     </paper-listbox>
+    </paper-dropdown-menu>
+
+    <paper-dropdown-menu label="ห้อง">
+     <paper-listbox slot="dropdown-content" 
+      attr-for-selected="name"
+      selected="{{room}}">
+      <template is="dom-repeat" items="{{roomList}}">
+       <paper-item name="{{item}}">{{item}}</paper-item>
+      </template>
+     </paper-listbox>
+    </paper-dropdown-menu>
+    </div>
+
+     
+    <div class="layout horizontal">
+      <div class="flex-2 font-face form_group">ชื่อ-นามสกุล</div>
       <div class="flex-2 font-face form_group">SDQ</div>
       <div class="flex-2 font-face form_group">EQ</div>
       <div class="flex-2 font-face form_group">เด็กพิการ 9 ด้าน</div>
@@ -123,6 +155,24 @@
       <div class="flex-2 font-face form_group">อื่นๆ</div>
     </div>
 
+    <template is="dom-repeat" as="row" items="[[list]]">
+      <div class="layout horizontal">
+        <template is="dom-repeat" as="col" items="[[row]]">
+          <div class="flex-2 layout vertical">
+            <template is="dom-repeat" items="[[col]]">
+              <template is="dom-if" if="{{_doc(item)}}">
+                <div class="font-face">{{item}}</div> 
+              </template>
+              <template is="dom-if" if="{{!_doc(item)}}">
+                <div class="font-face">{{item}}</div> 
+              </template>
+            </template>
+          </div>
+        </template>
+      </div>
+    </template>
+
+    <!--
     <template is="dom-repeat" items="[[list]]" >
       <div class="layout horizontal content">
           <div class="flex-1 font-face line-style">{{item.name}}</div>
@@ -154,11 +204,12 @@
           </div>
       </div>
     </template>
+    -->
   </template>
   
   <script>
     Polymer({
-      is: "report-room2",
+      is: "report-room",
       properties:{
         hostid:{
           type:String,
@@ -185,7 +236,8 @@
         }   
       },
       observers:[
-        '_execute(jwtToken)'
+        '_execute(jwtToken.token,hostid)',
+        '_queryRoom(jwtToken.token,year,hostid,level,room)'
       ],
       _formName:function(form) {
         var obj = {   
@@ -213,51 +265,62 @@
         var result = obj[form]?obj[form]:form;
         return result;
       },
-      _execute(token) {
-        if(token == null || !token.token) return;  
-        this.$.listAjax.headers = {
-          'Authorization':'JWT '+token.token
-        }
-        this.$.listAjax.generateRequest();
+      _execute(token,hostid) {
+        if(!token || !hostid) return;  
+        this.$.listLevel.generateRequest();
+      },
+      _queryRoom(token,year,host,level,room) {
+        if(!token || !year || !host) return;
+        if(level!=null) {
+          this.$.listRoom.generateRequest();
+          if(room!=null) {
+            this.$.getAjax.generateRequest();
+          }
+        } 
       },
       handleResponse(e) {
         var doc = e.detail.response;
         var student ={};
-        for(var key in doc.value) {
-          var cid = doc.value[key];
-          if(!student[cid.name]){
-            student[cid.name] = {};
+        var content = doc.value;
+        var list = [];
+        var arr_index = [
+          ['name'],
+          ['dl2-form'],
+          [],
+          [],
+          [],
+          []
+        ];
+        for(var cid in content) {
+          var row = [];
+          for(var i=0;i<arr_index.length;i++) {
+            row.push([]);
           }
-          for(var form in cid){
-            // if(student[cid[form]])
-            console.log(form);
+          var student = content[cid];
+          for(var attr in content[cid]) {
+            var col = -1;
+            for(var i=0;i<arr_index.length;i++) {
+              if(arr_index[i].indexOf(attr)!=-1) {
+                col = i;
+                break;
+              }
+            }
+            if(col!=-1) {
+              if(content[cid][attr].doc) {
+                if(content[cid][attr].risk) {
+                  row[col].push('เสี่ยง'); 
+                } else {
+                  row[col].push('ไม่เสี่ยง'); 
+                }
+              } else {
+                row[col].push(content[cid][attr]);
+              }
+            }
           }
-
-      //     if(key == 'ts') {
-      //       ts = new Date(doc.value[key]).toLocaleString('th');
-      //       continue;
-      //     }
-      //     var cid = doc.value[key];
-      //     total++;
-      //     for(var form in cid) {
-      //       if(!_forms_dict[form]) {
-      //         _forms_dict[form] = {'new':0,'done':0,'working':0,'total':0};
-      //       }
-      //       _forms_dict[form][cid[form]]++;
-      //       _forms_dict[form]['total']++;
-      //     }
-      //   }
-      //   for(var key in _forms_dict) {
-      //     forms.push({'type':key,'content':{
-      //       'working':_forms_dict[key]['new'] + _forms_dict[key]['working'],
-      //       'done':_forms_dict[key]['done'],
-      //       'total':_forms_dict[key]['total']
-      //     }});
+          list.push(row);
         }
-        console.log(student);
-      //   this.set('total',total);
-      //   this.set('list',forms);
-      //   this.set('ts',ts);                
+        console.log(list);
+        this.set('list',list);
       }
     });
     
