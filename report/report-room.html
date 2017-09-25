@@ -1,6 +1,7 @@
 <link rel="import" href="../../polymer/polymer.html">
 <link rel="import" href="../../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../../iron-ajax/iron-ajax.html">
+<link rel="import" href="../../iron-pages/iron-pages.html">
 <link rel="import" href="../../app-layout/app-layout.html">
 <link rel="import" href="../../paper-styles/color.html">
 <link rel="import" href="../../paper-styles/typography.html">
@@ -13,6 +14,10 @@
 <link rel="import" href="../../neon-animation/web-animations.html">
 <link rel="import" href="../../iron-icons/iron-icons.html">
 <link rel="import" href="../../app-storage/app-localstorage/app-localstorage-document.html">
+
+<link rel="import" href="../forms.html">
+<link rel="import" href="form-link.html">
+
 
 <link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">
 
@@ -70,6 +75,12 @@
         background:#FF0000;
       }
 
+      .row-content {
+        padding-top:10px;
+        padding-bottom:10px;
+        border-bottom:1px solid #efefef;
+      }
+
       .layout-note {
         @apply --layout-horizontal;
         margin-bottom: 5px;
@@ -99,6 +110,8 @@
     </iron-ajax>
 
     <app-toolbar>
+      <paper-icon-button icon="arrow-back" on-tap="_back" hidden$="{{isFirstPage(page)}}">
+      </paper-icon-button>
       <div class="font-face">รายงานนักเรียนโรงเรียน {{hostid}}</div>
       <div class="font-face">ข้อมูล ณ วันที่ {{ts}}</div>
     </app-toolbar>
@@ -122,89 +135,62 @@
       body='{"query":{"hostid":"{{hostid}}","class":"{{level}}"},"distinct":"room"}'
       last-response="{{roomList}}">
     </iron-ajax>
-   
-    <div class="layout horizontal">
-    <paper-dropdown-menu label="ระดับชั้น">
-     <paper-listbox slot="dropdown-content" 
-      attr-for-selected="name"
-      selected="{{level}}">
-      <template is="dom-repeat" items="{{levelList}}">
-       <paper-item name="{{item}}">{{item}}</paper-item>
-      </template>
-     </paper-listbox>
-    </paper-dropdown-menu>
 
-    <paper-dropdown-menu label="ห้อง">
-     <paper-listbox slot="dropdown-content" 
-      attr-for-selected="name"
-      selected="{{room}}">
-      <template is="dom-repeat" items="{{roomList}}">
-       <paper-item name="{{item}}">{{item}}</paper-item>
-      </template>
-     </paper-listbox>
-    </paper-dropdown-menu>
-    </div>
-
-     
-    <div class="layout horizontal">
-      <div class="flex-2 font-face form_group">ชื่อ-นามสกุล</div>
-      <div class="flex-2 font-face form_group">SDQ</div>
-      <div class="flex-2 font-face form_group">EQ</div>
-      <div class="flex-2 font-face form_group">เด็กพิการ 9 ด้าน</div>
-      <div class="flex-2 font-face form_group">นักเรียนรายบุคคล</div>
-      <div class="flex-2 font-face form_group">อื่นๆ</div>
-    </div>
-
-    <template is="dom-repeat" as="row" items="[[list]]">
+    <iron-pages selected="{{page}}" fallback-selection="0">
+     <div class="layout vertical">
       <div class="layout horizontal">
-        <template is="dom-repeat" as="col" items="[[row]]">
-          <div class="flex-2 layout vertical">
-            <template is="dom-repeat" items="[[col]]">
-              <template is="dom-if" if="{{_doc(item)}}">
-                <div class="font-face">{{item}}</div> 
-              </template>
-              <template is="dom-if" if="{{!_doc(item)}}">
-                <div class="font-face">{{item}}</div> 
-              </template>
-            </template>
-          </div>
-        </template>
-      </div>
-    </template>
+       <paper-dropdown-menu label="ระดับชั้น">
+        <paper-listbox slot="dropdown-content" 
+          attr-for-selected="name"
+          selected="{{level}}">
+         <template is="dom-repeat" items="{{levelList}}">
+          <paper-item name="{{item}}">{{item}}</paper-item>
+         </template>
+        </paper-listbox>
+       </paper-dropdown-menu>
 
-    <!--
-    <template is="dom-repeat" items="[[list]]" >
-      <div class="layout horizontal content">
-          <div class="flex-1 font-face line-style">{{item.name}}</div>
-          <div class="flex-2 font-face line-style">
-            - แบบประเมินพฤติกรรมเด็ก (SDQ) ฉบับครูเป็นผู้ประเมินนักเรียน</br></br>
-            - แบบประเมินพฤติกรรมนักเรียน (SDQ) ฉบับนักเรียนประเมินตนเอง</div>
-          <div class="flex-2 font-face line-style">
-            - แบบประเมินความฉลาดทางอารมณ์ (EQ) ฉบับนักเรียนประเมินตนเอง (12-17 ปี)</div>
-          <div class="flex-2 font-face line-style">
-            - ความบกพร่องทางการเห็น</br></br>
-            - ความบกพร่องทางการได้ยิน</br></br>
-            - ความบกพร่องทางสติปัญญา</br></br>
-            - ความบกพร่องทางร่างกาย หรือการเคลื่อนไหว หรือสุขภาพ</br></br>
-            - ความบกพร่องทางการเรียนรู้ (ประถมศึกษา)</br></br>
-            - ความบกพร่องทางการเรียนรู้ (มัธยมศึกษา)</br></br>
-            - ออทิสติก</br></br>
-            - ความบกพร่องทางการพูดและภาษา</br></br>
-            - ความบกพร่องทางพฤติกรรม หรืออารมณ์</div>
-          <div class="flex-2 font-face line-style">
-            - แบบคัดกรองนักเรียนรายบุคคล ระดับประถม</br></br>
-            - แบบคัดกรองนักเรียนรายบุคคล ระดับมัธยม
-          </div>
-          <div class="flex-2 font-face line-style">
-            - แบบประเมินความเครียดกรมสุขภาพจิต (ST–5)</br></br>
-            - แบบประเมินพฤติกรรม SNAP-IV (Shot Form)</br></br>
-            - แบบประเมินการฆ่าตัวตาย 8 คำถาม (8Q)</br></br>
-            - แบบคัดกรองภาวะซึมเศร้าในเด็ก (CDI)</br></br>
-            - แบบทดสอบการติดเกม ฉบับเด็กและวัยรุ่น (GAST)
-          </div>
+       <paper-dropdown-menu label="ห้อง">
+        <paper-listbox slot="dropdown-content" 
+          attr-for-selected="name"
+          selected="{{room}}">
+         <template is="dom-repeat" items="{{roomList}}">
+          <paper-item name="{{item}}">{{item}}</paper-item>
+         </template>
+        </paper-listbox>
+       </paper-dropdown-menu>
       </div>
-    </template>
-    -->
+     
+      <div class="layout horizontal">
+        <div class="flex-2 font-face form_group">ชื่อ-นามสกุล</div>
+        <div class="flex-2 font-face form_group">SDQ</div>
+        <div class="flex-2 font-face form_group">EQ</div>
+        <div class="flex-2 font-face form_group">เด็กพิการ 9 ด้าน</div>
+        <div class="flex-2 font-face form_group">นักเรียนรายบุคคล</div>
+        <div class="flex-2 font-face form_group">อื่นๆ</div>
+      </div>
+
+      <template is="dom-repeat" as="row" items="[[list]]">
+        <div class="layout horizontal row-content center">
+          <template is="dom-repeat" as="col" items="[[row]]">
+            <div class="flex-2 layout vertical">
+              <template is="dom-repeat" items="[[col]]">
+                <template is="dom-if" if="{{_doc(item)}}">
+                  <form-link message="{{item.mesg}}" doc-id="{{item.doc}}">
+                  </form-link>
+                </template>
+                <template is="dom-if" if="{{!_doc(item)}}">
+                  <div class="font-face">{{item}}</div> 
+                </template>
+              </template>
+            </div>
+          </template>
+        </div>
+      </template>
+    </div>
+    <div id="formEntry">
+    </div>
+  </iron-pages>
+
   </template>
   
   <script>
@@ -239,31 +225,22 @@
         '_execute(jwtToken.token,hostid)',
         '_queryRoom(jwtToken.token,year,hostid,level,room)'
       ],
-      _formName:function(form) {
-        var obj = {   
-          'dl2-form': 'แบบประเมินพฤติกรรมนักเรียน ฉบับครูประเมินนักเรียน',
-          'dl3-form': 'แบบประเมินพฤติกรรมนักเรียน ฉบับนักเรียนประเมินตนเอง',
-          'disability-visual-form': 'แบบคัดกรองบุคคลที่มีความบกพร่องทางการเห็น',
-          'eq-teacher-form': 'แบบประเมินความฉลาดทางอารมณ์เด็กอายุ 6-11 ปี (ฉบับครูประเมินนักเรียน)', 
-          'eq-student-form': 'แบบประเมิน ความฉลาดทางอารมณ์สำหรับวัยรุ่น (อายุ 12-17 ปี) (ฉบับนักเรียนประเมินตนเอง)',    
-          'disability-hearing-form':  'แบบคัดกรองบุคคลที่มีความบกพร่องทางการได้ยิน' ,
-          'disability-intelligence-form':  'แบบคัดกรองบุคคลที่มีความบกพร่องทางสติปัญญา' ,
-          'disability-health-form':  'แบบคัดกรองบุคคลที่มีความบกพร่องทางร่างกาย หรือการเคลื่อนไหว หรือสุขภาพ' , 
-          'disability-learning-elementary-form':  'แบบคัดกรองบุคคลที่มีความบกพร่องทางการเรียนรู้ (ประถมศึกษา)' , 
-          'disability-learning-secondary-form':  'แบบคัดกรองบุคคลที่มีความบกพร่องทางการเรียนรู้ (มัธยมศึกษา)' ,
-          'disability-communication-form':  'แบบคัดกรองบุคคลที่มีความบกพร่องทางการพูดและภาษา', 
-          'disability-behavior-form':  'แบบคัดกรองบุคคลที่มีความบกพร่องทางพฤติกรรม หรืออารมณ์', 
-          'disability-autistic-form':  'แบบคัดกรองบุคคลออทิสติก' ,
-          'snap-form': 'แบบประเมินพฤติกรรม SNAP-IV (Shot Form)' , 
-          'st5-form':  'แบบประเมินความเครียดกรมสุขภาพจิต ( ST – 5 ) รายบุคคล' , 
-          'cdi-form':  'แบบคัดกรองภาวะซึมเศร้าในเด็ก Children’s Depression Inventory (CDI) ฉบับภาษาไทย' , 
-          'suicide8q-form':  'แบบประเมินการฆ่าตัวตาย 8 คำถาม (8Q) ใช้ประเมินร่วมกับแบบประเมินโรคซึมเศร้า 9 คำถาม' , 
-          'game-form': 'แบบทดสอบการติดเกม ฉบับเด็กและวัยรุ่น (Game Addiction Screening Test – GAST Child and Adolescent Version)', 
-          'screening-elementary-form':'แบบคัดกรองนักเรียนรายบุคคล ระดับประถม',
-          'screening-secondary-form':'แบบคัดกรองนักเรียนรายบุคคล ระดับมัธยม'
-        }     
-        var result = obj[form]?obj[form]:form;
-        return result;
+      listeners:{
+        'form-linked':'_formSelected'
+      },
+      isFirstPage:function(page) {
+        return page == 0;
+      },
+      _back:function() {
+        this.set('page',this.page - 1);
+      },
+      _formSelected:function(e) {
+        var node = this.$.formEntry;
+        while (node.firstChild) {
+          node.removeChild(node.firstChild);
+        }
+        this.set('page',1);
+        this.$.formEntry.appendChild(e.detail.form);
       },
       _execute(token,hostid) {
         if(!token || !hostid) return;  
@@ -278,6 +255,12 @@
           }
         } 
       },
+      _doc:function(item) {
+        return item.hasOwnProperty('doc');
+      },
+      _select:function(e) {
+        console.log(e.detail);
+      },
       handleResponse(e) {
         var doc = e.detail.response;
         var student ={};
@@ -287,10 +270,15 @@
           ['name'],
           ['dl2-form'],
           [],
+          ['disability-intelligence-form'],
           [],
-          [],
-          []
+          ['game-form']
         ];
+        var message_dict = {
+          'dl2-form':['เสี่ยง','ไม่เสี่ยง'],
+          'game-form':['ติดเกม','ไม่ติดเกม'],
+          'disability-intelligence-form':['เสี่ยงด้านความเรียนรู้']
+        };
         for(var cid in content) {
           var row = [];
           for(var i=0;i<arr_index.length;i++) {
@@ -307,11 +295,16 @@
             }
             if(col!=-1) {
               if(content[cid][attr].doc) {
+                var mesg = message_dict[attr];
+                content[cid][attr]['mesg']=mesg;
                 if(content[cid][attr].risk) {
-                  row[col].push('เสี่ยง'); 
+                  content[cid][attr]['mesg']=mesg[0];
                 } else {
-                  row[col].push('ไม่เสี่ยง'); 
+                  if(mesg[1]) {
+                    content[cid][attr]['mesg']=mesg[1];
+                  }
                 }
+                row[col].push(content[cid][attr]);
               } else {
                 row[col].push(content[cid][attr]);
               }
@@ -319,7 +312,6 @@
           }
           list.push(row);
         }
-        console.log(list);
         this.set('list',list);
       }
     });
