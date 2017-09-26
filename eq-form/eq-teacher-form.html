@@ -234,6 +234,7 @@
         var score_list = ['', 'n', 's', 'u', 'a'];
         var score38_list = ['', 'a', 'u', 's', 'n'];
         var score = 0;
+        var risk;
         for (var q in values) {
           if (q == 'q3' || q == 'q8') {
             score += score38_list.indexOf(values[q]);
@@ -241,8 +242,13 @@
             score += score_list.indexOf(values[q]);
           }
         }
-        return { 'score': score };
+        console.log(score);
+          if(score < 42){
+            risk = true;
+           }
+        return { 'score': score ,'_risk':risk};
       },
+
       _validate: function () {
         var eles = Polymer.dom(this.root)
           .querySelectorAll('eq-teacher-choice');

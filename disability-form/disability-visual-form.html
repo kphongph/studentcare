@@ -164,6 +164,9 @@
         for(var q in values) {
           score[values[q]]++;
         }
+        if(score && score.y>=5) {
+          score['_risk'] = true;
+        } 
         return score;
       },
       _validate:function() {

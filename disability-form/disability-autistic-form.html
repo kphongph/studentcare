@@ -178,12 +178,18 @@
       _evaluate:function() {
         var values = this.document.value.form_value;
         var score = {};
+        var risk = {};
         for(var q in values) {
           var p = q.split('_')[0];
           if(!score[p]) score[p] = {'y':0,'n':0};
           score[p][values[q]]++;
         }
-        return score;
+        for(var key in score) {
+          if(score[key].y >= 2) {
+            score[risk] = true;
+          } 
+        }
+         return score;
       },
       _validate:function() {
         var eles =Polymer.dom(this.root)

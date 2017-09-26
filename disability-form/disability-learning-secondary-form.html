@@ -327,6 +327,21 @@
           var p = _p[0]+_p[1];
           if(!score[p]) score[p] = {'y':0,'n':0};
           score[p][values[q]]++;
+          var dict = {
+          'p1p1':2,
+          'p2p1':7,
+          'p2p2':7,
+          'p2p3':5,
+          'p2p4':4
+        };
+        if(score==null) return;
+        for(var key in dict) {
+          if(score[key]) {
+            if(score[key].y >= dict[key]) {
+              score['_risk']= true;
+            } 
+          }
+        }
         }
         return score;
       },

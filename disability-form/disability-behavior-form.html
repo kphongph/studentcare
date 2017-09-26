@@ -238,6 +238,17 @@
           if(!score[p]) score[p] = {'y':0,'n':0};
           score[p][values[q]]++;
         }
+        if(!score) return;
+        var foundSub = false;
+        for(var key in score) {
+          if(key.indexOf('s') == 0 && score[key].y>=2) {
+            foundSub=true;
+            break;
+          }
+        }
+        if(score.p1 && score.p1.y >= 1  && foundSub) {
+          score['_risk'] = true;
+        }
         return score;
       },
       _validate:function() {

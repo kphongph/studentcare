@@ -86,6 +86,7 @@
         margin-bottom: 5px;
       }
       .font-face {
+         @apply --paper-dropdown-menu;
          @apply --paper-font-subhead;
         font-family: 'Athiti', sans-serif;
         font-size: 18px;
@@ -112,8 +113,8 @@
     <app-toolbar>
       <paper-icon-button icon="arrow-back" on-tap="_back" hidden$="{{isFirstPage(page)}}">
       </paper-icon-button>
-      <div class="font-face">รายงานนักเรียนโรงเรียน {{hostid}}</div>
-      <div class="font-face">ข้อมูล ณ วันที่ {{ts}}</div>
+      <div class="font-face">ผลการประเมินรายห้อง</div>
+      <!-- <div class="font-face">ข้อมูล ณ วันที่ {{ts}}</div> -->
     </app-toolbar>
     
     <iron-ajax id="listLevel" 
@@ -137,14 +138,14 @@
     </iron-ajax>
 
     <iron-pages selected="{{page}}" fallback-selection="0">
-     <div class="layout vertical">
-      <div class="layout horizontal">
+     <div class="layout vertical font-face">
+      <div class="layout horizontal font-face">
        <paper-dropdown-menu label="ระดับชั้น">
         <paper-listbox slot="dropdown-content" 
           attr-for-selected="name"
           selected="{{level}}">
          <template is="dom-repeat" items="{{levelList}}">
-          <paper-item name="{{item}}">{{item}}</paper-item>
+          <paper-item  name="{{item}}">{{item}}</paper-item>
          </template>
         </paper-listbox>
        </paper-dropdown-menu>
@@ -153,7 +154,7 @@
         <paper-listbox slot="dropdown-content" 
           attr-for-selected="name"
           selected="{{room}}">
-         <template is="dom-repeat" items="{{roomList}}">
+         <template is="dom-repeat" items="{{roomList}}">         
           <paper-item name="{{item}}">{{item}}</paper-item>
          </template>
         </paper-listbox>
@@ -170,7 +171,7 @@
       </div>
 
       <template is="dom-repeat" as="row" items="[[list]]">
-        <div class="layout horizontal row-content center">
+        <div class="layout horizontal row-content start">
           <template is="dom-repeat" as="col" items="[[row]]">
             <div class="flex-2 layout vertical">
               <template is="dom-repeat" items="[[col]]">
@@ -269,16 +270,46 @@
         var arr_index = [
           ['name'],
           ['dl2-form'],
-          [],
-          ['disability-intelligence-form'],
-          [],
-          ['game-form']
+          ['eq-teacher-form'],
+          ['disability-intelligence-form',
+            'disability-visual-form',
+            'disability-hearing-form',
+            'disability-health-form',
+            'disability-learning-elementary-form',
+            // 'disability-learning-secondary-form',
+            'disability-autistic-form',
+            'disability-communication-form',
+            'disability-behavior-form'
+          ],
+          [
+            'screening-elementary-form',
+            // 'screening-secondary-form'
+          ],
+          ['game-form','st5-form','suicide8q-form','cdi-form'],        
         ];
-        var message_dict = {
+         var message_dict = {
           'dl2-form':['เสี่ยง','ไม่เสี่ยง'],
-          'game-form':['ติดเกม','ไม่ติดเกม'],
-          'disability-intelligence-form':['เสี่ยงด้านความเรียนรู้']
+          'eq-teacher-form':['ต่ากว่าเกณฑ์','ปกติ'],
+          'game-form':['ติดเกม'],
+          'st5-form':['เครียด'],
+          'cdi-form':['ซึมเศร้า'],
+          'suicide8q-form':['มีแน้วโน้มฆ่าตัวตาย'],
+          'disability-visual-form':['เสี่ยงด้านการมองเห็น'],
+          'disability-intelligence-form':['เสี่ยงด้านความเรียนรู้'],
+          'disability-hearing-form':['เสี่ยงด้านการได้ยิน'],
+          'disability-health-form':['เสี่ยงด้านสุขภาพ'],
+          'disability-learning-elementary-form':['เสี่ยงด้านความบกพร่องทางการเรียนรู้'],
+          // 'disability-learning-secondary-form':['เสี่ยงด้านความบกพร่องทางการเรียนรู้'],
+          'disability-autistic-form':['เสี่ยงด้านออทิสติก'],
+          'disability-communication-form':['เสี่ยงด้านการพูดและภาษา'],
+          'disability-behavior-form':['เสี่ยงด้านพฤติกรรม หรืออารมณ์'],
+          'screening-elementary-form':['เสี่ยง']
         };
+        // var message_dict = {
+        //   'dl2-form':['เสี่ยง','ไม่เสี่ยง'],
+        //   'game-form':['ติดเกม','ไม่ติดเกม'],
+        //   'disability-intelligence-form':['เสี่ยงด้านความเรียนรู้']
+        // };
         for(var cid in content) {
           var row = [];
           for(var i=0;i<arr_index.length;i++) {
@@ -301,6 +332,7 @@
                   content[cid][attr]['mesg']=mesg[0];
                 } else {
                   if(mesg[1]) {
+                    console.log(mesg[1]);
                     content[cid][attr]['mesg']=mesg[1];
                   }
                 }

@@ -205,6 +205,11 @@
           if(!score[p]) score[p] = {'y':0,'n':0};
           score[p][values[q]]++;
         }
+        for(var key in score) {
+          if(score[key].y >= 1) {
+           score['_risk'] = true;
+          } 
+        }
         return score;
       },
       _validate:function() {

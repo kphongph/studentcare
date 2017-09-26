@@ -123,10 +123,21 @@
         var values = this.document.value.form_value;
         var dict = ['n','s','u','a'];
         var score = 0;
+        var risk; 
         for(var key in values) {
           score+=dict.indexOf(values[key]);
         }
-        return {'score':score};
+        if(score >= 0){
+          if(score < 5){
+             risk = false;
+          }
+          if(score >= 5){
+            risk = true;
+          }
+        }
+      
+        return {'score':score,'risk_': risk };
+
       },
       _reset:function() {
         this.set('document.value.form_value',{});

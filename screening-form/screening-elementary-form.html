@@ -710,7 +710,7 @@
         }
         this.set('document.value.form_value.q2',current_max);
       },
-      /*_evaluate:function() {
+      _evaluate:function() {
         var values = this.document.value.form_value;
         var score = {};
 
@@ -731,6 +731,9 @@
         for(var q in values) {
           if(name_dict[q]) {
             var obj = {'name':name_dict[q],'result':result_dict[values[q]]};
+            if(values[q]=='m' || values[q]=='p') {
+              score['_risk'] = true;
+            }
             score[q] = obj;
           }
         }
@@ -760,7 +763,7 @@
         score["homevisit"] = result_homevisit;
         console.log(score);
         return score;
-      },*/
+      },
       _validate:function() {
         /*
         var eles =Polymer.dom(this.root)

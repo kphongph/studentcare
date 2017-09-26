@@ -153,7 +153,12 @@
               'ปกติ': [0, 5],
               'เสี่ยง': [6, 6],
               'มีปัญหา': [7, 10],
-            }
+            },
+            '_risk':'',
+            '_risk':{
+                false:[0, 6],
+                true:[7, 10]
+            },
           },
           behavior: {
             '_item': [5, 7, 12, 18, 22],
@@ -164,7 +169,12 @@
               'ปกติ': [0, 4],
               'เสี่ยง': [5, 5],
               'มีปัญหา': [6, 10],
-            }
+            },
+            '_risk':'',
+            '_risk':{
+                'false':[0, 5],
+                'true':[6, 10]
+            },
           },
           behavior_active: {
             '_item': [2, 10, 15, 21, 25],
@@ -175,7 +185,12 @@
               'ปกติ': [0, 5],
               'เสี่ยง': [6, 6],
               'มีปัญหา': [7, 10],
-            }
+            },
+            '_risk':'',
+            '_risk':{
+              'false':[0, 6],
+              'true':[7, 10]
+          },
           },
           friend: {
             '_item': [6, 11, 14, 19, 23],
@@ -186,7 +201,12 @@
               'ปกติ': [0, 3],
               'เสี่ยง': [4, 4],
               'มีปัญหา': [5, 10],
-            }
+            },
+            '_risk':'',
+            '_risk':{
+              'false':[0, 4],
+              'true':[5, 10]
+          },
           },
           social: {
             '_item': [1, 4, 9, 17, 20],
@@ -197,7 +217,12 @@
               'ปกติ': [4, 10],
               'เสี่ยง': [3, 3],
               'มีปัญหา': [0, 2],
-            }
+            },
+            '_risk':'',
+            '_risk':{
+              'false':[0, 6],
+              'true':[7, 10]
+          }
           }
         };
         for (var t in score) {
@@ -214,6 +239,12 @@
             if (_type.score >= _type._result[l][0] &&
               _type.score <= _type._result[l][1]) {
               _type.result = l;
+            }
+          }
+          for (var l in _type._risk) {
+            if (_type.score >= _type._risk[l][0] &&
+              _type.score <= _type._risk[l][1]) {
+              _type.risk = l;
             }
           }
           for (var att in _type) {
@@ -235,9 +266,11 @@
         }
         if (score['weakness'].score <= 40) {
           score['weakness'].result = "มีปัญหา";
+          score['_risk'] = true;
         }
         if (score['weakness'].score <= 18) {
           score['weakness'].result = "เสี่ยง";
+          score['_risk'] = true;
         }
         if (score['weakness'].score <= 16) {
           score['weakness'].result = "ปกติ";
@@ -263,9 +296,11 @@
         }
         if (score['back'].score >= 1) {
           score['back'].result = "รุนแรงปานกลาง";
+          score['_risk'] = true;
         }
         if (score['back'].score >= 3) {
           score['back'].result = "รุนแรงมาก";
+          score['_risk'] = true;
         }
         console.log(score);
         return score;
@@ -276,7 +311,7 @@
           this.$.control.setInvalidateMessage({'text':'ยังทำแบบประเมินไม่ครบถ้วน'});
           this.set('part', 0);
           return false;
-        } else {
+        } else {  
           if (!this.$.formTeacher.validate()) {
             this.$.control.setInvalidateMessage({'text':'ยังทำแบบประเมินไม่ครบถ้วน'});
             this.set('part', 1);

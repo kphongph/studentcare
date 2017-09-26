@@ -531,7 +531,11 @@ CDI ฉบับภาษาไทยมี Sensitivity = 78.7% specificity = 91
             score[p]+=score_list[p].indexOf(values[q]);
           }
         }
-        return score;
+        if(!score) return;
+        if((score.q1+score.q2) > 15) {
+          score['_risk'] = true;
+        }
+        return score;     
       },
       _validate:function() {
         var eles =Polymer.dom(this.root).querySelectorAll('cdi-choice');
