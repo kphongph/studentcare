@@ -22,11 +22,16 @@
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors">
       :host {
-        @apply (--layout-horizontal);
+        @apply (--layout-horizontal);        
         cursor:hand;
         cursor:pointer;
+        padding:5px;        
       }
-      
+
+      :host(:hover) {
+        background-color: #efefef;                
+      }
+            
       .font-face {
         @apply --paper-font-subhead;
         font-family: 'Athiti', sans-serif;
@@ -46,7 +51,7 @@
       on-response="handleResponse">
     </iron-ajax>
 
-    <div class="font-face">{{message}}</div>
+    <div class="font-face">- {{message}}</div>
   </template>
   
   <script>

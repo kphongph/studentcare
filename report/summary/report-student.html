@@ -1,19 +1,19 @@
-<link rel="import" href="../../polymer/polymer.html">
-<link rel="import" href="../../iron-flex-layout/iron-flex-layout-classes.html">
-<link rel="import" href="../../iron-ajax/iron-ajax.html">
-<link rel="import" href="../../iron-pages/iron-pages.html">
-<link rel="import" href="../../app-layout/app-layout.html">
-<link rel="import" href="../../paper-styles/color.html">
-<link rel="import" href="../../paper-styles/typography.html">
-<link rel="import" href="../../paper-icon-button/paper-icon-button.html">
-<link rel="import" href="../../paper-item/paper-item.html">
-<link rel="import" href="../../paper-listbox/paper-listbox.html">
-<link rel="import" href="../../paper-progress/paper-progress.html">
-<link rel="import" href="../../paper-button/paper-button.html">
-<link rel="import" href="../../paper-dropdown-menu/paper-dropdown-menu.html">
-<link rel="import" href="../../neon-animation/web-animations.html">
-<link rel="import" href="../../iron-icons/iron-icons.html">
-<link rel="import" href="../../app-storage/app-localstorage/app-localstorage-document.html">
+<link rel="import" href="../../../polymer/polymer.html">
+<link rel="import" href="../../../iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../../iron-ajax/iron-ajax.html">
+<link rel="import" href="../../../iron-pages/iron-pages.html">
+<link rel="import" href="../../../app-layout/app-layout.html">
+<link rel="import" href="../../../paper-styles/color.html">
+<link rel="import" href="../../../../paper-styles/typography.html">
+<link rel="import" href="../../../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../../paper-item/paper-item.html">
+<link rel="import" href="../../../paper-listbox/paper-listbox.html">
+<link rel="import" href="../../../paper-progress/paper-progress.html">
+<link rel="import" href="../../../paper-button/paper-button.html">
+<link rel="import" href="../../../paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../../../neon-animation/web-animations.html">
+<link rel="import" href="../../../iron-icons/iron-icons.html">
+<link rel="import" href="../../../app-storage/app-localstorage/app-localstorage-document.html">
 
 <link rel="import" href="../forms.html">
 <link rel="import" href="form-link.html">
@@ -21,7 +21,7 @@
 
 <link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">
 
-<dom-module id="report-room">
+<dom-module id="report-student">
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors">
        :host {
@@ -162,12 +162,16 @@
       </div>
      
       <div class="layout horizontal">
-        <div class="flex-2 font-face form_group">ชื่อ-นามสกุล</div>
+        <div class="flex-2 font-face form_group">ชื่อ-นามสกุล</div> 
+        <div class="flex-2 font-face form_group">ผลการเรียน</div>
+        <div class="flex-2 font-face form_group">เข้าเรียน</div>  
+        <div class="flex-2 font-face form_group">โรคประจำตัว</div>
+        <div class="flex-2 font-face form_group">พิการทางร่างกาย</div>
         <div class="flex-2 font-face form_group">SDQ</div>
         <div class="flex-2 font-face form_group">EQ</div>
-        <div class="flex-2 font-face form_group">เด็กพิการ 9 ด้าน</div>
-        <div class="flex-2 font-face form_group">นักเรียนรายบุคคล</div>
-        <div class="flex-2 font-face form_group">อื่นๆ</div>
+        <div class="flex-2 font-face form_group">เพศ</div>
+        <div class="flex-2 font-face form_group">พิการทางการเรียนรู้</div>
+        <div class="flex-2 font-face form_group">ปัญหาทางการเรียนรู ้</div>
       </div>
 
       <template is="dom-repeat" as="row" items="[[list]]">
@@ -196,7 +200,7 @@
   
   <script>
     Polymer({
-      is: "report-room",
+      is: "report-student",
       properties:{
         hostid:{
           type:String,
