@@ -138,9 +138,10 @@
     </iron-ajax>
 
     <iron-pages selected="{{page}}" fallback-selection="0">
-     <div class="layout vertical font-face">
+     <div class="layout vertical font-face">   
       <div class="layout horizontal font-face">
-       <paper-dropdown-menu label="ระดับชั้น">
+
+       <!-- <paper-dropdown-menu label="ระดับชั้น">
         <paper-listbox slot="dropdown-content" 
           attr-for-selected="name"
           selected="{{level}}">
@@ -148,9 +149,9 @@
           <paper-item  name="{{item}}">{{item}}</paper-item>
          </template>
         </paper-listbox>
-       </paper-dropdown-menu>
+       </paper-dropdown-menu> -->
 
-       <paper-dropdown-menu label="ห้อง">
+       <!-- <paper-dropdown-menu label="ห้อง">
         <paper-listbox slot="dropdown-content" 
           attr-for-selected="name"
           selected="{{room}}">
@@ -159,20 +160,8 @@
          </template>
         </paper-listbox>
        </paper-dropdown-menu>
-      </div>
-     
-      <div class="layout horizontal">
-        <div class="flex-2 font-face form_group">ชื่อ-นามสกุล</div> 
-        <div class="flex-2 font-face form_group">ผลการเรียน</div>
-        <div class="flex-2 font-face form_group">เข้าเรียน</div>  
-        <div class="flex-2 font-face form_group">โรคประจำตัว</div>
-        <div class="flex-2 font-face form_group">พิการทางร่างกาย</div>
-        <div class="flex-2 font-face form_group">SDQ</div>
-        <div class="flex-2 font-face form_group">EQ</div>
-        <div class="flex-2 font-face form_group">เพศ</div>
-        <div class="flex-2 font-face form_group">พิการทางการเรียนรู้</div>
-        <div class="flex-2 font-face form_group">ปัญหาทางการเรียนรู ้</div>
-      </div>
+      </div> -->
+
 
       <template is="dom-repeat" as="row" items="[[list]]">
         <div class="layout horizontal row-content start">
