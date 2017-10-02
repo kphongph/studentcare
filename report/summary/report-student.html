@@ -27,33 +27,37 @@
        :host {
         @apply (--layout-vertical);
       }
-      
+
       .container {
         @apply (--layout-horizontal);
         @apply (--layout-center-justified);
       }
+
       .form_group {
         @apply (--paper-font-subhead);
         padding: 10px;
         background: var(--paper-grey-100);
       }
-      .content{
-        background :white;
+
+      .content {
+        background: white;
       }
+
       .header {
         font-family: 'Athiti', sans-serif;
         font-size: 25px;
         font-weight: bold;
       }
+
       .header2 {
         @apply (--layout-center-justified);
         font-family: 'Athiti', sans-serif;
         /* font-size: 25px; */
         /* font-weight: bold; */
-        
       }
-      .note{
-        border:2px solid #44ada8;
+
+      .note {
+        border: 2px solid #44ada8;
         font-family: 'Athiti', sans-serif;
         background: #fff;
         color: #000;
@@ -63,51 +67,37 @@
         width: 40px;
         height: 40px;
       }
-      .marker-new {
-        width: 5px;
-        height: 30px;
-        background:#000000;
-      }
-
-      .marker-working {
-        width: 5px;
-        height: 30px;
-        background:#FF0000;
-      }
 
       .row-content {
-        padding-top:10px;
-        padding-bottom:10px;
-        border-bottom:1px solid #efefef;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #efefef;
       }
 
       .layout-note {
         @apply --layout-horizontal;
         margin-bottom: 5px;
       }
+
       .font-face {
-         @apply --paper-dropdown-menu;
-         @apply --paper-font-subhead;
+        @apply --paper-dropdown-menu;
+        @apply --paper-font-subhead;
         font-family: 'Athiti', sans-serif;
         font-size: 18px;
       }
+
       app-toolbar {
         background-color: #e65540;
-        color: white; 
+        color: white;
       }
     </style>
 
     <app-localstorage-document key="jwtToken" data="{{jwtToken}}">
     </app-localstorage-document>
 
-      
-    <iron-ajax id="getAjax" 
-      method="GET" 
-      headers$='{"Authorization":"JWT {{jwtToken.token}}"}' 
-      url$="https://maas.nuqlis.com:8000/v2/obec/_studentcare_report/data/students_{{year}}_{{hostid}}_{{level}}_{{room}}" 
-      content-type="application/json"
-      handle-as ="json"
-      on-response="handleResponse">
+
+    <iron-ajax id="getAjax" method="GET" headers$='{"Authorization":"JWT {{jwtToken.token}}"}' url$="https://maas.nuqlis.com:8000/v2/obec/_studentcare_report/data/students_{{year}}_{{hostid}}_{{level}}_{{room}}"
+      content-type="application/json" handle-as="json" on-response="handleResponse">
     </iron-ajax>
 
     <app-toolbar>
@@ -116,148 +106,177 @@
       <div class="font-face">ผลการประเมินรายห้อง</div>
       <!-- <div class="font-face">ข้อมูล ณ วันที่ {{ts}}</div> -->
     </app-toolbar>
-    
-    <iron-ajax id="listLevel" 
-      method="POST" 
-      headers$='{"Authorization":"JWT {{jwtToken.token}}"}' 
-      url="https://maas.nuqlis.com:8000/v2/obec/student_data_db/query"
-      content-type="application/json" 
-      handle-as="json" 
-      body='{"query":{"hostid":"{{hostid}}"},"distinct":"class"}'
-      last-response="{{levelList}}">
+
+    <iron-ajax id="listLevel" method="POST" headers$='{"Authorization":"JWT {{jwtToken.token}}"}' url="https://maas.nuqlis.com:8000/v2/obec/student_data_db/query"
+      content-type="application/json" handle-as="json" body='{"query":{"hostid":"{{hostid}}"},"distinct":"class"}' last-response="{{levelList}}">
     </iron-ajax>
 
-    <iron-ajax id="listRoom" 
-      method="POST" 
-      headers$='{"Authorization":"JWT {{jwtToken.token}}"}' 
-      url="https://maas.nuqlis.com:8000/v2/obec/student_data_db/query"
-      content-type="application/json" 
-      handle-as="json" 
-      body='{"query":{"hostid":"{{hostid}}","class":"{{level}}"},"distinct":"room"}'
+    <iron-ajax id="listRoom" method="POST" headers$='{"Authorization":"JWT {{jwtToken.token}}"}' url="https://maas.nuqlis.com:8000/v2/obec/student_data_db/query"
+      content-type="application/json" handle-as="json" body='{"query":{"hostid":"{{hostid}}","class":"{{level}}"},"distinct":"room"}'
       last-response="{{roomList}}">
     </iron-ajax>
 
     <iron-pages selected="{{page}}" fallback-selection="0">
-     <div class="layout vertical font-face">   
-      <div class="layout horizontal font-face">
-
-       <!-- <paper-dropdown-menu label="ระดับชั้น">
-        <paper-listbox slot="dropdown-content" 
-          attr-for-selected="name"
-          selected="{{level}}">
-         <template is="dom-repeat" items="{{levelList}}">
-          <paper-item  name="{{item}}">{{item}}</paper-item>
-         </template>
-        </paper-listbox>
-       </paper-dropdown-menu> -->
-
-       <!-- <paper-dropdown-menu label="ห้อง">
-        <paper-listbox slot="dropdown-content" 
-          attr-for-selected="name"
-          selected="{{room}}">
-         <template is="dom-repeat" items="{{roomList}}">         
-          <paper-item name="{{item}}">{{item}}</paper-item>
-         </template>
-        </paper-listbox>
-       </paper-dropdown-menu>
-      </div> -->
-
-
-      <template is="dom-repeat" as="row" items="[[list]]">
-        <div class="layout horizontal row-content start">
-          <template is="dom-repeat" as="col" items="[[row]]">
-            <div class="flex-2 layout vertical">
-              <template is="dom-repeat" items="[[col]]">
-                <template is="dom-if" if="{{_doc(item)}}">
-                  <form-link message="{{item.mesg}}" doc-id="{{item.doc}}">
-                  </form-link>
-                </template>
-                <template is="dom-if" if="{{!_doc(item)}}">
-                  <div class="font-face">{{item}}</div> 
-                </template>
+      <div class="layout vertical font-face">
+        <div class="layout horizontal font-face">
+          <paper-dropdown-menu label="ระดับชั้น">
+            <paper-listbox slot="dropdown-content" attr-for-selected="name" selected="{{level}}">
+              <template is="dom-repeat" items="{{levelList}}">
+                <paper-item name="{{item}}">{{item}}</paper-item>
               </template>
-            </div>
-          </template>
+            </paper-listbox>
+          </paper-dropdown-menu>
+
+          <paper-dropdown-menu label="ห้อง">
+            <paper-listbox slot="dropdown-content" attr-for-selected="name" selected="{{room}}">
+              <template is="dom-repeat" items="{{roomList}}">
+                <paper-item name="{{item}}">{{item}}</paper-item>
+              </template>
+            </paper-listbox>
+          </paper-dropdown-menu>
         </div>
-      </template>
-    </div>
-    <div id="formEntry">
-    </div>
-  </iron-pages>
+
+        <div class="flex note">
+          <div class="layout-note font-layout">
+            <div>
+              <iron-icon src="{{imgNote}}"></iron-icon>หมายเหตุ&nbsp;&nbsp;
+              <div>หมายเลข 1 หมายถึง ผลการเรียน &nbsp;&nbsp; หมายเลข 4 หมายถึง ผลการเรียน &nbsp;&nbsp;</div>
+              <div>หมายเลข 2 หมายถึง เข้าเรียน &nbsp;&nbsp; หมายเลข 5 หมายถึง ผลการเรียน &nbsp;&nbsp;</div>
+              <div>หมายเลข 3 หมายถึง เศรษฐกิจ &nbsp;&nbsp; หมายเลข 6 หมายถึง ผลการเรียน</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="layout horizontal">
+          <div class="flex-2 font-face form_group">ชื่อ-นามสกุล
+            <iron-icon src="{{imgUser}}" slot="item-icon"></iron-icon>
+          </div>
+
+          <div class="flex-10 font-face form_group">
+            <div class="flex-1 font-face form_group">ผลการเรียน</div>
+            <div class="flex-1 font-face form_group">เข้าเรียน</div>
+            <div class="flex-1 font-face form_group">โรคประจำตัว</div>
+            <div class="flex-1 font-face form_group">พิการทางร่างกาย</div>
+            <div class="flex-1 font-face form_group">SDQ</div>
+            <div class="flex-1 font-face form_group">EQ</div>
+            <div class="flex-1 font-face form_group">เพศ</div>
+            <div class="flex-1 font-face form_group">พิการทางการเรียนรู้</div>
+            <div class="flex-1 font-face form_group">ปัญหาทางการเรียนรู ้</div>
+          </div>
+
+        </div>
+
+        <template is="dom-repeat" as="row" items="[[list]]">
+          <div class="layout horizontal row-content start">
+            <template is="dom-repeat" as="col" items="[[row]]">
+              <div class="flex-2 layout vertical">
+                <template is="dom-repeat" items="[[col]]">
+                  <template is="dom-if" if="{{_doc(item)}}">
+                    <form-link message="{{item.mesg}}" doc-id="{{item.doc}}">
+                    </form-link>
+                  </template>
+                  <template is="dom-if" if="{{!_doc(item)}}">
+                    <div class="font-face">{{item}}</div>
+                  </template>
+                </template>
+              </div>
+            </template>
+          </div>
+        </template>
+      </div>
+      <div id="formEntry">
+      </div>
+    </iron-pages>
 
   </template>
-  
+
   <script>
     Polymer({
       is: "report-student",
-      properties:{
-        hostid:{
-          type:String,
-          notify:true
+      properties: {
+        hostid: {
+          type: String,
+          notify: true
         },
-        level:{
-          type:String,
-          notify:true
+        level: {
+          type: String,
+          notify: true
         },
-        room:{
-          type:String,
-          notify:true
+        room: {
+          type: String,
+          notify: true
         },
-        year:{
-          type:String,
-          notify:true
+        year: {
+          type: String,
+          notify: true
         },
         list: {
-          type:Array,
-          notify:true,
-          value:function() {
-              return [];
+          type: Array,
+          notify: true,
+          value: function () {
+            return [];
           }
-        }   
+        },
+        imgUser: {
+          type: String,
+          notify: true,
+          computed: '_imgUser()'
+        },
+        imgNote: {
+          type: String,
+          notify: true,
+          computed: '_imgNote()'
+        }
       },
-      observers:[
+      _imgNote: function () {
+        return this.resolveUrl("./../../images/note.png");
+      },
+      _imgUser: function () {
+        return this.resolveUrl("./../../images/red_tick.png");
+      },
+      observers: [
         '_execute(jwtToken.token,hostid)',
         '_queryRoom(jwtToken.token,year,hostid,level,room)'
       ],
-      listeners:{
-        'form-linked':'_formSelected'
+      listeners: {
+        'form-linked': '_formSelected'
       },
-      isFirstPage:function(page) {
+      isFirstPage: function (page) {
         return page == 0;
       },
-      _back:function() {
-        this.set('page',this.page - 1);
+      _back: function () {
+        this.set('page', this.page - 1);
       },
-      _formSelected:function(e) {
+      _formSelected: function (e) {
         var node = this.$.formEntry;
         while (node.firstChild) {
           node.removeChild(node.firstChild);
         }
-        this.set('page',1);
+        this.set('page', 1);
         this.$.formEntry.appendChild(e.detail.form);
       },
-      _execute(token,hostid) {
-        if(!token || !hostid) return;  
+      _execute(token, hostid) {
+        if (!token || !hostid) return;
         this.$.listLevel.generateRequest();
       },
-      _queryRoom(token,year,host,level,room) {
-        if(!token || !year || !host) return;
-        if(level!=null) {
+      _queryRoom(token, year, host, level, room) {
+        if (!token || !year || !host) return;
+        if (level != null) {
           this.$.listRoom.generateRequest();
-          if(room!=null) {
+          if (room != null) {
             this.$.getAjax.generateRequest();
           }
-        } 
+        }
       },
-      _doc:function(item) {
+      _doc: function (item) {
         return item.hasOwnProperty('doc');
       },
-      _select:function(e) {
+      _select: function (e) {
         console.log(e.detail);
       },
       handleResponse(e) {
         var doc = e.detail.response;
-        var student ={};
+        var student = {};
         var content = doc.value;
         var list = [];
         var arr_index = [
@@ -278,55 +297,55 @@
             'screening-elementary-form',
             // 'screening-secondary-form'
           ],
-          ['game-form','st5-form','suicide8q-form','cdi-form'],        
+          ['game-form', 'st5-form', 'suicide8q-form', 'cdi-form'],
         ];
-         var message_dict = {
-          'dl2-form':['เสี่ยง','ไม่เสี่ยง'],
-          'eq-teacher-form':['ต่ากว่าเกณฑ์','ปกติ'],
-          'game-form':['ติดเกม'],
-          'st5-form':['เครียด'],
-          'cdi-form':['ซึมเศร้า'],
-          'suicide8q-form':['มีแน้วโน้มฆ่าตัวตาย'],
-          'disability-visual-form':['เสี่ยงด้านการมองเห็น'],
-          'disability-intelligence-form':['เสี่ยงด้านความเรียนรู้'],
-          'disability-hearing-form':['เสี่ยงด้านการได้ยิน'],
-          'disability-health-form':['เสี่ยงด้านสุขภาพ'],
-          'disability-learning-elementary-form':['เสี่ยงด้านความบกพร่องทางการเรียนรู้'],
+        var message_dict = {
+          'dl2-form': ['เสี่ยง', 'ไม่เสี่ยง'],
+          'eq-teacher-form': ['ต่ากว่าเกณฑ์', 'ปกติ'],
+          'game-form': ['ติดเกม'],
+          'st5-form': ['เครียด'],
+          'cdi-form': ['ซึมเศร้า'],
+          'suicide8q-form': ['มีแน้วโน้มฆ่าตัวตาย'],
+          'disability-visual-form': ['เสี่ยงด้านการมองเห็น'],
+          'disability-intelligence-form': ['เสี่ยงด้านความเรียนรู้'],
+          'disability-hearing-form': ['เสี่ยงด้านการได้ยิน'],
+          'disability-health-form': ['เสี่ยงด้านสุขภาพ'],
+          'disability-learning-elementary-form': ['เสี่ยงด้านความบกพร่องทางการเรียนรู้'],
           // 'disability-learning-secondary-form':['เสี่ยงด้านความบกพร่องทางการเรียนรู้'],
-          'disability-autistic-form':['เสี่ยงด้านออทิสติก'],
-          'disability-communication-form':['เสี่ยงด้านการพูดและภาษา'],
-          'disability-behavior-form':['เสี่ยงด้านพฤติกรรม หรืออารมณ์'],
-          'screening-elementary-form':['เสี่ยง']
+          'disability-autistic-form': ['เสี่ยงด้านออทิสติก'],
+          'disability-communication-form': ['เสี่ยงด้านการพูดและภาษา'],
+          'disability-behavior-form': ['เสี่ยงด้านพฤติกรรม หรืออารมณ์'],
+          'screening-elementary-form': ['เสี่ยง']
         };
         // var message_dict = {
         //   'dl2-form':['เสี่ยง','ไม่เสี่ยง'],
         //   'game-form':['ติดเกม','ไม่ติดเกม'],
         //   'disability-intelligence-form':['เสี่ยงด้านความเรียนรู้']
         // };
-        for(var cid in content) {
+        for (var cid in content) {
           var row = [];
-          for(var i=0;i<arr_index.length;i++) {
+          for (var i = 0; i < arr_index.length; i++) {
             row.push([]);
           }
           var student = content[cid];
-          for(var attr in content[cid]) {
+          for (var attr in content[cid]) {
             var col = -1;
-            for(var i=0;i<arr_index.length;i++) {
-              if(arr_index[i].indexOf(attr)!=-1) {
+            for (var i = 0; i < arr_index.length; i++) {
+              if (arr_index[i].indexOf(attr) != -1) {
                 col = i;
                 break;
               }
             }
-            if(col!=-1) {
-              if(content[cid][attr].doc) {
+            if (col != -1) {
+              if (content[cid][attr].doc) {
                 var mesg = message_dict[attr];
-                content[cid][attr]['mesg']=mesg;
-                if(content[cid][attr].risk) {
-                  content[cid][attr]['mesg']=mesg[0];
+                content[cid][attr]['mesg'] = mesg;
+                if (content[cid][attr].risk) {
+                  content[cid][attr]['mesg'] = mesg[0];
                 } else {
-                  if(mesg[1]) {
+                  if (mesg[1]) {
                     console.log(mesg[1]);
-                    content[cid][attr]['mesg']=mesg[1];
+                    content[cid][attr]['mesg'] = mesg[1];
                   }
                 }
                 row[col].push(content[cid][attr]);
@@ -337,9 +356,8 @@
           }
           list.push(row);
         }
-        this.set('list',list);
+        this.set('list', list);
       }
     });
-    
   </script>
 </dom-module>
