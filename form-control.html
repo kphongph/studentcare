@@ -14,6 +14,7 @@
 <link rel="import" href="../paper-toast/paper-toast.html">
 <link rel="import" href="../app-leveldb/app-leveldb.html">
 <link rel="import" href="../app-leveldb/app-leveldb-document.html">
+<link rel="import" href="../iron-scroll-threshold/iron-scroll-threshold.html">
 
 <link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">
 
@@ -37,6 +38,10 @@
         margin-left: 10px;
         margin-right: 10px;
         padding: 5px;
+      }
+
+      iron-scroll-threshold{
+        height: 550px;
       }
 
       .student-info {
@@ -124,12 +129,12 @@
     </app-leveldb-document>
     -->
 
-    <div class="student-info">
+    <!--<div class="student-info">
       <span class="font-face-big-bold"> เลขประจำตัวประชาชน  &nbsp;&nbsp;</span>
       <span class="font-face-big">{{docValue.student.cid}}</span>
       <span class="font-face-big-bold">ชื่อ - นามสกุล</span>
       <span class="font-face-big">{{docValue.student.name}}</span>
-    </div>
+    </div>-->
 
     <paper-tabs selected="{{page}}">
       <paper-tab>
@@ -166,15 +171,16 @@
           </paper-button>
           -->
           <div class="font-alert">{{message}}</div>
-
-
         </div>
         <div class="layout horizontal center invalidate-alert">
           <!--<div class="font-invalidate-alert font-face-big">
             <iron-icon src="{{imgNote}}"></iron-icon>ข้อที่ยังไม่ได้ทำ</div>-->
           <div class="font-invalidate-alert">{{invalidateMessage.text}}</div>
         </div>
-        <slot name="formEntry"></slot>
+        <iron-scroll-threshold id="scrollThreshold" lower-threshold="500" on-lower-threshold="loadMoreData">
+          <slot name="formEntry"></slot>
+        </iron-scroll-threshold>
+        <div>&nbsp;</div>
       </div>
       <div>
         <slot name="evaluation"></slot>
