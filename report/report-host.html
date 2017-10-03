@@ -72,7 +72,7 @@
     <iron-ajax 
       id="listAjax" 
       method="GET" 
-      url$="https://maas.nuqlis.com:8000/v2/obec/_studentcare_report/data/{{year}}_{{hostid}}" 
+      url$="https://maas.nuqlis.com:8000/v2/obec/_studentcare_report/data/progresshost_{{year}}_{{hostid}}" 
       content-type="application/json"
       handle-as ="json"
       on-response="handleResponse">
@@ -202,15 +202,17 @@
             ts = new Date(doc.value[key]).toLocaleString('th');
             continue;
           }
-          var cid = doc.value[key];
-          total++;
-          for(var form in cid) {
-            if(!_forms_dict[form]) {
-              _forms_dict[form] = {'new':0,'done':0,'working':0,'total':0};
-            }
-            _forms_dict[form][cid[form]]++;
-            _forms_dict[form]['total']++;
+          //var cid = doc.value[key];
+          //total++;
+          //for(var form in cid) {
+          if(!_forms_dict[key]) {
+            _forms_dict[key] = {'new':0,'done':0,'working':0,'total':0};
           }
+          for(var attr in doc.value[key]) {
+            _forms_dict[key][attr]+=doc.value[key][attr];
+            _forms_dict[key]['total']+=doc.value[key][attr];
+          }                        
+          
         }
         for(var key in _forms_dict) {
           if(key != '_title')

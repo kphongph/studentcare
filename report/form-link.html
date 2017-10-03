@@ -24,8 +24,8 @@
       :host {
         @apply (--layout-horizontal);        
         cursor:hand;
-        cursor:pointer;
-        padding:5px;        
+        cursor:pointer;  
+        padding:5px;          
       }
 
       :host(:hover) {
@@ -50,8 +50,10 @@
       handle-as="json" 
       on-response="handleResponse">
     </iron-ajax>
-
-    <div class="font-face">- {{message}}</div>
+    <iron-icon icon="assignment"></iron-icon>
+    <div class="font-face">
+      {{message}}
+    </div>
   </template>
   
   <script>
@@ -63,6 +65,7 @@
       properties:{
         message:{
           type:String,
+          reflectToAttribute:true,
           notify:true
         },
         docId:{
@@ -74,7 +77,9 @@
       ],
       _select:function(e) {
         if(this.jwtToken.token) {
-          this.$.getAjax.generateRequest();
+          if(this.docId) {
+            this.$.getAjax.generateRequest();
+          }
         }
       },
       handleResponse:function(e) {
