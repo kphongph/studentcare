@@ -121,6 +121,10 @@
       .margin-content{
         margin-right: 20px;
       }
+
+      .margin-div{
+        margin-left: 20px;
+      }
      #res {
       --paper-input-container-input: {
         /*font-size: 24px;*/
@@ -166,10 +170,11 @@
          <li class="font-face-normal">ให้เลือกว่าอาการในแต่ละข้อนั้นตรงกับลักษณะของเด็กที่ท่านประเมินเพียงใด</li>
         </ol>
       </div>
-      <div slot="formEntry" class="margin-content">
-       <ol>
-         <li>
-           <label id="label1" class="headQ">ความสามารถพิเศษ (ความถนัดและความสนใจในวิชาที่เรียน)</label>
+      <div slot="formEntry" class="margin-content margin-div">
+       <!--<ol>
+         <li>-->
+           <!--<label id="label1" class="headQ">ความสามารถพิเศษ (ความถนัดและความสนใจในวิชาที่เรียน)</label>-->
+           <label class="headQ">1. ด้านความสามารถ</label>
            <paper-radio-group aria-labelledby="label1" selected="{{document.value.form_value.q1}}">
              <paper-radio-button name="y" class="font-face-normal">มี</paper-radio-button>
              <paper-radio-button name="n" class="font-face-normal">ไม่มี</paper-radio-button>
@@ -285,17 +290,20 @@
              </paper-input>
            </div>
            </template>
-         </li>
-         <li>
-           <label id="label2"  class="headQ">ด้านการเรียน</label>
+         <!--</li>
+         <li>-->
+           <!--<label id="label2"  class="headQ">ด้านการเรียน</label>-->
+           <div class="flex layout horizontal">
+             <label class="headQ">1.1 ผลการเรียน</label>
+           </div>
            <paper-input id ="res"  label="ผลการประเมิน" readonly
              value="{{_q2Text(document.value.form_value.q2)}}">
            </paper-input>
 
-           <div class="flex layout horizontal font-face-underline"><!-- หัวตาราง -->
+           <!--<div class="flex layout horizontal font-face-underline">
              2.1 ผลการเรียน
-           </div>
-           <div class="flex layout horizontal"><!-- หัวตาราง -->
+           </div>-->
+           <div class="flex layout horizontal">
              <div class="flex-6 margin-content">
                <paper-checkbox checked="{{document.value.form_value.q2_1_m}}" disabled>
                  ผลการเรียนเฉลี่ย 1.00 - 2.00
@@ -320,7 +328,7 @@
              </div>
            </div>
            <div class="flex layout horizontal font-face-underline"><!-- หัวตาราง -->
-             2.2 เข้าเรียน
+             เข้าเรียน
            </div>
            <div class="flex layout horizontal">
              <div class="flex-6 margin-content">
@@ -355,7 +363,7 @@
             </div>
            </div>
            <div class="flex layout horizontal font-face-underline"><!-- หัวตาราง -->
-             2.3 ความตั้งใจ/สมาธิในการเรียน
+             ความตั้งใจ/สมาธิในการเรียน
            </div>
            <div class="flex layout horizontal">
              <div class="flex-6 margin-content">
@@ -385,7 +393,7 @@
              </div>
            </div>
            <div class="flex layout horizontal font-face-underline"><!-- หัวตาราง -->
-             2.4 การอ่าน/การเขียน
+             การอ่าน/การเขียน
            </div>
            <div class="flex layout horizontal">
              <div class="flex-6 margin-content">
@@ -423,7 +431,7 @@
              <div class="flex-6 margin-content ">&nbsp;</div>
            </div>
            <div class="flex layout horizontal font-face-underline"><!-- หัวตาราง -->
-             2.5 ความรับผิดชอบ
+             ความรับผิดชอบ
            </div>
            <div class="flex layout horizontal border-topic">
              <div class="flex-6 margin-content">
@@ -438,7 +446,7 @@
              </div>
            </div>
            <div class="flex layout horizontal font-face-underline"><!-- หัวตาราง -->
-             2.6 อื่นๆ
+             อื่นๆ
            </div>
            <div class="flex layout horizontal">
              <div class="flex-6 margin-content">
@@ -464,9 +472,10 @@
                </paper-checkbox>
              </div>
            </div>
-         </li>
+         <!--</li>-->
+         <!-- ********************** homevisit ************************************** -->
            <template is="dom-repeat" items="{{homevisit}}" as="subject">
-             <li>
+             <!--<li>-->
                <div>
                 <label id="label2" class="headQ">{{subject.text}} (แบบเยี่ยมบ้าน)</label>
                </div>
@@ -477,26 +486,34 @@
                  </paper-checkbox>
                </template>
                </div>
-             </li>
+             <!--</li>-->
            </template>
-         <li>
+          <!-- ********************** homevisit ************************************** -->
 
-           <label id="label2" class="headQ">ด้านสุขภาพ</label>
-
+         <!--<li>-->
+           <!--<label id="label2" class="headQ">ด้านสุขภาพ</label>-->
+           <label class="headQ">3. ด้านสุขภาพ/ความบกพร่องของร่างกาย</label>
            <paper-input id ="res" label="ผลการประเมิน" readonly
              value="">
            </paper-input>
+           <div class="flex layout horizontal font-face"><!-- หัวตาราง -->
+             3.1 น้ำหนัก/ส่วนสูง
+           </div>
             <div class="layout horizontal">
               <div class="flex-6 margin-content">
                <paper-checkbox checked="{{document.value.form_value.q3_1_m}}" disabled>
                   น้ำหนักผิดปกติ  และไม่สัมพันธ์กับส่วนสูง  หรืออายุ
                </paper-checkbox>
              </div>
-             <div class="flex-6 margin-content">
+             <div class="flex-6 margin-content">&nbsp;</div>
+             <!--<div class="flex-6 margin-content">
                <paper-checkbox checked="{{document.value.form_value.q3_1_p}}">
                   ป่วยเป็นโรคหรือมีความพิการทางร่างกายมีความบกพร่องทางการได้ยินการมองเห็น  และความเจ็บป่วย  หรือบกพร่องดังกล่าวมีผลกระทบต่อความสามารถด้านการเรียนในระดับมีปัญหา
                </paper-checkbox>
-             </div>
+             </div>-->
+           </div>
+           <div class="flex layout horizontal font-face"><!-- หัวตาราง -->
+             3.2 โรคประจำตัว
            </div>
            <div class="layout horizontal">
              <div class="flex-6 margin-content">
@@ -504,9 +521,32 @@
                   มีโรคประจำตัวหรือเจ็บป่วยบ่อยๆ
                </paper-checkbox>
              </div>
-             <div class="flex-6 margin-content">&nbsp;</div>
+             <div class="flex-6 margin-content">
+               <paper-checkbox checked="{{document.value.form_value.q3_1_p}}">
+                  ป่วยเป็นโรคหรือมีความพิการทางร่างกายมีความบกพร่องทางการได้ยินการมองเห็น  และความเจ็บป่วย  หรือบกพร่องดังกล่าวมีผลกระทบต่อความสามารถด้านการเรียนในระดับมีปัญหา
+               </paper-checkbox>
+             </div>
+             <!--<div class="flex-6 margin-content">&nbsp;</div>-->
            </div>
-            <div class="layout horizontal">
+           <div class="flex layout horizontal font-face"><!-- หัวตาราง -->
+             3.3 ความบกพร้องของร่างกาย
+           </div>
+            <div class="flex layout horizontal margin-content">
+              <paper-checkbox checked="{{document.value.form_value.q3_3_m}}">
+                 มีความบกพร่องด้านการมองเห็น
+              </paper-checkbox>
+            </div>
+            <div class="flex layout horizontal margin-content">
+             <paper-checkbox checked="{{document.value.form_value.q3_4_m}}">
+                มีความบกพร่องด้านการได้ยิน
+             </paper-checkbox>
+            </div>
+            <div class="flex layout horizontal margin-content">
+              <paper-checkbox checked="{{document.value.form_value.q3_5_m}}">
+                 มีความบกพร่องทางด้านร่างกาย
+              </paper-checkbox>
+            </div>
+            <!--<div class="layout horizontal">
               <div class="flex-6 margin-content">
                <paper-checkbox checked="{{document.value.form_value.q3_3_m}}">
                   มีความพิการทางร่างกายหรือบกพร่องด้านการยิน การฟัง การมองเห็น  หรืออื่นๆ
@@ -525,11 +565,12 @@
                   ให้นักเรียนพิจารณาใช้แบบประเมินพฤติกรรมหรือเครื่องมืออื่นๆ ตามความเหมาะสมกับสภาพโรงเรียน
                </paper-checkbox>
              </div>
-           </div>
+           </div>-->
 
-         </li>
-         <li>
-           <label id="label2"  class="headQ">ด้านพฤติกรรม</label>
+         <!--</li>
+         <li>-->
+           <!--<label id="label2"  class="headQ">ด้านพฤติกรรม</label>-->
+           <label class="headQ">4. ด้านสุขภาพจิตและพฤติกรรม</label>
            <paper-input id ="res" label="ผลการประเมิน" readonly
              value="">
            </paper-input>
@@ -555,8 +596,8 @@
 
              </paper-checkbox>
            </div>
-         </li>
-                  <li>
+         <!--</li>
+                  <li>-->
            <label id="label2"  class="headQ">ด้านอื่นๆ</label>
            <paper-input id ="res" label="ผลการประเมิน" readonly
              value="">
@@ -601,8 +642,8 @@
              </div>
              <div class="flex-6 margin-content">&nbsp;</div>
            </div>
-         </li>
-                  <li>
+         <!--</li>
+                  <li>-->
            <label id="label2"  class="headQ">ด้านสังคม</label>
            <paper-input id ="res" label="ผลการประเมิน" readonly
              value="">
@@ -619,8 +660,8 @@
                  </paper-checkbox>
                </div>
            </div>
-         </li>
-       </ol>
+         <!--</li>
+       </ol>-->
      </div>
 
      <div slot="evaluation">
@@ -710,7 +751,7 @@
         }
         this.set('document.value.form_value.q2',current_max);
       },
-      /*_evaluate:function() {
+      _evaluate:function() {
         var values = this.document.value.form_value;
         var score = {};
 
@@ -731,6 +772,9 @@
         for(var q in values) {
           if(name_dict[q]) {
             var obj = {'name':name_dict[q],'result':result_dict[values[q]]};
+            if(values[q]=='m' || values[q]=='p') {
+              score['_risk'] = true;
+            }
             score[q] = obj;
           }
         }
@@ -760,7 +804,7 @@
         score["homevisit"] = result_homevisit;
         console.log(score);
         return score;
-      },*/
+      },
       _validate:function() {
         /*
         var eles =Polymer.dom(this.root)
