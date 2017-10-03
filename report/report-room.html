@@ -128,7 +128,7 @@
         <app-toolbar>
           <paper-icon-button icon="arrow-back" on-tap="_back" hidden$="{{isFirstPage(page)}}">
           </paper-icon-button>
-          <div class="font-face">ผลการประเมินรายห้อง</div>
+          <div class="font-face">ผลการประเมินรายห้อง {{sname}}</div>
           <!-- <div class="font-face">ข้อมูล ณ วันที่ {{ts}}</div> -->
         </app-toolbar>
     
@@ -290,10 +290,12 @@
             return page == 0;
           },
           _back: function () {
+            var reset = "";
+            this.set('sname',reset);
             this.set('page', this.page - 1);
           },
           _formSelected: function (e) {
-            console.log(e.detail);
+            console.log(e);
             var node = this.$.formEntry;
             while (node.firstChild) {
               node.removeChild(node.firstChild);

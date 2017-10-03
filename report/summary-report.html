@@ -6,6 +6,7 @@
 <link rel="import" href="summary/summary-reports.html">
 <link rel="import" href="summary/dl2-host.html">
 <link rel="import" href="summary/eq-host.html">
+<link rel="import" href="report-sumaryclassform.html">
 
 <link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">
 
@@ -62,12 +63,16 @@
       </dl2-host>
     </template>
 
-    <template is="dom-if" if="{{_isEquals(formType,'eq-teacher-form')}}">
-      <eq-host jwt-token="{{jwtToken.token}}" 
+    <template is="dom-if" if="{{_isNotSDQ(formType,'dl2-form')}}">
+        <report-sumaryclassform year="2017" 
+        hostid="1071020101" 
+        form="{{formType}}">
+        </report-sumaryclassform> 
+      <!-- <eq-host jwt-token="{{jwtToken.token}}" 
          hostid="1071020101" 
          year="2017"
-         form="dl2-form">
-      </eq-host>
+         form="eq-teacher-form">
+      </eq-host> -->
     </template>
 
   </template>
@@ -99,6 +104,9 @@
       },
       _isEquals:function(a,b) {
         return a == b;
+      },
+      _isNotSDQ:function(a,b) {
+          return a!=b;
       }
     });
     
