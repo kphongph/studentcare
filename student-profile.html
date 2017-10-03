@@ -39,7 +39,7 @@
       }
     </style>
 
-    <app-localstorage-document
+    <!--<app-localstorage-document
       key="jwtToken"
       data="{{token}}">
     </app-localstorage-document>
@@ -52,7 +52,7 @@
       content-type="application/json"
       on-response="_onSchoolResponse"
       body$='{"query":{"hostid":"{{hostid}}"}}'>
-    </iron-ajax>
+    </iron-ajax>-->
 
     <div class="flex user-style">
       <div class="flex layout horizontal">
@@ -60,8 +60,9 @@
         <div class="flex-9 layout vertical">
           <div class="font-face">ข้อมูลนักเรียน</div>
           <div>ชื่อ-นามสกุล: {{students.title}}{{students.name}} {{students.lastname}}</div>
-          <div>ชั้น: {{students.class}}/{{students.room}}</div>
-          <div>โรงเรียน: {{school.host}}</div>
+          <div>เลขประจำตัวประชาชน: {{students.cid}}</div>
+          <div>รหัสประจำตัวนักเรียน: {{students.studentid}} &nbsp;&nbsp;&nbsp; ชั้น: {{students.class}}/{{students.room}}</div>
+          <!--<div>โรงเรียน: {{school.host}}</div>-->
         </div>
       </div>
     </div>
@@ -85,18 +86,18 @@
           notify:true,
           reflectToAttribute:true
         },
-        school:{
+        /*school:{
           type:Object,
           notify:true,
           value:function() {
             return {};
           }
-        }
+        }*/
       },
       _imgStudent:function(){
         return this.resolveUrl("./images/student_img.png");
       },
-      _onSchoolResponse:function(e) {
+      /*_onSchoolResponse:function(e) {
         //console.log('test',e.detail.response);
         var response = e.detail.response;
         if(response.length == 1) {
@@ -111,7 +112,7 @@
       __execute: function (token,hostid) {
         if(!token || !hostid) return;
         this.$.getSchool.generateRequest();
-      }
+      }*/
     });
   </script>
 </dom-module>
