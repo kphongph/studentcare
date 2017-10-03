@@ -87,22 +87,29 @@
         formList: {
           type: Array,
           notify: true,
-          computed: '__generateFormList(forms)'
+          computed: '__generateFormList(student,forms)'
         }
       },
-      __generateFormList:function(forms) {
-        var options = [
+      __generateFormList:function(student,forms) {
+        if(!student || !forms) return;
+        var elementary_options = [
           'dl2-form',
-          'dl3-form',
           'eq-teacher-form',
+          'disability-learning-elementary-form',
+          'screening-elementary-form'
+        ];
+        var secondary_options = [
+          'dl3-form',
           'eq-student-form',
+          'disability-learning-secondary-form',
+          'screening-secondary-form'
+        ];
+        var options = [
           'st5-form',
           'disability-visual-form',
           'disability-hearing-form',
           'disability-intelligence-form',
           'disability-health-form',
-          'disability-learning-elementary-form',
-          'disability-learning-secondary-form',
           'disability-autistic-form',
           'disability-communication-form',
           'disability-behavior-form',
@@ -110,9 +117,19 @@
           'suicide8q-form',
           'cdi-form',
           'game-form',
-          'screening-elementary-form',
-          'screening-secondary-form',
         ];
+
+        var elementary = (/^ประถม/i).test(student["class"]);
+        if(elementary){
+          elementary_options.forEach(function(item){
+            options.push(item);
+          });
+        } else {
+          secondary_options.forEach(function(item){
+            options.push(item);
+          });
+        }
+
         var check_exists = [];
         var elems = [];
         options.forEach(function(form_name) {
