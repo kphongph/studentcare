@@ -294,7 +294,7 @@
          <li>-->
            <!--<label id="label2"  class="headQ">ด้านการเรียน</label>-->
            <div class="flex layout horizontal">
-             <label class="headQ">1.1 ผลการเรียน</label>
+             <label class="headQ">1.1 ผลการเรียน ({{_gpax}})</label>
            </div>
            <paper-input id ="res"  label="ผลการประเมิน" readonly
              value="{{_q2Text(document.value.form_value.q2)}}">
@@ -474,6 +474,7 @@
            </div>
          <!--</li>-->
          <!-- ********************** homevisit ************************************** -->
+          <label class="headQ">2. ด้านครอบครัว</label>
            <template is="dom-repeat" items="{{homevisit}}" as="subject">
              <!--<li>-->
                <div>
@@ -496,7 +497,7 @@
            <paper-input id ="res" label="ผลการประเมิน" readonly
              value="">
            </paper-input>
-           <div class="flex layout horizontal font-face"><!-- หัวตาราง -->
+           <div class="flex layout horizontal font-face-underline"><!-- หัวตาราง -->
              3.1 น้ำหนัก/ส่วนสูง
            </div>
             <div class="layout horizontal">
@@ -512,7 +513,7 @@
                </paper-checkbox>
              </div>-->
            </div>
-           <div class="flex layout horizontal font-face"><!-- หัวตาราง -->
+           <div class="flex layout horizontal font-face-underline"><!-- หัวตาราง -->
              3.2 โรคประจำตัว
            </div>
            <div class="layout horizontal">
@@ -528,21 +529,21 @@
              </div>
              <!--<div class="flex-6 margin-content">&nbsp;</div>-->
            </div>
-           <div class="flex layout horizontal font-face"><!-- หัวตาราง -->
+           <div class="flex layout horizontal font-face-underline"><!-- หัวตาราง -->
              3.3 ความบกพร้องของร่างกาย
            </div>
             <div class="flex layout horizontal margin-content">
-              <paper-checkbox checked="{{document.value.form_value.q3_3_m}}">
+              <paper-checkbox checked="{{document.value.form_value.q3_5_m}}" disabled>
                  มีความบกพร่องด้านการมองเห็น
               </paper-checkbox>
             </div>
             <div class="flex layout horizontal margin-content">
-             <paper-checkbox checked="{{document.value.form_value.q3_4_m}}">
+             <paper-checkbox checked="{{document.value.form_value.q3_6_m}}" disabled>
                 มีความบกพร่องด้านการได้ยิน
              </paper-checkbox>
             </div>
             <div class="flex layout horizontal margin-content">
-              <paper-checkbox checked="{{document.value.form_value.q3_5_m}}">
+              <paper-checkbox checked="{{document.value.form_value.q3_7_m}}" disabled>
                  มีความบกพร่องทางด้านร่างกาย
               </paper-checkbox>
             </div>
@@ -574,7 +575,37 @@
            <paper-input id ="res" label="ผลการประเมิน" readonly
              value="">
            </paper-input>
-            <div class="layout horizontal">
+           <div class="flex layout horizontal margin-content">
+             <paper-checkbox checked="{{document.value.form_value.q4_2_m}}" disabled>
+                พฤติกรรม (SDQ)
+             </paper-checkbox>
+           </div>
+           <div class="flex layout horizontal margin-content">
+             <paper-checkbox checked="{{document.value.form_value.q4_3_m}}" disabled>
+               ความฉลาดทางอารมณ์ (EQ)
+            </paper-checkbox>
+           </div>
+           <div class="flex layout horizontal margin-content">
+             <paper-checkbox checked="{{document.value.form_value.q4_4_m}}" disabled>
+                สารเสพติด
+             </paper-checkbox>
+           </div>
+           <div class="flex layout horizontal margin-content">
+             <paper-checkbox checked="{{document.value.form_value.q4_5_m}}" disabled>
+                ความรุนแรง
+             </paper-checkbox>
+           </div>
+           <div class="flex layout horizontal margin-content">
+             <paper-checkbox checked="{{document.value.form_value.q4_6_m}}" disabled>
+               เพศ
+            </paper-checkbox>
+           </div>
+           <div class="flex layout horizontal margin-content">
+             <paper-checkbox checked="{{document.value.form_value.q4_7_m}}" disabled>
+                การติดเกมส์
+             </paper-checkbox>
+           </div>
+            <!--<div class="layout horizontal">
              <paper-checkbox class="flex-1" checked="{{document.value.form_value.q4_1_m}}">
                 มีพฤติกรรมแสดงออกดังนี้<br>
                 1.	ความเฉี่อยชา<br>
@@ -595,10 +626,10 @@
                 ซึ่งเป็นพฤติกรรมที่แสดงออกเป็นประจำ
 
              </paper-checkbox>
-           </div>
+           </div>-->
          <!--</li>
                   <li>-->
-           <label id="label2"  class="headQ">ด้านอื่นๆ</label>
+           <!--<label id="label2"  class="headQ">ด้านอื่นๆ</label>
            <paper-input id ="res" label="ผลการประเมิน" readonly
              value="">
            </paper-input>
@@ -641,10 +672,10 @@
                </paper-checkbox>
              </div>
              <div class="flex-6 margin-content">&nbsp;</div>
-           </div>
+           </div>-->
          <!--</li>
                   <li>-->
-           <label id="label2"  class="headQ">ด้านสังคม</label>
+           <!--<label id="label2"  class="headQ">ด้านสังคม</label>
            <paper-input id ="res" label="ผลการประเมิน" readonly
              value="">
            </paper-input>
@@ -659,7 +690,7 @@
                     สามารถปรับตัวได้ในบางกรณี  แต่มีข้อขัดแย้งสม่ำเสมอ ก่อปัญหาให้แก้ไข  อยู่เสมอ  เมื่อได้รับการตักเตือนก็ไม่หยุดพฤติกรรมต่อด้าน
                  </paper-checkbox>
                </div>
-           </div>
+           </div>-->
          <!--</li>
        </ol>-->
      </div>
@@ -687,13 +718,18 @@
        </div>
       </div>
       -->
-      <div>ด้านการเรียน : {{document.value.form_result.q2.result}}</div>
+      <!--<div>ด้านการเรียน : {{document.value.form_result.q2.result}}</div>
       <div>ด้านสุขภาพ : {{document.value.form_result.homevisit.0.type}}</div>
       <div>ด้านสวัสดิการหรือความปลอดภัย : {{document.value.form_result.homevisit.1.type}}</div>
       <div>ด้านพฤติกรรมการใช้สารเสพติด : {{document.value.form_result.homevisit.2.type}}</div>
       <div>ด้านพฤติกรรมการใช้ความรุนแรง : {{document.value.form_result.homevisit.3.type}}</div>
       <div>ด้านพฤติกรรมทางเพศ : {{document.value.form_result.homevisit.4.type}}</div>
-      <div>ด้านการติดเกม : {{document.value.form_result.homevisit.5.type}}</div>
+      <div>ด้านการติดเกม : {{document.value.form_result.homevisit.5.type}}</div>-->
+      <div>ด้านการเรียน : </div>
+      <div>ด้านครอบครัว : </div>
+      <div>ด้านสุขภาพ/ความบกพร่องของร่างกาย : </div>
+      <div>ด้านสุขภาพจิตและพฤติกรรม : </div>
+      <div>ปัญหาทางการเรียนรู้ : </div>
      </div>
     </form-control>
 
@@ -709,6 +745,11 @@
           type:String,
           reflectToAttribute:true,
           value:"แบบคัดกรองนักเรียนรายบุคคล ระดับประถม"
+        },
+        _gpax:{
+          type:String,
+          notify:true,
+          computed:'___GPAX(gradedoc.GPAX)'
         }
       },
       behaviors:[
@@ -719,6 +760,10 @@
         '_result(document.value.form_result)',
         '_monitor(document.value.form_value.*)',
       ],
+      ___GPAX:function(gpax){
+        //console.log(gpax);
+        return gpax/100;
+      },
       _tap:function(e) {
         if(e.detail.type == "save") {
           this.$.control.save();
