@@ -142,7 +142,7 @@
         var risk,no_risk;
         for(var val in doc.value){
           status = doc.value[val];
-          risk = status.risk;
+          risk = status._risk;
           no_risk = status.no_risk;
           if(!risk){
             risk = 0;
