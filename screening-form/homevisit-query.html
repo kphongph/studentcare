@@ -47,22 +47,11 @@
      },
      handleResponse:function(e) {
        var res = e.detail.response;
-       console.log(res);
+       //console.log(res);
        if(res.length == 0) return;
        var form = res[0];
        var _document = [];
        var handle = function(group,question) {
-         /*if(group.id == "0001" &&
-            (question.id == "0001" ||
-             question.id == "0002" )) {
-           var _doc01 = {'text':question.text};
-           _doc01['values']=[];
-           question.answers.forEach(function(answer) {
-             _doc01['values'].push({'text':answer.text,'type':answer.type,'checked':answer.checked?answer.checked:false});
-           });
-           _document.push(_doc01);
-         }*/
-
          /*if(group.id == "0002" &&
             (question.id == "0001" ||
              question.id == "0002" ||
@@ -71,10 +60,16 @@
              question.id == "0012" ||
              question.id == "0010" )) {*/
          if(group.id == "0001" && question.id == "0010") {
-           var _doc = {'text':question.text};
+           var _doc = {'text':'เศรษฐกิจของครอบครัว'};
            _doc['values']=[];
+           var salary;
+           if(!question.value){
+             salary = 'ไม่มีข้อมูล';
+           }else{
+             salary = question.value +' บาท';
+           }
            var checked = Number(question.value) <= 3000?true:false;
-           _doc['values'].push({'text':'รายได้น้อย ('+question.value+')','type':'checkbox','checked':checked});
+           _doc['values'].push({'text':'รายได้น้อย ('+salary+')','type':'checkbox','checked':checked});
            _document.push(_doc);
          }
          if(group.id == "0002" &&
