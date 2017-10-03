@@ -153,6 +153,8 @@
         return page == 0;
       },
       _back:function() {
+        var reset = "";
+        this.set('form',reset);
         this.set('page',this.page - 1);
       },
       _formName:function(form) {

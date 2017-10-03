@@ -5,6 +5,7 @@
 
 <link rel="import" href="summary/summary-reports.html">
 <link rel="import" href="summary/dl2-host.html">
+<link rel="import" href="summary/eq-host.html">
 
 <link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">
 
@@ -60,6 +61,15 @@
          form="dl2-form">
       </dl2-host>
     </template>
+
+    <template is="dom-if" if="{{_isEquals(formType,'eq-teacher-form')}}">
+      <eq-host jwt-token="{{jwtToken.token}}" 
+         hostid="1071020101" 
+         year="2017"
+         form="dl2-form">
+      </eq-host>
+    </template>
+
   </template>
   
   <script>
