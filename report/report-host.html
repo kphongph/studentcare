@@ -215,7 +215,7 @@
           
         }
         for(var key in _forms_dict) {
-          if(key != '_title')
+          if(key != 'undefined')
           forms.push({'type':key,'content':{
             'working':_forms_dict[key]['new'] + _forms_dict[key]['working'],
             'done':_forms_dict[key]['done'],
