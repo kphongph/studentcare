@@ -121,14 +121,12 @@
 
         var elementary = (/^ประถม/i).test(student["class"]);
         if(elementary){
-          elementary_options.forEach(function(form_name){
-            //console.log('elementary_form',form_name);
-            options.push(form_name);
+          elementary_options.forEach(function(item){
+            options.push(item);
           });
-        }else{
-          secondary_options.forEach(function(form_name){
-            //console.log('secondary_form',form_name);
-            options.push(form_name);
+        } else {
+          secondary_options.forEach(function(item){
+            options.push(item);
           });
         }
 

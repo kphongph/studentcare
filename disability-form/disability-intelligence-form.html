@@ -216,6 +216,11 @@
           score[p][values[q]]++;
           if(values[q] == 'y' && score[p][values[q]]==2) score.fail++;
         }
+        if(score && score.fail>=2) {
+            score['risk'] = true;
+        } 
+        
+        // console.log(score);
         return score;
       },
       _validate:function() {

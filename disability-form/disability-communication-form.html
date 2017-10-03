@@ -166,6 +166,9 @@
           if(!score[p]) score[p] = {'y':0,'n':0};
           score[p][values[q]]++;
         }
+        if(score && score.q &&  score.q.y>=5) {
+          score['_risk'] = true;
+        }
         return score;
       },
       _validate:function() {

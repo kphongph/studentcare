@@ -8,7 +8,7 @@
 <link rel="import" href="../summary-report-behavior.html">
 <link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">
 
-<dom-module id="dl2-host">
+<dom-module id="eq-host">
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors">
       :host {
@@ -132,10 +132,10 @@
     <div class="layout vertical container">
      <div class="layout horizontal font-face">
        <div class="header-title highlight flex-2 layout horizontal center center-justified">
-         พฤติกรรมด้าน
+        ความฉลาดทางอารมณ์
        </div>
        <div class="flex-2 layout vertical">
-         <div class="label-title strength">มีจุดแข็ง</div>
+         <div class="label-title strength">EQ ต่ำกว่าเกณฑ์</div>
          <div class="label-title">
            <div class="flex-1 label-title highlight">ชาย</div>
            <div class="flex-1 label-title highlight">หญิง</div>
@@ -144,7 +144,7 @@
          </div>
        </div>
        <div class="flex-2 layout vertical">
-         <div class="label-title strength">ไม่มีจุดแข็ง</div>
+         <div class="label-title strength">EQ ปกติ</div>
          <div class="label-title">
            <div class="flex-1 label-title highlight">ชาย</div>
            <div class="flex-1 label-title highlight">หญิง</div>
@@ -153,25 +153,7 @@
          </div>
        </div>
        <div class="flex-2 layout vertical">
-         <div class="label-title highlight">กลุ่มปกติ</div>
-         <div class="label-title">
-           <div class="flex-1 label-title highlight">ชาย</div>
-           <div class="flex-1 label-title highlight">หญิง</div>
-           <div class="flex-1 label-title highlight">รวม</div>
-           <div class="flex-1 label-title highlight">ร้อยละ</div>
-         </div>
-       </div>
-       <div class="flex-2 layout vertical">
-         <div class="label-title highlight">กลุ่มเสี่ยง</div>
-         <div class="label-title">
-           <div class="flex-1 label-title highlight">ชาย</div>
-           <div class="flex-1 label-title highlight">หญิง</div>
-           <div class="flex-1 label-title highlight">รวม</div>
-           <div class="flex-1 label-title highlight">ร้อยละ</div>
-         </div>
-       </div>
-       <div class="flex-2 layout vertical">
-         <div class="label-title highlight">กลุ่มมีปัญหา</div>
+         <div class="label-title strength">EQ สูงกว่าเกณฑ์</div>
          <div class="label-title">
            <div class="flex-1 label-title highlight">ชาย</div>
            <div class="flex-1 label-title highlight">หญิง</div>
@@ -180,8 +162,8 @@
          </div>
        </div>
      </div>
-
-     <template is="dom-repeat" as="type" items="[[list]]">
+     
+     <!-- <template is="dom-repeat" as="type" items="[[list]]">
      <div class="layout horizontal font-face">
        <div class="highlight flex-2 layout horizontal header-title">
           {{type.type}}
@@ -194,13 +176,13 @@
          </div>
        </template>
      </div>
-     </template>
+     </template> -->
     </div>
   </template>
 
   <script>
     Polymer({
-      is: 'dl2-host',
+      is: 'eq-host',
       behaviors: [
         Polymer.AppLocalizeBehavior,
         SummaryReportBehavior
