@@ -42,16 +42,19 @@
       isVisual:{
         type:Boolean,
         notify:true,
+        reflectToAttribute:true,
         computed:'__computedIsVisual(document)'
       },
       isHearing:{
         type:Boolean,
         notify:true,
+        reflectToAttribute:true,
         computed:'__computedIsHearing(document)'
       },
       isHealth:{
         type:Boolean,
         notify:true,
+        reflectToAttribute:true,
         computed:'__computedIsHealth(document)'
       }
     },
