@@ -81,13 +81,13 @@
        if(visual.length == 0) return;
        for(var i=0;i<visual.length;i++){
          if(visual[i].form_type=="disability-visual-form") {
-           //console.log('visual',visual[i]);
-           if(!visual[i].form_result._risk){
-             return false;
+           console.log('visual 1',visual[i].form_result._risk);
+           if(visual[i].form_result._risk == false){
              console.log('visual',false);
+             return false;
            }else{
-             return true;
              console.log('visual',true);
+             return true;
            }
          }
        }
@@ -97,13 +97,13 @@
        if(hearing.length == 0) return;
        for(var i=0;i<hearing.length;i++){
          if(hearing[i].form_type=="disability-hearing-form") {
-           //console.log('hearing',hearing[i]);
-           if(!hearing[i].form_result._risk){
-             return false;
+           console.log('hearing 1',hearing[i].form_result._risk);
+           if(hearing[i].form_result._risk == false){
              console.log('hearing',false);
+             return false;
            }else{
-             return true;
              console.log('hearing',true);
+             return true;
            }
          }
        }
@@ -113,13 +113,13 @@
        if(health.length == 0) return;
        for(var i=0;i<health.length;i++){
          if(health[i].form_type=="disability-health-form") {
-           //console.log('health 1',health[i].form_result._risk);
-           if(!health[i].form_result._risk){
-             return false;
+           console.log('health 1',health[i].form_result._risk);
+           if(health[i].form_result._risk == false){
              console.log('health',false);
+             return false;
            }else{
-             return true;
              console.log('health',true);
+             return true;
            }
          }
        }
