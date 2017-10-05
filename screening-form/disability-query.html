@@ -36,7 +36,7 @@
         reflectToAttribute:true
       },
       document: {
-        type:Object,
+        type:Array,
         notify:true
       },
       isVisual:{
@@ -77,17 +77,12 @@
       this.set('document',_document);
     },
      __computedIsVisual(visual) {
-       //console.log('visual',visual);
        if(visual.length == 0) return;
        for(var i=0;i<visual.length;i++){
          if(visual[i].form_type=="disability-visual-form") {
-           console.log('visual 1',visual[i].form_result._risk);
-           if(!visual[i].form_result._risk) return;
-           if(visual[i].form_result._risk == false){
-             console.log('visual',false);
+           if(!visual[i].form_result._risk) {
              return false;
            }else{
-             console.log('visual',true);
              return true;
            }
          }
@@ -98,13 +93,9 @@
        if(hearing.length == 0) return;
        for(var i=0;i<hearing.length;i++){
          if(hearing[i].form_type=="disability-hearing-form") {
-           console.log('hearing 1',hearing[i].form_result._risk);
-           if(!hearing[i].form_result._risk) return;
-           if(hearing[i].form_result._risk == false){
-             console.log('hearing',false);
+           if(!hearing[i].form_result._risk){
              return false;
            }else{
-             console.log('hearing',true);
              return true;
            }
          }
@@ -115,13 +106,9 @@
        if(health.length == 0) return;
        for(var i=0;i<health.length;i++){
          if(health[i].form_type=="disability-health-form") {
-           console.log('health 1',health[i].form_result._risk);
-           if(!health[i].form_result._risk) return;
-           if(health[i].form_result._risk == false){
-             console.log('health',false);
+           if(!health[i].form_result._risk){
              return false;
            }else{
-             console.log('health',true);
              return true;
            }
          }
