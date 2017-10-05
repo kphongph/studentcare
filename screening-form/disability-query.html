@@ -1,0 +1,129 @@
+<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../iron-ajax/iron-ajax.html">
+<link rel="import" href="../../app-storage/app-localstorage/app-localstorage-document.html">
+
+<dom-module id="disability-query">
+ <template>
+
+   <app-localstorage-document
+     key="jwtToken"
+     data="{{jwtToken}}">
+   </app-localstorage-document>
+
+   <iron-ajax
+     id="listDisability"
+     url="https://maas.nuqlis.com:8000/v2/obec/students_care/query"
+     method="POST"
+     headers$='{"Authorization":"JWT {{jwtToken.token}}"}'
+     content-type="application/json"
+     body$='{"query":{"doc_type":"assignment","student.cid":"{{cid}}","dmc.year":"{{year}}"}}'
+     on-response="handleResponse">
+   </iron-ajax>
+
+ </template>
+ <script>
+  Polymer({
+    is:"disability-query",
+    properties:{
+      cid:{
+        type:String,
+        notify:true,
+        reflectToAttribute:true
+      },
+      year:{
+        type:String,
+        notify:true,
+        reflectToAttribute:true
+      },
+      document: {
+        type:Object,
+        notify:true
+      },
+      isVisual:{
+        type:Boolean,
+        notify:true,
+        computed:'__computedIsVisual(document)'
+      },
+      isHearing:{
+        type:Boolean,
+        notify:true,
+        computed:'__computedIsHearing(document)'
+      },
+      isHealth:{
+        type:Boolean,
+        notify:true,
+        computed:'__computedIsHealth(document)'
+      }
+    },
+    observers:[
+      'executeQuery(jwtToken.token,cid,year)'
+    ],
+    executeQuery:function(token,cid,year) {
+      //console.log(token,cid,year);
+      if(!token || !cid || !year) return;
+      this.$.listDisability.generateRequest();
+    },
+    handleResponse:function(e) {
+      var res = e.detail.response;
+      if(res.length == 0) return;
+      var _document = [];
+      for(var i=0;i<res.length;i++){
+        if((/^disability/i).test(res[i].form_type)) {
+          //console.log(res[i].form_type);
+          _document.push(res[i]);
+        }
+      }
+      //console.log(_document);
+      this.set('document',_document);
+    },
+     __computedIsVisual(visual) {
+       //console.log('visual',visual);
+       if(visual.length == 0) return;
+       for(var i=0;i<visual.length;i++){
+         if(visual[i].form_type=="disability-visual-form") {
+           console.log('visual 1',visual[i].form_result._risk);
+           if(visual[i].form_result._risk == false){
+             console.log('visual',false);
+             return false;
+           }else{
+             console.log('visual',true);
+             return true;
+           }
+         }
+       }
+     },
+     __computedIsHearing(hearing) {
+       //console.log('hearing',hearing);
+       if(hearing.length == 0) return;
+       for(var i=0;i<hearing.length;i++){
+         if(hearing[i].form_type=="disability-hearing-form") {
+           console.log('hearing 1',hearing[i].form_result._risk);
+           if(hearing[i].form_result._risk == false){
+             console.log('hearing',false);
+             return false;
+           }else{
+             console.log('hearing',true);
+             return true;
+           }
+         }
+       }
+     },
+     __computedIsHealth(health) {
+       //console.log('health',health);
+       if(health.length == 0) return;
+       for(var i=0;i<health.length;i++){
+         if(health[i].form_type=="disability-health-form") {
+           console.log('health 1',health[i].form_result._risk);
+           if(health[i].form_result._risk == false){
+             console.log('health',false);
+             return false;
+           }else{
+             console.log('health',true);
+             return true;
+           }
+         }
+       }
+     },
+  });
+ </script>
+</dom-module>

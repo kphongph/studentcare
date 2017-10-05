@@ -13,7 +13,7 @@
 <link rel="import" href="homevisit-query.html">
 <link rel="import" href="weight-height-query.html">
 <link rel="import" href="grade-query.html">
-
+<link rel="import" href="disability-query.html">
 
 <link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">
 
@@ -152,7 +152,16 @@
     </weight-height-query>
     <!--{{weightheight.height1}}-->
 
-	  <grade-query
+	  <disability-query
+      cid="{{document.value.student.cid}}"
+      year="2017"
+      is-visual="{{document.value.form_value.q3_5_m}}"
+      is-hearing="{{document.value.form_value.q3_6_m}}"
+      is-health="{{document.value.form_value.q3_7_m}}"
+      document="{{disability}}">
+    </disability-query>
+
+    <grade-query
       cid="1417100037098"
       year="2558"
       semester="6"
