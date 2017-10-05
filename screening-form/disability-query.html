@@ -82,6 +82,7 @@
        for(var i=0;i<visual.length;i++){
          if(visual[i].form_type=="disability-visual-form") {
            console.log('visual 1',visual[i].form_result._risk);
+           if(!visual[i].form_result._risk) return;
            if(visual[i].form_result._risk == false){
              console.log('visual',false);
              return false;
@@ -98,6 +99,7 @@
        for(var i=0;i<hearing.length;i++){
          if(hearing[i].form_type=="disability-hearing-form") {
            console.log('hearing 1',hearing[i].form_result._risk);
+           if(!hearing[i].form_result._risk) return;
            if(hearing[i].form_result._risk == false){
              console.log('hearing',false);
              return false;
@@ -114,6 +116,7 @@
        for(var i=0;i<health.length;i++){
          if(health[i].form_type=="disability-health-form") {
            console.log('health 1',health[i].form_result._risk);
+           if(!health[i].form_result._risk) return;
            if(health[i].form_result._risk == false){
              console.log('health',false);
              return false;
