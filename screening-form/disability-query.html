@@ -56,6 +56,36 @@
         notify:true,
         reflectToAttribute:true,
         computed:'__computedIsHealth(document)'
+      },
+      isAutistic:{
+        type:Boolean,
+        notify:true,
+        reflectToAttribute:true,
+        computed:'__computedIsAutistic(document)'
+      },
+      isLearning:{
+        type:Boolean,
+        notify:true,
+        reflectToAttribute:true,
+        computed:'__computedIsLearning(document)'
+      },
+      isIntelligence:{
+        type:Boolean,
+        notify:true,
+        reflectToAttribute:true,
+        computed:'__computedIsIntelligence(document)'
+      },
+      isCommunication:{
+        type:Boolean,
+        notify:true,
+        reflectToAttribute:true,
+        computed:'__computedIsCommunication(document)'
+      },
+      isBehavior:{
+        type:Boolean,
+        notify:true,
+        reflectToAttribute:true,
+        computed:'__computedIsBehavior(document)'
       }
     },
     observers:[
@@ -110,6 +140,72 @@
        for(var i=0;i<health.length;i++){
          if(health[i].form_type=="disability-health-form") {
            if(!health[i].form_result._risk){
+             return false;
+           }else{
+             return true;
+           }
+         }
+       }
+     },
+     __computedIsAutistic(autistic) {
+       //console.log('autistic',autistic);
+       if(autistic.length == 0) return;
+       for(var i=0;i<autistic.length;i++){
+         if(autistic[i].form_type=="disability-autistic-form") {
+           if(!autistic[i].form_result._risk){
+             return false;
+           }else{
+             return true;
+           }
+         }
+       }
+     },
+     __computedIsLearning(learning) {
+       //console.log('learning',learning);
+       if(learning.length == 0) return;
+       for(var i=0;i<learning.length;i++){
+         if(learning[i].form_type=="disability-learning-elementary-form" ||
+            learning[i].form_type=="disability-learning-secondary-form") {
+           if(!learning[i].form_result._risk){
+             return false;
+           }else{
+             return true;
+           }
+         }
+       }
+     },
+     __computedIsIntelligence(intelligence) {
+       //console.log('intelligence',intelligence);
+       if(intelligence.length == 0) return;
+       for(var i=0;i<intelligence.length;i++){
+         if(intelligence[i].form_type=="disability-intelligence-form") {
+           if(!intelligence[i].form_result._risk){
+             return false;
+           }else{
+             return true;
+           }
+         }
+       }
+     },
+     __computedIsCommunication(communication) {
+       //console.log('communication',communication);
+       if(communication.length == 0) return;
+       for(var i=0;i<communication.length;i++){
+         if(communication[i].form_type=="disability-communication-form") {
+           if(!communication[i].form_result._risk){
+             return false;
+           }else{
+             return true;
+           }
+         }
+       }
+     },
+     __computedIsBehavior(behavior) {
+       //console.log('behavior',behavior);
+       if(behavior.length == 0) return;
+       for(var i=0;i<behavior.length;i++){
+         if(behavior[i].form_type=="disability-behavior-form") {
+           if(!behavior[i].form_result._risk){
              return false;
            }else{
              return true;

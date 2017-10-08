@@ -560,6 +560,40 @@
                </div>
            </template>
            <!-- ******************* homevisit-sdq-query ********** -->
+           <label class="headQ">5. ปัญหาทางการเรียนรู้</label>
+           <paper-input id ="res" label="ผลการประเมิน" readonly
+             value="">
+           </paper-input>
+           <div class="flex layout horizontal margin-content">
+             <paper-checkbox checked="{{document.value.form_value.q5_4_m}}" disabled>
+                ออทิสติก
+             </paper-checkbox>
+           </div>
+           <div class="flex layout horizontal margin-content">
+             <paper-checkbox checked="{{document.value.form_value.q5_5_m}}" disabled>
+               LD (การเรียนรู้)
+            </paper-checkbox>
+           </div>
+           <div class="flex layout horizontal margin-content">
+             <paper-checkbox checked="{{document.value.form_value.q5_6_m}}" disabled>
+                สติปัญญา
+             </paper-checkbox>
+           </div>
+           <div class="flex layout horizontal margin-content">
+             <paper-checkbox checked="{{document.value.form_value.q5_7_m}}" disabled>
+               พูด/ภาษา
+            </paper-checkbox>
+           </div>
+           <div class="flex layout horizontal margin-content">
+             <paper-checkbox checked="{{document.value.form_value.q5_8_m}}" disabled>
+                พฤติกรรม/อารมณ์
+             </paper-checkbox>
+           </div>
+           <div class="flex layout horizontal margin-content">
+             <paper-checkbox checked="{{document.value.form_value.q5_9_m}}" disabled>
+               สมาธิสั้น/SNAP-IV
+            </paper-checkbox>
+           </div>
      </div>
 
      <div slot="evaluation">
