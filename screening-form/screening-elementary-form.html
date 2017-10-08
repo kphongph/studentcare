@@ -164,6 +164,11 @@
       is-visual="{{document.value.form_value.q3_5_m}}"
       is-hearing="{{document.value.form_value.q3_6_m}}"
       is-health="{{document.value.form_value.q3_7_m}}"
+      is-autistic="{{document.value.form_value.q5_4_m}}"
+      is-learning="{{document.value.form_value.q5_5_m}}"
+      is-intelligence="{{document.value.form_value.q5_6_m}}"
+      is-communication="{{document.value.form_value.q5_7_m}}"
+      is-behavior="{{document.value.form_value.q5_8_m}}"
       document="{{disability}}">
     </disability-query>
 
@@ -634,6 +639,41 @@
                </div>
            </template>
            <!-- ******************* homevisit-sdq-query ********** -->
+
+           <label class="headQ">5. ปัญหาทางการเรียนรู้</label>
+           <paper-input id ="res" label="ผลการประเมิน" readonly
+             value="">
+           </paper-input>
+           <div class="flex layout horizontal margin-content">
+             <paper-checkbox checked="{{document.value.form_value.q5_4_m}}" disabled>
+                ออทิสติก
+             </paper-checkbox>
+           </div>
+           <div class="flex layout horizontal margin-content">
+             <paper-checkbox checked="{{document.value.form_value.q5_5_m}}" disabled>
+               LD (การเรียนรู้)
+            </paper-checkbox>
+           </div>
+           <div class="flex layout horizontal margin-content">
+             <paper-checkbox checked="{{document.value.form_value.q5_6_m}}" disabled>
+                สติปัญญา
+             </paper-checkbox>
+           </div>
+           <div class="flex layout horizontal margin-content">
+             <paper-checkbox checked="{{document.value.form_value.q5_7_m}}" disabled>
+               พูด/ภาษา
+            </paper-checkbox>
+           </div>
+           <div class="flex layout horizontal margin-content">
+             <paper-checkbox checked="{{document.value.form_value.q5_8_m}}" disabled>
+                พฤติกรรม/อารมณ์
+             </paper-checkbox>
+           </div>
+           <div class="flex layout horizontal margin-content">
+             <paper-checkbox checked="{{document.value.form_value.q5_9_m}}" disabled>
+               สมาธิสั้น/SNAP-IV
+            </paper-checkbox>
+           </div>
             <!--<div class="layout horizontal">
              <paper-checkbox class="flex-1" checked="{{document.value.form_value.q4_1_m}}">
                 มีพฤติกรรมแสดงออกดังนี้<br>
