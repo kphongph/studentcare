@@ -10,8 +10,12 @@
 <link rel="import" href="../form-control.html">
 <link rel="import" href="../studentcare-form-behavior.html">
 
+<link rel="import" href="homevisit-query.html">
+<link rel="import" href="homevisit-sdq-query.html">
 <link rel="import" href="weight-height-query.html">
 <link rel="import" href="grade-query.html">
+<link rel="import" href="disability-query.html">
+
 <link href="https://fonts.googleapis.com/css?family=Athiti" rel="stylesheet">
 
 <dom-module id="screening-secondary-form">
@@ -129,6 +133,25 @@
      }
     </style>
 
+    <homevisit-query host="{{document.value.dmc.host}}"
+       cid="{{document.value.student.cid}}"
+       document="{{homevisit}}">
+    </homevisit-query>
+
+    <homevisit-sdq-query host="{{document.value.dmc.host}}"
+       cid="{{document.value.student.cid}}"
+       document="{{homevisitSDQ}}">
+    </homevisit-sdq-query>
+    
+    <disability-query
+      cid="{{document.value.student.cid}}"
+      year="{{document.value.dmc.year}}"
+      is-visual="{{document.value.form_value.q3_5_m}}"
+      is-hearing="{{document.value.form_value.q3_6_m}}"
+      is-health="{{document.value.form_value.q3_7_m}}"
+      document="{{disability}}">
+    </disability-query>
+
     <weight-height-query
       cid="{{document.value.student.cid}}"
       semester="{{document.value.student.semester}}"
@@ -154,13 +177,11 @@
          <li class="font-face-normal">ให้เลือกว่าอาการในแต่ละข้อนั้นตรงกับลักษณะของเด็กที่ท่านประเมินเพียงใด</li>
         </ol>
       </div>
-      <div slot="formEntry"  class="margin-content">
-       <ol>
-         <li>
-           <label id="label1" class="headQ">ความสามารถพิเศษ (ความถนัดและความสนใจในวิชาที่เรียน)</label>
+      <div slot="formEntry" class="margin-content margin-div">
+           <label class="headQ">1. ด้านความสามารถ</label>
            <paper-radio-group aria-labelledby="label1" selected="{{document.value.form_value.q1}}">
-             <paper-radio-button name="y" class ="font-face-normal" >มี</paper-radio-button>
-             <paper-radio-button name="n"class ="font-face-normal">ไม่มี</paper-radio-button>
+             <paper-radio-button name="y" class="font-face-normal">มี</paper-radio-button>
+             <paper-radio-button name="n" class="font-face-normal">ไม่มี</paper-radio-button>
            </paper-radio-group>
            <template is="dom-if" if="{{_isEquals(document.value.form_value.q1,'y')}}">
            <div class="topic1">
@@ -261,7 +282,7 @@
              </paper-input>
 
              <paper-checkbox checked="{{document.value.form_value.q1_9}}">
-            <div class="font-face-normal"> อื่น ๆ</div>
+             <div class="font-face-normal"> อื่น ๆ</div>
              </paper-checkbox>
              <paper-input id ="res" value="{{document.value.form_value.q1_9_t1}}"
                label="ลำดับที่ 1"
@@ -273,16 +294,16 @@
              </paper-input>
            </div>
            </template>
-         </li>
-         <li>
-           <label id="label2"  class="headQ">ด้านการเรียน</label>
+         <!--</li>
+         <li>-->
+           <!--<label id="label2"  class="headQ">ด้านการเรียน</label>-->
+           <div class="flex layout horizontal">
+             <label class="headQ">1.1 ผลการเรียน ({{_gpax}})</label>
+           </div>
            <paper-input id ="res"  label="ผลการประเมิน" readonly
              value="{{_q2Text(document.value.form_value.q2)}}">
            </paper-input>
-           <div class="flex layout horizontal font-face-underline"><!-- หัวตาราง -->
-             2.1 ผลการเรียน
-           </div>
-           <div class="flex layout horizontal"><!-- หัวตาราง -->
+           <div class="flex layout horizontal">
              <div class="flex-6 margin-content">
                <paper-checkbox checked="{{document.value.form_value.q2_1_m}}" disabled>
                  ผลการเรียนเฉลี่ย 1.00 - 2.00
@@ -295,7 +316,7 @@
              </div>
            </div>
            <div class="flex layout horizontal border-topic">
-             <div class="flex-6 margin-content">
+             <div class="flex-6  margin-content">
                <paper-checkbox checked="{{document.value.form_value.q2_2_m}}"><!-- M ซ้าย -->
                  ติด 0, ร, มส, มผ 1-2 วิชา ต่อ 1 ภาคเรียน
                </paper-checkbox>
@@ -307,7 +328,7 @@
              </div>
            </div>
            <div class="flex layout horizontal font-face-underline"><!-- หัวตาราง -->
-             2.2 เข้าเรียน
+             เข้าเรียน
            </div>
            <div class="flex layout horizontal">
              <div class="flex-6 margin-content">
@@ -342,7 +363,7 @@
             </div>
            </div>
            <div class="flex layout horizontal font-face-underline"><!-- หัวตาราง -->
-             2.3 ความตั้งใจ/สมาธิในการเรียน
+             ความตั้งใจ/สมาธิในการเรียน
            </div>
            <div class="flex layout horizontal">
              <div class="flex-6 margin-content">
@@ -355,9 +376,6 @@
                  สมาธิสั้น
                </paper-checkbox>
              </div>
-             <!--<paper-checkbox class="flex-1" checked="{{document.value.form_value.q2_5_p}}">
-               ไม่เข้าเรียนหลายครั้งโดยไม่มีเหตุจำเป็น
-             </paper-checkbox>-->
            </div>
            <div class="flex layout horizontal border-topic">
              <div class="flex-6 margin-content">
@@ -366,13 +384,10 @@
                </paper-checkbox>
              </div>
              <div class="flex-6 margin-content">&nbsp;
-               <!--<paper-checkbox class="flex-1" checked="{{document.value.form_value.q2_6_p}}">
-                 สมาธิสั้น
-               </paper-checkbox>-->
              </div>
            </div>
            <div class="flex layout horizontal font-face-underline"><!-- หัวตาราง -->
-             2.4 การอ่าน/การเขียน
+             การอ่าน/การเขียน
            </div>
            <div class="flex layout horizontal">
              <div class="flex-6 margin-content">
@@ -381,9 +396,6 @@
                </paper-checkbox>
              </div>
              <div class="flex-6 margin-content">&nbsp;</div>
-             <!--<paper-checkbox class="flex-1" checked="{{document.value.form_value.q2_7_p}}">
-                ขาดเรียนบ่อยมากกว่า 1 วันต่อสัปดาห์
-             </paper-checkbox>-->
            </div>
            <div class="flex layout horizontal">
              <div class="flex-6 margin-content">
@@ -410,7 +422,7 @@
              <div class="flex-6 margin-content ">&nbsp;</div>
            </div>
            <div class="flex layout horizontal font-face-underline"><!-- หัวตาราง -->
-             2.5 ความรับผิดชอบ
+             ความรับผิดชอบ
            </div>
            <div class="flex layout horizontal border-topic">
              <div class="flex-6 margin-content">
@@ -425,7 +437,7 @@
              </div>
            </div>
            <div class="flex layout horizontal font-face-underline"><!-- หัวตาราง -->
-             2.6 อื่นๆ
+             อื่นๆ
            </div>
            <div class="flex layout horizontal">
              <div class="flex-6 margin-content">
@@ -451,147 +463,137 @@
                </paper-checkbox>
              </div>
            </div>
-         </li>
-         <li>
-           <label id="label2"  class="headQ">ด้านสุขภาพ</label>
-           <paper-input id ="res" label="ผลการประเมิน" readonly
-             value="">
-           </paper-input>
-           <div class="layout horizontal">
-             <div class="flex-6 margin-content">
-              <paper-checkbox checked="{{document.value.form_value.q3_1_m}}" disabled>
-                 น้ำหนักผิดปกติ  และไม่สัมพันธ์กับส่วนสูง  หรืออายุ
-              </paper-checkbox>
-            </div>
-            <div class="flex-6 margin-content">
-              <paper-checkbox checked="{{document.value.form_value.q3_1_p}}">
-                 ป่วยเป็นโรคหรือมีความพิการทางร่างกายมีความบกพร่องทางการได้ยินการมองเห็น  และความเจ็บป่วย  หรือบกพร่องดังกล่าวมีผลกระทบต่อความสามารถด้านการเรียนในระดับมีปัญหา
-              </paper-checkbox>
-            </div>
-          </div>
-          <div class="layout horizontal">
-            <div class="flex-6 margin-content">
-              <paper-checkbox checked="{{document.value.form_value.q3_2_m}}">
-                 มีโรคประจำตัวหรือเจ็บป่วยบ่อยๆ
-              </paper-checkbox>
-            </div>
-            <div class="flex-6 margin-content">&nbsp;</div>
-          </div>
-           <div class="layout horizontal">
-             <div class="flex-6 margin-content">
-              <paper-checkbox checked="{{document.value.form_value.q3_3_m}}">
-                 มีความพิการทางร่างกายหรือบกพร่องด้านการยิน การฟัง การมองเห็น  หรืออื่นๆ
-              </paper-checkbox>
-            </div>
-            <div class="flex-6 margin-content">&nbsp;</div>
-          </div>
-          <div class="layout horizontal">
-            <div class="flex-6 margin-content">
-              <paper-checkbox checked="{{document.value.form_value.q3_4_m}}">
-                 ให้นักเรียนพิจารณาใช้แบบประเมินพฤติกรรมหรือเครื่องมืออื่นๆ ตามความเหมาะสมกับสภาพโรงเรียน
-              </paper-checkbox>
-            </div>
-            <div class="flex-6 margin-content">
-              <paper-checkbox checked="{{document.value.form_value.q3_4_p}}">
-                 ให้นักเรียนพิจารณาใช้แบบประเมินพฤติกรรมหรือเครื่องมืออื่นๆ ตามความเหมาะสมกับสภาพโรงเรียน
-              </paper-checkbox>
-            </div>
-          </div>
+         <!--</li>-->
+         <!-- ********************** homevisit ************************************** -->
+          <label class="headQ">2. ด้านครอบครัว</label>
+           <template is="dom-repeat" items="{{homevisit}}" as="subject">
+             <!--<li>-->
+               <div>
+                <label id="label2" class="headQ">{{subject.text}} (แบบเยี่ยมบ้าน)</label>
+               </div>
+               <div class="layout vertical">
+               <template is="dom-repeat" items="{{subject.values}}">
+                 <paper-checkbox checked="{{item.checked}}" disabled class="checkbox-font">
+                 {{item.text}}
+                 </paper-checkbox>
+               </template>
+               </div>
+             <!--</li>-->
+           </template>
+          <!-- ********************** homevisit ************************************** -->
 
-         </li>
-         <li>
-           <label id="label2"  class="headQ">ด้านพฤติกรรม</label>
+         <!--<li>-->
+           <!--<label id="label2" class="headQ">ด้านสุขภาพ</label>-->
+           <label class="headQ">3. ด้านสุขภาพ/ความบกพร่องของร่างกาย</label>
            <paper-input id ="res" label="ผลการประเมิน" readonly
              value="">
            </paper-input>
+           <div class="flex layout horizontal font-face-underline"><!-- หัวตาราง -->
+             3.1 น้ำหนัก/ส่วนสูง
+           </div>
             <div class="layout horizontal">
-             <paper-checkbox class="flex-1" checked="{{document.value.form_value.q4_1_m}}">
-                มีพฤติกรรมแสดงออกดังนี้<br>
-                1.	ความเฉี่อยชา<br>
-                2.	ชอบเก็บตัว<br>
-                3.	การลักขโมย<br>
-                4.	การโกหก<br>
-                ฯลฯ<br>
-                ซึ่งเป็นพฤติกรรมที่แสดงออกเป็นครั้งคราว
-
+              <div class="flex margin-content">
+               <paper-checkbox checked="{{document.value.form_value.q3_1_m}}" disabled>
+                  น้ำหนักผิดปกติ  และไม่สัมพันธ์กับส่วนสูง  หรืออายุ
+               </paper-checkbox>
+             </div>
+           </div>
+           <div class="flex layout horizontal font-face-underline"><!-- หัวตาราง -->
+             3.2 โรคประจำตัว
+           </div>
+           <div class="layout horizontal">
+             <div class="flex-6 margin-content">
+               <paper-checkbox checked="{{document.value.form_value.q3_2_m}}">
+                  มีโรคประจำตัวหรือเจ็บป่วยบ่อยๆ
+               </paper-checkbox>
+             </div>
+             <div class="flex-6 margin-content">
+               <paper-checkbox checked="{{document.value.form_value.q3_1_p}}">
+                  ป่วยเป็นโรคหรือมีความพิการทางร่างกายมีความบกพร่องทางการได้ยินการมองเห็น  และความเจ็บป่วย  หรือบกพร่องดังกล่าวมีผลกระทบต่อความสามารถด้านการเรียนในระดับมีปัญหา
+               </paper-checkbox>
+             </div>
+             <!--<div class="flex-6 margin-content">&nbsp;</div>-->
+           </div>
+           <div class="flex layout horizontal font-face-underline"><!-- หัวตาราง -->
+             3.3 ความบกพร่องของร่างกาย
+           </div>
+            <div class="flex layout horizontal margin-content">
+              <paper-checkbox checked="{{document.value.form_value.q3_5_m}}" disabled>
+                 มีความบกพร่องด้านการมองเห็น
+              </paper-checkbox>
+            </div>
+            <div class="flex layout horizontal margin-content">
+             <paper-checkbox checked="{{document.value.form_value.q3_6_m}}" disabled>
+                มีความบกพร่องด้านการได้ยิน
              </paper-checkbox>
-             <paper-checkbox class="flex-1" checked="{{document.value.form_value.q4_1_p}}">
-                มีพฤติกรรมแสดงออกดังนี้<br>
-                1.	ความก้าวร้าว<br>
-                2.	หนีโรงเรียน<br>
-                3.	ชอบรังแกคนอื่น/สัตว์<br>
-                4.	การใช้สารเสพติด<br>
-                ฯลฯ<br>
-                ซึ่งเป็นพฤติกรรมที่แสดงออกเป็นประจำ
-
+            </div>
+            <div class="flex layout horizontal margin-content">
+              <paper-checkbox checked="{{document.value.form_value.q3_7_m}}" disabled>
+                 มีความบกพร่องทางด้านร่างกาย
+              </paper-checkbox>
+            </div>
+           <label class="headQ">4. ด้านสุขภาพจิตและพฤติกรรม</label>
+           <paper-input id ="res" label="ผลการประเมิน" readonly
+             value="">
+           </paper-input>
+           <div class="flex layout horizontal margin-content">
+             <paper-checkbox checked="{{document.value.form_value.q4_2_m}}" disabled>
+                พฤติกรรม (SDQ)
              </paper-checkbox>
            </div>
-         </li>
-                  <li>
-           <label id="label2"  class="headQ">ด้านอื่นๆ</label>
+           <div class="flex layout horizontal margin-content">
+             <paper-checkbox checked="{{document.value.form_value.q4_3_m}}" disabled>
+               ความฉลาดทางอารมณ์ (EQ)
+            </paper-checkbox>
+           </div>
+           <!-- ******************* homevisit-sdq-query ********** -->
+           <template is="dom-repeat" items="{{homevisitSDQ}}" as="homevisitSDQ">
+               <div>
+                <label id="label2" class="headQ">{{homevisitSDQ.text}} (แบบเยี่ยมบ้าน)</label>
+               </div>
+               <div class="layout vertical">
+               <template is="dom-repeat" items="{{homevisitSDQ.values}}">
+                 <paper-checkbox checked="{{item.checked}}" disabled class="checkbox-font">
+                 {{item.text}}
+                 </paper-checkbox>
+               </template>
+               </div>
+           </template>
+           <!-- ******************* homevisit-sdq-query ********** -->
+           <label class="headQ">5. ปัญหาทางการเรียนรู้</label>
            <paper-input id ="res" label="ผลการประเมิน" readonly
              value="">
            </paper-input>
-           <div class="layout horizontal">
-             <div class="flex-6 margin-content">
-              <paper-checkbox checked="{{document.value.form_value.q5_1_m}}">
-                 มีการทดลองดื่มเบียร์ สุรา หรือสูบบุหรี่โดยตนเองหรือเพื่อนชักชวน
-              </paper-checkbox>
-            </div>
-            <div class="flex-6 margin-content">
-              <paper-checkbox checked="{{document.value.form_value.q5_1_p}}">
-                 ใช้ยาเสพติด  สารเสพติด ดื่มเบียร์  สุรา  หรือสูบบุหรี่เป็นครั้งคราวและมีแนวโน้นว่าจะเพิ่มขึ้นและเป็นผู้ชวนให้ผู้อื่นปฏิบัติตาม
-              </paper-checkbox>
-            </div>
-          </div>
-           <div class="layout horizontal">
-             <div class="flex-6 margin-content">
-                <paper-checkbox checked="{{document.value.form_value.q5_2_m}}">
-                   ติดเพื่อนต่างเพศแนวชู้สาว
-                </paper-checkbox>
-              </div>
-              <div class="flex-6 margin-content">
-                <paper-checkbox checked="{{document.value.form_value.q5_2_p}}">
-                   ติดต่อเพื่อนต่างเพศในแนวชู้สาว  หรือถึงขั้นมีความสัมพันธ์ทางเพศ
-                </paper-checkbox>
-              </div>
-          </div>
-          <div class="layout horizontal">
-            <div class="flex-6 margin-content">
-              <paper-checkbox checked="{{document.value.form_value.q5_3_m}}">
-                 จับคู่ชัดเจนและแยกอยู่กันสองต่อสองบ่อยๆ
-              </paper-checkbox>
-            </div>
-            <div class="flex-6 margin-content">&nbsp;</div>
-          </div>
-          <div class="layout horizontal">
-            <div class="flex-6 margin-content">
-              <paper-checkbox checked="{{document.value.form_value.q5_3_m}}">
-                 มีพฤติกรรมเบี่ยงเบนทางเพศ  จนมีผลต่อการเรียน
-              </paper-checkbox>
-            </div>
-            <div class="flex-6 margin-content">&nbsp;</div>
-          </div>
-         </li>
-                  <li>
-           <label id="label2"  class="headQ">ด้านสังคม</label>
-           <paper-input id ="res" label="ผลการประเมิน" readonly
-             value="">
-           </paper-input>
-           <div class="layout horizontal">
-             <div class="flex-6 margin-content">
-                <paper-checkbox checked="{{document.value.form_value.q6_1_m}}">
-                   สามารถปรับตัวได้ในบางเรื่องบางกรณี  และมักปฏิบัติตนขัดแย้งกับกฎเกณฑ์ต่างๆของโรงเรียน  ห้องเรียนเมื่อได้รับการตักเตือนก็เลิกพฤติกรรมนั้นได้
-                </paper-checkbox>
-              </div>
-              <div class="flex-6 margin-content">
-                <paper-checkbox checked="{{document.value.form_value.q6_1_p}}">
-                   สามารถปรับตัวได้ในบางกรณี  แต่มีข้อขัดแย้งสม่ำเสมอ ก่อปัญหาให้แก้ไข  อยู่เสมอ  เมื่อได้รับการตักเตือนก็ไม่หยุดพฤติกรรมต่อด้าน
-                </paper-checkbox>
-              </div>
-          </div>
-         </li>
-       </ol>
+           <div class="flex layout horizontal margin-content">
+             <paper-checkbox checked="{{document.value.form_value.q5_4_m}}" disabled>
+                ออทิสติก
+             </paper-checkbox>
+           </div>
+           <div class="flex layout horizontal margin-content">
+             <paper-checkbox checked="{{document.value.form_value.q5_5_m}}" disabled>
+               LD (การเรียนรู้)
+            </paper-checkbox>
+           </div>
+           <div class="flex layout horizontal margin-content">
+             <paper-checkbox checked="{{document.value.form_value.q5_6_m}}" disabled>
+                สติปัญญา
+             </paper-checkbox>
+           </div>
+           <div class="flex layout horizontal margin-content">
+             <paper-checkbox checked="{{document.value.form_value.q5_7_m}}" disabled>
+               พูด/ภาษา
+            </paper-checkbox>
+           </div>
+           <div class="flex layout horizontal margin-content">
+             <paper-checkbox checked="{{document.value.form_value.q5_8_m}}" disabled>
+                พฤติกรรม/อารมณ์
+             </paper-checkbox>
+           </div>
+           <div class="flex layout horizontal margin-content">
+             <paper-checkbox checked="{{document.value.form_value.q5_9_m}}" disabled>
+               สมาธิสั้น/SNAP-IV
+            </paper-checkbox>
+           </div>
      </div>
 
      <div slot="evaluation">
@@ -686,17 +688,6 @@
         return score;
       },
       _validate:function() {
-        /*var eles =Polymer.dom(this.root)
-         .querySelectorAll('snap-choice');
-        for(var i=0;i<eles.length;i++) {
-          if(!eles[i].value)  {
-            console.log(eles[i]);
-            eles[i].classList.add('invalid');
-            return false;
-          } else {
-            eles[i].classList.remove('invalid');
-          }
-        }*/
         return true;
       },
       _isEquals:function(a,b) {
@@ -706,25 +697,7 @@
         this.set('document.value.form_value',{});
       },
       _result:function(score) {
-        /*
-        if(!score) return;
-        var foundSub = false;
-        for(var key in score) {
-          if(key.indexOf('s') == 0 && score[key].y>=2) {
-            foundSub=true;
-            break;
-          }
-        }
-        if(score.p1.y >= 1  && foundSub) {
-          this.$$('#markPositive').classList.add('mark');
-          this.$$('#markNegative').classList.remove('mark');
-          this.set('_mark',true);
-        } else {
-          this.$$('#markNegative').classList.add('mark');
-          this.$$('#markPositive').classList.remove('mark');
-          this.set('_mark',false);
-        }
-        */
+
       }
     });
   </script>

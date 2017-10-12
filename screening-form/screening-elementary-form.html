@@ -11,6 +11,7 @@
 <link rel="import" href="../studentcare-form-behavior.html">
 
 <link rel="import" href="homevisit-query.html">
+<link rel="import" href="homevisit-sdq-query.html">
 <link rel="import" href="weight-height-query.html">
 <link rel="import" href="grade-query.html">
 <link rel="import" href="disability-query.html">
@@ -144,6 +145,11 @@
        document="{{homevisit}}">
     </homevisit-query>
 
+    <homevisit-sdq-query host="{{document.value.dmc.host}}"
+       cid="{{document.value.student.cid}}"
+       document="{{homevisitSDQ}}">
+    </homevisit-sdq-query>
+
     <weight-height-query
       cid="{{document.value.student.cid}}"
       semester="{{document.value.student.semester}}"
@@ -158,6 +164,11 @@
       is-visual="{{document.value.form_value.q3_5_m}}"
       is-hearing="{{document.value.form_value.q3_6_m}}"
       is-health="{{document.value.form_value.q3_7_m}}"
+      is-autistic="{{document.value.form_value.q5_4_m}}"
+      is-learning="{{document.value.form_value.q5_5_m}}"
+      is-intelligence="{{document.value.form_value.q5_6_m}}"
+      is-communication="{{document.value.form_value.q5_7_m}}"
+      is-behavior="{{document.value.form_value.q5_8_m}}"
       document="{{disability}}">
     </disability-query>
 
@@ -510,12 +521,12 @@
              3.1 น้ำหนัก/ส่วนสูง
            </div>
             <div class="layout horizontal">
-              <div class="flex-6 margin-content">
+              <div class="flex margin-content">
                <paper-checkbox checked="{{document.value.form_value.q3_1_m}}" disabled>
                   น้ำหนักผิดปกติ  และไม่สัมพันธ์กับส่วนสูง  หรืออายุ
                </paper-checkbox>
              </div>
-             <div class="flex-6 margin-content">&nbsp;</div>
+             <!--<div class="flex-6 margin-content">&nbsp;</div>-->
              <!--<div class="flex-6 margin-content">
                <paper-checkbox checked="{{document.value.form_value.q3_1_p}}">
                   ป่วยเป็นโรคหรือมีความพิการทางร่างกายมีความบกพร่องทางการได้ยินการมองเห็น  และความเจ็บป่วย  หรือบกพร่องดังกล่าวมีผลกระทบต่อความสามารถด้านการเรียนในระดับมีปัญหา
@@ -539,7 +550,7 @@
              <!--<div class="flex-6 margin-content">&nbsp;</div>-->
            </div>
            <div class="flex layout horizontal font-face-underline"><!-- หัวตาราง -->
-             3.3 ความบกพร้องของร่างกาย
+             3.3 ความบกพร่องของร่างกาย
            </div>
             <div class="flex layout horizontal margin-content">
               <paper-checkbox checked="{{document.value.form_value.q3_5_m}}" disabled>
@@ -594,7 +605,7 @@
                ความฉลาดทางอารมณ์ (EQ)
             </paper-checkbox>
            </div>
-           <div class="flex layout horizontal margin-content">
+           <!--<div class="flex layout horizontal margin-content">
              <paper-checkbox checked="{{document.value.form_value.q4_4_m}}" disabled>
                 สารเสพติด
              </paper-checkbox>
@@ -613,6 +624,55 @@
              <paper-checkbox checked="{{document.value.form_value.q4_7_m}}" disabled>
                 การติดเกมส์
              </paper-checkbox>
+           </div>-->
+           <!-- ******************* homevisit-sdq-query ********** -->
+           <template is="dom-repeat" items="{{homevisitSDQ}}" as="homevisitSDQ">
+               <div>
+                <label id="label2" class="headQ">{{homevisitSDQ.text}} (แบบเยี่ยมบ้าน)</label>
+               </div>
+               <div class="layout vertical">
+               <template is="dom-repeat" items="{{homevisitSDQ.values}}">
+                 <paper-checkbox checked="{{item.checked}}" disabled class="checkbox-font">
+                 {{item.text}}
+                 </paper-checkbox>
+               </template>
+               </div>
+           </template>
+           <!-- ******************* homevisit-sdq-query ********** -->
+
+           <label class="headQ">5. ปัญหาทางการเรียนรู้</label>
+           <paper-input id ="res" label="ผลการประเมิน" readonly
+             value="">
+           </paper-input>
+           <div class="flex layout horizontal margin-content">
+             <paper-checkbox checked="{{document.value.form_value.q5_4_m}}" disabled>
+                ออทิสติก
+             </paper-checkbox>
+           </div>
+           <div class="flex layout horizontal margin-content">
+             <paper-checkbox checked="{{document.value.form_value.q5_5_m}}" disabled>
+               LD (การเรียนรู้)
+            </paper-checkbox>
+           </div>
+           <div class="flex layout horizontal margin-content">
+             <paper-checkbox checked="{{document.value.form_value.q5_6_m}}" disabled>
+                สติปัญญา
+             </paper-checkbox>
+           </div>
+           <div class="flex layout horizontal margin-content">
+             <paper-checkbox checked="{{document.value.form_value.q5_7_m}}" disabled>
+               พูด/ภาษา
+            </paper-checkbox>
+           </div>
+           <div class="flex layout horizontal margin-content">
+             <paper-checkbox checked="{{document.value.form_value.q5_8_m}}" disabled>
+                พฤติกรรม/อารมณ์
+             </paper-checkbox>
+           </div>
+           <div class="flex layout horizontal margin-content">
+             <paper-checkbox checked="{{document.value.form_value.q5_9_m}}" disabled>
+               สมาธิสั้น/SNAP-IV
+            </paper-checkbox>
            </div>
             <!--<div class="layout horizontal">
              <paper-checkbox class="flex-1" checked="{{document.value.form_value.q4_1_m}}">
