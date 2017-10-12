@@ -17,6 +17,10 @@
         type:Object,
         notify:true
       },
+      generating:{
+        type:Boolean,
+        notify:true
+      }
     },
     observers:[
       'generate(forms)'
@@ -32,8 +36,9 @@
           'form_type':self.formType,
           'required':_required
         });
-        if(_required) {
+        if(_required && !self.generating) {
          var time = document.createElement('iron-request');
+         self.set('generating',true);
          time.send({
            method:'GET',
            url:'https://maas.nuqlis.com:9001/servertime'
@@ -71,9 +76,9 @@
              body:assignment
            }).then(function(res) {
              if(res.response.ok) {
-               console.log(res.response);
                self.fire('form-generated',{'key':res.response.key});
                assignment['_id']=res.response.key;
+               self.set('generating',false);
                self.push('forms',assignment);
              }
            });
