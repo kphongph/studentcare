@@ -158,8 +158,12 @@
             <div class="layout horizontal font-face">
               <paper-dropdown-menu label="ระดับชั้น">
                 <paper-listbox slot="dropdown-content" attr-for-selected="name" selected="{{level}}">
-                  <template is="dom-repeat" items="{{levelList}}">
+                  <!--<template is="dom-repeat" items="{{levelList}}">
                     <paper-item name="{{item}}">{{item}}</paper-item>
+                  </template>-->
+                  <template is="dom-repeat" items="{{levelList}}" 
+                    sort="levelSorter"> 
+                  <paper-item name="{{item}}">{{item}}</paper-item> 
                   </template>
                 </paper-listbox>
               </paper-dropdown-menu>
@@ -307,6 +311,16 @@
             if (!token || !hostid) return;
             this.$.listLevel.generateRequest();
           },
+          levelSorter: function(a,b) { 
+            var start = ['อนุบาล','ประถมศึกษาปีที่','มัธยมศึกษาปีที่']; 
+            var _a = a.split(' ')[0]; var _b = b.split(' ')[0]; 
+            //console.log(_a,_b); 
+            if(start.indexOf(_a) == start.indexOf(_b)) { 
+              return a.localeCompare(b); 
+              } else { 
+                return start.indexOf(_a) - start.indexOf(_b); 
+              } 
+            },
           _queryRoom(token, year, host, level, room) {
             if (!token || !year || !host) return;
             if (level != null) {
