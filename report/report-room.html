@@ -25,136 +25,136 @@
     <template>
         <style include="iron-flex iron-flex-alignment iron-flex-factors">
            :host {
-            @apply (--layout-vertical);
+            @apply --layout-vertical;
           }
-    
+
           .container {
-            @apply (--layout-horizontal);
-            @apply (--layout-center-justified);
+            @apply --layout-horizontal;
+            @apply --layout-center-justified;
           }
-    
+
           .form_group {
-            @apply (--paper-font-subhead);
+            @apply --paper-font-subhead;
             padding: 10px;
             background: var(--paper-grey-100);
           }
-    
+
           .content {
             background: white;
           }
-    
+
           .header {
             font-family: 'Athiti', sans-serif;
             font-size: 25px;
             font-weight: bold;
           }
-    
+
           .header2 {
-            @apply (--layout-center-justified);
+            @apply --layout-center-justified;
             font-family: 'Athiti', sans-serif;
             /* font-size: 25px; */
             /* font-weight: bold; */
           }
-    
+
           .note {
             border: 2px solid #44ada8;
             font-family: 'Athiti', sans-serif;
             background: #fff;
             color: #000;
           }
-    
+
           iron-icon {
             width:25px;
             height:25px;
             color: var(--paper-red-500);
           }
-    
+
           .row-content {
-            padding:10px;                
+            padding:10px;
           }
-    
+
           .bottom-border {
             border-bottom: 1px solid #efefef;
           }
-    
+
           .layout-note {
             @apply --layout-horizontal;
             margin-bottom: 5px;
           }
-    
-          .font-face {       
+
+          .font-face {
             @apply --paper-font-subhead;
             font-family: 'Athiti', sans-serif;
             font-size: 18px;
           }
-    
+
           .middle-text {
-            @apply(--layout-horizontal);
-            @apply(--layout-center-justified);
-            @apply(--layout-flex-1);
+            @apply --layout-horizontal;
+            @apply --layout-center-justified;
+            @apply --layout-flex-1;
           }
-          
+
           .cell {
             padding:5px;
-            min-height:30px;           
-            width:100%; 
+            min-height:30px;
+            width:100%;
             margin:2px;
             border:1px solid #efefef;
           }
-    
+
           .header-hl {
             background: var(--paper-grey-100);
           }
-    
+
           app-toolbar {
             background-color: #e65540;
             color: white;
           }
         </style>
-    
+
         <app-localstorage-document key="jwtToken" data="{{jwtToken}}">
         </app-localstorage-document>
-    
-    
-        <iron-ajax id="getAjax" 
-          method="GET" 
-          headers$='{"Authorization":"JWT {{jwtToken.token}}"}' 
-          url$="https://maas.nuqlis.com:8000/v2/obec/_studentcare_report/data/students_{{year}}_{{hostid}}_{{level}}_{{room}}" 
+
+
+        <iron-ajax id="getAjax"
+          method="GET"
+          headers$='{"Authorization":"JWT {{jwtToken.token}}"}'
+          url$="https://maas.nuqlis.com:8000/v2/obec/_studentcare_report/data/students_{{year}}_{{hostid}}_{{level}}_{{room}}"
           content-type="application/json"
           handle-as ="json"
           on-response="handleResponse">
         </iron-ajax>
-    
+
         <app-toolbar>
           <paper-icon-button icon="arrow-back" on-tap="_back" hidden$="{{isFirstPage(page)}}">
           </paper-icon-button>
           <div class="font-face">ผลการประเมินรายห้อง {{sname}}</div>
           <!-- <div class="font-face">ข้อมูล ณ วันที่ {{ts}}</div> -->
         </app-toolbar>
-    
-        <iron-ajax id="listLevel" 
-          method="POST" 
-          headers$='{"Authorization":"JWT {{jwtToken.token}}"}' 
+
+        <iron-ajax id="listLevel"
+          method="POST"
+          headers$='{"Authorization":"JWT {{jwtToken.token}}"}'
           url="https://maas.nuqlis.com:8000/v2/obec/student_data_db/query"
-          content-type="application/json" 
-          handle-as="json" 
+          content-type="application/json"
+          handle-as="json"
           body='{"query":{"hostid":"{{hostid}}"},"distinct":"class"}'
           last-response="{{levelList}}">
         </iron-ajax>
-    
-        <iron-ajax id="listRoom" 
-          method="POST" 
-          headers$='{"Authorization":"JWT {{jwtToken.token}}"}' 
+
+        <iron-ajax id="listRoom"
+          method="POST"
+          headers$='{"Authorization":"JWT {{jwtToken.token}}"}'
           url="https://maas.nuqlis.com:8000/v2/obec/student_data_db/query"
-          content-type="application/json" 
-          handle-as="json" 
+          content-type="application/json"
+          handle-as="json"
           body='{"query":{"hostid":"{{hostid}}","class":"{{level}}"},"distinct":"room"}'
           last-response="{{roomList}}">
         </iron-ajax>
-    
+
         <iron-pages selected="{{page}}" fallback-selection="0">
           <div class="layout vertical font-face">
-            
+
             <div class="layout horizontal font-face">
               <paper-dropdown-menu label="ระดับชั้น">
                 <paper-listbox slot="dropdown-content" attr-for-selected="name" selected="{{level}}">
@@ -163,7 +163,7 @@
                   </template>
                 </paper-listbox>
               </paper-dropdown-menu>
-    
+
               <paper-dropdown-menu label="ห้อง">
                 <paper-listbox slot="dropdown-content" attr-for-selected="name" selected="{{room}}">
                   <template is="dom-repeat" items="{{roomList}}">
@@ -172,7 +172,7 @@
                 </paper-listbox>
               </paper-dropdown-menu>
             </div>
-    
+
             <div class="flex note">
               <div class="layout vertical">
                 <div>
@@ -184,65 +184,65 @@
                   <div class="flex-1">7 - ความพิการทางร่างกาย</div>
                   <div class="flex-1">10 - เพศ</div>
                 </div>
-                <div class="layout horizontal"> 
+                <div class="layout horizontal">
                   <div class="flex-1">2 - การเข้าเรียน</div>
                   <div class="flex-1">5 - ค่า BMI</div>
                   <div class="flex-1">8 - SDQ</div>
                   <div class="flex-1">11 - พิการด้านการเรียนรู้</div>
                 </div>
                 <div class="layout horizontal">
-                    <div class="flex-1">3 - เศรษกิจ</div>
+                    <div class="flex-1">3 - เศรษฐกิจ</div>
                     <div class="flex-1">7 - โรคประจำตัว</div>
                     <div class="flex-1">9 - EQ</div>
                     <div class="flex-1">12 -บกพร่องทางการเรียนรู้</div>
                 </div>
               </div>
             </div>
-    
+
             <div class="layout horizontal">
               <template is="dom-if" if="[[list.0]]">
                 <div class="flex-2 font-face form_group cell">ชื่อ-นามสกุล</div>
               </template>
-              <div class="flex-10 layout horizontal center">                
+              <div class="flex-10 layout horizontal center">
                 <template is="dom-repeat" items="[[list.0.content]]">
                   <div class="flex-1 font-face layout horizontal center-justified">
                     <div class="layout horizontal cell center-justified header-hl">{{_plusOne(index)}}</div>
                   </div>
-                </template>            
+                </template>
               </div>
             </div>
-            
+
             <template is="dom-repeat" as="row" items="[[list]]">
-              <div class="layout horizontal">            
-                <div class="flex-2 font-face row-content cell">      
+              <div class="layout horizontal">
+                <div class="flex-2 font-face row-content cell">
                   <template is="dom-if" if="{{row.doc}}">
                     <form-link message="{{row.name}}" doc-id="{{row.doc}}">
-                    </form-link>       
-                  </template>                            
+                    </form-link>
+                  </template>
                   <template is="dom-if" if="{{!row.doc}}">
                     <div style="padding:5px;">{{row.name}}</div>
-                  </template>       
+                  </template>
                 </div>
                 <div class="flex-10 layout horizontal center">
                   <template is="dom-repeat" items="[[row.content]]">
                     <div class="flex-1 font-face layout horizontal center-justified">
                       <div class="layout horizontal cell center-justified">
                       <template is="dom-if" if="{{item}}">
-                        <iron-icon icon="check"></iron-icon>                    
-                      </template>                  
-                      </div>                  
+                        <iron-icon icon="check"></iron-icon>
+                      </template>
+                      </div>
                     </div>
                   </template>
-                </div>                                                        
+                </div>
               </div>
             </template>
           </div>
           <div id="formEntry">
             FormEntry
           </div>
-        </iron-pages>    
+        </iron-pages>
       </template>
-    
+
       <script>
         Polymer({
           is: "report-room",
@@ -269,7 +269,7 @@
               value: function () {
                 return [];
               }
-            },            
+            },
             imgNote: {
               type: String,
               notify: true,
@@ -278,7 +278,7 @@
           },
           _imgNote: function () {
             return this.resolveUrl("./../images/note.png");
-          },          
+          },
           observers: [
             '_execute(jwtToken.token,hostid)',
             '_queryRoom(jwtToken.token,year,hostid,level,room)'
@@ -326,9 +326,9 @@
             return i+1;
           },
           handleResponse(e) {
-            var doc = e.detail.response;        
+            var doc = e.detail.response;
             var content = doc.value;
-            var list = [];        
+            var list = [];
             var arr_index = [
               ['name'],
               [ 'screening-elementary-form'],
@@ -344,24 +344,24 @@
                 'disability-communication-form'
               ],
               [ 'dl2-form'],
-              [ 'eq-teacher-form'],          
+              [ 'eq-teacher-form'],
               [],
-              [ 'disability-intelligence-form',                      
+              [ 'disability-intelligence-form',
                 'disability-health-form',
-                'disability-learning-elementary-form',            
-                'disability-autistic-form',            
+                'disability-learning-elementary-form',
+                'disability-autistic-form',
                 'disability-behavior-form'
-              ],          
-              ['game-form', 'st5-form', 'suicide8q-form', 'cdi-form']          
-            ];        
-            
+              ],
+              ['game-form', 'st5-form', 'suicide8q-form', 'cdi-form']
+            ];
+
             // var message_dict = {
             //   'dl2-form':['เสี่ยง','ไม่เสี่ยง'],
             //   'game-form':['ติดเกม','ไม่ติดเกม'],
             //   'disability-intelligence-form':['เสี่ยงด้านความเรียนรู้']
-            // };   
-            
-            for (var cid in content) {          
+            // };
+
+            for (var cid in content) {
               var row = [];
               for (var i = 0; i < arr_index.length; i++) {
                 row.push(false);
@@ -373,19 +373,19 @@
                   if (arr_index[i].indexOf(attr) != -1) {
                     col = i;
                     break;
-                  }              
+                  }
                 }
-                if (col != -1) {              
-                  if(content[cid][attr].doc) {                
+                if (col != -1) {
+                  if(content[cid][attr].doc) {
                     if(col == 1) {
                       row[col] = content[cid][attr].doc;
                     } else {
-                      row[col] = row[col] || content[cid][attr].risk;              
+                      row[col] = row[col] || content[cid][attr].risk;
                     }
                   } else {
                     row[col] = content[cid][attr];
                   }
-                }                      
+                }
               }
               list.push(row);
             }

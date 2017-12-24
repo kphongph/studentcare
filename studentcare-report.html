@@ -56,6 +56,17 @@
         background-color: #e65540;
         color: white; 
       }
+
+      paper-tabs {
+        --paper-tabs-selection-bar-color: #cceeff;
+        --paper-tab-content-unselected: {
+          opacity: 0.42;
+        };
+        background-color: #107a87;
+        color: #fff;
+        height: 50px;
+      }
+      /* ***** */
     </style>
 
     <app-localstorage-document key="jwtToken" data="{{jwtToken}}">
@@ -84,7 +95,7 @@
     </iron-ajax>
 
     <app-toolbar>
-      <div class="header">รายงานโรงเรียน {{hostId}}</div>
+      <div class="header">รายงานโรงเรียน</div>
     </app-toolbar>
  
     <paper-tabs selected="{{page}}" fallback-selection="0">
