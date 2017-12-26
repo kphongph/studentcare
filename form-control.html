@@ -93,7 +93,7 @@
     <iron-ajax
       id="getAjax"
       method="GET"
-      url$="https://maas.nuqlis.com:8000/v2/obec/students_care/data/{{docKey}}"
+      url$="https://thaieduforall.org:8000/v2/obec/students_care/data/{{docKey}}"
       headers$='{"Authorization":"JWT {{jwtToken.token}}"}'
       handle-as="json"
       last-response="{{docValue}}">
@@ -102,7 +102,7 @@
     <iron-ajax
       id="saveAjax"
       method="POST"
-      url$="https://maas.nuqlis.com:8000/v2/obec/students_care/data/{{docKey}}"
+      url$="https://thaieduforall.org:8000/v2/obec/students_care/data/{{docKey}}"
       headers$='{"Authorization":"JWT {{jwtToken.token}}"}'
       content-type="application/json"
       on-response="_onResponse"

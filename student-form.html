@@ -98,7 +98,7 @@
 
     <iron-ajax id="getAjax"
       method="GET"
-      url$="https://maas.nuqlis.com:8000/v2/obec/student_data_db/data/{{key}}"
+      url$="https://thaieduforall.org:8000/v2/obec/student_data_db/data/{{key}}"
       headers$='{"Authorization":"JWT {{jwtToken.token}}"}'
       on-response="_handleStudentResponse"
       last-response="{{student}}">
