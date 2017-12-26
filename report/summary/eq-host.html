@@ -103,7 +103,7 @@
     <iron-ajax id="listLevel" 
       method="POST" 
       headers$='{"Authorization":"JWT {{jwtToken.token}}"}' 
-      url="https://maas.nuqlis.com:8000/v2/obec/student_data_db/query"
+      url="https://thaieduforall.org:8000/v2/obec/student_data_db/query"
       content-type="application/json" 
       handle-as="json" 
       body='{"query":{"hostid":"{{hostid}}"},"distinct":"class"}'
@@ -113,7 +113,7 @@
     <iron-ajax id="listRoom" 
       method="POST" 
       headers$='{"Authorization":"JWT {{jwtToken.token}}"}' 
-      url="https://maas.nuqlis.com:8000/v2/obec/student_data_db/query"
+      url="https://thaieduforall.org:8000/v2/obec/student_data_db/query"
       content-type="application/json" 
       handle-as="json" 
       body='{"query":{"hostid":"{{hostid}}","class":"{{level}}"},"distinct":"room"}'
@@ -229,7 +229,7 @@
       _queryLevelRoom:function(token,year,host,level,room) {
         if(token == null) return;
         // console.log(year,host,level,room);
-        var baseUrl="https://maas.nuqlis.com:8000/v2/obec/_studentcare_report/data/dl_dl2-form_";
+        var baseUrl="https://thaieduforall.org:8000/v2/obec/_studentcare_report/data/dl_dl2-form_";
         var execute = false;
         if(year!=null) {
           this.$.resulthost.url=baseUrl+year;

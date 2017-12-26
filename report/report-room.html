@@ -119,7 +119,7 @@
         <iron-ajax id="getAjax"
           method="GET"
           headers$='{"Authorization":"JWT {{jwtToken.token}}"}'
-          url$="https://maas.nuqlis.com:8000/v2/obec/_studentcare_report/data/students_{{year}}_{{hostid}}_{{level}}_{{room}}"
+          url$="https://thaieduforall.org:8000/v2/obec/_studentcare_report/data/students_{{year}}_{{hostid}}_{{level}}_{{room}}"
           content-type="application/json"
           handle-as ="json"
           on-response="handleResponse">
@@ -135,7 +135,7 @@
         <iron-ajax id="listLevel"
           method="POST"
           headers$='{"Authorization":"JWT {{jwtToken.token}}"}'
-          url="https://maas.nuqlis.com:8000/v2/obec/student_data_db/query"
+          url="https://thaieduforall.org:8000/v2/obec/student_data_db/query"
           content-type="application/json"
           handle-as="json"
           body='{"query":{"hostid":"{{hostid}}"},"distinct":"class"}'
@@ -145,7 +145,7 @@
         <iron-ajax id="listRoom"
           method="POST"
           headers$='{"Authorization":"JWT {{jwtToken.token}}"}'
-          url="https://maas.nuqlis.com:8000/v2/obec/student_data_db/query"
+          url="https://thaieduforall.org:8000/v2/obec/student_data_db/query"
           content-type="application/json"
           handle-as="json"
           body='{"query":{"hostid":"{{hostid}}","class":"{{level}}"},"distinct":"room"}'
