@@ -13,6 +13,7 @@
 <link rel="import" href="report/report-host.html">
 <link rel="import" href="report/report-sumaryhost.html">
 <link rel="import" href="report/report-room.html">
+<link rel="import" href="user-profile.html">
 
 <link rel="import" href="forms.html">
 
@@ -26,6 +27,13 @@
     <style include="iron-flex iron-flex-alignment iron-flex-factors">
       :host {
         @apply --layout-vertical;
+      }
+
+      .content {
+        margin-top: 30px;
+        /*margin-right: 30px;*/
+        /*width: 95%;*/
+        background-color: #d8dbe0;
       }
 
       .container {
@@ -54,7 +62,7 @@
       app-toolbar {
         /*background-color: var(--paper-red-500);*/
         background-color: #e65540;
-        color: white; 
+        color: white;
       }
 
       paper-tabs {
@@ -73,10 +81,10 @@
     </app-localstorage-document>
 
     <!--
-    <iron-ajax 
-      id="listLevel" 
-      method="POST" 
-      url="https://thaieduforall.org:8000/v2/obec/student_data_db/query" 
+    <iron-ajax
+      id="listLevel"
+      method="POST"
+      url="https://thaieduforall.org:8000/v2/obec/student_data_db/query"
       content-type="application/json"
       headers$='{"Authorization":"JWT {{jwtToken.token}}"}'
       handle-as="json"
@@ -84,42 +92,50 @@
       body$='{"query":{"hostid":"{{hostId}}"},"distinct":"class"}'>
     </iron-ajax>
     -->
-      
-    <iron-ajax 
-      id="listAjax" 
-      method="GET" 
-      url$="https://thaieduforall.org:8000/v2/obec/_report_host/data/{{hostid}}" 
+
+    <iron-ajax
+      id="listAjax"
+      method="GET"
+      url$="https://thaieduforall.org:8000/v2/obec/_report_host/data/{{hostid}}"
       content-type="application/json"
       handle-as ="json"
       on-response="handleResponse">
     </iron-ajax>
 
-    <app-toolbar>
-      <div class="header">รายงานโรงเรียน</div>
-    </app-toolbar>
- 
-    <paper-tabs selected="{{page}}" fallback-selection="0">
-     <paper-tab>
-       <div class="font-face-big-bold">ความก้าวหน้า</div>
-     </paper-tab>
-     <paper-tab>
-      <div class="font-face-big-bold">ภาพรวมผลการประเมิน</div>
-     </paper-tab>
-     <paper-tab>
-      <div class="font-face-big-bold">ผลการประเมินรายห้อง</div>
-     </paper-tab>
-    </paper-tabs>
 
-    <iron-pages selected="{{page}}">
-      <report-host year="2017" hostid="{{hostId}}"></report-host>
-      <div>
-        <report-sumaryhost year="2017" hostid="{{hostId}}"></report-sumaryhost>
+      <div class="layout horizontal content">
+        <div class="flex-6">&nbsp;</div>
+        <div class="flex-6">
+          <user-profile></user-profile>
+        </div>
       </div>
-      <report-room year="2017" hostid="{{hostId}}"></report-room>
-    </iron-pages>
+
+      <app-toolbar>
+        <div class="header">รายงานโรงเรียน</div>
+      </app-toolbar>
+
+      <paper-tabs selected="{{page}}" fallback-selection="0">
+      <paper-tab>
+        <div class="font-face-big-bold">ความก้าวหน้า</div>
+      </paper-tab>
+      <paper-tab>
+        <div class="font-face-big-bold">ภาพรวมผลการประเมิน</div>
+      </paper-tab>
+      <paper-tab>
+        <div class="font-face-big-bold">ผลการประเมินรายห้อง</div>
+      </paper-tab>
+      </paper-tabs>
+
+      <iron-pages selected="{{page}}">
+        <report-host year="2017" hostid="{{hostId}}"></report-host>
+        <div>
+          <report-sumaryhost year="2017" hostid="{{hostId}}"></report-sumaryhost>
+        </div>
+        <report-room year="2017" hostid="{{hostId}}"></report-room>
+      </iron-pages>
 
   </template>
-  
+
   <script>
     Polymer({
       is: "studentcare-report",
@@ -142,13 +158,13 @@
           value:function() {
               return [];
           }
-        }   
+        }
       },
       observers:[
         '_execute(jwtToken.token)'
       ],
       _execute(token) {
-        if(token == null) return;  
+        if(token == null) return;
        //  this.$.listLevel.generateRequest();
       },
       handleResponse(e) {
@@ -181,9 +197,9 @@
         }
         this.set('total',total);
         this.set('list',forms);
-        this.set('ts',ts);          
+        this.set('ts',ts);
       }
     });
-    
+
   </script>
 </dom-module>
