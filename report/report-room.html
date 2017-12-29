@@ -26,6 +26,7 @@
         <style include="iron-flex iron-flex-alignment iron-flex-factors">
            :host {
             @apply --layout-vertical;
+            background-color: #fff;
           }
 
           .container {
@@ -161,9 +162,9 @@
                   <!--<template is="dom-repeat" items="{{levelList}}">
                     <paper-item name="{{item}}">{{item}}</paper-item>
                   </template>-->
-                  <template is="dom-repeat" items="{{levelList}}" 
-                    sort="levelSorter"> 
-                  <paper-item name="{{item}}">{{item}}</paper-item> 
+                  <template is="dom-repeat" items="{{levelList}}"
+                    sort="levelSorter">
+                  <paper-item name="{{item}}">{{item}}</paper-item>
                   </template>
                 </paper-listbox>
               </paper-dropdown-menu>
@@ -311,15 +312,15 @@
             if (!token || !hostid) return;
             this.$.listLevel.generateRequest();
           },
-          levelSorter: function(a,b) { 
-            var start = ['อนุบาล','ประถมศึกษาปีที่','มัธยมศึกษาปีที่']; 
-            var _a = a.split(' ')[0]; var _b = b.split(' ')[0]; 
-            //console.log(_a,_b); 
-            if(start.indexOf(_a) == start.indexOf(_b)) { 
-              return a.localeCompare(b); 
-              } else { 
-                return start.indexOf(_a) - start.indexOf(_b); 
-              } 
+          levelSorter: function(a,b) {
+            var start = ['อนุบาล','ประถมศึกษาปีที่','มัธยมศึกษาปีที่'];
+            var _a = a.split(' ')[0]; var _b = b.split(' ')[0];
+            //console.log(_a,_b);
+            if(start.indexOf(_a) == start.indexOf(_b)) {
+              return a.localeCompare(b);
+              } else {
+                return start.indexOf(_a) - start.indexOf(_b);
+              }
             },
           _queryRoom(token, year, host, level, room) {
             if (!token || !year || !host) return;
@@ -406,10 +407,10 @@
             var tmp = [];
             list.forEach(function(item) {
               tmp.push({'name':item[0],'content':item.splice(2),'doc':item[1]});
-            });        
+            });
 
             this.set('list', tmp);
-           
+
           }
         });
       </script>
