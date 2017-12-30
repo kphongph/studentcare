@@ -111,6 +111,35 @@
             background-color: #e65540;
             color: white;
           }
+
+          paper-dropdown-menu.custom {
+            --paper-input-container-focus-color: #000; 
+            --paper-input-container-label: {
+              margin-left: 10px;
+              color:#000;
+              font-family: 'Athiti', sans-serif;
+            };
+            --paper-input-container-input: {
+              margin-left: 10px;
+              color:#000;
+              font-family: 'Athiti', sans-serif;
+            }
+          }
+
+          paper-listbox{
+            /*width: 350px;*/
+            font-family: 'Athiti', sans-serif;
+            font-size: 14px;
+            color:#000;
+            /*background-color: #2c3ea1;*/
+          }
+
+          paper-item{
+            width: 120px;
+            font-family: 'Athiti', sans-serif;
+            font-size: 14px;
+            color:#000;
+          }
         </style>
 
         <app-localstorage-document key="jwtToken" data="{{jwtToken}}">
@@ -157,7 +186,7 @@
           <div class="layout vertical font-face">
 
             <div class="layout horizontal font-face">
-              <paper-dropdown-menu label="ระดับชั้น">
+              <paper-dropdown-menu label="ระดับชั้น" class="custom">
                 <paper-listbox slot="dropdown-content" attr-for-selected="name" selected="{{level}}">
                   <!--<template is="dom-repeat" items="{{levelList}}">
                     <paper-item name="{{item}}">{{item}}</paper-item>
@@ -169,7 +198,7 @@
                 </paper-listbox>
               </paper-dropdown-menu>
 
-              <paper-dropdown-menu label="ห้อง">
+              <paper-dropdown-menu label="ห้อง" class="custom">
                 <paper-listbox slot="dropdown-content" attr-for-selected="name" selected="{{room}}">
                   <template is="dom-repeat" items="{{roomList}}">
                     <paper-item name="{{item}}">{{item}}</paper-item>
