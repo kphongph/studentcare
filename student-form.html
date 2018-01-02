@@ -89,7 +89,12 @@
 
       .font-layout{
         @apply --layout-horizontal;
-        @apply(--layout-center);
+        @apply --layout-center;
+      }
+
+      .layout-chkrisk {
+        @apply --layout-horizontal;
+        background:#fff;
       }
     </style>
 
@@ -131,7 +136,10 @@
     <template is="dom-repeat" as="group" items="{{formList}}" filter="isNotOption">
       <div class="form_group font-face" hidden$="{{_isEmpty(group.forms)}}">{{group.name}}</div>
       <template is="dom-repeat" items="{{group.forms}}" sort="_sortByStatus">
-        <assignment-card data="{{item}}"></assignment-card>
+        <div class="layout-chkrisk">
+          <div class="flex-11"><assignment-card data="{{item}}"></assignment-card></div>
+          <div class="flex-1"><iron-icon src="{{imgChkRisk}}"></iron-icon></div>
+      </div>
       </template>
     </template>
 
@@ -169,6 +177,16 @@
           type:String,
           notify:true,
           computed:'_imgNote()'
+        },
+        chkrisk:{
+          type: Array,
+          notify: true,
+          computed: '__chkrisk(formList)'
+        },
+        imgChkRisk:{
+          type:String,
+          notify:true,
+          computed:'_imgChkRisk(chkrisk)'
         }
       },
       listeners: {
@@ -182,6 +200,7 @@
         return item.option;
       },
       _handleStudentResponse:function(e) {
+        //console.log(e.detail.response);
         this.fire('student-response',{'value':e.detail.response});
       },
       isNotOption:function(item) {
@@ -193,6 +212,20 @@
       },
       _imgNote:function(){
         return this.resolveUrl("./images/note.png");
+      },
+      _imgChkRisk:function(chkrisk){
+        if(chkrisk.length>0){
+            for (var i = 0; i < chkrisk.length; i++) {
+              if(chkrisk[i]._risk == "เสี่ยง"){
+                return this.resolveUrl("./images/yellow.png");
+              }
+              if(risk[i]._risk == "มีปัญหา"){
+                return this.resolveUrl("./images/red.png");
+              }
+            }
+          }else{
+            return this.resolveUrl("./images/green.png");
+          }
       },
       _sortByTime: function (a, b) {
         return a.key[4][1] - b.key[4][1];
@@ -206,7 +239,7 @@
       },
       _onAssignmentDelete:function(e) {
         var d_form = e.detail.form;
-        console.log(d_form);
+        //console.log(d_form);
         var forms = this.forms;
         var tmp = [];
         forms.forEach(function(form) {
@@ -221,7 +254,7 @@
         this.$.generator.reload();
       },
       _formChecked: function (e) {
-        console.log(e.detail);
+        //console.log(e.detail);
       },
       _reload: function (e) {
         this.$.generator.reload();
@@ -309,8 +342,34 @@
             data.push({ 'name': option_group[i].group, 'forms': option_group[i].forms, 'option':true });
           }
         }
-        //console.log(data);
+        //console.log(data[0].forms[0].form_result);
         return data;
+      },
+      __chkrisk(formList){
+        //console.log('chk ',formList);
+        var risk = [];
+        /*formList.forEach(function(chk) {
+          chk.forms.forEach(function(chkrisk) {
+            console.log(chkrisk.form_result);
+          });
+        });*/
+        if(formList[0].forms[0].form_result.behavior.result != "ปกติ"){
+          risk.push({ '_risk': formList[0].forms[0].form_result.behavior.result });
+        }
+        if(formList[0].forms[0].form_result.behavior_active.result != "ปกติ"){
+          risk.push({ '_risk': formList[0].forms[0].form_result.behavior_active.result });
+        }
+        if(formList[0].forms[0].form_result.emotion.result != "ปกติ"){
+          risk.push({ '_risk': formList[0].forms[0].form_result.emotion.result });
+        }
+        if(formList[0].forms[0].form_result.friend.result != "ปกติ"){
+          risk.push({ '_risk': formList[0].forms[0].form_result.friend.result });
+        }
+        if(formList[0].forms[0].form_result.social.result != "ปกติ"){
+          risk.push({ '_risk': formList[0].forms[0].form_result.social.result });
+        }
+        return risk;
+        console.log('chk ',risk);
       }
     });
   </script>
