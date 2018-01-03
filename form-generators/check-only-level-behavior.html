@@ -7,10 +7,10 @@
       }
     },
     requireForm:function(cb) {
-      console.log('check',this.formType);
+      //console.log('check',this.formType);
       var _required=false;
       var exists=false;
-      console.log(this.formType,this.atLevel);
+      //console.log(this.formType,this.atLevel);
       if(this.atLevel.indexOf(this.student['class']) != -1) {
         _required=true;
         for(var i=0;i<this.forms.length;i++) {

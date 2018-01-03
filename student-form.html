@@ -94,6 +94,7 @@
 
       .layout-chkrisk {
         @apply --layout-horizontal;
+        @apply --layout-center;
         background:#fff;
       }
     </style>
@@ -138,7 +139,11 @@
       <template is="dom-repeat" items="{{group.forms}}" sort="_sortByStatus">
         <div class="layout-chkrisk">
           <div class="flex-11"><assignment-card data="{{item}}"></assignment-card></div>
-          <div class="flex-1"><iron-icon src="{{imgChkRisk}}"></iron-icon></div>
+          <div class="flex-1">img {{chkrisk.0.forms}}
+            <template is="dom-if" if="[[_equal({{chkrisk.0.forms}}, 'SDQ')]]">
+              <iron-icon src="{{imgChkRisk}}"></iron-icon>
+            </template>
+          </div>
       </div>
       </template>
     </template>
@@ -214,18 +219,30 @@
         return this.resolveUrl("./images/note.png");
       },
       _imgChkRisk:function(chkrisk){
-        if(chkrisk.length>0){
-            for (var i = 0; i < chkrisk.length; i++) {
-              if(chkrisk[i]._risk == "เสี่ยง"){
-                return this.resolveUrl("./images/yellow.png");
-              }
-              if(risk[i]._risk == "มีปัญหา"){
-                return this.resolveUrl("./images/red.png");
-              }
+        //console.log('img',chkrisk);
+        var imgSDQ = "";
+        chkrisk.forEach(function(chk) {
+          //console.log(chk.forms);
+          if(chk.forms == "SDQ"){
+            console.log(chk._risk);
+            if(chk._risk == "เสี่ยง"){
+              imgSDQ = "./images/yellow.png";
+              //return this.resolveUrl("./images/yellow.png");
             }
-          }else{
-            return this.resolveUrl("./images/green.png");
-          }
+            if(chk._risk == "มีปัญหา"){
+              imgSDQ = "./images/red.png";
+              //return this.resolveUrl("./images/red.png");
+            }
+            if(chk._risk == "ปกติ"){
+              imgSDQ = "./images/green.png";
+              //return this.resolveUrl("./images/green.png");
+            }
+         }
+         /*if(chk.forms == "EQ"){
+            imgSDQ = "./images/yellow.png";
+         }*/
+        });
+        return this.resolveUrl(imgSDQ);
       },
       _sortByTime: function (a, b) {
         return a.key[4][1] - b.key[4][1];
@@ -354,22 +371,33 @@
           });
         });*/
         if(formList[0].forms[0].form_result.behavior.result != "ปกติ"){
-          risk.push({ '_risk': formList[0].forms[0].form_result.behavior.result });
+          risk.push({ 'forms':'SDQ','_risk': formList[0].forms[0].form_result.behavior.result });
+        }else{
+          risk.push({ 'forms':'SDQ','_risk': 'ปกติ' });
         }
         if(formList[0].forms[0].form_result.behavior_active.result != "ปกติ"){
-          risk.push({ '_risk': formList[0].forms[0].form_result.behavior_active.result });
+          risk.push({ 'forms':'SDQ','_risk': formList[0].forms[0].form_result.behavior_active.result });
+        }else{
+          risk.push({ 'forms':'SDQ','_risk': 'ปกติ' });
         }
         if(formList[0].forms[0].form_result.emotion.result != "ปกติ"){
-          risk.push({ '_risk': formList[0].forms[0].form_result.emotion.result });
+          risk.push({ 'forms':'SDQ','_risk': formList[0].forms[0].form_result.emotion.result });
+        }else{
+          risk.push({ 'forms':'SDQ','_risk': 'ปกติ' });
         }
         if(formList[0].forms[0].form_result.friend.result != "ปกติ"){
-          risk.push({ '_risk': formList[0].forms[0].form_result.friend.result });
+          risk.push({ 'forms':'SDQ','_risk': formList[0].forms[0].form_result.friend.result });
+        }else{
+          risk.push({ 'forms':'SDQ','_risk': 'ปกติ' });
         }
         if(formList[0].forms[0].form_result.social.result != "ปกติ"){
-          risk.push({ '_risk': formList[0].forms[0].form_result.social.result });
+          risk.push({ 'forms':'SDQ','_risk': formList[0].forms[0].form_result.social.result });
+        }else{
+          risk.push({ 'forms':'SDQ','_risk': 'ปกติ' });
         }
-        return risk;
+        //risk.push({ 'forms':'EQ'});
         console.log('chk ',risk);
+        return risk;
       }
     });
   </script>
