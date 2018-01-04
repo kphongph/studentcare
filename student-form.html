@@ -138,11 +138,14 @@
       <div class="form_group font-face" hidden$="{{_isEmpty(group.forms)}}">{{group.name}}</div>
       <template is="dom-repeat" items="{{group.forms}}" sort="_sortByStatus">
         <div class="layout-chkrisk">
-          <div class="flex-11"><assignment-card data="{{item}}"></assignment-card></div>
-          <div class="flex-1">
-            <!--<template is="dom-if" if="[[_equal({{chkrisk.0.forms}}, 'SDQ')]]">-->
-              <iron-icon src="{{imgChkRisk}}"></iron-icon>
-            <!--</template>-->
+          <div class="flex-6"><assignment-card data="{{item}}"></assignment-card></div>
+          <div class="flex-6">
+            <template is="dom-if" if="[[_equal({{group.name}},'แบบคัดกรอง SDQ')]]">
+              <iron-icon src="{{imgSDQRisk}}"></iron-icon>_equal({{group.name}},{{chkrisk.0.forms}})
+            </template>
+            <!--<template is="dom-if" if="[[_equal({{group.name}},'แบบคัดกรองนักเรียนรายบุคคล')]]">
+              <iron-icon src="{{imgScreeningRisk}}"></iron-icon>_equal({{group.name}},{{chkrisk.5.forms}})
+            </template>-->
           </div>
       </div>
       </template>
@@ -188,10 +191,15 @@
           notify: true,
           computed: '__chkrisk(formList)'
         },
-        imgChkRisk:{
+        imgSDQRisk:{
           type:String,
           notify:true,
-          computed:'_imgChkRisk(chkrisk)'
+          computed:'_imgSDQRisk(chkrisk)'
+        },
+        imgScreeningRisk:{
+          type:String,
+          notify:true,
+          computed:'_imgScreeningRisk(chkrisk)'
         }
       },
       listeners: {
@@ -201,10 +209,9 @@
       observers: [
         '__execute(jwtToken,key)',
       ],
-      /*_equal: function(code, format) {
-        //console.log('equal ',code, format);
-        return code === format;
-      },*/
+      _equal: function(value1, value2) {
+        return value1 === value2;
+      },
       isOption:function(item) {
         return item.option;
       },
@@ -222,12 +229,12 @@
       _imgNote:function(){
         return this.resolveUrl("./images/note.png");
       },
-      _imgChkRisk:function(chkrisk){
+      _imgSDQRisk:function(chkrisk){
         //console.log('img',chkrisk);
         var imgSDQ = "";
         chkrisk.forEach(function(chk) {
           //console.log(chk.forms);
-          if(chk.forms == "SDQ"){
+          if(chk.forms == "แบบคัดกรอง SDQ"){
             //console.log(chk._risk);
             if(chk._risk == "เสี่ยง"){
               imgSDQ = "./images/yellow.png";
@@ -241,6 +248,23 @@
          }
         });
         return this.resolveUrl(imgSDQ);
+      },
+      _imgScreeningRisk:function(chkrisk){
+        var imgScreening = "";
+        chkrisk.forEach(function(chk) {
+          if(chk.forms == "แบบคัดกรองนักเรียนรายบุคคล"){
+            if(chk._risk == "เสี่ยง"){
+              imgScreening = "./images/yellow.png";
+            }
+            if(chk._risk == "มีปัญหา"){
+              imgScreening = "./images/red.png";
+            }
+            if(chk._risk == "ปกติ"){
+              imgScreening = "./images/green.png";
+            }
+         }
+        });
+        return this.resolveUrl(imgScreening);
       },
       _sortByTime: function (a, b) {
         return a.key[4][1] - b.key[4][1];
@@ -357,44 +381,40 @@
             data.push({ 'name': option_group[i].group, 'forms': option_group[i].forms, 'option':true });
           }
         }
+        //console.log(data);
         //console.log(data[0].forms[0].form_result);
         return data;
       },
       __chkrisk(formList){
         //console.log('chk ',formList);
         var risk = [];
-        /*formList.forEach(function(chk) {
-          chk.forms.forEach(function(chkrisk) {
-            console.log(chkrisk.form_result);
-          });
-        });*/
         if(formList[0].forms[0].form_result.behavior.result != "ปกติ"){
-          risk.push({ 'forms':'SDQ','_risk': formList[0].forms[0].form_result.behavior.result });
+          risk.push({ 'forms':'แบบคัดกรอง SDQ','_risk': formList[0].forms[0].form_result.behavior.result });
         }else{
-          risk.push({ 'forms':'SDQ','_risk': 'ปกติ' });
+          risk.push({ 'forms':'แบบคัดกรอง SDQ','_risk': 'ปกติ' });
         }
         if(formList[0].forms[0].form_result.behavior_active.result != "ปกติ"){
-          risk.push({ 'forms':'SDQ','_risk': formList[0].forms[0].form_result.behavior_active.result });
+          risk.push({ 'forms':'แบบคัดกรอง SDQ','_risk': formList[0].forms[0].form_result.behavior_active.result });
         }else{
-          risk.push({ 'forms':'SDQ','_risk': 'ปกติ' });
+          risk.push({ 'forms':'แบบคัดกรอง SDQ','_risk': 'ปกติ' });
         }
         if(formList[0].forms[0].form_result.emotion.result != "ปกติ"){
-          risk.push({ 'forms':'SDQ','_risk': formList[0].forms[0].form_result.emotion.result });
+          risk.push({ 'forms':'แบบคัดกรอง SDQ','_risk': formList[0].forms[0].form_result.emotion.result });
         }else{
-          risk.push({ 'forms':'SDQ','_risk': 'ปกติ' });
+          risk.push({ 'forms':'แบบคัดกรอง SDQ','_risk': 'ปกติ' });
         }
         if(formList[0].forms[0].form_result.friend.result != "ปกติ"){
-          risk.push({ 'forms':'SDQ','_risk': formList[0].forms[0].form_result.friend.result });
+          risk.push({ 'forms':'แบบคัดกรอง SDQ','_risk': formList[0].forms[0].form_result.friend.result });
         }else{
-          risk.push({ 'forms':'SDQ','_risk': 'ปกติ' });
+          risk.push({ 'forms':'แบบคัดกรอง SDQ','_risk': 'ปกติ' });
         }
         if(formList[0].forms[0].form_result.social.result != "ปกติ"){
-          risk.push({ 'forms':'SDQ','_risk': formList[0].forms[0].form_result.social.result });
+          risk.push({ 'forms':'แบบคัดกรอง SDQ','_risk': formList[0].forms[0].form_result.social.result });
         }else{
-          risk.push({ 'forms':'SDQ','_risk': 'ปกติ' });
+          risk.push({ 'forms':'แบบคัดกรอง SDQ','_risk': 'ปกติ' });
         }
-        //risk.push({ 'forms':'EQ'});
-        //console.log('chk ',risk);
+        risk.push({ 'forms':'แบบคัดกรองนักเรียนรายบุคคล','_risk': 'เสี่ยง' });
+        console.log('chk ',risk);
         return risk;
       }
     });
