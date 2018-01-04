@@ -139,10 +139,10 @@
       <template is="dom-repeat" items="{{group.forms}}" sort="_sortByStatus">
         <div class="layout-chkrisk">
           <div class="flex-11"><assignment-card data="{{item}}"></assignment-card></div>
-          <div class="flex-1">img {{chkrisk.0.forms}}
-            <template is="dom-if" if="[[_equal({{chkrisk.0.forms}}, 'SDQ')]]">
+          <div class="flex-1">
+            <!--<template is="dom-if" if="[[_equal({{chkrisk.0.forms}}, 'SDQ')]]">-->
               <iron-icon src="{{imgChkRisk}}"></iron-icon>
-            </template>
+            <!--</template>-->
           </div>
       </div>
       </template>
@@ -201,6 +201,10 @@
       observers: [
         '__execute(jwtToken,key)',
       ],
+      /*_equal: function(code, format) {
+        //console.log('equal ',code, format);
+        return code === format;
+      },*/
       isOption:function(item) {
         return item.option;
       },
@@ -224,23 +228,17 @@
         chkrisk.forEach(function(chk) {
           //console.log(chk.forms);
           if(chk.forms == "SDQ"){
-            console.log(chk._risk);
+            //console.log(chk._risk);
             if(chk._risk == "เสี่ยง"){
               imgSDQ = "./images/yellow.png";
-              //return this.resolveUrl("./images/yellow.png");
             }
             if(chk._risk == "มีปัญหา"){
               imgSDQ = "./images/red.png";
-              //return this.resolveUrl("./images/red.png");
             }
             if(chk._risk == "ปกติ"){
               imgSDQ = "./images/green.png";
-              //return this.resolveUrl("./images/green.png");
             }
          }
-         /*if(chk.forms == "EQ"){
-            imgSDQ = "./images/yellow.png";
-         }*/
         });
         return this.resolveUrl(imgSDQ);
       },
@@ -396,7 +394,7 @@
           risk.push({ 'forms':'SDQ','_risk': 'ปกติ' });
         }
         //risk.push({ 'forms':'EQ'});
-        console.log('chk ',risk);
+        //console.log('chk ',risk);
         return risk;
       }
     });
