@@ -138,14 +138,14 @@
       <div class="form_group font-face" hidden$="{{_isEmpty(group.forms)}}">{{group.name}}</div>
       <template is="dom-repeat" items="{{group.forms}}" sort="_sortByStatus">
         <div class="layout-chkrisk">
-          <div class="flex-6"><assignment-card data="{{item}}"></assignment-card></div>
-          <div class="flex-6">
-            <template is="dom-if" if="[[_equal({{group.name}},'แบบคัดกรอง SDQ')]]">
-              <iron-icon src="{{imgSDQRisk}}"></iron-icon>_equal({{group.name}},{{chkrisk.0.forms}})
+          <div class="flex-11"><assignment-card data="{{item}}"></assignment-card></div>
+          <div class="flex-1">
+            <template is="dom-if" if="[[_equal(group.name,'แบบคัดกรอง SDQ')]]">
+              <iron-icon src="{{imgSDQRisk}}"></iron-icon>
             </template>
-            <!--<template is="dom-if" if="[[_equal({{group.name}},'แบบคัดกรองนักเรียนรายบุคคล')]]">
-              <iron-icon src="{{imgScreeningRisk}}"></iron-icon>_equal({{group.name}},{{chkrisk.5.forms}})
-            </template>-->
+            <template is="dom-if" if="[[_equal(group.name,'แบบคัดกรองนักเรียนรายบุคคล')]]">
+              <iron-icon src="{{imgScreeningRisk}}"></iron-icon>
+            </template>
           </div>
       </div>
       </template>
@@ -231,40 +231,10 @@
       },
       _imgSDQRisk:function(chkrisk){
         //console.log('img',chkrisk);
-        var imgSDQ = "";
-        chkrisk.forEach(function(chk) {
-          //console.log(chk.forms);
-          if(chk.forms == "แบบคัดกรอง SDQ"){
-            //console.log(chk._risk);
-            if(chk._risk == "เสี่ยง"){
-              imgSDQ = "./images/yellow.png";
-            }
-            if(chk._risk == "มีปัญหา"){
-              imgSDQ = "./images/red.png";
-            }
-            if(chk._risk == "ปกติ"){
-              imgSDQ = "./images/green.png";
-            }
-         }
-        });
-        return this.resolveUrl(imgSDQ);
+        return this.resolveUrl(chkrisk[0]._risk);
       },
       _imgScreeningRisk:function(chkrisk){
-        var imgScreening = "";
-        chkrisk.forEach(function(chk) {
-          if(chk.forms == "แบบคัดกรองนักเรียนรายบุคคล"){
-            if(chk._risk == "เสี่ยง"){
-              imgScreening = "./images/yellow.png";
-            }
-            if(chk._risk == "มีปัญหา"){
-              imgScreening = "./images/red.png";
-            }
-            if(chk._risk == "ปกติ"){
-              imgScreening = "./images/green.png";
-            }
-         }
-        });
-        return this.resolveUrl(imgScreening);
+        return this.resolveUrl(chkrisk[1]._risk);
       },
       _sortByTime: function (a, b) {
         return a.key[4][1] - b.key[4][1];
@@ -381,40 +351,43 @@
             data.push({ 'name': option_group[i].group, 'forms': option_group[i].forms, 'option':true });
           }
         }
-        //console.log(data);
-        //console.log(data[0].forms[0].form_result);
         return data;
       },
       __chkrisk(formList){
-        //console.log('chk ',formList);
         var risk = [];
+        var chkSDQrisk="";
         if(formList[0].forms[0].form_result.behavior.result != "ปกติ"){
-          risk.push({ 'forms':'แบบคัดกรอง SDQ','_risk': formList[0].forms[0].form_result.behavior.result });
-        }else{
-          risk.push({ 'forms':'แบบคัดกรอง SDQ','_risk': 'ปกติ' });
+          risk.push({ '_risk': formList[0].forms[0].form_result.behavior.result });
         }
         if(formList[0].forms[0].form_result.behavior_active.result != "ปกติ"){
-          risk.push({ 'forms':'แบบคัดกรอง SDQ','_risk': formList[0].forms[0].form_result.behavior_active.result });
-        }else{
-          risk.push({ 'forms':'แบบคัดกรอง SDQ','_risk': 'ปกติ' });
+          risk.push({ '_risk': formList[0].forms[0].form_result.behavior_active.result });
         }
         if(formList[0].forms[0].form_result.emotion.result != "ปกติ"){
-          risk.push({ 'forms':'แบบคัดกรอง SDQ','_risk': formList[0].forms[0].form_result.emotion.result });
-        }else{
-          risk.push({ 'forms':'แบบคัดกรอง SDQ','_risk': 'ปกติ' });
+          risk.push({ '_risk': formList[0].forms[0].form_result.emotion.result });
         }
         if(formList[0].forms[0].form_result.friend.result != "ปกติ"){
-          risk.push({ 'forms':'แบบคัดกรอง SDQ','_risk': formList[0].forms[0].form_result.friend.result });
-        }else{
-          risk.push({ 'forms':'แบบคัดกรอง SDQ','_risk': 'ปกติ' });
+          risk.push({ '_risk': formList[0].forms[0].form_result.friend.result });
         }
         if(formList[0].forms[0].form_result.social.result != "ปกติ"){
-          risk.push({ 'forms':'แบบคัดกรอง SDQ','_risk': formList[0].forms[0].form_result.social.result });
-        }else{
-          risk.push({ 'forms':'แบบคัดกรอง SDQ','_risk': 'ปกติ' });
+          risk.push({ '_risk': formList[0].forms[0].form_result.social.result });
         }
-        risk.push({ 'forms':'แบบคัดกรองนักเรียนรายบุคคล','_risk': 'เสี่ยง' });
-        console.log('chk ',risk);
+
+        if(risk.length!=0){
+          for(var i=0;i<risk.length;i++){
+            if(SDQrisk[i]._risk=="มีปัญหา"){
+              chkSDQrisk="./images/red.png";
+              break;
+            }
+            if(SDQrisk[i]._risk=="เสี่ยง"){
+              chkSDQrisk="./images/yellow.png";
+            }
+          }
+        }else{
+          chkSDQrisk="./images/green.png";
+        }
+        risk.push({ 'forms':'แบบคัดกรอง SDQ','_risk': chkSDQrisk });
+        risk.push({ 'forms':'แบบคัดกรองนักเรียนรายบุคคล','_risk': './images/green.png' });
+        //console.log('chk ',risk);
         return risk;
       }
     });
